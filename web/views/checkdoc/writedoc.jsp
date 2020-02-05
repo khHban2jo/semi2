@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%//세션값만 받아오기
+    <%
+    	//com.coo.modelvo.member
+    	//Member m = (Member)session.getAttribute("member");
     
     %>
 <!DOCTYPE html>
@@ -42,7 +44,8 @@
 
                     <fieldset class="writerField">
                         <legend>1. 작성자</legend>
-                        <label> &nbsp;&nbsp;&nbsp;작성자 : </label><input type="text" class="inputLeft" disabled name ="docwriter" <%//세션에서 작성자 %>>
+                        <label> &nbsp;&nbsp;&nbsp;작성자 : </label><input type="text" class="inputLeft" disabled name ="docwriter" value ="<%//세션에서 작성자 %>">
+                        <input type ="hidden" name ="empno" value ="<%//세션에서 no %>">
                         <label>부서 : </label><input type="text" class="inputRight" disabled name="deptcode" <%//세션에서 부서%>>
                         <br>
                         <label>작성일자 : </label><input type="text" class="inputLeft" name= "docdate" id="docdate" disabled>
@@ -52,90 +55,7 @@
                     <label id = "setLine">결재선 지정</label>
                     <fieldset class="toField" style ="height:300px;" >
                         <legend>2. 결재선</legend>
-                       <div id="lineList" >
-                        <table> 
-                            <tbody>
-                            <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                            </tr>
-                            <tr>
-                                <td width ="80px">결재부서</td>
-                                <td class ="deptview">기획부</td>
-                            </tr>
-                            <tr>
-                                <td style="height: 40px;">결재자</td>
-                                <td class="people"></td>
-                            </tr>
-                        </tbody>
-
-                        
-                    </table>
-                   
-                    <input type="hidden" class ="hiddenper">
-                    <input type="hidden" name ="checkdept" class ="checkdept">
-                    <input type="hidden" name ="checkper" class ="checkper">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr >
-                                        <td width ="80px" >합의/수신</td>
-                                        <td class ="deptview" colspan="3"><%//어디선가 끌고오겠지 %></td>
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td style="height: 40px;">결재자</td>
-                                        <td colspan="3" class="people"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                             <!--<input type="text" name ="checkper" class ="hiddenper">-->
-                             <input type="hidden" class ="hiddenper">
-                             <input type="hidden" name ="coldept " class ="coldept">
-                             <input type="hidden" name ="colper" class ="colper">
-                            <table> 
-                                <tbody>
-                                    <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="height: 40px;">최종결재자</td>
-                                        <td class="people2" colspan="3"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                  <!--<input type="text" name ="checkper" class ="hiddenper">-->
-                                <input type="hidden" class ="hiddenper1">
-                                <input type="hidden" name ="endper" class ="endper">
-                    
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr >
-                                        <td style="height: 40px;">참조자</td>
-                                        <td class="people2" colspan="3"></td>
-                                 </tr>
-                                </tbody>
-                            </table>
-                              <!--<input type="text" name ="checkper" class ="hiddenper">-->
-                             <input type="hidden" name ="viewper" class ="hiddenper1">
-                            <input type="hidden" name ="viewper" class ="viewper">
-                    </div>
+                      <%@include file="writeinclude.jsp" %>
                     </fieldset>
                     <br>
                     <fieldset style= "height :140px;">
