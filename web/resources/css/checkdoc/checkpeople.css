@@ -1,0 +1,369 @@
+﻿ div {
+        overflow:auto;  
+          /*border : 1px solid black; */ 
+    }
+
+    
+    td{
+        text-align: center;
+        border-bottom :1px solid black;
+
+    }
+    fieldset{
+        border-radius:  10px;
+    }
+
+    
+    input[type=button]{
+        cursor: pointer;
+        border-radius: 10px;
+        background: lightgray;
+        color :black;
+    }
+
+    #good{
+        border: 0px;
+        position : absolute;
+        height: 712px;
+        width : 820px;
+         border : 1px solid black; 
+    }
+    #left, #right{
+        
+        height : 700px;
+        width : 400px;
+        position: absolute;
+        display: inline-block;
+        top: 5px;
+    }
+    #left{
+        left : 5px;
+    }
+    
+    #mapf{
+        position: absolute;
+        top :0.5em;
+        left : 10px;
+        width: 340px;
+        height: 350px;
+    }
+   
+    #map{
+        background: white;
+        position: absolute;
+        top:1em;
+        left :10px;
+        width : 330px;
+        height: 340px;
+    }
+
+    #peoplemap{
+        font-size: 10px;
+    }
+
+    /*선택됨*/
+    #self{
+        position: absolute;
+        top :380px;
+        left :10px;
+        height : 300px;
+        width : 340px;
+
+        
+    }
+
+    #caution{
+        position :absolute; 
+        top :2em;
+        left :10px;
+        font-size: 10px;
+        color : tomato;
+    }
+
+    #select{
+        background: white;
+        position : absolute;
+        top : 2em;
+        left : 10px;
+        width : 320px;
+        height : 220px;
+    }
+
+    #select table{
+        position : absolute;
+        left : 5px;
+    }
+    #select td{
+        width : 50px;
+        height : 30px;
+        font-size: 15px;
+    }
+    #select th{
+        width : 50px;
+        height : 30px;
+        font-size: 15px;
+    }
+
+    #select td:nth-child(2){
+        width : 90px;
+
+    }
+    #select th:nth-child(2){
+        width : 90px;
+
+    }
+
+    #right{
+        left : 410px;
+    }
+
+    #cautionLine{
+        position:absolute;
+        top :5px;
+        left : 10px;
+        color : tomato;
+    }
+
+    .enter{
+      
+        position: absolute;
+        left : 10px;
+        width : 56px;
+        top : 40px;
+    
+
+    }
+
+    .line{
+        background: white;
+        width : 180px;
+        height : 130px;
+        position : absolute;
+        top : 15px;
+        left : 110px;
+    }
+
+
+    .up{
+        position: absolute;
+        left:300px;
+        width : 50px;
+        top : 10px;
+     
+    }
+    
+    .down{
+        position: absolute;
+        top : 40px;
+        left : 300px;
+        width : 50px;
+        
+    }
+
+    .drop{
+        position : absolute;
+        width : 56px;
+        top : 80px;
+        left : 10px;
+        
+    }
+
+    .inright{
+  
+        position: absolute;
+        width : 340px;
+        height : 130px;
+        left : 10px;
+        top :1em;
+
+    }
+
+    .inright table{
+  
+        align :center;
+
+    }
+    .line td{
+        
+        font-size: 10px;
+
+    }
+
+
+
+     .inright td:nth-child(2){
+  
+       width : 50px;
+
+    }
+
+    #right1{
+        top : 50px;
+    }
+
+    #saveline{
+        position : absolute;
+        width : 70px;
+        top : 120px;
+        left : 10px;
+
+    }
+    #right2{
+        top : 210px;
+    }
+    #right3{
+        top : 370px;
+    }
+
+    #endlineset{
+        position: absolute;
+        left: 7px;
+        top : 545px;
+    }
+    #endlabel{
+        position: absolute;
+        left: 25px;
+        top : 545px;
+        cursor: pointer;
+        border-radius: 10px;
+        background: #2222c7d3;
+        border: 1px solid black;
+        color :white
+    }
+    #right4{
+        position: absolute;
+        top :570px;
+        height :40px;
+        width: 350px;
+        display : none;
+    }
+    .end{
+        top :3px;
+        left : 110px;
+        height :23px;
+    }
+    .endline{
+        height: 20px;
+        border: 1px solid black;
+    }
+
+    .enddrop{
+        position : absolute;
+        top:2px;
+        left:300px;
+    }
+    .endenter{
+        position: absolute;
+        left : 10px;
+        width : 56px;
+        top : 2px;
+    }
+    
+    #push1{
+        top: 650px;
+        left : 10px;
+        position: absolute;
+        
+    }
+    #null1{
+        top: 290px;
+        left : 10px;
+        position: absolute;
+
+    }
+    #sub{
+        top : 650px;
+        left : 270px;
+        position: absolute;
+
+    }
+    #clo{
+        top : 650px;
+        left : 330px;
+        position: absolute;
+
+    }
+    
+
+
+
+    .inindex, .inhtml{
+        display: none;
+    }
+
+    .fold,.foldall{
+        height : 15px;
+        font-size : 5px;
+    }
+
+    /*결제라인 선택 저장*/
+    #backdiv{
+        width : 100%;
+         height: 100%;
+         background: rgba(0,0,0,0.5) repeat;
+         position: fixed;
+         top :0px;
+         left: 0px;
+         z-index: 999;
+         display: none; 
+    }
+
+    #seldiv{
+        position: absolute;
+           top :200px;
+           left : 150px;
+           height: 180px;
+           width: 420px;
+           border: 1px solid black;
+           z-index: 9997;
+           background: lightgray;
+            display: none; 
+    }
+
+   #deptsel{
+    position: absolute;
+    top :40px;
+    left: 10px;
+   }
+           
+    /*저장용*/
+   #pushper1{
+    position: absolute;
+    top :80px;
+    left: 10px;
+    display: none; 
+
+    }
+    /*불러오기용*/
+    #pushper2{
+    position: absolute;
+    top :80px;
+    left: 10px;
+    display: none; 
+
+    }
+  
+   #sel{
+    position: absolute;
+        left:300px;
+        width : 100px;
+        top : 40px;
+        display: none;
+
+   }
+    #save{
+        position: absolute;
+        left:300px;
+        width : 100px;
+        top : 40px;
+        display: none;
+    }
+    #close2{
+        position: absolute;
+        left:300px;
+        width : 100px;
+        top : 80px;
+        
+    }
+
+    

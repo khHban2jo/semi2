@@ -1,0 +1,79 @@
+.totalArea{
+    position: absolute;
+    border: 3px solid black;
+    width: 500px;
+    height: 520px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: whitesmoke;
+}
+
+.totalArea>form{
+    position: relative;
+    /* border: 1px solid black; */
+    top: 25px;
+    left: 50px;
+    width: 400px;
+    height: 450px;
+}
+
+fieldset{
+    position: relative;
+    height: 180px;
+    padding-top: 15px;
+    padding-bottom: 0px;
+    border-color: black(243, 219, 152);
+    border-radius: 50px;
+    background-color: whitesmoke;
+}
+
+fieldset>legend{
+    font-size: 20px;
+    font-weight: bolder;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.text{
+    position: relative;
+    left: 50px;
+    height: 20px;
+    width: 230px;
+}
+
+ul{
+    margin-top: 0px;
+}
+
+ul>li{
+    position: relative;
+    font-size: 20px;
+    left: 0px;
+}
+
+#submitBtn{
+    position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 210px;
+    width: 85px;
+    height: 37px;
+    top: 10px;
+}
+
+#cancelBtn{
+    position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 210px;
+    width: 85px;
+    height: 37px;
+    top: 10px;
+}

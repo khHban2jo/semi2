@@ -1,0 +1,31 @@
+input[type=button]{
+    width:50pt;
+    height: 20pt;
+    border-radius:0.5em;
+}
+#team{
+    position: relative;
+    width : 400px;
+    height : 200px;
+    border : 1px solid black;
+}
+
+#tableview{
+
+    width : 400px;
+    height :400px;
+    border: 1px solid black;
+    display: none;
+    
+}
+
+
+.menu1{
+    width: 95px;
+    height : 100px;
+}
+
+.form-control{
+    width:200px;
+    height: 30px;
+}

@@ -1,0 +1,241 @@
+body{
+    background-color: #a2cdf7fd;
+}
+
+div{
+    border-radius: 10px;
+}
+.total {
+    position: absolute;
+    width: 1550px;
+    height: 900px;
+    left: 190px;
+    top: 50px;
+    border-radius: 80px;
+    background-color: white;
+}
+
+div.head{
+    position: relative;
+    height: 40px;
+}
+
+div.head>span{
+    position: relative;
+    font-size: 13px;
+    left: 940px;
+    margin-right: 10px;
+    color: #696969;
+    cursor: pointer;
+}
+
+div.foot{
+    position: relative;
+    height: 30px;
+    text-align: right;
+    left: -70px;
+    color: #696969;
+}
+
+div.foot>span{
+    position: relative;
+    font-size: 13px;
+    top: 5px;
+}
+
+div.left {
+    position: relative;
+    left: 50px;
+    width: 300px;
+    float: left;
+    box-sizing: border-box;
+}
+
+div.right {
+    position: relative;
+    border: 2px solid darkgray;
+    left: 55px;
+    margin-left:300px;
+    width: 1145px;
+    box-sizing: border-box;
+    height: 828px;
+    border-radius: 10px;
+
+}
+div.user{
+    position: relative;
+    width: 290px;
+    height: 180px;
+    border: 2px solid darkgray;
+    
+    background: whitesmoke;
+}
+div.nav{
+    position: relative;
+    top: 10px;
+    width: 290px;
+    height: 240px;
+    border: 2px solid darkgray;
+    
+    background: whitesmoke;
+    cursor: pointer;
+}
+div.calendarArea{
+    position: relative;
+    top: 20px;
+    width: 290px;
+    height: 370px;
+    border: 2px solid darkgray;
+
+    background: #fffefe;
+}
+
+tr.table-line{
+    border:1px;
+    border-style:none none solid;
+    border-color:lightgray;
+    height:50px;
+    border-radius: 10px;
+    
+}
+
+tbody>tr.table-line:hover{
+    background:lightgray;    
+}
+
+#list{
+    table-layout:fixed;
+}
+
+tbody>tr.table-line:hover{
+    background:lightgray;    
+}
+
+#write{
+    table-layout:fixed;
+}
+
+#notice{
+   margin-left:45px;
+   margin-top:30px;
+   width:1045px;
+   height:415px;
+}
+
+#todo{
+   margin-left:45px;
+   margin-top:10px;
+   width:466px;
+   height:330px;
+   display:inline-block;
+}
+
+#approval{
+    margin-top:10px;
+    margin-left:22px;
+    width:550px;
+    height:330px;
+    display:inline-block;
+}
+
+
+.user_icon{
+    position: relative;
+    top: 20px;
+    left: 10px;
+    height: 90px;
+    width: 90px;
+    float: left;
+    border-radius: 50px;
+    
+}
+
+#user_name{
+    position: relative;
+    top: 25px;
+    left: 30px;
+    font-size: 130%;
+    color: black;
+    
+    
+}
+
+#user_dept{
+    position: relative;
+    left: 30px;
+    top: 45px;
+    color: black;
+}
+#user_job{
+    position: relative;
+    left: 55px;
+    top: 45px;
+    color: black;
+}
+
+.btn{
+    position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 12px;
+    width: 85px;
+    height: 37px;
+    top: 15px;
+}
+
+
+#homeBtn{
+    position: relative;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 6px;
+    left: 80px;
+    width: 50px;
+    height: 30px;
+    top: 5px;
+}
+#homeBtn>i{
+    position: relative;
+    top: -2px;
+}
+
+
+
+/* nav css */
+
+/* .nav_la{
+    font-weight: bolder;
+    font-size: 18px;
+} */
+
+.btn_nav>img{
+    position: relative;
+    width: 50px;
+}
+
+.btn_nav{
+    position: relative;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    left: 13px;
+    width: 85px;
+    height: 100px;
+    top: 13px;
+}
+
+#listBtn>img{
+    margin-bottom: -10px;
+}
+
+#listBtn{
+    top: -3px;
+}
+
+

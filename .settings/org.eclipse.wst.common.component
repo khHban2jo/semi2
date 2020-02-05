@@ -2,7 +2,7 @@
     <wb-module deploy-name="semiProject2jo">
         <wb-resource deploy-path="/" source-path="/web" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="semi2jo"/>
         <property name="java-output-path" value="/semiProject2jo/build/classes"/>
+        <property name="context-root" value="semi"/>
     </wb-module>
 </project-modules>

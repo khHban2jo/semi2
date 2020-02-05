@@ -1,0 +1,54 @@
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    margin-left:-8px;
+  }
+
+  .btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    margin-left:-8px;
+  }
+  
+  .btn-info {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    margin-left:-8px;
+  }
+
+  .btn-warning {
+    color: #212529;
+    background-color: #ffc107;
+    margin-left:-8px;
+    border-color: #ffc107;
+  }
+
+  .btn-light {
+    color: #212529;
+    background-color: #f8f9fa;
+    margin-left:-8px;
+    border-color: #f8f9fa;
+  }
+  
+  .btn-light:hover {
+    color: #212529;
+    background-color: #e2e6ea;
+    margin-left:-8px;
+    border-color: #dae0e5;
+  }
+
+  #pagenation>li{
+      display:inline;
+  }
+
+  .listbtn{
+    width:50px; 
+    height:28px; 
+    background:whitesmoke;
+  }
+  .listbtn:hover{
+    background:#007bff;
+  }

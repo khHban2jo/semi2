@@ -1,0 +1,240 @@
+  
+        #top{
+            position: absolute;
+            width : 445px;
+            height : 500px;
+            background: #a2cdf7fd;
+            
+        }
+        #top>div{
+            /* border: 1px solid black; */
+            display: inline-block;
+        }
+        #top table{
+            margin: auto;
+           
+            height : 154px;
+        }
+        #top td{
+            background: white;
+            border-radius: 10px;
+        }
+
+        #top2 td{
+            align-content: center;
+            height : 67px;
+        }
+        #colaboDept{
+            position: absolute; 
+            top : 155px;
+            left : 0px;
+            
+        }
+        #colaboDept td{
+        	height :70px;
+        }
+        #top3{
+            position: absolute; 
+            top : 155px;
+            left : 82px;
+        }
+        #top3 td{
+            height : 67px;
+        }
+        #top2 img{
+            height : 50px;
+            width: 50px;
+        }
+        #top3 img{
+            height : 50px;
+            width: 50px;
+        }
+
+        #endline{
+            position: absolute; 
+            top : 155px;
+            left : 358px;
+        }
+
+        #endline td{
+            height :70px;
+        }
+
+        #checkpop{
+            width : 300px;
+            height: 200px;
+        }
+        #viewline{
+            position: absolute; 
+            top : 320px;
+            width : 411px;
+            height :150px;
+            left : 0px;
+            border-radius: 10px;
+
+        }
+        #view1{
+            border-radius: 10px;
+            background: white;
+        }
+        .viewper{
+            display: inline-block;
+            border-radius: 10px;
+            background: white;
+        }
+
+         /*파일*/
+         #bottom{
+           position: absolute;
+            width : 445px;
+            height: 185px;
+            background: #a2cdf7fd;
+            top : 508px;
+        }
+
+        #filelist{
+            position: absolute;
+            background: white;
+            border: 1px solid black;
+            width : 430px;
+            height: 150px;
+            top :20px;
+            left : 5px;
+        }
+        
+        /*본문*/
+        #doc{
+            position : absolute;
+            width : 752px;
+            height :687px;
+            left: 454px;
+            
+        }
+        
+
+        #docinfo{
+            border :1px solid black;
+            background: lightgray;
+        }
+
+        
+
+        #docwrite{
+            position: absolute;
+            top :25px;
+            overflow:auto; 
+            width : 750px;
+            height :659px;
+            background: white;
+            border : 1px solid black;
+            border-top :0px;
+
+        }
+       
+
+        
+        /*결재 팝업*/
+        #popback{
+            width : 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5) repeat;
+            position: fixed;
+            top :0px;
+            left: 0px;
+            z-index: 999;
+            display: none;
+       }
+       #checkpop{
+           position: absolute;
+           top :170px;
+           left : 300px;
+           height: 100px;
+           width: 200px;
+           border: 1px solid black;
+           z-index: 9997;
+           background: lightgray;
+           display: none;
+       }
+
+       #imglook{
+           position: absolute;
+           top :170px;
+           left : 300px;
+           height: 400px;
+           width: 300px;
+           border: 1px solid black;
+           z-index: 9999;
+           background: lightgray;
+           display: none;
+
+       }
+
+       /*기타 버튼들*/
+       #buttons{
+            border : 1px solid black;
+        }
+        .sign{
+            display: inline;
+        }
+
+      
+       #imglook img{
+         width :50px;
+         height: 50px;
+
+       }
+
+       #okcheck1{
+           cursor: pointer;
+           border-radius: 100%;
+           background: yellow;
+           height: 50px;
+           width: 50px;
+       }
+
+       #checkpop input{
+        position : absolute;
+        border-radius: 10px;
+       }
+
+        #oksign{
+            top : 40px;
+            left : 40px;
+        }
+        #return{
+            top : 40px;
+            left : 110px;
+
+        }
+        #close{       
+            top : 1px;
+            right: 1px;
+        }
+
+        /*코멘트*/
+
+       #retruncomment{
+            position: absolute;
+        top :170px;
+        left : 300px;
+        height: 400px;
+        width: 600px;
+        border: 1px solid black;
+        z-index: 9997;
+        background: lightgray;
+        display: none;
+       }
+
+       #comment{
+        position: absolute;
+        top :25px;
+        left : 5px;
+        height: 365px;
+        width: 590px;
+        border: 1px solid black;
+        background: white;
+       }
+
+        
+
+

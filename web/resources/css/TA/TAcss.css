@@ -1,0 +1,155 @@
+#area{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#area1{
+    position: relative;
+    width: 480px;
+    height: 280px;
+    background-color: #4a83da;
+}
+
+.changeArea{
+    position: relative;
+    top: 5px;
+    width: auto;
+    height: 490px;
+    background-color: #4a83da;
+}
+
+#day{
+    position: relative;
+    top: 20px;
+    left: 30px;
+    width: 300px;
+    font-size: 20px;
+    font-weight: bold;
+    color: snow;
+}
+
+#time{
+    position: relative;
+    top: 20px;
+    left: 28px;
+    width: 300px;
+    font-size: 28px;
+    font-weight: bold;
+    color: snow;
+    margin-bottom: 50px;
+}
+
+hr{
+    width: 450px;
+    border: 1px solid snow;
+}
+
+.start{
+    position: relative;
+    top: 20px;
+    left: 25px;
+    color: snow;
+    font-size: 13px;
+    font-weight: lighter;
+}
+
+#start{
+    position: relative;
+    top: 20px;           
+    left: 320px;
+    color: snow;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+#end{
+    position: relative;
+    top: 20px;
+    left: 320px;
+    color: rgb(175, 175, 175);
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.btn{
+    position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 6px;
+    left: 30px;
+    width: 100px;
+    height: 40px;
+    top: 40px;
+}
+
+.leaveArea1{
+    position: relative;
+    top: 5px;
+    left: 20px;
+    width: 440px;
+    height: 440px;
+}
+
+.leaveArea1>input{
+    position: relative;
+    left: 10px;
+}
+
+.leaveArea1>input[type=time]{
+    position: relative;
+    left: 20px;
+}
+
+.leaveArea1>label{
+    position: relative;
+    left: 13px;
+    color: snow;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+.leaveArea1>p{
+    position:relative;
+    left: 15px;
+    color: snow;
+    margin-bottom: 5px;
+}
+
+#approverSelectBox{
+    position: relative;
+    left: 15px;
+    top: 5px;
+    width: 130px;
+    height: 30px;
+    font-size: 15px;
+    font-weight: lighter;
+    
+}
+#detail_contents{
+    position: relative;
+    top: 5px;
+    left: 15px;
+    font-size: 15px;
+    font-weight: lighter;
+}
+.sendBtn{
+    position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 330px;
+    width: 100px;
+    height: 30px;
+    top: 15px;
+}
+
+.leaveArea1>input[type=Date]{
+    position: relative;
+    left: 20px;
+}

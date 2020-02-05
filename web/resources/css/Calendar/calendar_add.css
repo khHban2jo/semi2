@@ -1,0 +1,63 @@
+#total{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid gray;
+}
+
+#addArea{
+    position: relative;
+    width: 450px;
+    height: 480px;
+    background-color:whitesmoke;
+}
+
+#addtitle{
+    position: relative;
+    top: 30px;
+    left: 22px;
+    width: 400px;
+    height: 30px;
+    font-size: 25px;
+}
+
+.span1{
+    position: relative;
+    left: 30px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+#start{
+    position: relative;
+    left: 180px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+#end{
+    position: relative;
+    left: 180px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+textarea{
+    position: relative;
+    left: 30px;
+    font-size: 15px;
+}
+
+.btn{
+    position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 260px;
+    width: 80px;
+    height: 30px;
+    top: 20px;
+}

@@ -1,0 +1,48 @@
+#calendar {
+    max-width: 1050px;
+    margin: 10px auto;
+}
+
+#calendarBig {
+    position: relative;
+    width: 1100px;
+    height: 300px;
+    top: 20px;
+    left: 20px;
+
+}
+
+#todolistArea {
+    position: relative;
+    width: 1060px;
+    /* height: 430px; */
+    top: 0px;
+    left: 40px;
+
+}
+
+#todo_date {
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: whitesmoke;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-left: 50px;
+    border: 2px solid rgb(85, 83, 83);
+    border-radius: 10px;
+}
+
+#todo_list {
+    position: relative;
+    height: 250px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    background-color: whitesmoke;
+    margin-top: 0px;
+    padding-left: 20px;
+    border: 2px solid rgb(85, 83, 83);
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: lighter;
+}

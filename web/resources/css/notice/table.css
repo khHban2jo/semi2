@@ -1,0 +1,21 @@
+.table-line{
+    margin-right:55px;
+    /* width:830px;  */
+    /* height:550px; */
+}
+
+tr.table-line{
+    border:1px;
+    border-style:none none solid;
+    border-color:lightgray;
+    height:50px;
+    
+}
+
+tbody>tr.table-line:hover{
+    background:lightgray;    
+}
+
+#list{
+    table-layout:fixed;
+}
