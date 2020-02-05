@@ -1,4 +1,4 @@
-package com.kh.jsp.controller;
+package com.coo.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class testServlet
+ * Servlet implementation class BoardInsertServlet
  */
-@WebServlet("/test.do")
-public class testServlet extends HttpServlet {
+@WebServlet("/bInsert.bo")
+public class BoardInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public testServlet() {
+    public BoardInsertServlet() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -25,8 +26,7 @@ public class testServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
