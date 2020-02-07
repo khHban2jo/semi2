@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.coo.member.model.vo.*"%>
+    
+<% Member m = (Member)session.getAttribute("member"); %>
     <!-- 달력 -->
     <!-- // jQuery UI CSS파일  -->
     <link rel="stylesheet" href="/semi/resources/css/common/jquery-ui.css" />  
@@ -15,9 +17,9 @@
     
     <div class="user">
         <img src="/semi/resources/image/user_icon.png" class="user_icon">
-        <span id="user_name"><b>홍 길동</b></span> 
+        <span id="user_name"><b><%=m.getEmpName() %></b></span> 
         <br>
-        <b id="user_dept">부서명</b> <b id="user_job">직급명</b> 
+        <b id="user_dept"><%=m.getDeptCode() %></b> <b id="user_job"><%=m.getJobCode() %></b> 
         <br><br><br><br>
         <button id="btn1" class="btn">전자결재</button>
         <button id="btn2" class="btn">근태관리</button>

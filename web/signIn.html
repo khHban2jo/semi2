@@ -7,7 +7,6 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -31,15 +30,16 @@
 
 <body class="text-center" style="background:white;">
 
-  <form method="POST" class="form-signin" action="views/home.jsp">
+  <form method="POST" class="form-signin" action="/semi/login.me">
     <img class="mb-4" src="resources/image/signIn/logo.jpg" alt="" width="72" height="72">
 
     <h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
+    <label for="inputEmail" class="sr-only">ID</label>
     
-    <input type="email" id="inputEmail" class="form-control" placeholder="이메일" required autofocus>
+    <input type="text" id="inputEmail" class="form-control" name="userId" placeholder="아이디" autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호" required>
+    <input type="password" id="inputPassword" class="form-control" name="userPwd" placeholder="비밀번호">
+    <!-- <input type="password" id="inputPassword" class="form-control" placeholder="비밀번호" required> -->
     
     <div class="checkbox mb-3">
       <label>
@@ -49,18 +49,12 @@
     <button class="btn btn-lg btn-primary btn-block" type="submit" id="login">Login</button>
     <p class="mt-5 mb-3 text-muted">&copy; 주식회사 &nbsp;COO Copyright(c)2019 All rights reserved.</p>
   </form>
-  
-  
-  <!-- 테스트용 script -->
+  <!-- 임시스크립트 -->
   <script>
-     onsubmit=check();
-     function check(){
-      var id = $('#inputEmail').val();
-      var password = $('#inputPassword').val();
-        
-      if(id != 'test@test.com' && password != '1234') return false; else return true;
-     }
-  
+  	$(document).ready(function() {
+    	$('#inputEmail').val('admin');
+    	$('#inputPassword').val('admin');
+     });
   </script>
 </body>
 </html>

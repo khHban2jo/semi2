@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.coo.board.model.vo.Board, java.util.ArrayList"%>
+<%-- <% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); %> --%>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,10 +14,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    
-    <!-- 임시 게시판 스크립트 -->
-    <script src="../resources/js/notice/list.js"></script>
- 
-  
 </head>
 <body>
     <div class="total">
@@ -71,47 +68,32 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <%-- 	<% for(Board b : list){ %>
                             <tr align="center" class='table-line'>
+                                <input type="hidden" value="<%= b.getBno() %>">
                                 <td><input type="checkbox" name="list"></td>
-                                <td>1</td> 
-                                <td>일반</td>
-                                <td>으앙</td>
-                                <td>읭읭이</td>
-                                <td>날짜</td>
-                                <td>0</td>
+                                <td><%=b.getBno() %></td> 
+                                <td><%=b.getBtype() %></td>
+                                <td><%=b.getBtitle() %></td>
+                                <td><%=b.getBwriter() %></td>
+                                <td><%=b.getBdate() %></td>
+                                <td><%=b.getBcount() %></td>
                             </tr>
-                            <tr align="center" class='table-line'>
-                                <td><input type="checkbox" name="list"></td>
-                                <td>2</td> 
-                                <td>부서별</td>
-                                <td>으앙</td>
-                                <td>읭읭이</td>
-                                <td>날짜</td>
-                                <td>0</td>
-                            </tr>
-                            <tr align="center" class='table-line'>
-                                <td><input type="checkbox" name="list"></td>
-                                <td>3</td> 
-                                <td>업무</td>
-                                <td>으앙</td>
-                                <td>읭읭이</td>
-                                <td>날짜</td>
-                                <td>0</td>
-                            </tr>
+                            <%} %> --%>
                         </tbody>
                     </table>
                     <button id="write" class="btn btn-light" style="margin-left:-10px;">글쓰기</button> 
                     <br>
                     <div>
                         
-                   <select id="search" name="search" style="height: 30px; margin-left:300px;"> 
+                   <select id="searchCondition" name="searchCondition" style="height: 30px; margin-left:300px;"> 
                          <option value="">검색조건</option>
-                         <option value="">제목</option> 
-                         <option value="">내용</option>
-                         <option value="">직급</option>
+                         <option value="title">제목</option> 
+                         <option value="content">내용</option>
+                         <option value="dept">직급</option>
          <!-- 분류에 따른 게시판을 직급별로 쓴 것을 보는 것 단 권한이 없으면 접근 불가 -->
-                         <option value="">제목+내용</option>
-                         <option value="">전체조건</option>
+                         <option value="titlencontent">제목+내용</option>
+                         <option value="all">전체조건</option>
                      </select>&nbsp;
                      <input class="form-control" type="text" id="keyword" 
                          name="keyword"  placeholder="검색어를 입력하세요"
@@ -133,8 +115,7 @@
 
     <!-- 풋터 부분 include -->
     <%@ include file="../common/COO_footer.jsp" %>
-
 </div>
-
+	
 </body>
 </html>
