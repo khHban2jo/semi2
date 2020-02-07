@@ -44,9 +44,7 @@
 		              		<option value="20">20</option>
 		              		<option value="25">25</option>
 		              	</select> <br>
-		              		<textarea id="ncontent" name="ncontent" style=" height:580px; width:880px; resize:none; font-size: 20px">
-		              			<%= n.getNcontent() %>
-		              		</textarea>
+		<textarea id="ncontent" name="ncontent" style=" height:580px; width:880px; resize:none; text-align:left; font-size: 25px"><%= n.getNcontent() %></textarea>
 		              	</td>
 		              </tr>
 		      		</table>
