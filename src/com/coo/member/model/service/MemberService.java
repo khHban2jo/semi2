@@ -17,6 +17,10 @@ public class MemberService {
 		Member result = mDao.selectMember(m,con);
 		
 		close(con);
+
+		if(result == null) {
+			throw new CooException("에러");
+		}
 		
 		String val = result.getJobCode();
 		
