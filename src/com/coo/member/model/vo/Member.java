@@ -9,7 +9,7 @@ public class Member implements Serializable {
 	 */
 	private static final long serialVersionUID = 9204553733900473355L;
 	private String empId;
-	private String empCode;
+	private int empCode;
 	private String empPwd;
 	private String empName;
 	private String personalId;
@@ -28,11 +28,11 @@ public class Member implements Serializable {
 	
 	public Member() {}
 
-	public String getEmpCode() {
+	public int getEmpCode() {
 		return empCode;
 	}
 
-	public void setEmpCode(String empCode) {
+	public void setEmpCode(int empCode) {
 		this.empCode = empCode;
 	}
 
@@ -164,7 +164,7 @@ public class Member implements Serializable {
 		this.subDept = subDept;
 	}
 
-	public Member(String empId, String empCode, String empPwd, String empName, String personalId, String email,
+	public Member(String empId, int empCode, String empPwd, String empName, String personalId, String email,
 			String gender, int age, int salary, String phone, String address, String deptCode, String jobCode,
 			String etc, String managerYn, String subDept) {
 		super();
@@ -186,7 +186,7 @@ public class Member implements Serializable {
 		this.subDept = subDept;
 	}
 
-	public Member(String empId, String empCode, String empPwd, String empName, String personalId, String email,
+	public Member(String empId, int empCode, String empPwd, String empName, String personalId, String email,
 			String gender, int age, int salary, String phone, String address, String deptCode, String jobCode,
 			String etc, String managerYn, Date hireDate, String subDept) {
 		super();

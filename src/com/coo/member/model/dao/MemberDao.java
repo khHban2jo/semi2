@@ -45,7 +45,7 @@ public class MemberDao {
 			 rset = pstmt.executeQuery();
 			 
 			 if(rset.next()) {
-				 result = new Member(rset.getString("EMP_ID"), rset.getString("EMP_CODE"), 
+				 result = new Member(rset.getString("EMP_ID"), rset.getInt("EMP_CODE"), 
 						 rset.getString("PWD"), rset.getString("EMP_NAME"), rset.getString("PERSONAL_ID"), 
 						 rset.getString("EMAIL"), rset.getString("GENDER"), rset.getInt("AGE"), rset.getInt("SALARY"), 
 						 rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("DEPT_CODE"), rset.getString("JOB_CODE"), 

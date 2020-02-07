@@ -22,18 +22,6 @@ public class MemberService {
 			throw new CooException("에러");
 		}
 		
-		String val = result.getJobCode();
-		
-		switch(val) {
-			case "J1":
-			case "J2":
-			case "J3":
-			case "J4":
-			case "J5":
-			case "J6":
-			case "J7": result.setJobCode("관리자"); break;
-		}
-		
 		return result;
 	}
 

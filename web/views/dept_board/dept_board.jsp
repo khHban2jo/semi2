@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.coo.board.model.vo.Board, java.util.ArrayList"%>
-<%-- <% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); %> --%>    
+    pageEncoding="UTF-8" import="com.coo.board.model.vo.*, java.util.ArrayList"%>
+<%-- <% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); 
+		PageInfo pi = (PageInfo)request.getAttribute("pi");
+		int listCount = pi.getListCount();
+		int currentPage = pi.getCurrentPage();
+		int endPage = pi.getEndPage();
+		int limit = pi.getLimit();
+		int startPage = pi.getStartPage(); %> --%>
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -101,7 +108,25 @@
  
                      <button id="btn">검색</button>
                     <ul id="pagenation" align="center" style="margin-left:-90px;">
-                        <li><button class="listbtn" value="-1">&lt;</button></li>
+                    <%-- 
+                        <li><button onclick="location.href='<%=request.getContextPath() %>
+                        /selectList.bo?currentPage=1'" class="listbtn">&lt;&lt;</button></li>
+                        <% if(currentPage <= 1){ %>
+                        <li><button disabled>&lt;</button></li>
+                        <% }else{ %>
+                        <li><button onclick="location.href='<%=request.getContextPath() %>
+                        /selectList.bo?currentPage=<%=currentPage -1 %>'" class="listbtn">&lt;</button></li>
+                        <% } %>
+                        
+                        <% for(int p = startPage; p <= endPage; p++){
+                        	if(p == currentPage){
+                       	%>
+							<li><button disabled><%= p %></button></li>
+							<% }else{ %>
+							<li><button onclick="location.href='<%=request.getContextPath() %>
+							/selectList.bo?currentPage=<%=p %>'" class="listbtn"><%=p %></button></li>
+							<%} %>        
+						  <%} %> --%>	              
                         <li><button class="listbtn" value="1">1</button></li>
                         <li><button class="listbtn" value="2">2</button></li>
                         <li><button class="listbtn" value="3">3</button></li>
