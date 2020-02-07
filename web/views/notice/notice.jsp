@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.coo.notice.model.vo.*"%>
+<!-- 들어 가면 리스트 구현을 해야 된다. -->
+<% 
+	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("noticeList"); 
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,12 +37,13 @@
             <!-- 게시판 시작 -->
             <div class="margin-list-head">
                 <h1 align="left">공지사항</h1>
+                
                 <hr color="lightgray" class="table-line">
-                <button type="button" class="btn btn-light">전체</button>
+<!--                 <button type="button" class="btn btn-light">전체</button>
                 <button type="button" class="btn btn-primary">부서별</button>
                 <button type="button" class="btn btn-info">강아지</button>
                 <button type="button" class="btn btn-success">고양이</button>
-                <button type="button" class="btn btn-warning">주의</button>
+                <button type="button" class="btn btn-warning">주의</button> -->
                 <br><br><br>
                 <!-- 홍석코드 -->
                 &nbsp; 
@@ -56,48 +67,26 @@
                 <hr class="table-line" style="margin-left:-0px;">
                 <div class="table-line">
                     <table style="width:100%; border-collapse:collapse;" id="list">
-                        <thead>
-                            <tr class='table-line'>
-                                <th><input type="checkbox" id="checkAll"></th>
-                                <th>번호</th>
-                                <th>분류</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>날짜</th>
-                                <th>조회수</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr align="center" class='table-line'>
-                                <td><input type="checkbox" name="list"></td>
-                                <td>1</td> 
-                                <td>공지사항</td>
-                                <td>회장님말씀</td>
-                                <td>나회장</td>
-                                <td>날짜</td>
-                                <td>999</td>
-                            </tr>
-                            <tr align="center" class='table-line'>
-                                <td><input type="checkbox" name="list"></td>
-                                <td>2</td> 
-                                <td>인사명령</td>
-                                <td>인사명령 제 28호</td>
-                                <td>인사팀</td>
-                                <td>날짜</td>
-                                <td>20</td>
-                            </tr>
-                            <tr align="center" class='table-line'>
-                                <td><input type="checkbox" name="list"></td>
-                                <td>3</td> 
-                                <td>공지사항</td>
-                                <td>아유회 날짜 공지</td>
-                                <td>기획팀</td>
-                                <td>날짜</td>
-                                <td>99</td>
-                                </tr>
-                        </tbody>
+                           <tr class='table-line'>
+                               <th><input type="checkbox" id="checkAll"></th>
+                               <th>번호</th>
+                               <th>제목</th>
+                               <th>작성자</th>
+                               <th>날짜</th>
+                               <th>조회수</th>
+                           </tr>
+                      <% for(Notice n : noticeList){ %>
+                           <tr align="center" class='table-line'>
+                           		<td></td>
+ 								<td><%= n.getNno() %></td>
+								<td><%= n.getNtitle() %></td>
+								<td><%= n.getNwriter() %></td>
+								<td><%= n.getNdate() %></td> 
+								<td><%= n.getNcount() %></td>
+						   </tr>
+                          <% } %> 
                     </table>
-                    <button id="write" class="btn btn-light" style="margin-left:-10px;">글쓰기</button> 
+                    <button onclick = "location.href='<%= request.getContextPath() %>/views/notice/noticeInsert.jsp' " id="write" class="btn btn-light" style="margin-left:-10px;"> 글쓰기</button> 
                     <br>
                     <div>
                         <select id="search" name="search" style="height: 30px; margin-left:300px;"> 
@@ -113,14 +102,39 @@
                          name="keyword"  placeholder="검색어를 입력하세요"
                          style="width:200px;"/>
  
-                     <button id="btn">검색</button>
-                    <ul id="pagenation" align="center" style="margin-left:-90px;">
+                     <input type="submit" value = "검색">
+            <%-- 페이지 처리 --%>
+			<div class="pagingArea" align="center">
+				<button onclick="location.href='<%= request.getContextPath() %>/noticeListServlet?currentPage=1'"><<</button>
+				<%  if(currentPage <= 1){  %>
+					<button disabled><</button>
+				<%  }else{ %>
+				<button onclick="location.href='<%= request.getContextPath() %>/noticeListServlet?currentPage=<%=currentPage - 1 %>'"><</button>
+				<%  } %>
+			
+				<% for(int p = startPage; p <= endPage; p++){
+						if(p == currentPage){	
+				%>
+					<button disabled><%= p %></button>
+				<%      }else{ %>
+					<button onclick="location.href='<%= request.getContextPath() %>/noticeListServlet?currentPage=<%= p %>'"><%= p %></button>
+				<%      } %>
+				<% } %>
+				
+				<%  if(currentPage >= maxPage){  %>
+				<button disabled>></button>
+				<%  }else{ %>
+				<button onclick="location.href='<%= request.getContextPath() %>/noticeListServlet?currentPage=<%=currentPage + 1 %>'">></button>
+				<%  } %>
+				<button onclick="location.href='<%= request.getContextPath() %>/noticeListServlet?currentPage=<%= maxPage %>'">>></button>
+			</div><!-- 페이징 처리 부분 -->
+<!--                     <ul id="pagenation" align="center" style="margin-left:-90px;">
                         <li><button class="listbtn">이전</button></li>
                         <li><button class="listbtn">1</button></li>
                         <li><button class="listbtn">2</button></li>
                         <li><button class="listbtn">3</button></li>
                         <li><button class="listbtn">다음</button></li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </div>
@@ -129,6 +143,23 @@
     <!-- 풋터 부분 include -->
     <%@ include file="../common/COO_footer.jsp" %>
 </div>
+
+<!-- 시간이 된다면 자바스크립드로 바꿀것 -->
+<script>
+$(function(){
+	
+	$("#list tr").mouseenter(function(){
+		$(this).css({"background":"snow", "cursor":"pointer"});
+	}).mouseout(function(){
+		$(this).css({"background":"white"});
+	}).click(function(){
+		var nno = $(this).children().eq(1).text()
+		console.log(nno);
+		location.href="<%=request.getContextPath()%>/noticeSelectOn?nno=" + nno;
+	});
+});
+</script>
+
 
 </body>
 </html>

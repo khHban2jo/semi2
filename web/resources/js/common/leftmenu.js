@@ -56,8 +56,9 @@
             location.href = "/semi/views/dept_board/dept_board.jsp";
         });
 
+     // 공지사항 게시판 출력
         $('#noticeBtn').click(function(){
-            location.href = "/semi/views/notice/notice.jsp"
+            location.href = "/semi/noticeListServlet"
         });
 
         $('#mypageBtn').click(function(){
