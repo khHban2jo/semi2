@@ -55,7 +55,7 @@ public class CheckInsertServlet extends HttpServlet {
 				request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy()
 				);
 		
-		String doctitle = mrequest.getParameter("doctitle");
+		String doctitle = mrequest.getParameter("doctitle");   
 //		String docwriter = mrequest.getParameter("docwriter"); //int로 바꿀것
 //		String doctype =mrequest.getParameter("doctype");
 //		String checkdept = mrequest.getParameter("checkdept");
