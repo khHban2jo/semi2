@@ -22,11 +22,12 @@
 
         //  근태관리 버튼 - 팝업 띄우기
         $('#btn2').click(function(){
-            var url = "/semi/views/popup/TA.jsp";
+            var url = "/semi/open.ta";
             var name = "근태관리";
             var option = 'top=100px, left=300px width=500px,height=800px, resizable=no, location=no, toolbars=no,scrollbars=no';
             window.open(url, name, option);
         });
+
 
         //  전자결재 버튼 - 팝업 띄우기
         $('#btn1').click(function(){
@@ -92,7 +93,7 @@
         });
 
         $('#headTA').click(function(){
-            var url = "/semi/views/popup/TA.jsp";
+            var url = "/semi/open.ta";
             var name = "근태관리";
             var option = 'top=100px, left=300px width=500px,height=800px, resizable=no, location=no, toolbars=no,scrollbars=no';
             window.open(url, name, option);

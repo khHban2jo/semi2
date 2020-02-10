@@ -41,6 +41,17 @@
     margin-bottom: 50px;
 }
 
+#userName{
+    position: relative;
+    top: 20px;
+    left: 190px;
+    width: 300px;
+    font-size: 28px;
+    font-weight: bold;
+    color: snow;
+    margin-bottom: 50px;
+}
+
 hr{
     width: 450px;
     border: 1px solid snow;
@@ -55,7 +66,7 @@ hr{
     font-weight: lighter;
 }
 
-#start{
+#startTime{
     position: relative;
     top: 20px;           
     left: 320px;
@@ -64,11 +75,11 @@ hr{
     font-weight: bolder;
 }
 
-#end{
+#endTime{
     position: relative;
     top: 20px;
     left: 320px;
-    color: rgb(175, 175, 175);
+    color: snow;
     font-size: 20px;
     font-weight: bolder;
 }
