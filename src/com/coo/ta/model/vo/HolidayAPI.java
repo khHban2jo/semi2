@@ -25,9 +25,6 @@ public class HolidayAPI {
 	public ArrayList<String> getHoliday(int solYear, String solMonth) {
 		ArrayList<String> hList = new ArrayList<>();
 		
-		System.out.println(solYear);
-		System.out.println(solMonth);
-		
 		try {
 	    	String url = "http://apis.data.go.kr/B090041/openapi/service/"
 	    			+ "SpcdeInfoService/getRestDeInfo?solYear=" + solYear + "&solMonth=" + solMonth + "&"
@@ -37,10 +34,8 @@ public class HolidayAPI {
 	    	Document doc = dBuilder.parse(url);
 	    	
 	    	doc.getDocumentElement().normalize();
-	    	System.out.println("Root element : " + doc.getDocumentElement().getNodeName());
 	    	
 	    	NodeList nList = doc.getElementsByTagName("item");
-	    	System.out.println("파싱할 리스트 수 : " + nList.getLength());
 	    	
 	    	HolidayAPI ha = new HolidayAPI();
 	    	

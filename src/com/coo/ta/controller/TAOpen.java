@@ -43,6 +43,7 @@ public class TAOpen extends HttpServlet {
 			//	empCode로 출,퇴근 시간 받아오기
 			HashMap wtMap = new WorkTimeService().selectWorkTime(empCode);
 			
+			
 			//	T1 또는 T2의 값을 못 찾았다면 String 값 넣어주기
 			if(wtMap.get(0) == null) {
 				wtMap.put(0, "출근전");
@@ -50,16 +51,14 @@ public class TAOpen extends HttpServlet {
 			if(wtMap.get(1) == null) {
 				wtMap.put(1, "퇴근전");
 			}
-			
+			System.out.println("근태관리 open");
 			request.setAttribute("wtMap", wtMap);
 			request.getRequestDispatcher("views/popup/TA.jsp").forward(request, response);
-			
 		} catch (CooException e) {
 
 			//	에러 발생 시
 			request.setAttribute("msg", "출근 시간을 찾아오는 중 에러 발생!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
 		}
 		
 	}

@@ -10,12 +10,12 @@ public class WorkTime implements Serializable{
 	private int empCode;		//	사번
 	private Date wtDate;		//	날짜
 	private String type;		//	WT_TYPE ( 근무 종류 )
-	private String wtTime;		//	시간
+	private int wtTime;			//	시간
 	
 	public WorkTime() {}
 
 	//	출력용
-	public WorkTime(int empCode, Date wtDate, String type, String wtTime) {
+	public WorkTime(int empCode, Date wtDate, String type, int wtTime) {
 		super();
 		this.empCode = empCode;
 		this.wtDate = wtDate;
@@ -24,7 +24,7 @@ public class WorkTime implements Serializable{
 	}
 
 	//	등록용
-	public WorkTime(int empCode, String type, String wtTime) {
+	public WorkTime(int empCode, String type, int wtTime) {
 		super();
 		this.empCode = empCode;
 		this.type = type;
@@ -57,11 +57,11 @@ public class WorkTime implements Serializable{
 		this.type = type;
 	}
 
-	public String getWtTime() {
+	public int getWtTime() {
 		return wtTime;
 	}
 
-	public void setWtTime(String wtTime) {
+	public void setWtTime(int wtTime) {
 		this.wtTime = wtTime;
 	}
 

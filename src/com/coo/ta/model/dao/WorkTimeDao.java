@@ -64,7 +64,20 @@ public class WorkTimeDao {
 			
 			int count = 0;
 			while( rset.next() ) {
-				wtMap.put(count, rset.getString(1));
+				
+				String time = "";
+				
+				if(rset.getString(1).length() == 3) {
+					time = rset.getString(1);
+					String[] timeStr = time.split("");
+					time = "0" + timeStr[0] + ":" + timeStr[1] + timeStr[2];
+				}else {
+					time = rset.getString(1);
+					String[] timeStr = time.split("");
+					time = timeStr[0]+timeStr[1]+":"+timeStr[2]+timeStr[3];
+				}
+				
+				wtMap.put(count, time);
 				count++;
 			}
 			
@@ -97,7 +110,7 @@ public class WorkTimeDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, wt.getEmpCode());
 			pstmt.setString(2, wt.getType());
-			pstmt.setString(3, wt.getWtTime());
+			pstmt.setInt(3, wt.getWtTime());
 			
 			result = pstmt.executeUpdate();
 			
@@ -129,7 +142,7 @@ public class WorkTimeDao {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, wt.getEmpCode());
 			pstmt.setString(2, wt.getType());
-			pstmt.setString(3, wt.getWtTime());
+			pstmt.setInt(3, wt.getWtTime());
 			
 			result = pstmt.executeUpdate();
 			
@@ -173,7 +186,7 @@ public class WorkTimeDao {
 				wtCheck.setEmpCode(rset.getInt("EMP_CODE"));
 				wtCheck.setWtDate(rset.getDate("WT_DATE"));
 				wtCheck.setType(rset.getString("TA_TYPE_CODE"));
-				wtCheck.setWtTime(rset.getString("WT_TIME"));
+				wtCheck.setWtTime(rset.getInt("WT_TIME"));
 			}
 			
 		}catch(SQLException e) {
@@ -203,7 +216,7 @@ public class WorkTimeDao {
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, wt.getWtTime());
+			pstmt.setInt(1, wt.getWtTime());
 			pstmt.setInt(2, wt.getEmpCode());
 			pstmt.setString(3, wt.getType());
 			

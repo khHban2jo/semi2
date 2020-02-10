@@ -22,10 +22,12 @@ public class WeekOverTimeService {
 		
 		if( wotCheck != null ) {
 			//	있다면 update
-//			result = wotDao.updateWot(con, wot);
+			result = wotDao.updateWot(con, wot);
+			System.out.println("추가근무시간 UPDATE");
 		}else {
 			//	없다면 insert
 			result = wotDao.insertWot(con, wot);
+			System.out.println("추가근무시간 INSERT");
 		}
 		
 		if(result>0) commit(con);

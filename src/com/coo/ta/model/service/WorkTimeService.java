@@ -47,6 +47,8 @@ public class WorkTimeService {
 		if(result > 0 ) commit(con);
 		else rollback(con);
 		
+		System.out.println("출근시간 INSERT");
+		
 		close(con);
 		
 		return result;

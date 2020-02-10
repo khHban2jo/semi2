@@ -35,21 +35,6 @@ import com.coo.ta.model.vo.WeekOverTime;
 public class WeekOverData extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	//	HolidayAPI.java 로 옮김
-//	private static String getTagValue(String tag, Element eElement) {
-//	    NodeList nlList = eElement.getElementsByTagName(tag).item(0).getChildNodes();
-//	    Node nValue = (Node) nlList.item(0);
-//	    if(nValue == null) 
-//	        return null;
-//	    return nValue.getNodeValue();
-//	}
-	
-    /**
-     * @throws ParserConfigurationException 
-     * @throws IOException 
-     * @throws SAXException 
-     * @see HttpServlet#HttpServlet()
-     */
     public WeekOverData() {
 
     }
@@ -82,38 +67,35 @@ public class WeekOverData extends HttpServlet {
 		String time = null;
 		int overTime = -1;
 		
+		Date d1 = new Date();
+		Date d2 = new Date();
+		
 		try {
-			Date d1 = sdf.parse(n);
-			Date d2 = sdf.parse("1900");
-			long diff = d1.getTime() - d2.getTime();
-			
-			int diff2 = (int)diff / 60000;
-			
-			int hour = diff2/60;
-			int min = diff2%60;
-			
-			String hh;
-			String mm;
-			
-			hh = ""+hour;
-			if( min < 10 ) {
-				mm = "0"+min;
-			}else {
-				mm = ""+min;
-			}
-			
-			time = hh + mm;
-			overTime = Integer.parseInt(time);
-			
-		} catch (ParseException e) {
-			
-			request.setAttribute("msg", "추가 근무 시간 등록 중 에러 발생!");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			d1 = sdf.parse(n);
+			d2 = sdf.parse("1900");		//	19시 부터 추가 근무로 인정
+		} catch (ParseException e) {}
+		
+		long diff = d1.getTime() - d2.getTime();
+		
+		long diff2 = diff / 60000;
+		
+		long hour = diff2/60;
+		long min = diff2%60;
+		
+		String hh = "";
+		String mm = "";
+		
+		hh = ""+hour;
+		if( min < 10 ) {
+			mm = "0"+min;
+		}else {
+			mm = ""+min;
 		}
-		System.out.println("time:"+time);
-		System.out.println("overTime:"+overTime);
 		
+		time = hh + mm;
 		
+		overTime = Integer.parseInt(time);
+			
 		//	week of year 가져오기
 		Calendar cal = Calendar.getInstance();
 		int week = cal.get(Calendar.WEEK_OF_YEAR);

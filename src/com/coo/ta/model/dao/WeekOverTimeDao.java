@@ -71,16 +71,6 @@ public class WeekOverTimeDao {
 		return wotCheck;
 	}
 
-//	public int updateWot(Connection con, WeekOverTime wot) {
-//
-//		int result = 0;
-//		PreparedStatement pstmt = null;
-//		
-//		String sql = prop.getProperty("updateWotOne");
-//		
-//		
-//	}
-
 	public int insertWot(Connection con, WeekOverTime wot) throws CooException {
 
 		int result = 0;
@@ -98,6 +88,32 @@ public class WeekOverTimeDao {
 			
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
+			throw new CooException(e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateWot(Connection con, WeekOverTime wot) throws CooException {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("updateWotOne");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, wot.getTodayOverTime());
+			pstmt.setInt(2, wot.getTodayOverTime());
+			pstmt.setInt(3, wot.getEmpCode());
+			pstmt.setInt(4, wot.getWeekOfYear());
+			pstmt.setInt(5, wot.getEmpCode());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
 			e.printStackTrace();
 			throw new CooException(e.getMessage());
 		}finally {
@@ -105,6 +121,7 @@ public class WeekOverTimeDao {
 		}
 		
 		return result;
+	
 	}
 	
 	

@@ -12,7 +12,7 @@
 	String solMonthstr = "" + solMonth;
 	solMonthstr = solMonth>=10? solMonthstr : '0'+solMonthstr;
 	
-	ArrayList<String> hList = new HolidayAPI().getHoliday(solYear, "04");
+	ArrayList<String> hList = new HolidayAPI().getHoliday(solYear, solMonthstr);
 	
 	Member m = (Member)session.getAttribute("member");
 	HashMap wtMap = (HashMap) request.getAttribute("wtMap");
