@@ -33,7 +33,7 @@ public class BoardInsertServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String category = request.getParameter("category");
 		String writer = request.getParameter("writer");
-		String content = request.getParameter("content");
+		String content = request.getParameter("ir1");
 		int result = 0;
 		
 		Board b = new Board();

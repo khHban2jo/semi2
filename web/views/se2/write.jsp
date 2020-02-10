@@ -12,7 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 <body>
-    <form action="<%=request.getContextPath() %>/bInsert.bo" method="post">
+    <form action="<%=request.getContextPath() %>/bInsert.bo" method="post" id="gosubmit">
     <div id="editor">
     <br>
     <label for="tt" style="margin:10px;">제목&nbsp;&nbsp;
@@ -27,20 +27,28 @@
     <label>작성자</label>&nbsp;
     <input type="text" name="writer" size="15" value="<%= m.getEmpId() %>" readonly>
     <br><br>    
-	<textarea name="ir1" id="ir1" rows="10" cols="100" name="content"></textarea>
+	<textarea name="ir1" id="contents" rows="10" cols="100"></textarea>
 
     <br>
-    <button type="reset">취소</button>&nbsp;&nbsp;<button type="submit">작성하기</button>
+    <button type="reset">취소</button>&nbsp;&nbsp;<button onclick="goSaveAndSubmit();">작성하기</button>
 	</div>
     </form> 
    <script type="text/javascript">
 	var oEditors = [];
 	nhn.husky.EZCreator.createInIFrame({
 	 oAppRef: oEditors,
-	 elPlaceHolder: "ir1",
+	 elPlaceHolder: "contents",
 	 sSkinURI: "/semi/views/se2/SmartEditor2Skin.html",
 	 fCreator: "createSEditor2"
 	});
+	
+	  function goSaveAndSubmit(){
+	    
+	   oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD",[]);
+	   
+	   $('#gosubmit').submit();
+
+	   }
  </script>
 </body>
 </html>
