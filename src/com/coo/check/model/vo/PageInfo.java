@@ -25,6 +25,8 @@ public class PageInfo implements Serializable {
 	
 	//7. 현재  있는 페이징
 	private int currentPage;
+	
+	private int status;
 
 	public PageInfo() {
 		
@@ -95,6 +97,14 @@ public class PageInfo implements Serializable {
 
 	public void setCurrentPage(int currentPage) {
 		this.currentPage = currentPage;
+	}
+	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 	

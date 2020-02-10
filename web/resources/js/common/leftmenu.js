@@ -71,7 +71,7 @@
         });
 
         $('#documentsBtn').click(function(){
-            
+        	
             location.href='/semi/clist.ch?';
         });
 

@@ -48,7 +48,18 @@ public class CheckListServlet extends HttpServlet {
 		Member m = (Member) session.getAttribute("member");
 		int id = m.getEmpCode();
 		//int status = Integer.valueOf(request.getParameter("ASTAT"));
-		int status =4;
+		int status;
+		if(request.getParameter("status")!=null) {
+			status = Integer.valueOf(request.getParameter("status"));
+		}else {
+			status = 4;
+		}
+		
+		
+
+		System.out.println(status);
+		
+		
 		ArrayList<CheckDoc> list = null;
 		//페이징 처리
 		
@@ -100,8 +111,7 @@ public class CheckListServlet extends HttpServlet {
 		if(maxPaging< endPaging) {
 			endPaging = maxPaging;
 		}
-		System.out.println("끝:" + endPaging);
-		System.out.println("맨뒤" + maxPaging);
+	;
 		
 		list = cs.getList(currentPage,limitPage, id, status);
 		
@@ -115,6 +125,7 @@ public class CheckListServlet extends HttpServlet {
 		
 			
 			pi = new PageInfo(checkListCount,startPaging,endPaging,maxPaging,limitPaging,limitPage,currentPage);
+			pi.setStatus(status);
 			request.setAttribute("pi", pi);
 			
 			page = "views/EP_list.jsp";
