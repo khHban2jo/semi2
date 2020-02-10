@@ -12,16 +12,16 @@ import com.coo.board.model.vo.Board;
 import com.coo.exception.CooException;
 
 /**
- * Servlet implementation class BoardInsertServlet
+ * Servlet implementation class BoardSelectOneServlet
  */
-@WebServlet("/bInsert.bo")
-public class BoardInsertServlet extends HttpServlet {
+@WebServlet("/selectOne.bo")
+public class BoardSelectOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertServlet() {
+    public BoardSelectOneServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +30,30 @@ public class BoardInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		String category = request.getParameter("category");
-		String writer = request.getParameter("writer");
-		String content = request.getParameter("content");
-		int result = 0;
-		
-		Board b = new Board();
-		b.setBtitle(title);
-		b.setCategory(category);
-		b.setBwriter(writer);
-		b.setBcontent(content);
-		System.out.println(b);
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		Board b = null;
+		String page = "views/common/errorPage.jsp";
+		BoardService bs = new BoardService();
 		try {
-			result = new BoardService().insertBoard(b);
+			b = bs.selectOne(bno);
 		} catch (CooException e) {
-			request.setAttribute("msg","게시글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		   request.setAttribute("msg","게시판 글 조회 실패");
+		   request.getRequestDispatcher(page).forward(request, response);
 		}
 		
-		if(result > 0) {
-			response.sendRedirect("selectList.bo");
+		if(b != null) {
+			request.setAttribute("board", b);
+			page = "views/dept_board/board_detail.jsp";
+			try {
+				int result = bs.updateReadCount(bno);
+			} catch (CooException e) {
+				request.setAttribute("msg","게시판 글 count 증가 실패");
+			}
+			
 		}else {
-			request.setAttribute("msg","게시글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.setAttribute("msg","게시판 글 조회 실패");
 		}
+		 request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

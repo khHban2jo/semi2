@@ -53,7 +53,7 @@
 
         //  나머지 nav 5개 버튼 - 화면 이동
         $('#listBtn').click(function(){
-            location.href = "/semi/views/dept_board/dept_board.jsp";
+            location.href = "/semi/selectList.bo"
         });
 
      // 공지사항 게시판 출력

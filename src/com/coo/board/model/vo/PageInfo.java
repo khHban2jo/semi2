@@ -14,7 +14,8 @@ public class PageInfo implements Serializable{
 	private int limit;
 	private int maxPage;
 	
-
+	public PageInfo() {}
+	
 	public int getCurrentPage() {
 		return currentPage;
 	}
