@@ -56,7 +56,7 @@ public class CheckInsertServlet extends HttpServlet {
 				);
 		
 		String doctitle = mrequest.getParameter("doctitle");   
-//		String docwriter = mrequest.getParameter("docwriter"); //int로 바꿀것
+		int docwriter = Integer.valueOf(mrequest.getParameter("empcode")); //int로 바꿀것
 //		String doctype =mrequest.getParameter("doctype");
 //		String checkdept = mrequest.getParameter("checkdept");
 //		String checkper = mrequest.getParameter("checkper");
@@ -67,7 +67,7 @@ public class CheckInsertServlet extends HttpServlet {
 		
 		
 		//String doctitle = "예비제목입니다.";
-		String docwriter = "203"; //int로 바꿀것
+		 //int로 바꿀것
 		String doctype = "지출결의서";
 		String checkdept = "D2";
 		String checkper = "288, 250, 821, 581, 820, 741";

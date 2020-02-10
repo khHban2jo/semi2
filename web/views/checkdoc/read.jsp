@@ -2,7 +2,7 @@
 <%@page import="javafx.scene.DepthTest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList , com.coo.check.model.vo.*"%>
+<%@page import="java.util.ArrayList , com.coo.check.model.vo.*, com.coo.member.model.vo.Member"%>
  <%
     //게시판
     //문서 
@@ -11,8 +11,9 @@
     //합의자에 자신이 포함된 인덱스 찾기  둘은 자바 스크립트에서
     //세션 아이디 받아오기
     //HttpSession session = 
-    String id = "203";
- 
+	Member m = (Member)session.getAttribute("member"); 
+ 	int id = m.getEmpCode();
+ 	String sid = Integer.valueOf(id).toString();
     CheckDoc check = (CheckDoc)request.getAttribute("info");
     //사람이름 찾아와야됨.
  	String doctext = (String)request.getAttribute("doc");
@@ -44,12 +45,12 @@
 
 </head>
 <%//session != null &&
-if(check.getDeleteyn().equals("N") && (check.getaWriter().equals(id)
-		||inPe.contains(id)||
-		colPe.contains(id)||
-		endPe.contains(id)||
-		viewPe.contains(id)||
-	check.getViewPeople().contains(id))){  %>
+if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
+		||inPe.contains(sid)||
+		colPe.contains(sid)||
+		endPe.contains(sid)||
+		viewPe.contains(sid)||
+	check.getViewPeople().contains(sid))){  %>
 <body>  
 	<script>
 	//잘랐음

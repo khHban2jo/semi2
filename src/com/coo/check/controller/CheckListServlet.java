@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.coo.check.model.service.CheckService;
 import com.coo.check.model.vo.CheckDoc;
 import com.coo.check.model.vo.PageInfo;
+import com.coo.member.model.vo.Member;
 
 /**
  * 
@@ -36,14 +37,16 @@ public class CheckListServlet extends HttpServlet {
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//세션 들고오기 
-//		HttpSession session = request.getSession(false);
-//		if(session == null) {
-//			
-//		}
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+		 request.setAttribute("msg", "로그인인 해주세요");
+		 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
 		
 		request.setCharacterEncoding("UTF-8");
 		 //세션에서 empno 가져오기
-		String id ="203";
+		Member m = (Member) session.getAttribute("member");
+		int id = m.getEmpCode();
 		//int status = Integer.valueOf(request.getParameter("ASTAT"));
 		int status =4;
 		ArrayList<CheckDoc> list = null;
@@ -109,6 +112,7 @@ public class CheckListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			
 			PageInfo pi = new PageInfo();
+		
 			
 			pi = new PageInfo(checkListCount,startPaging,endPaging,maxPaging,limitPaging,limitPage,currentPage);
 			request.setAttribute("pi", pi);

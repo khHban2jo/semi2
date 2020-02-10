@@ -6,7 +6,7 @@ import java.sql.Date;
 public class CheckDoc implements Serializable{
 	private int docNumber; 	//문서번호
 	private String aTitle;	//제목
-	private String aWriter;	//작성자 no
+	private int aWriter;	//작성자 no
 	private String awriterName; //작성자 이름
 	private String docType; //문서 종류
 	private int aStatus;	//진행상황  0: 진행중, 1:내부완료 2:합의완료 3:결재완료 4:반려  -> 누군가 4를 누르면 결재진행 종료및 코멘트 넣기
@@ -28,7 +28,7 @@ public class CheckDoc implements Serializable{
 		
 	}
 
-	public CheckDoc( String aTitle, String aWriter, String docType, String approver,
+	public CheckDoc( String aTitle, int aWriter, String docType, String approver,
 			String deptCode, String inPeople, String inStatus, String colDept, String colPeople, String colStatus,
 			String endPerson, String viewPeople, String docfile) {
 		
@@ -47,7 +47,7 @@ public class CheckDoc implements Serializable{
 		this.docfile = docfile;
 	}
 
-	public CheckDoc(int docNumber, String aTitle, String aWriter, String awriterName, String docType, int aStatus,
+	public CheckDoc(int docNumber, String aTitle, int aWriter, String awriterName, String docType, int aStatus,
 			String approver, String deptCode, String inPeople, String inStatus, String colDept, String colPeople,
 			String colStatus, String endPerson, String viewPeople, Date docDate, String returnComment, String deleteyn,
 			String docfile) {
@@ -89,11 +89,11 @@ public class CheckDoc implements Serializable{
 		this.aTitle = aTitle;
 	}
 
-	public String getaWriter() {
+	public int getaWriter() {
 		return aWriter;
 	}
 
-	public void setaWriter(String aWriter) {
+	public void setaWriter(int aWriter) {
 		this.aWriter = aWriter;
 	}
 

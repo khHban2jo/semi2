@@ -14,7 +14,7 @@ import static com.coo.common.JDBCTemplate.*;
 public class CheckService {
 	private CheckDao cDao = new CheckDao();
 
-	public int getListCount(String id,int status) {
+	public int getListCount(int id,int status) {
 		Connection con = getConnection();
 		
 		int listCount = cDao.getListCount(con, id, status);
@@ -23,7 +23,7 @@ public class CheckService {
 		return listCount;
 	}
 
-	public ArrayList<CheckDoc> getList(int currentPage, int limitPage,String id, int status) {
+	public ArrayList<CheckDoc> getList(int currentPage, int limitPage,int id, int status) {
 		Connection con = getConnection();
 
 		ArrayList<CheckDoc> docs= cDao.getList(con, currentPage, limitPage, id, status);
@@ -82,31 +82,38 @@ public class CheckService {
 
 	public int insertDoc(CheckDoc info, RoundDoc doc) {
 		int result = 0;
-		int docNum = 0;
+
 		Connection con = getConnection();
 
 		
 		result = cDao.insertInfo(con, info);
 		if(result >0) {
-			docNum = cDao.getDocNum(con,info.getaWriter());
-			System.out.println(result);
-			if(docNum > 0) {
-				doc.setDocNumber(docNum);
-				System.out.println(docNum);
 				result = cDao.insertText(con, doc, info.getDocType());
 				System.out.println(result);
 				if(result>0) commit(con);
 				else rollback(con);
-			}else {
-				//에러로 쓰로우
-				System.out.println("번호 가져오는데 에러");
-			}
 		}else {
 			System.out.println("인포저장에러");
 		}
 		//2 체크독 번호 가져오기(int값으로)
 		//3 독 넣기
 		close(con);
+		return result;
+	}
+
+	/**
+	 * 자신이 결재중인 것 갯수
+	 * @param id
+	 * @return
+	 */
+	public int getMyCount(int id) {
+		Connection con = getConnection();
+		
+		
+		int result = cDao.getMyCount(con, id);
+		
+		close(con);
+		
 		return result;
 	}
 

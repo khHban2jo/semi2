@@ -1,8 +1,9 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.coo.member.model.vo.Member"%>
     <%
-    	//com.coo.modelvo.member
-    	//Member m = (Member)session.getAttribute("member");
+    	
+    	Member m = (Member)session.getAttribute("member");
     
     %>
 <!DOCTYPE html>
@@ -44,12 +45,12 @@
 
                     <fieldset class="writerField">
                         <legend>1. 작성자</legend>
-                        <label> &nbsp;&nbsp;&nbsp;작성자 : </label><input type="text" class="inputLeft" disabled name ="docwriter" value ="<%//세션에서 작성자 %>">
-                        <input type ="hidden" name ="empno" value ="<%//세션에서 no %>">
-                        <label>부서 : </label><input type="text" class="inputRight" disabled name="deptcode" <%//세션에서 부서%>>
+                        <label> &nbsp;&nbsp;&nbsp;작성자 : </label><input type="text" class="inputLeft" readonly name ="docwriterName" value ="<%=m.getEmpName() %>">
+                        <input type ="hidden" name ="empcode" value ="<%=m.getEmpCode() %>">
+                        <label>부서 : </label><input type="text" class="inputRight" readonly name="deptcode" <%=m.getDeptCode()%>>
                         <br>
-                        <label>작성일자 : </label><input type="text" class="inputLeft" name= "docdate" id="docdate" disabled>
-                        <label>보존기한 : </label><input type="text" class="inputRight" value="영구보존" disabled>
+                        <label>작성일자 : </label><input type="text" class="inputLeft" name= "docdate" id="docdate" readonly>
+                        <label>보존기한 : </label><input type="text" class="inputRight" value="영구보존" readonly>
                     </fieldset>
                     <br>
                     <label id = "setLine">결재선 지정</label>
