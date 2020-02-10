@@ -39,22 +39,15 @@ public class BoardListServlet extends HttpServlet {
 		int maxPage;
 		int limit;
 		int currentPage;
-		int listCount = 0;
 		BoardService bs = new BoardService();
 		currentPage = 1;
 		limit = 6;
-		String page = "views/common/errorPage.jsp";
-		
+				
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		try {
-			listCount = bs.getListCount();
-		} catch (CooException e) {
-			request.setAttribute("msg","게시판 조회실패");
-			request.getRequestDispatcher(page).forward(request, response);
-		}
+		int listCount = bs.getListCount();
 		
 		maxPage = (int)((double)listCount / limit + 0.9);
 		startPage = ((int)((double)currentPage / limit + 0.9) -1)  * limit + 1;
@@ -64,22 +57,17 @@ public class BoardListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		try {
-			list = bs.selectList(currentPage,limit);
-		} catch (CooException e) {
-			request.setAttribute("msg","게시판 조회 실패");
-			request.getRequestDispatcher(page).forward(request, response);
-		}
-		
+		list = bs.selectList(currentPage,limit);
+
 		if(list != null) {
 			PageInfo pi = new PageInfo(currentPage, startPage, endPage, listCount, limit, maxPage);
 			request.setAttribute("list",list);
 			request.setAttribute("pi", pi);
-			page="views/dept_board/dept_board.jsp";
+			request.getRequestDispatcher("views/dept_board/dept_board.jsp").forward(request, response);
 		}else {
 			request.setAttribute("msg","게시판 조회 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

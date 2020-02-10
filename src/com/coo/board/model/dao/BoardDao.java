@@ -82,7 +82,7 @@ public class BoardDao {
 				b.setBcount(rset.getInt("bcount"));
 				b.setBdate(rset.getDate("bdate"));
 				b.setStatus(rset.getString("status"));
-				b.setCategory(rset.getString("bcategory"));
+				b.setCategory(rset.getString("CNAME"));
 				
 				list.add(b);
 			}
@@ -117,7 +117,7 @@ public class BoardDao {
 				b.setBcount(rset.getInt("bcount"));
 				b.setBdate(rset.getDate("bdate"));
 				b.setStatus(rset.getString("status"));
-				b.setCategory(rset.getString("bcategory"));
+				b.setCategory(rset.getString("CNAME"));
 			}
 			
 		}catch(SQLException e) {
@@ -143,8 +143,9 @@ public class BoardDao {
 			
 		}catch(SQLException e) {
 			throw new CooException("조회수 증가 실패");
+		}finally {
+			close(pstmt);
 		}
-		
 		return result;
 	}
 
@@ -155,10 +156,11 @@ public class BoardDao {
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1,b.getBtitle());
-			pstmt.setString(2,b.getBcontent());
-			pstmt.setString(3,b.getBwriter());
-			pstmt.setString(4,b.getCategory());
+			pstmt.setInt(1,b.getBtype());
+			pstmt.setString(2,b.getBtitle());
+			pstmt.setString(3,b.getBcontent());
+			pstmt.setString(4,b.getBwriter());
+			pstmt.setString(5,b.getCategory());
 			
 			result = pstmt.executeUpdate();
 			
@@ -170,4 +172,46 @@ public class BoardDao {
 		return result;
 	}
 
+	public int updateBoard(Connection con, Board b) throws CooException {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, b.getBtype());
+			pstmt.setString(2, b.getBtitle());
+			pstmt.setString(3, b.getBcontent());
+			pstmt.setString(4, b.getBwriter());
+			pstmt.setString(5, b.getCategory());
+			pstmt.setInt(6, b.getBno());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			throw new CooException("게시판 수정 실패");
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteBoard(Connection con, int bno) throws CooException {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBoard");
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			throw new CooException("게시글 삭제 실패");
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
