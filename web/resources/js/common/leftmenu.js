@@ -42,10 +42,9 @@
         });
 
         
-
-        //  조직도 nav 버튼 - 팝업 띄우기
+          //  조직도 nav 버튼 - 팝업 띄우기
         $('#jojicBtn').click(function(){
-            var url = "/semi/views/popup/dept_chart.jsp";
+            var url = "/semi/pAll.do";
             var name = "조직도";
             var option = 'top=100px, left=300px width=420px,height=800px, resizable=no, location=no, toolbars=no,scrollbars=no';
             window.open(url, name, option);
