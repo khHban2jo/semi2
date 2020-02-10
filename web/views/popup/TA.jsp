@@ -1,11 +1,19 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.coo.ta.model.vo.HolidayAPI"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.coo.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	Calendar cal = Calendar.getInstance();
+	int solYear = cal.get(Calendar.YEAR);
+	int solMonth = cal.get(Calendar.MONTH)+1;
+	String solMonthstr = "" + solMonth;
+	solMonthstr = solMonth>=10? solMonthstr : '0'+solMonthstr;
 	
-
+	ArrayList<String> hList = new HolidayAPI().getHoliday(solYear, "04");
+	
 	Member m = (Member)session.getAttribute("member");
 	HashMap wtMap = (HashMap) request.getAttribute("wtMap");
 %>
@@ -19,6 +27,11 @@
     
     <!-- css Link -->
     <link rel="stylesheet" href="/semi/resources/css/TA/TAcss.css">
+    
+    <script>
+    	var holiday = <%= hList %>;
+    	
+    </script>
     
     <script src="/semi/resources/js/TA/TAscript.js"></script>
 </head>

@@ -40,7 +40,23 @@ $(function(){
         	complete:function(){
         		var now = new Date();
         		
-        		if(now.getDay()==0||now.getDay()==6){
+        		var year = now.getFullYear();
+        		var month = now.getMonth() + 1;
+        		month = month >= 10? month : '0' + month;
+        		var day = now.getDate();
+        		day = day >= 10? day : '0' + day;
+        		
+        		var now2 = year + '' + month + '' + day;
+        		
+        		var checkHoliday = false;
+            	$.each(holiday, function(index, value){
+            		if( value == now2 ){
+            			checkHoliday = true;
+            		}
+            	});
+        		
+        		if(now.getDay()==0||now.getDay()==6||checkHoliday){
+        			
         			
         		}else{
 	        		if(now.getHours()<19){

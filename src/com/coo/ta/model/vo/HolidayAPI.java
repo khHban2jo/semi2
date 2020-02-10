@@ -22,12 +22,15 @@ public class HolidayAPI {
 	    return nValue.getNodeValue();
 	}
 	
-	public ArrayList<String> getHoliday() {
+	public ArrayList<String> getHoliday(int solYear, String solMonth) {
 		ArrayList<String> hList = new ArrayList<>();
+		
+		System.out.println(solYear);
+		System.out.println(solMonth);
 		
 		try {
 	    	String url = "http://apis.data.go.kr/B090041/openapi/service/"
-	    			+ "SpcdeInfoService/getRestDeInfo?solYear=2020&solMonth=04&"
+	    			+ "SpcdeInfoService/getRestDeInfo?solYear=" + solYear + "&solMonth=" + solMonth + "&"
 	    			+ "ServiceKey=wTUbZ%2Bll40LQa2JNU1Uz5d8JqVglBgTlAYb%2B%2F%2Fy3Wrpijvix7xMX2wQ0WdSpFi%2FSRo%2FOVJKlUFW5IOvShUNIcg%3D%3D";
 	    	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	    	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -47,10 +50,6 @@ public class HolidayAPI {
 	    		if(nNode.getNodeType() == Node.ELEMENT_NODE ) {
 	    			
 	    			Element eElement = (Element) nNode;
-//	    			System.out.println("#####################");
-//	    			System.out.println("날짜 : " + ha.getTagValue("locdate",eElement));
-//	    			System.out.println("isHoliday : " + ha.getTagValue("isHoliday", eElement));
-	    			
 	    			hList.add(ha.getTagValue("locdate",eElement));
 	    		}
 	    	}
