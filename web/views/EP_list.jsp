@@ -1,5 +1,17 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   <%@page import="com.coo.check.model.vo.*,java.util.ArrayList"%>
+  <% 
+	ArrayList<CheckDoc> list = (ArrayList<CheckDoc>)request.getAttribute("list"); 
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getCheckListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPaging();
+	int startPage = pi.getStartPaging();
+	int endPage = pi.getEndPaging();
+	int limitpage = pi.getLimitPage();
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -7,32 +19,12 @@
     <meta charset="UTF-8">
     <title>COO - 결재 게시판</title>
 
-    <link rel="stylesheet" href="../resources/css/common/basic.css">
-    <link rel="stylesheet" href="../resources/css/notice/button.css">
-    <link rel="stylesheet" href="../resources/css/notice/margin.css">
-    <link rel="stylesheet" href="../resources/css/notice/table.css">
+    <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
+    <link rel="stylesheet" href="/semi/resources/css/notice/button.css">
+    <link rel="stylesheet" href="/semi/resources/css/notice/margin.css">
+    <link rel="stylesheet" href="/semi/resources/css/notice/table.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- home 이미지 -->
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
-    <!-- 달력 -->
-    <!-- // jQuery UI CSS파일  -->
-    <link rel="stylesheet" href="../resources/css/common/jquery-ui.css" />
-    <link rel="stylesheet" href="../resources/css/common/jquery-ui2.css" />
-    
-    
-    <!-- // jQuery 기본 js파일 -->
-    <script src="../resources/js/common/calendar.js"></script>  
-    <!-- // jQuery UI 라이브러리 js파일 -->
-    <script src="../resources/js/common/calendar2.js"></script>
-    <!-- 왼쪽 메뉴 쿼리 -->
-    <script src="../resources/js/common/leftmenu.js?v=<%=System.currentTimeMillis() %>"></script>
-    
-    <!-- 임시 게시판 스크립트 -->
-    <script src="../resources/js/notice/list.js"></script>
-    <!-- 더미데이터 스크립트 -->
-    <script src="../resources/js/notice/dummy.js"></script>
+ 
 
 </head>
 <body>
@@ -80,19 +72,23 @@
                                 <th>날짜</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr align="center" class='table-line'>
-                                <td><input type="checkbox" name="list"></td>
-                                <td>1</td> 
-                                <td>휴가제안서</td>
-                                <td>홍길동</td>
-                                <td>기획부</td>
-                                <td>진행중</td>
-                                <td>2020-01-16</td>
-                            </tr>
+                        <tbody style="text-align:cente;">
+                        	<%int i = listCount -((currentPage-1)*limitpage); %>
+                           <% for(CheckDoc b : list){  %>
+                           <tr>
+                           <td><input type="checkbox">  <input type="hidden" class="docno"value="<%=b.getDocNumber() %>"></td>
+                           <td><%=i%></td>
+                           <td><%=b.getaTitle() %></td>
+                           <td><%=b.getaWriter() %></td>
+                           <td><%=b.getDeptCode() %></td>
+                           <%if(b.getaStatus() ==0 ||b.getaStatus()==1 ){%> <td>결재중</td><%}else if(b.getaStatus()==2){%><td>결재완료</td><%}else{ %><td>반려</td> <% }%>
+                           
+                           <td><%=b.getDocDate() %></td>
+                           <tr>
+                           <%i--; } %>
                         </tbody>
                     </table>
-                    <button id="write" class="btn btn-light" style="margin-left:30px;" onclick="window.open('writedoc.html','' ,'target:_blank;');">글쓰기</button> 
+                    <button id="write" class="btn btn-light" style="margin-left:30px;" onclick="window.open('views/checkdoc/writedoc.jsp','' ,'target:_blank;');">글쓰기</button> 
                     <br>
                     <div>
                    <select id="search" name="search" style="height: 30px; margin-left: 220px;"> 
@@ -109,13 +105,31 @@
                          style="width:200px;"/>
  
                      <button id="btn">검색</button>
-                    <ul id="pagenation" align="center" style="margin-left:-90px;">
-                        <li><button class="listbtn">이전</button></li>
-                        <li><button class="listbtn">1</button></li>
-                        <li><button class="listbtn">2</button></li>
-                        <li><button class="listbtn">3</button></li>
-                        <li><button class="listbtn">다음</button></li>
-                    </ul>
+                    <div class="pagingArea" align="center">
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=1'"><<</button>
+			<%  if(currentPage <= 1){  %>
+			<button disabled><</button>
+			<%  }else{ %>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage - 1 %>'"><</button>
+			<%  } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){
+					if(p == currentPage){	
+			%>
+				<button disabled><%= p %></button>
+			<%      }else{ %>
+				<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= p %>'"><%= p %></button>
+			<%      } %>
+			<% } %>
+				
+			<%  if(currentPage >= maxPage){  %>
+			<button disabled>></button>
+			<%  }else{ %>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage + 1 %>'">></button>
+			<%  } %>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= maxPage %>'">>></button>
+			
+		</div>
                 </div>
             </div>
         </div>
@@ -124,7 +138,23 @@
     <!-- 풋터 부분 include -->
     <%@ include file="common/COO_footer.jsp" %>
 </div>
+<script>
 
+$(function(){
+	
+	$("#list td").mouseenter(function(){
+		
+		$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+	}).mouseout(function(){
+		$(this).parent().css({"background":"white"});
+	}).click(function(){
+		//console.log($(this).parent().find("input[type=hidden]").val());
+		var docNumber = $(this).parent().find("input[type=hidden]").val();
+		location.href="<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber;
+		//번호 가져 오기.  -> selectOne.no로 값 보내기
+	});
+});
+</script>
     
     
 </body>

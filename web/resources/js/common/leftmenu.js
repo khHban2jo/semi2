@@ -72,7 +72,7 @@
 
         $('#documentsBtn').click(function(){
             
-            location.href = "/semi/views/EP_list.jsp";
+            location.href='/semi/clist.ch?id='+'203';
         });
 
         //  헤더 span - 화면이동 및 팝업

@@ -15,6 +15,7 @@ import com.coo.check.model.vo.CheckDoc;
 import com.coo.check.model.vo.PageInfo;
 
 /**
+ * 
  * Servlet implementation class CheckListServlet
  */
 @WebServlet("/clist.ch")
@@ -32,15 +33,19 @@ public class CheckListServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//세션 들고오기 
-		HttpSession session = request.getSession(false);
-		if(session == null) {
-			
-		}
-		 //세션에서 empno 가져오기
-		int id = (int)session.getAttribute("id");
+//		HttpSession session = request.getSession(false);
+//		if(session == null) {
+//			
+//		}
 		
+		request.setCharacterEncoding("UTF-8");
+		 //세션에서 empno 가져오기
+		String id ="203";
+		//int status = Integer.valueOf(request.getParameter("ASTAT"));
+		int status =4;
 		ArrayList<CheckDoc> list = null;
 		//페이징 처리
 		
@@ -80,20 +85,25 @@ public class CheckListServlet extends HttpServlet {
 		CheckService cs = new CheckService();
 		
 		//게시글 총갯수
-		checkListCount = cs.getListCount(id);
+		checkListCount = cs.getListCount(id,status);
+		System.out.println(checkListCount +"서블릿 카운트");
 		
 		startPaging = ((int)((double)currentPage/limitPaging +0.9)-1)*limitPaging+1;
 		
 		endPaging = startPaging +limitPaging -1;
 		
-		maxPaging = (int)((double)checkListCount/limitPaging+0.9);
+		maxPaging = (int)((double)checkListCount/limitPage+0.9); 
 		
 		if(maxPaging< endPaging) {
 			endPaging = maxPaging;
 		}
+		System.out.println("끝:" + endPaging);
+		System.out.println("맨뒤" + maxPaging);
 		
-		list = cs.getList(currentPage,limitPage, id);
-		String page;
+		list = cs.getList(currentPage,limitPage, id, status);
+		
+		
+		String page="";
 		
 		if(list!=null) {
 			request.setAttribute("list", list);
@@ -103,13 +113,14 @@ public class CheckListServlet extends HttpServlet {
 			pi = new PageInfo(checkListCount,startPaging,endPaging,maxPaging,limitPaging,limitPage,currentPage);
 			request.setAttribute("pi", pi);
 			
-			page = "views/check/chekcList";
+			page = "views/EP_list.jsp";
 		
-		}else {
-			request.setAttribute("msg", "정보를 가져오지 못했습니다.");
-			page ="views/common/errorPage";
-					
 		}
+		//else {
+//			request.setAttribute("msg", "정보를 가져오지 못했습니다.");
+//			page ="views/common/errorPage";
+//					
+//		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
 		

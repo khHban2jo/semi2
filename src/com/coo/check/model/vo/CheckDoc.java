@@ -28,14 +28,13 @@ public class CheckDoc implements Serializable{
 		
 	}
 
-	public CheckDoc( String aTitle, String aWriter, String docType, int aStatus, String approver,
+	public CheckDoc( String aTitle, String aWriter, String docType, String approver,
 			String deptCode, String inPeople, String inStatus, String colDept, String colPeople, String colStatus,
 			String endPerson, String viewPeople, String docfile) {
 		
 		this.aTitle = aTitle;
 		this.aWriter = aWriter;
 		this.docType = docType;
-		this.aStatus = aStatus;
 		this.approver = approver;
 		this.deptCode = deptCode;
 		this.inPeople = inPeople;
@@ -228,14 +227,16 @@ public class CheckDoc implements Serializable{
 
 	@Override
 	public String toString() {
-		return  docNumber + ", " + aTitle + ", " + aWriter + ", "
-				+ awriterName + ", " + docType + ", " + aStatus + "," + approver
-				+ ", " + deptCode + ", " + inPeople + ", " + inStatus + ", "
-				+ colDept + ", " + colPeople + ", " + colStatus + ", " + endPerson
-				+ ", " + viewPeople + ", " + docDate + ", " + returnComment
-				+ ", " + deleteyn + ", " + docfile ;
+		return "CheckDoc [docNumber=" + docNumber + ", aTitle=" + aTitle + ", aWriter=" + aWriter + ", awriterName="
+				+ awriterName + ", docType=" + docType + ", aStatus=" + aStatus + ", approver=" + approver
+				+ ", deptCode=" + deptCode + ", inPeople=" + inPeople + ", inStatus=" + inStatus + ", colDept="
+				+ colDept + ", colPeople=" + colPeople + ", colStatus=" + colStatus + ", endPerson=" + endPerson
+				+ ", viewPeople=" + viewPeople + ", docDate=" + docDate + ", returnComment=" + returnComment
+				+ ", deleteyn=" + deleteyn + ", docfile=" + docfile + "]";
 	}
-	
+
+
+
 	
 	
 	

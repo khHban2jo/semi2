@@ -1,12 +1,30 @@
+
+<%@page import="javafx.scene.DepthTest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList , com.coo.check.model.vo.*"%>
  <%
     //게시판
     //문서 
     //둘다 문서 번호 검색해서 가져올것 
     //자신이 포함되 있나 확인   
     //합의자에 자신이 포함된 인덱스 찾기  둘은 자바 스크립트에서
+    //세션 아이디 받아오기
+    //HttpSession session = 
+    String id = "203";
+ 
+    CheckDoc check = (CheckDoc)request.getAttribute("info");
+    //사람이름 찾아와야됨.
+ 	String doctext = (String)request.getAttribute("doc");
     
+	String inPe = (check.getInPeople() ==null)?"":check.getInPeople();
+	String colPe = (check.getColPeople()==null)?"":check.getColPeople();
+	String endPe = (check.getEndPerson()==null)?"":check.getEndPerson();
+	String viewPe = (check.getViewPeople()==null)?"":check.getViewPeople();
+	String peArr[];
+	
+	
+     
   %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -25,8 +43,88 @@
 
 
 </head>
-<%//접근 로직 짜기  %>
+<%//session != null &&
+if(check.getDeleteyn().equals("N") && (check.getaWriter().equals(id)
+		||inPe.contains(id)||
+		colPe.contains(id)||
+		endPe.contains(id)||
+		viewPe.contains(id)||
+	check.getViewPeople().contains(id))){  %>
 <body>  
+	<script>
+	//잘랐음
+		$(function(){
+			
+		
+		var inpea=[];
+		if(<%=!inPe.equals("")%>){
+			<%peArr = inPe.split(", ");
+			for(int i =0; i<peArr.length;i++){
+			%>
+			inpea.push(<%=peArr[i]%>);
+			<%}%>
+			
+			 var a2 = $("#top2 tr:eq(0)").html();
+			 
+		 }
+		
+		 for(var i =0; i*2< inpea.length; i++){
+			 $("#top2 tr:eq(0)").html(a2 += "<td id= col+["+i+"]> 정 :" + inpea[i*2] +"<br> 부 :" +inpea[i*2+1]+"</td>");
+		 }
+		 console.log(inpea);
+		
+		var colpea=[];
+		if(<%=!colPe.equals("")%>){
+			<%peArr = colPe.split(", ");
+			for(int i =0; i<peArr.length;i++){
+			%>
+			colpea.push(<%=peArr[i]%>);
+			
+			<%}%>
+			//$.ajax({
+			//	url:"csearchname",
+			//	type:"get",
+			//	arr:{
+			//		peArr:colpea
+			//	},
+			//	success:function(peArr){
+			//		colpea=[];
+			//		 var a = $("#top3 tr:eq(0)").html();
+			//		 for(var i =0; i*2< colpea.length; i++){
+			//			 $("#top3 tr:eq(0)").html(a += "<td id= col+["+i+"]> 정 :" + colpea[i*2] +"<br> 부 :" +colpea[i*2+1]);
+			//
+			//		 }
+			//	}
+			//})
+		 var a = $("#top3 tr:eq(0)").html();
+					 for(var i =0; i*2< colpea.length; i++){
+						 $("#top3 tr:eq(0)").html(a += "<td id= col+["+i+"]> 정 :" + colpea[i*2] +"<br> 부 :" +colpea[i*2+1]);
+			
+					 }
+			
+			
+		}
+		var endpea=[];
+		if(<%=!endPe.equals("")%>){
+			<%peArr = endPe.split(", ");
+			for(int i =0; i<peArr.length;i++){
+			%>
+			endpea.push(<%=peArr[i]%>); 
+			<%}%>
+			console.log(endpea);
+		}
+		var viewpea=[];
+		if(<%=!viewPe.equals("")%>){
+			<%peArr = viewPe.split(", ");
+			for(int i =0; i<peArr.length;i++){
+			%>
+			viewpea.push(<%=peArr[i]%>);
+			<%}%>
+			console.log(viewpea);
+		}
+		});
+		
+	</script>
     <!--결재 팝업-->
     <div id= "popback"> </div>
     <div id ="checkpop" align= "center">
@@ -39,8 +137,7 @@
         <h4>결재 도장 선택</h4>
         <table>
             <tbody>
-                <tr><td><img src= "images/info-fill.svg"></td>
-                    <td><img src= "images/list-ul.svg"></td> 
+                <tr>
             </tr>
             </tbody>
         </table>
@@ -50,7 +147,7 @@
         <div id="top1">
             <table width ="170px">
                 <tr>
-                    <td rowspan="3" align="center"><img src=<%//세션에서 가져오기 %> width ="100px" height="140"></td>
+                    <td rowspan="3" align="center"><!--<img src=<%//세션에서 가져오기 %> width ="100px" height="140">  --></td>
                     <td align="center" width="90px">시설관리부</td>
                     
                 </tr>
@@ -67,15 +164,8 @@
         </div>
         <div id="top2">
                 <table width ="260px"  >
-                    <tr>
-                    <%//for(int i = 0; i<?.length; i+= i+2{
-                    	// <td>정 : [i]. 부 : [i+1] </td>	
-                    	
-                    	//}%>
-                    	<td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+                 <tr>
+
                 </tr>
                 <tr>
                  <%//for(int i = 0; i<?.length; i++{
@@ -98,7 +188,10 @@
                             
                         </tr>
                         <tr>
-                            <td align="center"><%//부서 가져오기 %></td>
+                            <td align="center"><%if(check.getColDept()!=null) {%>
+                            					<%=check.getDeptCode() %>
+                            		<%} %>
+                            					</td>
                            
                         </tr>
                         </table>
@@ -107,10 +200,7 @@
         <div id="top3" style="float: right;">
         <table width ="260px"  align="center">
             <tr><%//여기도 합의 부서 짜기 %>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+
         </tr>
         <tr>
             <td></td>
@@ -119,6 +209,10 @@
             <td></td>
         </tr>
         </table>
+        <script>
+        	
+        
+        </script>
         </div>
         <div id="endline">
             <table width ="80px">
@@ -164,10 +258,11 @@
     <div id ="doc">
         <div id="docinfo">
         <span> 제목 :</span>
-        <div style ="display: inline-block; background :white; border :1px solid black; width: 400px;" ><%//제목 %></div>
-        <div style ="display: inline-block; border :1px solid black;"><%//긴급여부 %></div>
-        <div style ="display: inline-block; border :1px solid black;"><%//문서 종류 %></div>
-        <button id="returncbtn">반려코멘트 보기</button>
+        <div style ="display: inline-block; background :white; border :1px solid black; width: 400px;" ><%=check.getaTitle() %></div>
+        <div style ="display: inline-block; border :1px solid black;"><%=check.getDocType() %></div>
+        <%if(check.getReturnComment() != null){ %>
+        <button id="returncbtn">반려코멘트 보기</button> 
+        <%} %>
         </div>
 
       
@@ -175,7 +270,8 @@
   
     <br>
     <div id="docwrite">
- 	<%//문서 내용 들어감 %>
+ 		<%=doctext %>
+ 	
         </div>
     </div> 
     <div id="bottom" align ="center"> 
@@ -199,4 +295,5 @@
    
     
 </body>
+<%} else{%><body>1111</body><%} %>
 </html>
