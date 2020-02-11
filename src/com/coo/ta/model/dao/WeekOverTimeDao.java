@@ -24,7 +24,7 @@ public class WeekOverTimeDao {
 	 */
 	public WeekOverTimeDao() {
 		prop = new Properties();
-		String filePath = MemberDao.class.getResource("/config/weekOverTime-query.properties").getPath();
+		String filePath = WeekOverTimeDao.class.getResource("/config/weekOverTime-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(filePath));
@@ -35,6 +35,13 @@ public class WeekOverTimeDao {
 		}
 	}
 
+	/**
+	 * 등록된 wot가 있는지 select
+	 * @param con
+	 * @param wot
+	 * @return
+	 * @throws CooException
+	 */
 	public WeekOverTime selectWot(Connection con, WeekOverTime wot) throws CooException {
 
 		WeekOverTime wotCheck = null;
@@ -71,6 +78,13 @@ public class WeekOverTimeDao {
 		return wotCheck;
 	}
 
+	/**
+	 * WeekOverTime INSERT
+	 * @param con
+	 * @param wot
+	 * @return
+	 * @throws CooException
+	 */
 	public int insertWot(Connection con, WeekOverTime wot) throws CooException {
 
 		int result = 0;
@@ -96,6 +110,13 @@ public class WeekOverTimeDao {
 		return result;
 	}
 
+	/**
+	 * WeekOverTime UPDATE
+	 * @param con
+	 * @param wot
+	 * @return
+	 * @throws CooException
+	 */
 	public int updateWot(Connection con, WeekOverTime wot) throws CooException {
 
 		int result = 0;
@@ -123,6 +144,7 @@ public class WeekOverTimeDao {
 		return result;
 	
 	}
+
 	
 	
 

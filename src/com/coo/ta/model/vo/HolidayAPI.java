@@ -12,6 +12,9 @@ import org.w3c.dom.NodeList;
 
 public class HolidayAPI {
 
+	/*
+	 * 공휴일 정보 가져오는 API
+	 */
 	public HolidayAPI() {}
 	
 	public String getTagValue(String tag, Element eElement) {

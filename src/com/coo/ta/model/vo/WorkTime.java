@@ -5,6 +5,9 @@ import java.sql.Date;
 
 public class WorkTime implements Serializable{
 	
+	/*
+	 * WORKTIME 테이블 객체
+	 */
 	private static final long serialVersionUID = 7256602985369005173L;
 	
 	private int empCode;		//	사번

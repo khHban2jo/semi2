@@ -25,7 +25,7 @@ public class WorkTimeDao {
 	 */
 	public WorkTimeDao() {
 		prop = new Properties();
-		String filePath = MemberDao.class.getResource("/config/workTime-query.properties").getPath();
+		String filePath = WorkTimeDao.class.getResource("/config/workTime-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(filePath));
@@ -44,9 +44,9 @@ public class WorkTimeDao {
 	 * @return
 	 * @throws CooException
 	 */
-	public HashMap selectWorkTime(Connection con, int empCode) throws CooException {
+	public HashMap<Integer, String> selectWorkTime(Connection con, int empCode) throws CooException {
 
-		HashMap wtMap = new HashMap<>();
+		HashMap<Integer, String> wtMap = new HashMap<>();
 		
 		PreparedStatement pstmt = null;
 		
@@ -59,25 +59,17 @@ public class WorkTimeDao {
 			pstmt.setInt(1, empCode);
 			pstmt.setString(2, "T1");
 			pstmt.setString(3, "T2");
+			pstmt.setString(4, "T4");
+			pstmt.setString(5, "T5");
 			
 			rset = pstmt.executeQuery();
 			
+			wtMap.put(0, "");
+			wtMap.put(1, "");
+			
 			int count = 0;
 			while( rset.next() ) {
-				
-				String time = "";
-				
-				if(rset.getString(1).length() == 3) {
-					time = rset.getString(1);
-					String[] timeStr = time.split("");
-					time = "0" + timeStr[0] + ":" + timeStr[1] + timeStr[2];
-				}else {
-					time = rset.getString(1);
-					String[] timeStr = time.split("");
-					time = timeStr[0]+timeStr[1]+":"+timeStr[2]+timeStr[3];
-				}
-				
-				wtMap.put(count, time);
+				wtMap.put(count, rset.getString(1));
 				count++;
 			}
 			
@@ -229,9 +221,40 @@ public class WorkTimeDao {
 		}
 		
 		return result;
-	
 	}
 
+	public String selectT1Time(Connection con, int empCode) throws CooException {
+
+		String stime = null;
+		
+		PreparedStatement pstmt = null;
+		
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectT1");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, empCode);
+			pstmt.setString(2, "T4");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				stime = rset.getString(1);
+			}
+			
+		}catch(SQLException e) {
+			throw new CooException(e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return stime;
+	}
+
+	
 }
 
 

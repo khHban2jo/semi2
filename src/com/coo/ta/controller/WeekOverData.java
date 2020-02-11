@@ -56,22 +56,16 @@ public class WeekOverData extends HttpServlet {
 		int empCode = m.getEmpCode();
 		
 		//	현재시간
-//		Date now = new Date();
-//		SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
-//		int nowTime = Integer.parseInt(sdf.format(now));
-		
-		Date now = new Date();
+		String now = request.getParameter("now");
 		SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
-		String n = sdf.format(now);
 		
 		String time = null;
-		int overTime = -1;
 		
 		Date d1 = new Date();
 		Date d2 = new Date();
 		
 		try {
-			d1 = sdf.parse(n);
+			d1 = sdf.parse(now);
 			d2 = sdf.parse("1900");		//	19시 부터 추가 근무로 인정
 		} catch (ParseException e) {}
 		
@@ -92,14 +86,11 @@ public class WeekOverData extends HttpServlet {
 			mm = ""+min;
 		}
 		
-		time = hh + mm;
-		
-		overTime = Integer.parseInt(time);
+		int overTime = Integer.parseInt(hh + mm);
 			
 		//	week of year 가져오기
 		Calendar cal = Calendar.getInstance();
 		int week = cal.get(Calendar.WEEK_OF_YEAR);
-		System.out.println(week);
 		
 		WeekOverTime wot = new WeekOverTime();
 		wot.setEmpCode(empCode);
