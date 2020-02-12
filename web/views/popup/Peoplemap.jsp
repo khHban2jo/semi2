@@ -21,12 +21,51 @@
 <!--  <link rel="stylesheet"
 	href="/semi/resources/css/dept_chart/dept_chart_css.css" />  -->
 <script src="/semi/resources/js/dept_chart/dept_chart_js.js"></script>
+<style>
+	
+	
+	 th, td {
+    border-bottom: 1px solid black;
+    padding: 10px;
+  		}
+  
+  thead tr {
+  	background-color : #A9D0F5;
+  }
+  
+   tbody tr:nth-child(2n) {
+    background-color: #F3F3F2;
+  }
+ 
+</style>
 </head>
-<body>
+<!-- 창 크기 조절  -->
+<body onresize="parent.resizeTo(650,800)" onload="parent.resizeTo(600,800)"> 
+
+	
+	
+	<h4 color="#A9D0F5">사원 검색</h4>
+
+	<hr color="#A9D0F5">
+	<div class="searchmap" align="center" border="1px soild lightblue">
+				<select id="searchCondition" name="searchCondition" style="width: 70px; height: 23px;">
+					<option value="">선택</option>
+					<option value="jobName">직급</option>
+					<option value="empName">이름</option>
+					<option value="deptTitle">부서</option>
+				</select> 
+				<input type="search" id="keyword" placeholder="검색어를 입력하세요">
+				<button type="button" onclick="search();" >검색</button>
+	</div>
+
+	<br><Br>
+
+
+
 	<!-- 조직도 테이블  -->
 	<div>
 		<table class="table" style="width: 100%;" align="center" id="listmap">
-
+		<thead>
 			<tr>
 
 				<th>사원번호</th>
@@ -35,8 +74,10 @@
 				<th>이름</th>
 				<th>이메일</th>
 			</tr>
-
-
+			
+		</thead>
+		
+		<tbody>
 			<%
 				for (Member m : list) {
 			%>
@@ -48,14 +89,17 @@
 				<th><%=m.getEmpName()%></th>
 				<th><%=m.getEmail()%></th>
 			</tr>
+			
 			<%
 				}
 			%>
-
+		</tbody>
 
 		</table>
-
+		<br>
+		
 		<!-- 페이지 처리  -->
+		
 		<div>
 			<div class="pagingArea" align="center">
 				<button
@@ -108,17 +152,8 @@
 
 			<!-- 검색  -->
 
-			<hr style="width: 370px;">
-			<div class="searchmap" align="center">
-				<select id="searchCondition" name="searchCondition" style="width: 70px; height: 23px;">
-					<option value="">----</option>
-					<option value="jobName">직급</option>
-					<option value="empName">이름</option>
-					<option value="deptTitle">부서</option>
-				</select> 
-				<input type="search" id="keyword" placeholder="검색어를 입력하세요">
-				<button type="button" onclick="search();" >검색</button>
-			</div>
+			
+			
 		</div>
 
 		<!--  검색 키워드 찾아오는 펑션 	 -->
