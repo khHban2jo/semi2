@@ -129,3 +129,43 @@ label{
      height: 610px;
 
 }
+
+/* 휴가 신청서 include용 css */
+#docbody>span{
+    position: relative;
+    top: 10px;
+}
+#docbody>div{
+    position: relative;
+    top: 10px;
+}
+#docbody>select{
+    position: relative;
+    top: 12px;
+    left: 20px;
+    width: 100px;
+    height: 23px;
+    text-align: center;
+}
+#docbody>input{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    height: 23px;
+}
+#docbody>textarea{
+    position: relative;
+    width: 600px;
+    height: 420px;
+    resize: none;
+    font-size: 15px;
+}
+.startDate{
+    visibility: hidden;
+}
+.endDate{
+    visibility: hidden;
+}
+.dayOffType{
+    visibility: hidden;
+}
