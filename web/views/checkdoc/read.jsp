@@ -148,7 +148,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
         <div id="top1">
             <table width ="170px">
                 <tr>
-                    <td rowspan="3" align="center"><!--<img src=<%//세션에서 가져오기 %> width ="100px" height="140">  --></td>
+                    <td rowspan="3" align="center"><!--<img src=<%//ajax에서 가져오기 %> width ="100px" height="140">  --></td>
                     <td align="center" width="90px">시설관리부</td>
                     
                 </tr>
@@ -158,7 +158,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
                 </tr>
                 <tr>
                     
-                    <td align="center">김비서</td>
+                    <td align="center"><%=check.getAwriterName() %></td>
                 </tr>
             </table>
 

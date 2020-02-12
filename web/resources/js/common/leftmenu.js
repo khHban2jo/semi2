@@ -72,7 +72,7 @@
 
         $('#documentsBtn').click(function(){
         	
-            location.href='/semi/clist.ch?';
+            location.href='/semi/clist.ch';
         });
 
         //  헤더 span - 화면이동 및 팝업

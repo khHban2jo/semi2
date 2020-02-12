@@ -36,6 +36,8 @@ public class CheckListServlet extends HttpServlet {
 	 */
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		//세션 들고오기 
 		HttpSession session = request.getSession(false);
 		if(session == null) {
@@ -43,7 +45,7 @@ public class CheckListServlet extends HttpServlet {
 		 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
-		request.setCharacterEncoding("UTF-8");
+		
 		 //세션에서 empno 가져오기
 		Member m = (Member) session.getAttribute("member");
 		int id = m.getEmpCode();
@@ -56,8 +58,6 @@ public class CheckListServlet extends HttpServlet {
 		}
 		
 		
-
-		System.out.println(status);
 		
 		
 		ArrayList<CheckDoc> list = null;
@@ -100,7 +100,7 @@ public class CheckListServlet extends HttpServlet {
 		
 		//게시글 총갯수
 		checkListCount = cs.getListCount(id,status);
-		System.out.println(checkListCount +"서블릿 카운트");
+
 		
 		startPaging = ((int)((double)currentPage/limitPaging +0.9)-1)*limitPaging+1;
 		
@@ -131,10 +131,10 @@ public class CheckListServlet extends HttpServlet {
 			page = "views/EP_list.jsp";
 		
 		}
-		//else {
+//		else {
 //			request.setAttribute("msg", "정보를 가져오지 못했습니다.");
 //			page ="views/common/errorPage";
-//					
+					
 //		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
