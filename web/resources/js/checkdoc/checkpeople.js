@@ -1,8 +1,7 @@
 $(function(){
-    //1. 부서명을 가져와 그만큼의 반복문 돌리기
-    //
+	
 
-    //2. 부서명에 포함된 사원들의 길이 만큼 사번 직책 이름 형식으로 라벨에 넣기
+
    $("ol>ul").slideUp();
 
    $(".foldall").on("click",function(){
@@ -30,8 +29,8 @@ $(function(){
   
    //체크박스
    $(".person1").on("click",function(){
-
-      
+   
+      console.log($(this));
         if($(this).prop("checked")){
 
        var a= $(this).siblings("label").text().split(" ");
@@ -40,6 +39,9 @@ $(function(){
        var d="<tr><td>"+a[0]+"</td><td>"+$(this).parents("ul").prev("li").find("label").text()+"</td><td>"
                                    +a[1]+"</td><td>"+
                                    a[2] +"</td></tr>";
+       var d="<tr><td>"+a[0]+"</td><td>"+a[1]+"</td><td>"
+       +a[2]+"</td><td>"+
+       a[3] +"</td></tr>";
 
        $("#selectper tbody").html(d+c );
        
@@ -47,6 +49,7 @@ $(function(){
            var a= $(this).siblings("label").text().split(" ");
            $('#selectper tr:contains('+a[0]+')').remove();
         }
+   
    });
 
    $("#peoplemap input[type=checkbox]").on("click",function(){
@@ -89,31 +92,73 @@ $(function(){
           
    });
    
+   var codeRemove= function(i){
+	   //중복인원 제거용 함수
+	   var tr = $(i).siblings("div").find("tr")
+	   tr.each(function(index,item){
+		   var ch = $(this).children("td").eq(0).text();
+		   $('#selectper tr:contains('+ch+')').remove();         
+	   });	
+   }
+   
+   var tablem = function(i){
+	   //원본 베이블 저장
+       var origin =$(i).siblings("div").find("tbody").html();
+       //저장후 추가
+	   $(i).siblings("div").find("tbody").html( origin + $("#selectper tbody").html());
+	   $("#selectper tbody").html("");
+   
+	   //체크 풀기
+	   $("#map input[type=checkbox]").prop("checked","");
+   }
+   
+   
+   $(".ienter").click(function(){
+	   
+       //기존 배열과 확인후 삭제
+       var tr = $(this).siblings("div").find("tr");
+       $('#selectper tr:not(:contains('+$("#chedept").val()+'))').remove();
+       if(tr.length<4){
+    	   codeRemove($(this));
+    	   tablem($(this));
+       }
+   });
 
-
-
-   $(".enter").click(function(){
-       //기존 테이블 저장
-       var origin =$(this).siblings("div").find("tbody").html();
+   $(".center").click(function(){
+       //저장 배열 참고 첫 tr 부서 가지고  제거
+	   var cdept = $("#selectper tr:eq(1)").children("td").eq(1).text();
+	   console.log(cdept);
+	    $('#selectper tr:not(:contains('+cdept+'))').remove(); 
+       //기존 배열과 확인후 삭제
+	   var tr = $(this).siblings("div").find("tr");
+       if(tr.length<4){
+    	   if(tr.length>0){
+    		   var deptcheck = tr.children("td").eq(1).text();
+    		   $('#selectper tr:not(:contains('+deptcheck+'))').remove();
+    		   codeRemove($(this));
+    	   	}
+    	   tablem($(this));
+       }
+   });
+   
+   
+   $(".venter").click(function(){
        
        //기존 배열과 확인후 삭제
-      $(this).siblings("div").find("tr").each(function(index,item){
-            var ch = $(this).children("td").eq(0).text();
-            $('#selectper tr:contains('+ch+')').remove();
-       });
-        //저장후 추가
-       $(this).siblings("div").find("tbody").html( origin + $("#selectper tbody").html());
-       $("#selectper tbody").html("");
+       var tr = $(this).siblings("div").find("tr");
+       if(tr.length>0){
+    	   
+    	   codeRemove($(this) );
+       }
        
-       //체크 풀기
-       $("#map input[type=checkbox]").prop("checked","");
-
-   });
+       tablem($(this));
+   	});
 
    $(".endenter").click(function(){
        $(this).siblings("div").find("tbody").html(
            "<tr>"+$("#selectper tr:eq(1)").html()+"<tr>")
-
+           $("#selectper tbody").html("");
+       $("#map input[type=checkbox]").prop("checked","");
    });
 
    //위 버튼
@@ -204,6 +249,7 @@ $("#saveline").click(function(){
    $("#pushper1").css("display","block");
 
    $("#saveper tbody").html($("#checkper tbody").html());
+ 
 })
 
 
@@ -217,12 +263,12 @@ $("#push1").click(function(){
    $("#backdiv").css("display","block");
    $("#seldiv").css("display","block");
    $("#sel").css("display","block");
-   $("#pushper2").css("display","block");
+   $("#pushper1").css("display","block");
 
    $("#pushper2").trigger("click");          
 });
 
-$("#pushper2").click(function(){
+/*$("#pushper2").click(function(){
    //servlet에 sel값과 pushper2값 넘겨준 값 tbody에 담기
 });
 
@@ -231,7 +277,7 @@ $("#sel").click(function(){
    $("#checkper tbody").html($("#saveper tbody").html());
    $("#close2").trigger("click");
 });
-
+*/
 
 //결제선 창 닫기
 $("#close2").click(function(){
@@ -296,17 +342,31 @@ function end(){
    if($("#cheper").val() == ""){
        alert("결제인원은 비어있을수 없습니다.");
        tfcheck = false;
+   }else{
+	    $("#indept",parent.opener.document).text($("#chedept").val());
+	    $("#chdept",parent.opener.document).val($("#chedept").val());
+	    $("#chper",parent.opener.document).val($("#cheper").val());
+	    $("#colladept",parent.opener.document).text($("#coladept").val());
+	    $("#codept",parent.opener.document).val($("#coladept").val());
+	    $("#cope",parent.opener.document).val($("#colaper").val());
+	    $("#endp",parent.opener.document).val($("#resper").val());
+	    $("#viewp",parent.opener.document).val($("#endper").val());
    }
+    
 
-   return tfcheck;
    if(tfcheck){
+	  
+	
        window.close();
    }
 }
+
+
 
 function close1(){
    
    if(confirm("닫으시겠습니까?")){
        window.close();
    }
+   
 }

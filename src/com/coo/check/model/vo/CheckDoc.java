@@ -22,7 +22,7 @@ public class CheckDoc implements Serializable{
 	private Date docDate; //문서 작성 날짜
 	private String returnComment; //반려시 코멘트
 	private String deleteyn; //문서 삭제시 y  기본값 n
-	private String docfile; //파일
+
 
 	public CheckDoc() {
 		
@@ -30,7 +30,7 @@ public class CheckDoc implements Serializable{
 
 	public CheckDoc( String aTitle, int aWriter, String docType, String approver,
 			String deptCode, String inPeople, String inStatus, String colDept, String colPeople, String colStatus,
-			String endPerson, String viewPeople, String docfile) {
+			String endPerson, String viewPeople) {
 		
 		this.aTitle = aTitle;
 		this.aWriter = aWriter;
@@ -44,13 +44,12 @@ public class CheckDoc implements Serializable{
 		this.colStatus = colStatus;
 		this.endPerson = endPerson;
 		this.viewPeople = viewPeople;
-		this.docfile = docfile;
 	}
 
 	public CheckDoc(int docNumber, String aTitle, int aWriter, String awriterName, String docType, int aStatus,
 			String approver, String deptCode, String inPeople, String inStatus, String colDept, String colPeople,
-			String colStatus, String endPerson, String viewPeople, Date docDate, String returnComment, String deleteyn,
-			String docfile) {
+			String colStatus, String endPerson, String viewPeople, Date docDate, String returnComment, String deleteyn
+) {
 		super();
 		this.docNumber = docNumber;
 		this.aTitle = aTitle;
@@ -70,7 +69,6 @@ public class CheckDoc implements Serializable{
 		this.docDate = docDate;
 		this.returnComment = returnComment;
 		this.deleteyn = deleteyn;
-		this.docfile = docfile;
 	}
 
 	public int getDocNumber() {
@@ -217,13 +215,7 @@ public class CheckDoc implements Serializable{
 		this.deleteyn = deleteyn;
 	}
 
-	public String getDocfile() {
-		return docfile;
-	}
 
-	public void setDocfile(String docfile) {
-		this.docfile = docfile;
-	}
 
 	@Override
 	public String toString() {
@@ -232,7 +224,7 @@ public class CheckDoc implements Serializable{
 				+ ", deptCode=" + deptCode + ", inPeople=" + inPeople + ", inStatus=" + inStatus + ", colDept="
 				+ colDept + ", colPeople=" + colPeople + ", colStatus=" + colStatus + ", endPerson=" + endPerson
 				+ ", viewPeople=" + viewPeople + ", docDate=" + docDate + ", returnComment=" + returnComment
-				+ ", deleteyn=" + deleteyn + ", docfile=" + docfile + "]";
+				+ ", deleteyn=" + deleteyn ;
 	}
 
 
