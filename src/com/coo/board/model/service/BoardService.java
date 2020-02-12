@@ -28,12 +28,12 @@ public class BoardService {
 		return result;
 	}
 
-	public ArrayList<Board> selectList(int currentPage, int limit) {
+	public ArrayList<Board> selectList(int currentPage, int limit,String deptView) {
 		Connection con = getConnection();
 		
 		ArrayList<Board> list = null;
 		try {
-			list = bDao.selectList(con,currentPage,limit);
+			list = bDao.selectList(con,currentPage,limit,deptView);
 		} catch (CooException e) {
 			e.getMessage();
 		}

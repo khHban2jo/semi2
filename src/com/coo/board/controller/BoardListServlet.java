@@ -8,11 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.coo.board.model.service.BoardService;
 import com.coo.board.model.vo.Board;
 import com.coo.board.model.vo.PageInfo;
 import com.coo.exception.CooException;
+import com.coo.member.model.vo.Member;
 
 /**
  * Servlet implementation class BoardListServlet
@@ -42,7 +44,10 @@ public class BoardListServlet extends HttpServlet {
 		BoardService bs = new BoardService();
 		currentPage = 1;
 		limit = 6;
-				
+		HttpSession session = request.getSession();
+		Member m = (Member)session.getAttribute("member");
+		String deptView = m.getDeptCode();
+		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
@@ -57,7 +62,7 @@ public class BoardListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		list = bs.selectList(currentPage,limit);
+		list = bs.selectList(currentPage,limit,deptView);
 
 		if(list != null) {
 			PageInfo pi = new PageInfo(currentPage, startPage, endPage, listCount, limit, maxPage);

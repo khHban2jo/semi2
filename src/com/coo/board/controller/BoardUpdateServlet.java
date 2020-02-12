@@ -30,12 +30,15 @@ public class BoardUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Board b = new Board();
+		
 		b.setBcontent(request.getParameter("ir1"));
 		b.setBno(Integer.parseInt(request.getParameter("bno")));
 		b.setBtitle(request.getParameter("title"));
 		b.setCategory(request.getParameter("category"));
-		b.setBtype(Integer.parseInt(request.getParameter("category")));
+		b.setBtype(Integer.parseInt(b.getCategory()));
 		b.setBwriter(request.getParameter("writer"));
+		b.setBdeptCode(request.getParameter("deptview"));
+		
 		
 		int result = new BoardService().updateBoard(b);
 		

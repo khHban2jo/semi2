@@ -77,6 +77,7 @@
                         </thead>
                         <tbody>
                         	<% for(Board b : list){ %>
+                        	<%if(m.getDeptCode().equals(b.getBdeptCode())){ %>
                             <tr align="center" class='table-line'>
                                 <input type="hidden" value="<%= b.getBno() %>">
                                 <td><input type="checkbox" name="list"></td>
@@ -88,6 +89,7 @@
                                 <td><%=b.getBcount() %></td>
                             </tr>
                             <%} %>
+                           <%} %>
                         </tbody>
                     </table>
                     <%if(m != null){ %>
