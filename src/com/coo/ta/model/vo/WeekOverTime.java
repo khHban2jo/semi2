@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class WeekOverTime implements Serializable{
 	
 	/**
-	 * 	추가 근무 시간 관리 용
+	 * 	WEEK_OVERTIME 테이블 객채 (추가 근무 시간 관리 용)
 	 */
 	private static final long serialVersionUID = -4926295766420234239L;
 	

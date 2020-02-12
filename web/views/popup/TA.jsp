@@ -12,10 +12,39 @@
 	String solMonthstr = "" + solMonth;
 	solMonthstr = solMonth>=10? solMonthstr : '0'+solMonthstr;
 	
-	ArrayList<String> hList = new HolidayAPI().getHoliday(solYear, "04");
+	ArrayList<String> hList = new HolidayAPI().getHoliday(solYear, solMonthstr);
 	
 	Member m = (Member)session.getAttribute("member");
-	HashMap wtMap = (HashMap) request.getAttribute("wtMap");
+	HashMap<Integer, String> wtMap = (HashMap<Integer, String>) request.getAttribute("wtMap");
+	HashMap<Integer, String> wtMap2 = new HashMap<Integer, String>();
+
+	String time="";
+	for(int i=0; i<wtMap.size(); i++){
+		if(wtMap.get(i).length() == 3){
+			time = wtMap.get(i);
+			String[] timeStr = time.split("");
+			time = "0" + timeStr[0] + ":" + timeStr[1] + timeStr[2];
+		}else if(wtMap.get(i).length() == 4){
+			time = wtMap.get(i);
+			String[] timeStr = time.split("");
+			time = timeStr[0]+timeStr[1]+":"+timeStr[2]+timeStr[3];
+		}else{
+			time = "등록전";
+		}
+		wtMap2.put(i, time);
+	}
+	
+	String temp="";
+	if(wtMap2.get(1).length() != 3){
+		if(wtMap2.get(0).compareTo(wtMap2.get(1)) > 0 ){
+			temp = wtMap2.get(0);
+			wtMap2.put(0, wtMap2.get(1));
+			wtMap2.put(1, temp);
+		}
+	}
+	
+	
+	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -43,17 +72,17 @@
             <span id="userName"><%= m.getEmpName() %></span>
             <br><br><br>
             <hr>
-            <span class="start">출근시간</span>
-            <span id="startTime"><%=wtMap.get(0) %></span> <br>    <!--로직짜야됨--> 
-            <span class="start">퇴근시간</span>
-            <span id="endTime"><%=wtMap.get(1) %></span> <br>    <!--로직짜야됨--> 
+            <span class="La">출근시간</span>
+            <span id="startTime"><%=wtMap2.get(0) %></span> <br>    <!--로직짜야됨--> 
+            <span class="La">퇴근시간</span>
+            <span id="endTime"><%=wtMap2.get(1) %></span> <br>    <!--로직짜야됨--> 
 
-			<% if(wtMap.get(0).equals("출근전")){ %>
+			<% if(wtMap2.get(0).equals("등록전")){ %>
             	<button id="startBtn" class="btn">출근 등록</button>
            	<%} else { %>
            		<button id="startBtn" class="btn" disabled>출근 등록</button>
        		<%} %>
-            <% if(!wtMap.get(0).equals("출근전")){ %>
+            <% if(!wtMap2.get(0).equals("등록전")){ %>
             	<button id="endBtn" class="btn">퇴근 등록</button>
             <%}else { %>
             	<button id="endBtn" class="btn" disabled>퇴근 등록</button>
@@ -62,7 +91,22 @@
             <button id="checkId" class="btn">결재 확인</button>
         </div>
 
-        <div id="blankArea" class="changeArea"></div>
+        <div id="area2" class="area2">
+        	<fieldset id="area2Field">
+        		<legend>&nbsp;&nbsp;이번달 근무 현황&nbsp;&nbsp;</legend>
+        		<span class="La2">총 근무일</span>		<span id="" class="La2Value">XX일</span> <br><br>
+        		<span class="La2">지각 횟수</span>		<span id="" class="La2Value">XX회</span> <br><br><br>
+        		<span class="La2b">휴무 예정일</span>		<span id="" class="La2Valueb">XX일/XX일/XX일</span> <br><br>
+        		<span class="La2b">반차 예정일</span>		<span id="" class="La2Valuec">XX일</span> <br><br>
+        	</fieldset>
+        	<fieldset id="area2Field2">
+        		<br>
+        		<legend>&nbsp;&nbsp;이번주 추가 근무 현황&nbsp;&nbsp;</legend>
+        		<span class="La3">총 추가 근무 시간</span>		<span id="" class="La3Value">XX시간 XX분</span> <br><br><br>
+				<div class="progress"><div class="progressBar"></div>60%</div>
+				<span class="La4Value">12시간 中  XX.X 시간</span>
+        	</fieldset>
+        </div>
 
     </div>
 

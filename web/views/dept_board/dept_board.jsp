@@ -13,13 +13,13 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>COO - 부서게시판</title>
+    <title>COO - 게시판</title>
    
     <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/button.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/margin.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/table.css">
-
+	<script src="/semi/resource/js/common/boardbutton.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    
 </head>
@@ -34,12 +34,12 @@
         <div class="right">
             <!-- 게시판 시작 -->
             <div class="margin-list-head">
-                <h1 align="left">부서별 게시판</h1>
+                <h1 align="left" id="board-Title">게시판</h1>
                 <hr class="table-line" color="lightgray">
-                <button type="button" class="btn btn-light">전체</button>
-                <button type="button" class="btn btn-primary">부서별</button>
-                <button type="button" class="btn btn-info">일반</button>
-                <button type="button" class="btn btn-success">업무</button>
+                 <button type="button" class="btn btn-light" id="allb">전체</button>
+                <button type="button" class="btn btn-primary" id="deptb">부서별</button>
+                <button type="button" class="btn btn-info" id="normalb">일반</button>
+                <button type="button" class="btn btn-success" id="bizb">업무</button>
                 <br><br><br>
                 <!-- 홍석코드 -->
                 &nbsp; 
@@ -81,7 +81,7 @@
                                 <input type="hidden" value="<%= b.getBno() %>">
                                 <td><input type="checkbox" name="list"></td>
                                 <td><%=b.getBno() %></td> 
-                                <td><%=b.getBtype() %></td>
+                                <td><%=b.getCategory() %></td>
                                 <td><%=b.getBtitle() %></td>
                                 <td><%=b.getBwriter() %></td>
                                 <td><%=b.getBdate() %></td>
@@ -151,10 +151,27 @@
   		 var option = "top=200px,left=500px,width=850px,height=550px,location=no,resizable=no,toolbars=no";
   		window.open(url,name,option);
   	 });
+  	 
   	 $('#list td').click(function(){
   		 var bno = $(this).parent().find("input").val();
   		 location.href="<%=request.getContextPath() %>/selectOne.bo?bno="+bno;
   	 });
+  	 
+  	$('#allb').click(function(){
+		   location.href="<%=request.getContextPath() %>/selectBoardAll.bo";
+	});
+  	
+	$('#deptb').click(function(){
+	  location.href="<%=request.getContextPath() %>/selectBoardDept.bo";
+	});
+	
+	$('#normalb').click(function(){
+	  location.href="<%=request.getContextPath() %>/selectBoardNormal.bo";
+	});
+	
+	$('#bizb').click(function(){
+	  location.href="<%=request.getContextPath() %>/selectBoardBiz.bo";
+	});
   </script>	
 </body>
 </html>

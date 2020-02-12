@@ -1,6 +1,7 @@
 package com.coo.ta.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,8 +47,33 @@ public class EndTime extends HttpServlet {
 		
 		//	현재 시간
 		Date now = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-		String taTime = sdf.format(now);
+		SimpleDateFormat sdf = new SimpleDateFormat("HHmm");
+		String timeStr = sdf.format(now);
+		
+		int taTime = -1;
+		
+		Date d = new Date();
+		
+		try {
+			d = sdf.parse(timeStr);
+		} catch (ParseException e1) {}
+		long nowlong = d.getTime()+32400000;
+		nowlong = nowlong/60000;
+		
+		long hour = nowlong/60;
+		long min = nowlong%60;
+		
+		String hh = "";
+		String mm = "";
+		
+		hh = ""+hour;
+		if( min < 10 ) {
+			mm = "0"+min;
+		}else {
+			mm = ""+min;
+		}
+		
+		taTime = Integer.parseInt(hh+mm);
 		
 		//	WorkTime 객체 생성
 		WorkTime wt = new WorkTime(empCode, taType, taTime);
@@ -61,18 +87,17 @@ public class EndTime extends HttpServlet {
 			request.setAttribute("msg", "퇴근 시간 등록 중 오류 발생!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-
 		//	ajax 결과 넘기기
 		String msg = null;
 		
 		if( result > 0 ) {
-			if( "18:00".compareTo(taTime) > 0 ) {
-				msg = taTime + " 부로 퇴근 등록 완료되었습니다.\n아직 퇴근 시간이 남았습니다!!";
+			if( 1800 > taTime ) {
+				msg = "퇴근 등록 완료되었습니다.\n아직 퇴근 시간이 남았습니다!!";
 			}else {
-				msg = taTime + " 부로 퇴근 등록 완료!\n고생하셨습니다.";
+				msg = "퇴근 등록 완료!\n고생하셨습니다.";
 			}
 		}else {
-			msg = "출근 시간 등록 실패! 다시 시도하세요";
+			msg = "퇴근 시간 등록 실패! 다시 시도하세요";
 		}
 		
 		response.getWriter().print(msg);

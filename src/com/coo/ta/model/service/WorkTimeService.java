@@ -21,12 +21,12 @@ public class WorkTimeService {
 	 * @return
 	 * @throws CooException
 	 */
-	public HashMap selectWorkTime(int empCode) throws CooException {
+	public HashMap<Integer, String> selectWorkTime(int empCode) throws CooException {
 		
 		Connection con = getConnection();
 		
-		HashMap wtMap = wtDao.selectWorkTime(con, empCode);
-
+		HashMap<Integer, String> wtMap = wtDao.selectWorkTime(con, empCode);
+		
 		close(con);
 		
 		return wtMap;
@@ -46,6 +46,8 @@ public class WorkTimeService {
 		
 		if(result > 0 ) commit(con);
 		else rollback(con);
+		
+		System.out.println("출근시간 INSERT");
 		
 		close(con);
 		
@@ -83,5 +85,5 @@ public class WorkTimeService {
 		
 		return result;
 	}
-	
+
 }

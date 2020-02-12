@@ -8,20 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.coo.board.model.service.BoardService;
-import com.coo.board.model.vo.Board;
-import com.coo.exception.CooException;
 
 /**
- * Servlet implementation class BoardInsertServlet
+ * Servlet implementation class BoardDeleteServlet
  */
-@WebServlet("/bInsert.bo")
-public class BoardInsertServlet extends HttpServlet {
+@WebServlet("/deleteBoard.bo")
+public class BoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertServlet() {
+    public BoardDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,30 +28,14 @@ public class BoardInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		String category = request.getParameter("category");
-		int type = Integer.parseInt(request.getParameter("category"));
-		String writer = request.getParameter("writer");
-		String content = request.getParameter("ir1");
-		int result = 0;
+		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		Board b = new Board();
-		b.setBtype(type);
-		b.setBtitle(title);
-		b.setCategory(category);
-		b.setBwriter(writer);
-		b.setBcontent(content);
-		try {
-			result = new BoardService().insertBoard(b);
-		} catch (CooException e) {
-			request.setAttribute("msg","게시글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		int result = new BoardService().deleteBoard(bno);
 		
 		if(result > 0) {
 			response.sendRedirect("selectList.bo");
 		}else {
-			request.setAttribute("msg","게시글 작성 실패");
+			request.setAttribute("msg","게시글 삭제 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}

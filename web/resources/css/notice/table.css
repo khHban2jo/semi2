@@ -19,3 +19,7 @@ tbody>tr.table-line:hover{
 #list{
     table-layout:fixed;
 }
+
+.tra{
+	text-align: center;
+}

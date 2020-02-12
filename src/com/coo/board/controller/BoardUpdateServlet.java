@@ -9,19 +9,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.coo.board.model.service.BoardService;
 import com.coo.board.model.vo.Board;
-import com.coo.exception.CooException;
 
 /**
- * Servlet implementation class BoardInsertServlet
+ * Servlet implementation class BoardUpdateServlet
  */
-@WebServlet("/bInsert.bo")
-public class BoardInsertServlet extends HttpServlet {
+@WebServlet("/bUpdate.bo")
+public class BoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertServlet() {
+    public BoardUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,32 +29,23 @@ public class BoardInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		String category = request.getParameter("category");
-		int type = Integer.parseInt(request.getParameter("category"));
-		String writer = request.getParameter("writer");
-		String content = request.getParameter("ir1");
-		int result = 0;
-		
 		Board b = new Board();
-		b.setBtype(type);
-		b.setBtitle(title);
-		b.setCategory(category);
-		b.setBwriter(writer);
-		b.setBcontent(content);
-		try {
-			result = new BoardService().insertBoard(b);
-		} catch (CooException e) {
-			request.setAttribute("msg","게시글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		b.setBcontent(request.getParameter("ir1"));
+		b.setBno(Integer.parseInt(request.getParameter("bno")));
+		b.setBtitle(request.getParameter("title"));
+		b.setCategory(request.getParameter("category"));
+		b.setBtype(Integer.parseInt(request.getParameter("category")));
+		b.setBwriter(request.getParameter("writer"));
 		
-		if(result > 0) {
+		int result = new BoardService().updateBoard(b);
+		
+		if(result>0) {
 			response.sendRedirect("selectList.bo");
 		}else {
-			request.setAttribute("msg","게시글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.setAttribute("msg","게시판 수정 실패");
+			request.getRequestDispatcher("views/common/errorPage.jsp");
 		}
+		
 	}
 
 	/**

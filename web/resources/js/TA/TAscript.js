@@ -11,54 +11,103 @@ $(function(){
 
     //  출근버튼 클릭
     $('#startBtn').click(function(){
-        $.ajax({
-        	url: "/semi/sTime.ta",
-        	type:"get",
-        	data:{
-        		type:"T1"
-        	},
-        	success:function(msg){
-        		alert(msg);
-        	},
-        	complete:function(){
-        		location.href = "/semi/open.ta";
-        	}
-        });
+    	var now = new Date();
+		
+		var year = now.getFullYear();
+		var month = now.getMonth() + 1;
+		month = month >= 10? month : '0' + month;
+		var day = now.getDate();
+		day = day >= 10? day : '0' + day;
+		
+		var now2 = year + '' + month + '' + day;
+		
+		var checkHoliday = false;
+    	$.each(holiday, function(index, value){
+    		if( value == now2 ){
+    			checkHoliday = true;
+    		}
+    	});
+    	
+    	var type;
+    	if(now.getDay()==0||now.getDay()==6||checkHoliday){
+    		//	토 / 일요일 또는 공휴일 출근은 T4
+    		type = "T4";
+    	}else{
+    		//  나머지 일반 출근은 T1
+    		type = "T1";
+    	}
+    	
+		$.ajax({
+			url: "/semi/sTime.ta",
+			type:"get",
+			data:{
+				type:type
+			},
+			success:function(msg){
+				alert(msg);
+			},
+			complete:function(){
+				location.href = "/semi/open.ta";
+			}
+		});
+    	
     });
 
     //  퇴근버튼 클릭
     $('#endBtn').click(function(){
-    	$.ajax({
+    	var now = new Date();
+		
+		var year = now.getFullYear();
+		var month = now.getMonth() + 1;
+		month = month >= 10? month : '0' + month;
+		var day = now.getDate();
+		day = day >= 10? day : '0' + day;
+		
+		var now2 = year + '' + month + '' + day;
+		
+		//	공휴일 check 변수
+		var checkHoliday = false;
+    	$.each(holiday, function(index, value){
+    		if( value == now2 ){
+    			checkHoliday = true;
+    		}
+    	});
+    	
+    	var type;
+    	if(now.getDay()==0||now.getDay()==6||checkHoliday){
+    		//	토 / 일요일 또는 공휴일 퇴근은 T5
+    		type = "T5";
+    	}else{
+    		//  나머지 일반 퇴근은 T2
+    		type = "T2";
+    	}
+    	
+    	$.ajax({	//	ajax 1번 시작
         	url: "/semi/eTime.ta",
         	type:"get",
         	data:{
-        		type : "T2"
+        		type : type
         	},
         	success:function(msg){
         		alert(msg);
         	},
-        	complete:function(){
-        		var now = new Date();
-        		
-        		var year = now.getFullYear();
-        		var month = now.getMonth() + 1;
-        		month = month >= 10? month : '0' + month;
-        		var day = now.getDate();
-        		day = day >= 10? day : '0' + day;
-        		
-        		var now2 = year + '' + month + '' + day;
-        		
-        		var checkHoliday = false;
-            	$.each(holiday, function(index, value){
-            		if( value == now2 ){
-            			checkHoliday = true;
-            		}
-            	});
-        		
+        	complete:function(){		//	ajax-compleate 1번 시작
         		if(now.getDay()==0||now.getDay()==6||checkHoliday){
-        			
-        			
-        		}else{
+        			//	토 / 일 요일 이거나 공휴일이라면 특근으로 처리한다.
+        			$.ajax({
+        				url: "/semi/endH.ta",
+        				type:"get",
+        				data:{
+        					now : now.getHours()+''+ ( now.getMinutes()>10? now.getMinutes():"0"+now.getMinutes() )
+        				},
+        				success: function(msg){
+        					alert(msg);
+        				},
+        				complete:function(){
+        					location.href = "/semi/open.ta";
+        				}
+        			});
+        		}else{		//	else문 1번
 	        		if(now.getHours()<19){
 	        			alert("19시 이전 퇴근!\n추가 근무 시간 없음!");
 	        			location.href = "/semi/open.ta";
@@ -66,6 +115,9 @@ $(function(){
 	        			$.ajax({
 	        				url: "/semi/overTime.ta",
 	        				type:"get",
+	        				data:{
+	        					now : now.getHours()+''+ ( now.getMinutes()>10? now.getMinutes():"0"+now.getMinutes() )
+	        				},
 	        				success:function(a){
 	        					alert(a);
 	        				},
@@ -74,10 +126,9 @@ $(function(){
 	        				}
 	        			});
 	        		}
-        		}
-        	}
-        });
-    	
+        		}		//	else문 1종료
+        	}		//	ajax-complete 1번 종료
+        });		//	ajax 1번 종료
     });
 
     //  휴무신청 버튼
@@ -90,5 +141,8 @@ $(function(){
     	
     });
     
+    var barProgress = $('.progress');
+    barProgress.eq(0).progress({value:25});
+    barProgress.eq(0).find(".ui-progressbar-value").css({"background":"#CC66CC"});
 
 });

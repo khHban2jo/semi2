@@ -28,7 +28,7 @@
     <div class="nav">
         <button id="documentsBtn" class="btn_nav"><img src="/semi/resources/image/documents.svg"><br>결재목록</button>
         <button id="noticeBtn" class="btn_nav"><img src="/semi/resources/image/info-fill.svg"><br>공지사항</button>
-        <button id="listBtn" class="btn_nav"><img src="/semi/resources/image/list-ul.svg"><br>부서<br>게시판</button>
+        <button id="listBtn" class="btn_nav"><img src="/semi/resources/image/list-ul.svg"><br><br>게시판</button>
         <button id="mypageBtn" class="btn_nav"><img src="/semi/resources/image/date.svg"><br>일정관리</button>
         <button id="jojicBtn" class="btn_nav"><img src="/semi/resources/image/people-fill.svg"><br>조직도</button>
         <button id="managerBtn" class="btn_nav"><img src="/semi/resources/image/envelope-fill.svg"><br>메일</button>
