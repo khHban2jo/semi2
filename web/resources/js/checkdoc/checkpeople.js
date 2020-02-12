@@ -36,9 +36,6 @@ $(function(){
        var a= $(this).siblings("label").text().split(" ");
        var c= $("#selectper tbody").html();
 
-       var d="<tr><td>"+a[0]+"</td><td>"+$(this).parents("ul").prev("li").find("label").text()+"</td><td>"
-                                   +a[1]+"</td><td>"+
-                                   a[2] +"</td></tr>";
        var d="<tr><td>"+a[0]+"</td><td>"+a[1]+"</td><td>"
        +a[2]+"</td><td>"+
        a[3] +"</td></tr>";
@@ -101,15 +98,31 @@ $(function(){
 	   });	
    }
    
-   var tablem = function(i){
+   var tablem = function(j){
 	   //원본 베이블 저장
-       var origin =$(i).siblings("div").find("tbody").html();
+      
        //저장후 추가
-	   $(i).siblings("div").find("tbody").html( origin + $("#selectper tbody").html());
-	   $("#selectper tbody").html("");
+       for(var i= $("#selectper tbody").find("tr").length-1; i >=0; i--){
+    	   var origin = $(j).siblings("div").find("tbody").html();
+    	   var inp = "<tr>" + $("#selectper tbody").find("tr").eq(i).html() +"</tr>";
    
+    	   $(j).siblings("div").find("tbody").html(origin + inp);
+       }
+       $("#selectper tbody").html("");
 	   //체크 풀기
 	   $("#map input[type=checkbox]").prop("checked","");
+	   
+	   
+	 
+//	       var origin = $(i).siblings("div").find("tbody").html();
+//	       var inp = $("#selectper tbody").html();
+//	       
+//	       
+//		   $(i).siblings("div").find("tbody").html(origin + inp);
+//	      
+//	       $("#selectper tbody").html("");
+//		   //체크 풀기
+//		   $("#map input[type=checkbox]").prop("checked","");
    }
    
    
@@ -246,46 +259,47 @@ $("#saveline").click(function(){
    $("#backdiv").css("display","block");
    $("#seldiv").css("display","block");
    $("#save").css("display","block");
-   $("#pushper1").css("display","block");
+   $("#listsave1").css("display","block");
 
    $("#saveper tbody").html($("#checkper tbody").html());
  
 })
 
 
-$("#save").click(function(){
-   //servlet에 sel값과 pushper2값,$("#saveper tbody").html  넘겨주기
-   $("#close2").trigger("click");
-});
+//$("#save").click(function(){
+//   //servlet에 sel값과 pushper2값,$("#saveper tbody").html  넘겨주기
+//   $("#close2").trigger("click");
+//});
 
 //결제라인 가져오기
-$("#push1").click(function(){
-   $("#backdiv").css("display","block");
-   $("#seldiv").css("display","block");
-   $("#sel").css("display","block");
-   $("#pushper1").css("display","block");
-
-   $("#pushper2").trigger("click");          
-});
+//$("#push1").click(function(){
+//   $("#backdiv").css("display","block");
+//   $("#seldiv").css("display","block");
+//   $("#sel").css("display","block");
+//   $("#pushper2").css("display","block");
+//
+//   $("#pushper2").trigger("change");
+// 
+//});
 
 /*$("#pushper2").click(function(){
    //servlet에 sel값과 pushper2값 넘겨준 값 tbody에 담기
-});
+});*/
 
 
 $("#sel").click(function(){
    $("#checkper tbody").html($("#saveper tbody").html());
    $("#close2").trigger("click");
 });
-*/
+
 
 //결제선 창 닫기
 $("#close2").click(function(){
    $("#saveper tbody").html("");
    $("#backdiv").css("display","none");
    $("#seldiv").css("display","none");
-   $("#pushper1").css("display","none");
-   $("#pushper2").css("display","none");
+   $("#listget1").css("display","none");
+   $("#listsave1").css("display","none");
    $(this).siblings("button").css("display","none");
 });
 });

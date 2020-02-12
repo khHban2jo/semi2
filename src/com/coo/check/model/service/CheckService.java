@@ -8,6 +8,7 @@ import com.coo.check.model.vo.CheckDoc;
 import com.coo.check.model.vo.PayDoc;
 import com.coo.check.model.vo.PmapMember;
 import com.coo.check.model.vo.RoundDoc;
+import com.coo.check.model.vo.StockLine;
 import com.coo.check.model.vo.Vacation;
 
 import static com.coo.common.JDBCTemplate.*;
@@ -129,12 +130,13 @@ public class CheckService {
 
 	/**
 	 * 조직도 부서 가져오기
+	 * @param st 
 	 * @return
 	 */
-	public ArrayList<String> getDcnList() {
+	public ArrayList<String> getDcnList(int st) {
 		Connection con = getConnection();
 		
-		ArrayList<String> dcnlist = cDao.getDcnList(con);
+		ArrayList<String> dcnlist = cDao.getDcnList(con, st);
 		
 		if(dcnlist == null) {
 			//에러 처리용
@@ -154,6 +156,26 @@ public class CheckService {
 		}
 		close(con);
 		return pmaplist;
+	}
+
+	public ArrayList<StockLine> getStocklist(int empcode) {
+		Connection con = getConnection();
+		
+		ArrayList<StockLine> line = cDao.getStocklist(con,empcode);
+	
+		close(con);
+		return line;
+	}
+
+	public int saveStockline(int empcode, String deptcode, int number, String table) {
+		Connection con = getConnection();
+		int result = cDao.saveStockline(con, empcode, deptcode, number, table);
+			
+		if(result>0) commit(con);
+		else rollback(con);
+		
+		close(con);
+		return result;
 	}
 
 

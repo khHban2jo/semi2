@@ -76,75 +76,7 @@
     </div>
 </fieldset>
 <script>
-var mydept ="";
 
-$(function(){
-	$.ajax({
-		url:"/semi/pMap.ch",
-		type:"get",
-		success:function(data){
-			var dept= $(".dept");
-			var ul = $(".de");
-			var $li = $("<li>");
-			var $check = $('<input type ="checkbox" class ="person1" onclick="checkperson(this);">');
-			var $la = $('<label onclick="clickla(this);>');
-			
-			for(var i in data.list1){
-				var code= data["list1"][i];
-				var deptsearch = data["list2"][code];
-				dept[i].innerHTML = code; //라벨 박기
-				if(deptsearch[0].deptCode == "<%=myde%>"){ 
-					$("#chedept").val(deptsearch[0].deptName); //자신 부서명 찾기
-				}
-				for(var j in deptsearch){ // 
-					var people = deptsearch[j];
-					var text;
-					with(people){
-					text = empCode + " " +deptName + " " +job + " "+empName;
-					}
-					ul[i].innerHTML +='<li><input type ="checkbox" class ="person1" onclick="checkperson(this);"><label onclick="clickla(this);">' + text +"</label></li>";
-					
-				}
-			}
-				
-	
-		},error:function(){
-			alert("에러")
-		}
-		
-	});
-	
-});
-
-	function checkperson(i){
-
- 		if($(i).prop("checked")){
-
-			var a= $(i).siblings("label").text().split(" ");
-			var c= $("#selectper tbody");
-			var d="<tr><td>"+a[0]+"</td><td>"+a[1]+"</td><td>"+a[2]+"</td><td>"+a[3] +"</td></tr>";
-		//기존 배열과 확인후 삭제
-			 if(c.find("tr").length >0){
-				c.find("tr").each(function(index,item){				
-				$("#selectper tbody").html(c.html()+d );
-			 	});
-	
- 			}else{
-   				$("#selectper tbody").html(d);
- 			}
-		}else{
-			 var a= $(i).siblings("label").text().split(" ");
-			 $('#selectper tr:contains('+a[0]+')').remove(); 
-		}
-
-	}
-	
-	
-	function clickla(i){
-		console.log($(i));
-	       //$(i).prev(".person1").click();
-	    console.log($(i).prev(".person1"));
-	   }
 
 </script>
 
@@ -294,15 +226,14 @@ $(function(){
     </div>
     <div id="seldiv">
         <select id="deptsel">
-            <option value="D0">a</option>
-            <option value="D2">b</option>
+            
         </select>
-        <select id="pushper1">
+        <select id="listsave1">
             <option value="1">결제라인1</option>
             <option value="2">결제라인2</option>
             <option value="3">결제라인3</option>
         </select>
-         <select id="pushper2">
+         <select id="listget1">
             <option value="1">결제라인1</option>
             <option value="2">결제라인2</option>
             <option value="3">결제라인3</option>
@@ -310,8 +241,7 @@ $(function(){
         <div class ="line">
 
             <table id = "saveper">
-                <tbody>
-
+            <tbody>
             </tbody>
             </table>
         </div>
@@ -326,52 +256,166 @@ $(function(){
 </div> 
 	<script>
 	
-	$("#pushper2").click(function(){
-		console.log($("#deptsel").val());
-		console.log($("#pushper2").val())
-		<%-- $.ajax({
-			url:"",
+	var mydept ="";
+	var getTable;
+	$(function(){
+		
+		
+		$.ajax({
+			url:"/semi/pMap.ch",
 			type:"get",
-			data:{
-				empcode:<%=m.getEmpCode()%>
-			},
 			success:function(data){
-				var tbody = data[$("#deptsel").val()][$("#pushper2").val()];
-				table:$("#saveper tbody").html(data);
-			},
-			error:function(){
-				alert("불러오는데 오류가 생겼습니다.");
+				var dept= $(".dept");
+				var ul = $(".de");
+				var $li = $("<li>");
+				var $check = $('<input type ="checkbox" class ="person1" onclick="checkperson(this);">');
+				var $la = $('<label onclick="clickla(this);>');
+				
+
+				for(var i in data["list1"]){
+					var code= data["list1"][i];
+					var deptsearch = data["list2"][code];
+					dept[i].innerHTML = code; //라벨 박기
+					if(deptsearch[0].deptCode == "<%=myde%>"){ 
+						$("#chedept").val(deptsearch[0].deptName); //자신 부서명 찾기
+					}
+					for(var j in deptsearch){ // 
+						var people = deptsearch[j];
+						var text;
+						with(people){
+						text = empCode + " " +deptName + " " +job + " "+empName;
+						}
+						ul[i].innerHTML +='<li><input type ="checkbox" class ="person1" onclick="checkperson(this);"><label onclick="clickla(this);">' + text +"</label></li>";
+						
+					}
+				}
+					
+		
+			},error:function(){
+				alert("에러")
 			}
-		}); --%>
-	});
+			
+		});
 		
-		$("#save").click(function(){
-			   //servlet에 sel값과 pushper2값,$("#saveper tbody").html  넘겨주기
-			   $("#close2").trigger("click");
-			});
-
-
-
 		
-		function setsaveline(i){
-			$.ajax({
-				url:"",
+		 $.ajax({
+				url:"/semi/gStLine.ch",
 				type:"get",
 				data:{
-					dept:$("#deptsel").val(),
-					number:$("#pushper1").val(),
-					table:$("#saveper tbody").html()
+					empcode:<%=m.getEmpCode()%>
 				},
 				success:function(data){
 					
+		  
+		   		var $select = $("#deptsel");
+		   		$select.find("option").remove();
+		   		var code= data["list1"];
+		  		
+		   		for(var i = 0; i <code.length; i++){
+					if(data["list2"][code[i]] != undefined){
+						 var $op = $("<option>");
+						$op.val(data["list2"][code[i]].deptCode);
+						$op.text(data["list2"][code[i]].deptName);
+						$select.append($op);
+			  		 }
+		   		}
+			  
+				  getTable= data["list2"];
+				  
+			
+			  
+	},
+	error:function(){
+		alert("불러오는데 오류가 생겼습니다.");
+	}
+	
+	
+		}); 
+		 return getTable;
+	});
+
+		function checkperson(i){
+
+	 		if($(i).prop("checked")){
+
+				var a= $(i).siblings("label").text().split(" ");
+				var c= $("#selectper tbody");
+				var d="<tr><td>"+a[0]+"</td><td>"+a[1]+"</td><td>"+a[2]+"</td><td>"+a[3] +"</td></tr>";
+			//기존 배열과 확인후 삭제
+				 if(c.find("tr").length >0){
+					c.find("tr").each(function(index,item){				
+					$("#selectper tbody").html(c.html()+d );
+				 	});
+		
+	 			}else{
+	   				$("#selectper tbody").html(d);
+	 			}
+			}else{
+				 var a= $(i).siblings("label").text().split(" ");
+				 $('#selectper tr:contains('+a[0]+')').remove(); 
+			}
+
+		}
+		
+		
+		function clickla(i){
+			console.log($(i));
+		       //$(i).prev(".person1").click();
+		    console.log($(i).prev(".person1"));
+		   }
+	
+	
+	$("#push1").click(function(){
+
+					   $("#backdiv").css("display","block");
+					   $("#seldiv").css("display","block");
+					   $("#sel").css("display","block");
+					   $("#listget1").css("display","block");
+
+					   $("#listget1").trigger("change");
+		});
+	
+	$("#listget1").change(function(){
+
+		var getT = getTable;
+		console.log(getT);
+	
+		
+		var tbody = getT[$("#deptsel").val()]["list"+$("#listget1").val()];
+		console.log(tbody);
+		if(tbody != undefined){
+		$("#saveper tbody").html(tbody);
+		}else{
+			$("#saveper tbody").html("");
+		}
+
+	});
+		
+		$("#save").click(function(){
+			
+			$.ajax({
+				url:"/semi/sStline.ch",
+				type:"get",
+				data:{
+					empcode :<%=m.getEmpCode()%>,
+					dept:$("#deptsel").val(),
+					number:$("#listsave1").val(),
+					table:$("#saveper tbody").html()
+				},
+				success:function(data){
+					console.log(data);
+					 $("#close2").trigger("click");
 				},
 				error:function(){
-					alert("불러오는데 오류가 생겼습니다.");
+					alert("저장하는데 오류가 생겼습니다.");
 				}
-			
+			  
+			});
 		});
-		}
-	
+
+
+		
+		
 	</script>
 </body>
 </html>

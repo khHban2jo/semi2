@@ -16,6 +16,7 @@ import com.coo.check.model.vo.CheckDoc;
 import com.coo.check.model.vo.PayDoc;
 import com.coo.check.model.vo.PmapMember;
 import com.coo.check.model.vo.RoundDoc;
+import com.coo.check.model.vo.StockLine;
 import com.coo.check.model.vo.Vacation;
 import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
 
@@ -481,15 +482,21 @@ public class CheckDao {
 	}
 
 	/**
-	 * 조직도용 부서코드 가져오기
+	 * 조직도용 부서코드, 부서명 가져오기
 	 * @param con
+	 * @param st 
 	 * @return
 	 */
-	public ArrayList<String> getDcnList(Connection con) {
+	public ArrayList<String> getDcnList(Connection con, int st) {
 		ArrayList<String> dcnlist= null;
 		Statement stmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectDept");
+		String sql ="";
+		 if(st== 0) {
+			sql = prop.getProperty("selectDN");
+		 }else if(st == 1) {
+			sql= prop.getProperty("selectDC");
+		 }
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(sql);
@@ -548,6 +555,64 @@ public class CheckDao {
 		}
 		
 		return pmaplist;
+	}
+
+	public ArrayList<StockLine> getStocklist(Connection con, int empcode) {
+		ArrayList<StockLine> line = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql= prop.getProperty("getStockline");
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, empcode);
+			
+			rset = pstmt.executeQuery();
+			line = new ArrayList<StockLine>();
+			while(rset.next()) {
+				StockLine sl = new StockLine();
+				sl.setEmpcode(empcode);
+				sl.setDeptCode(rset.getString("DEPT_CODE"));
+				sl.setDeptName(rset.getString("DEPT_TITLE"));
+				sl.setList1(rset.getString("LINE1"));
+				sl.setList2(rset.getString("LINE2"));
+				sl.setList3(rset.getString("LINE3"));
+				
+				
+				line.add(sl);
+			}
+			if(!line.isEmpty()) {
+			
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return line;
+	}
+
+	public int saveStockline(Connection con, int empcode, String deptcode, int number, String table) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql =prop.getProperty("saveline" + number);
+
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,table);
+			pstmt.setInt(2, empcode);
+			pstmt.setString(3, deptcode);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
