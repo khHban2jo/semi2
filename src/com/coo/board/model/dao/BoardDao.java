@@ -53,7 +53,7 @@ public class BoardDao {
 		return result;
 	}
 
-	public ArrayList<Board> selectList(Connection con, int currentPage, int limit) throws CooException {
+	public ArrayList<Board> selectList(Connection con, int currentPage, int limit,String deptView) throws CooException {
 		ArrayList<Board> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -69,6 +69,7 @@ public class BoardDao {
 			
 			pstmt.setInt(1, endRow);
 			pstmt.setInt(2, startRow);
+			pstmt.setString(3, deptView);
 			
 			rset = pstmt.executeQuery();
 			
@@ -83,6 +84,7 @@ public class BoardDao {
 				b.setBdate(rset.getDate("bdate"));
 				b.setStatus(rset.getString("status"));
 				b.setCategory(rset.getString("CNAME"));
+				b.setBdeptCode(rset.getString("BDEPT_CODE"));
 				
 				list.add(b);
 			}
@@ -161,6 +163,7 @@ public class BoardDao {
 			pstmt.setString(3,b.getBcontent());
 			pstmt.setString(4,b.getBwriter());
 			pstmt.setString(5,b.getCategory());
+			pstmt.setString(6,b.getBdeptCode());
 			
 			result = pstmt.executeUpdate();
 			
@@ -184,7 +187,8 @@ public class BoardDao {
 			pstmt.setString(3, b.getBcontent());
 			pstmt.setString(4, b.getBwriter());
 			pstmt.setString(5, b.getCategory());
-			pstmt.setInt(6, b.getBno());
+			pstmt.setString(6, b.getBdeptCode());
+			pstmt.setInt(7, b.getBno());
 			
 			result = pstmt.executeUpdate();
 			

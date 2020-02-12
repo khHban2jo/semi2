@@ -35,6 +35,8 @@ public class BoardInsertServlet extends HttpServlet {
 		int type = Integer.parseInt(request.getParameter("category"));
 		String writer = request.getParameter("writer");
 		String content = request.getParameter("ir1");
+		String deptview = request.getParameter("deptview");
+		
 		int result = 0;
 		
 		Board b = new Board();
@@ -43,12 +45,9 @@ public class BoardInsertServlet extends HttpServlet {
 		b.setCategory(category);
 		b.setBwriter(writer);
 		b.setBcontent(content);
-		try {
-			result = new BoardService().insertBoard(b);
-		} catch (CooException e) {
-			request.setAttribute("msg","게시글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		b.setBdeptCode(deptview);
+		
+		result = new BoardService().insertBoard(b);
 		
 		if(result > 0) {
 			response.sendRedirect("selectList.bo");
