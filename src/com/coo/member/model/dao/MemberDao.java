@@ -97,4 +97,29 @@ public class MemberDao {
 		return result;
 	}
 
+	public int idDupChk(Connection con, String id) throws CooException {
+		int result = -1;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("idDupChk");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+		
+		rset = pstmt.executeQuery();
+	
+		if(rset.next()) {
+		  result = rset.getInt(1);
+		}
+			
+		}catch(SQLException e) {
+			throw new CooException("조회 실패");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
 }
