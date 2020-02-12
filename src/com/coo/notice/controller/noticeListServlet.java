@@ -30,6 +30,30 @@ public class noticeListServlet extends HttpServlet {
 		ArrayList<Notice> list = null;
 		NoticeService bs = new NoticeService();
 		
+		System.out.println("============== 게시판 실행 ==============");
+		  String search = request.getParameter("search"); 
+		  
+		  String date1 = request.getParameter("date1");
+		  String date2 = request.getParameter("date2");
+		  
+		  String keyword = "";
+		  
+		  System.out.println("search : "+search);
+		  
+		  if(search != null && !search.equals("all")) { 
+			  keyword = request.getParameter("keyword"); 
+		  }
+		  
+		System.out.println("keyword : "+keyword);
+		
+		// 처음으로 왼쪽의 공지 사항 클릭시 파라미터 값 초기화
+		if(date1.equals("all") && date2.equals("all")){
+			date1 = date2 = "";
+		}
+		
+		System.out.println("date1 : "+date1);
+		System.out.println("date2 : "+date2);
+		
 		System.out.println("request-getParameter(currentPage) : "+request.getParameter("currentPage"));
 		
 		// 페이징 처리에 필요한 변수들 한번에 표시할 페이지들 중 가장 앞의 페이지 : 
@@ -50,22 +74,35 @@ public class noticeListServlet extends HttpServlet {
 		// 처음에 접속시 페이지는 1페이지 부터 시작한다.
 		currentPage = 1;
 		
-		// 글 개수 및 페이지 수 5개로 제한하기
-		limit = 5;
+		// 글 개수 및 페이지 수 제한
+		limit = 7;
 		
 		// 특정 페이지호 수정해야 한다.
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			System.out.println("currentPage : " + currentPage);
 		}
-		
-//		if( request.getParameter("currentPage") instanceof String) {
-//			System.out.println("currentPage : String");
-//		}
 
 		// 페이징 처리를 위해서 전체 페이지 수를 가져온다. 
+		
 		System.out.println("첫 번째 공지 전체 값을 가져 온것을 실행 1-1");
-		int listcount = bs.getListCount();
+		
+		int listcount = 0;
+		
+		ArrayList<String> Datelist = new ArrayList<String>();
+		
+		Datelist.add(date1);
+		Datelist.add(date2);
+		
+		if(search.equals("all") || search.isEmpty()) {	
+			System.out.println("all 실행");
+			listcount = bs.getListCount(Datelist);
+			
+		}else {
+			
+			listcount = bs.getListCount(search, keyword, Datelist);
+			
+		}
 		
 		maxPage = (int)((double)listcount/limit+0.9);
 		
@@ -80,20 +117,31 @@ public class noticeListServlet extends HttpServlet {
 		}
 		
 		System.out.println("currentPage : " + currentPage);
-		//제한된 페이지(데이터)를 가져온다.
-		System.out.println("2-1");
-		list = bs.selectList(currentPage, limit);
-		
+
+// 전체 공지 사항 과 검색을 통한 검색을 구분하기 위해 분리
+		if(search.equals("all") || search == null) {	
+			
+			list = bs.selectList(currentPage, limit, Datelist);
+			
+		}else {
+			
+			list = bs.selectList(currentPage, limit, search, keyword, Datelist);
+			
+		}
+			
 		String page = "";
 		
 		System.out.println("list : "+ list.size());
-		for(Notice s : list) {
-			System.out.println(s.toString());
-		}
 		
 		if(list != null) {
 			page = "views/notice/notice.jsp";
+			
+			System.out.println("페이지 이동 시 값 : search : "+search+", keyword : "+keyword);
 			request.setAttribute("noticeList", list);
+			request.setAttribute("search", search);
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("date1", Datelist.get(0));
+			request.setAttribute("date1", Datelist.get(1));
 			
 			PageInfo pi = new PageInfo(currentPage, listcount, limit, maxPage, startPage, endPage);
 			System.out.println(pi.toString());

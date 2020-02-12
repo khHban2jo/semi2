@@ -35,7 +35,7 @@ public class DeleteNotice extends HttpServlet {
 		
 		if(result >= 1) {
 			System.out.println(nno+"번째 게시판 삭제 성공 ");
-			response.sendRedirect("/semi/noticeListServlet");
+			response.sendRedirect("/semi/noticeListServlet?search=all&date1=all&date2=all");
 		}else {
 			request.setAttribute("msg", "공지사항 삭제 실패");
 			// 나중에 에러 페이지 작성

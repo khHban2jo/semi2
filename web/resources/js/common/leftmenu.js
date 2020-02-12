@@ -58,7 +58,7 @@
 
      // 공지사항 게시판 출력
         $('#noticeBtn').click(function(){
-            location.href = "/semi/noticeListServlet"
+            location.href = "/semi/noticeListServlet?search=all&date1=all&date2=all"
         });
 
         $('#mypageBtn').click(function(){

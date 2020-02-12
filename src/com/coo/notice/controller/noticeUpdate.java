@@ -81,7 +81,7 @@ public class noticeUpdate extends HttpServlet {
 		
 		if(result > 0) { // 추가 성공
 			
-			response.sendRedirect("/semi/noticeListServlet");
+			response.sendRedirect("/semi/noticeListServlet?search=all&date1=all&date2=all");
 			
 		}else { // 공지사항 추가 실패
 			

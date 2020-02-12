@@ -10,30 +10,35 @@ import com.coo.notice.model.vo.Notice;
 
 public class NoticeService {
 
-	public int getListCount() {
+	// 전체 검색
+	public int getListCount(ArrayList<String> Datelist) {
 
 		Connection con = getConnection();
 
 		System.out.println("1-2");
-		int listCount = new noticeDao().getListCount(con);
+		System.out.println("arraylist : "+ Datelist.toString());
+		int listCount = new noticeDao().getListCount(con, Datelist);
 
 		close(con);
 
 		return listCount;
 	}
-
-	public ArrayList<Notice> selectList(int currentPage, int limit) {
+	
+	
+	// 전체 검색을 통한 데이터를 가져오는 코드
+	public ArrayList<Notice> selectList(int currentPage, int limit, ArrayList<String> Datelist) {
 
 		Connection con = getConnection();
 
 		System.out.println("2-2");
-		ArrayList<Notice> list = new noticeDao().selectList(con, currentPage, limit);
+		ArrayList<Notice> list = new noticeDao().selectList(con, currentPage, limit, Datelist);
 
 		close(con);
 
 		return list;
 	}
-
+	
+	// 데이터 삽입
 	public int insertNotice(Notice n) {
 
 		Connection con = getConnection();
@@ -102,5 +107,28 @@ public class NoticeService {
 		
 		return result;
 	}
+
+	// 검색을 위한 전체 페이지 가져 오는기 위한 db연결
+	public int getListCount(String search, String keyword, ArrayList<String> Datelist) {
+		Connection con = getConnection();
+
+		int listCount = new noticeDao().getListCount(con, search, keyword, Datelist);
+
+		close(con);
+
+		return listCount;
+	}
+
+	// 검색을 통한 공지 사항을 가져 오기 위한 코드
+	public ArrayList<Notice> selectList(int currentPage, int limit, String search, String keyword, ArrayList<String> Datelist) {
+		Connection con = getConnection();
+
+		ArrayList<Notice> list = new noticeDao().selectList(con, currentPage, limit, search, keyword, Datelist);
+
+		close(con);
+
+		return list;
+	}
+
 
 }

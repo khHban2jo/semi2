@@ -29,21 +29,35 @@ public class noticeDao {
 		}
 	}
 	
-	public int getListCount(Connection con) {
+	// 총 등록된 공지 사항 리스트 전체 수를 가젼 온다. 
+	public int getListCount(Connection con, ArrayList<String> Datelist) {
 		// 총 게시글 수
-		
-	
+			
 		int listCount = 0;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		String sql = "";
 		
-		String sql = prop.getProperty("listCount");
-		System.out.println("1-3");
 		try {
-			stmt = con.createStatement();
-			System.out.println("1-4");
-			rset = stmt.executeQuery(sql);
-			System.out.println("1-5");
+			
+			System.out.println("Datelist.get(0) : "+Datelist.get(0));
+			System.out.println("Datelist.get(1) : "+Datelist.get(1));
+			
+			if(Datelist.get(0).equals("") || Datelist.get(1).equals("")) {
+				System.out.println("date 가 ''인 상태 ");
+				 sql = prop.getProperty("listCount");
+				 pstmt = con.prepareStatement(sql);
+			}else {
+				sql = prop.getProperty("lisDatetCount");
+				
+				System.out.println("sql : "+sql);
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, Datelist.get(0));
+				pstmt.setString(2, Datelist.get(1));
+			}
+			
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				listCount = rset.getInt(1);
@@ -55,37 +69,59 @@ public class noticeDao {
 			e.printStackTrace();
 		}finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		
 		
 		return listCount;
 	}
-
-	public ArrayList<Notice> selectList(Connection con, int currentPage, int limit) {
+	
+	// date1 , date2 를 처리 하지 않을 시에 사용 하는 전체 공지를 불러 오는 코드
+	public ArrayList<Notice> selectList(Connection con, int currentPage, int limit, ArrayList<String> Datelist) {
 		// 페이징 처리를 위한 곳
+		
 		ArrayList<Notice> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = prop.getProperty("selectList");
+		String sql = ""; 
 
 		try {
-			System.out.println("2-3");
-			pstmt = con.prepareStatement(sql);
 			
-			int startRow = (currentPage-1)*limit+1;	// 1 11
-			int endRow = startRow + limit - 1; 		// 5
+			if(Datelist.get(0).equals("") || Datelist.get(1).equals("") ) {
+				//selectList
+				sql = prop.getProperty("selectList");
+				pstmt = con.prepareStatement(sql);
+				
+				int startRow = (currentPage-1)*limit+1;	// 1 11
+				int endRow = startRow + limit - 1; 		// 5
+				
+				pstmt.setInt(1, endRow);
+				pstmt.setInt(2, startRow);
+			}else {
+				// 
+				sql = prop.getProperty("selecDatetList");
+				pstmt = con.prepareStatement(sql);
+				
+				int startRow = (currentPage-1)*limit+1;	// 1 11
+				int endRow = startRow + limit - 1; 		// 5
+				
+				pstmt.setString(1, Datelist.get(0));
+				pstmt.setString(2, Datelist.get(1));
+				pstmt.setInt(3, endRow);
+				pstmt.setInt(4, startRow);
+			}
 			
-			System.out.println("2-4");
-			pstmt.setInt(1, endRow);
-			pstmt.setInt(2, startRow);
-
-			System.out.println("2-5");
+//			pstmt = con.prepareStatement(sql);
+//			
+//			int startRow = (currentPage-1)*limit+1;	// 1 11
+//			int endRow = startRow + limit - 1; 		// 5
+//			
+//			System.out.println("2-4");
+//			pstmt.setInt(1, endRow);
+//			pstmt.setInt(2, startRow);
 			
 			rset = pstmt.executeQuery();
-			
-			System.out.println("2-6");
 			
 			list = new ArrayList<Notice>();
 			
@@ -111,6 +147,7 @@ public class noticeDao {
 		return list;
 	}
 
+	// 삽입
 	public int insertNotice(Connection con, Notice n) {
 		
 		int result = 0;
@@ -268,5 +305,164 @@ public class noticeDao {
 		
 		return result;
 	}
+
+	// 제목 or 내용 search 와 keyword 검색을 쿼리로 공지사항의 전체 갯수를 구하는 코드
+	public int getListCount(Connection con, String search, String keyword, ArrayList<String> Datelist) {
+		
+		int listCount = 0;
+		ArrayList<Notice> temp = new ArrayList<Notice>();
+		
+		Notice n = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "";
+		
+		System.out.println("====================================");
+		System.out.println("date1 : "+Datelist.get(0));
+		System.out.println("date2 : "+Datelist.get(1));
+		System.out.println("====================================");
+		
+		switch(search) {
+		case "title":
+			sql = prop.getProperty("searchTitleNotice");
+			break;
+		case "content":
+			sql = prop.getProperty("searchContentNotice");
+			break;
+		}
+		
+		try {
+			System.out.println("sql : "+ sql);
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, keyword);
+
+			rset = pstmt.executeQuery();
+			
+			System.out.println("조건이 있는 상태에서 날짜를 적용 하여 전체 행의 갯수 출력");
+			while(rset.next()) {
+				n = new Notice();
+				n.setNno(rset.getInt("NNO"));
+				n.setNdate(rset.getDate("NDATE"));
+				temp.add(n);
+				
+				if( !Datelist.get(0).equals("")) {
+					System.out.println("listCount 실행");
+					listCount += (Datelist.get(0).compareTo(n.getNdate().toString()) > 0)? 0 : (Datelist.get(1).compareTo(n.getNdate().toString()) >= 0)? 1: 0;	
+				}else {
+					listCount = temp.size();
+				}
+				
+				// listCount 가 제대로 작동 하는 지 확인 해보는 테스트용 
+				if(Datelist.get(0).compareTo(n.getNdate().toString()) > 0) {
+					
+				}else {
+					if(Datelist.get(1).compareTo(n.getNdate().toString()) >= 0) {
+						System.out.println("답 : "+n.toString());
+					}
+				}
+				
+			}
+			System.out.println(temp.size());
+			System.out.println("총 db에 있는 행의 수 : " + listCount);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return listCount;
+	}
+
+	// 검색 결과를 위한 페이징 처리 및 공지 사항 데이터 가져오는 코드
+	public ArrayList<Notice> selectList(Connection con, int currentPage, int limit, String search, String keyword, ArrayList<String> Datelist) {
+		
+		ArrayList<Notice> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "";
+		
+//		switch(search) {
+//		
+//			case "title":
+//				sql = prop.getProperty("searchTitleList");
+//				break;
+//			case "content":
+//				sql = prop.getProperty("searchContentList");
+//				break;
+//		}
+		if(Datelist.get(0).equals("") || Datelist.get(1).equals("") ) {
+			switch(search) {
+			case "title":
+				sql = prop.getProperty("searchTitle");
+				break;
+			case "content":
+				sql = prop.getProperty("searchContent");
+				break;
+			}
+		}else {
+			switch(search) {
+				case "title":
+					sql = prop.getProperty("searchTitleList");
+					break;
+				case "content":
+					sql = prop.getProperty("searchContentList");
+					break;
+			}
+		}
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			int startRow = (currentPage-1)*limit+1;	
+			int endRow = startRow + limit - 1; 		
+			
+			System.out.println("startRow : "+ startRow);
+			System.out.println("endRow : "+ endRow);
+			
+			if(Datelist.get(0).equals("") || Datelist.get(1).equals("") ) {
+				pstmt.setString(1, keyword);
+				pstmt.setInt(2, endRow);
+				pstmt.setInt(3, startRow);
+			}else {				
+				pstmt.setString(1, keyword);
+				pstmt.setString(2, Datelist.get(0));
+				pstmt.setString(3, Datelist.get(1));
+				pstmt.setInt(4, endRow);
+				pstmt.setInt(5, startRow);
+			}
+			
+			System.out.println(sql);
+			System.out.println("rset 까지 실행");
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Notice>();
+			
+			while(rset.next()) {
+				Notice b = new Notice(
+						rset.getInt("NNO"),
+						rset.getString("NTITLE"),
+						rset.getString("NWRITER"),
+						rset.getString("NCONTENT"),
+						rset.getInt("NCOUNT"),
+						rset.getDate("NDATE")
+						);
+				list.add(b);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 
 }
