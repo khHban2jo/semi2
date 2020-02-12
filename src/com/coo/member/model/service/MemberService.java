@@ -25,4 +25,19 @@ public class MemberService {
 		return result;
 	}
 
+	public int checkEmp() {
+		Connection con = getConnection();
+		
+		int result = 0;
+		try {
+			result = mDao.checkEmp(con);
+		} catch (CooException e) {
+			e.getMessage();
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
 }

@@ -1,4 +1,5 @@
 var date = new Date();
+
 $(function(){
 
     $("#docdate").val()
@@ -20,11 +21,12 @@ $(function(){
     });
     //휴가 신청서
     $("#btn_3").click(function(){
+    	
         $("#doctype1").css("display","none");
         $("#doctype2").css("display","none");
         $("#doctype3").css("display","block");
         $("#type1").val("휴가계획서");
-
+        
     });
     $("#btn_1").click();
     
@@ -109,6 +111,30 @@ $("#upload").change(function(){
 		var fileset= $(this).get(0);
 		console.log(fileset);
 	});
+
+
+	//	휴가 신청서 include용 script
+	$('#leaveCode').change(function(){
+	    if( $('#leaveCode').val()=="L1" ){
+	        $('.dayOffType').css('visibility','hidden');
+	        $('.endDate').css('visibility','visible');
+	        $('.startDate').css('visibility','visible');
+	    }else if( $('#leaveCode').val()=="L2" ){
+	        $('.dayOffType').css('visibility','hidden');
+	        $('.endDate').css('visibility','hidden');
+	        $('.startDate').css('visibility','visible');
+	    }else if( $('#leaveCode').val()=="L3" ){
+	        $('.endDate').css('visibility','hidden');
+	        $('.dayOffType').css('visibility','visible');
+	        $('.startDate').css('visibility','visible');
+	    }else{
+	        $('.dayOffType').css('visibility','visible');
+	        $('.endDate').css('visibility','visible');
+	        $('.startDate').css('visibility','visible');
+	    }
+	});
+	
+	
 });
 
     //결재자클릭시 제거

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 import static com.coo.common.JDBCTemplate.*;
 import com.coo.exception.CooException;
@@ -45,11 +46,26 @@ public class MemberDao {
 			 rset = pstmt.executeQuery();
 			 
 			 if(rset.next()) {
-				 result = new Member(rset.getString("EMP_ID"), rset.getInt("EMP_CODE"), 
-						 rset.getString("PWD"), rset.getString("EMP_NAME"), rset.getString("PERSONAL_ID"), 
-						 rset.getString("EMAIL"), rset.getString("GENDER"), rset.getInt("AGE"), rset.getInt("SALARY"), 
-						 rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("DEPT_TITLE"), rset.getString("JOB_NAME"), 
-						 rset.getString("ETC"), rset.getString("MANAGER_YN"), rset.getDate("HIRE_DATE"), rset.getString("SUB_DEPT"));
+				 result = new Member();
+				 result.setEmpId(rset.getString("EMP_ID"));
+				 result.setEmpCode(rset.getInt("EMP_CODE"));
+				 result.setEmpPwd(rset.getString("PWD"));
+				 result.setEmpName(rset.getString("EMP_NAME"));
+				 result.setPersonalId(rset.getString("PERSONAL_ID"));
+				 result.setEmail(rset.getString("EMAIL"));
+				 result.setGender(rset.getString("GENDER"));
+				 result.setAge(rset.getInt("AGE"));
+				 result.setSalary(rset.getInt("SALARY"));
+				 result.setPhone(rset.getString("PHONE")); 
+				 result.setAddress(rset.getString("ADDRESS"));
+				 result.setDeptCode(rset.getString("DEPT_CODE"));
+				 result.setJobCode(rset.getString("JOB_CODE"));
+				 result.setDeptTitle(rset.getString("DEPT_TITLE"));
+				 result.setJobName(rset.getString("JOB_NAME")); 
+				 result.setEtc(rset.getString("ETC"));
+				 result.setManagerYn(rset.getString("MANAGER_YN"));
+				 result.setHireDate(rset.getDate("HIRE_DATE"));
+				 result.setSubDept(rset.getString("SUB_DEPT"));
 			 }
 			
 		}catch(SQLException e) {
@@ -57,6 +73,26 @@ public class MemberDao {
 		}finally {
 			close(rset);
 			close(pstmt);
+		}
+		return result;
+	}
+
+	public int checkEmp(Connection con) throws CooException {
+		int result = -1;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkEmp");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			
+			if(rset.next()) {
+				result = rset.getInt(1); 
+			}
+			
+		}catch(SQLException e) {
+			throw new CooException("사번 조회 실패");
 		}
 		return result;
 	}

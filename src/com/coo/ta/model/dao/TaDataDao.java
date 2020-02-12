@@ -64,6 +64,49 @@ private Properties prop;
 		return td;
 	}
 
+	public int workDayCountUpdate(Connection con, int empCode) throws CooException {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("workDayCount");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, empCode);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			throw new CooException(e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int lateCountUpdate(Connection con, int empCode) throws CooException {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String sql = prop.getProperty("lateCount");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, empCode);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			throw new CooException(e.getMessage());
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
 }
 
 

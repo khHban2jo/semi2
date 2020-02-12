@@ -8,12 +8,12 @@ public class PmapInfo implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int currentPage;
-	private int listCount;
-	private int limit;
-	private int maxPage;
-	private int startPage;
-	private int endPage;
+	private int currentPage; //사용자가 위치한 현재 페이지
+	private int listCount; //페이징 처리
+	private int limit; //글 개수 및 페이지수
+	private int maxPage; //전체 페이지 가장 마지막 페이지
+	private int startPage;//한번에 표히라 페이지중 가장 앞 페이지
+	private int endPage;//한번에 표시할 페이지중 가장 뒷페이지
 	
 	public PmapInfo() {	}
 
