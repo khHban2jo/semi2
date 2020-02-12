@@ -161,6 +161,7 @@ public class BoardDao {
 			pstmt.setString(3,b.getBcontent());
 			pstmt.setString(4,b.getBwriter());
 			pstmt.setString(5,b.getCategory());
+			pstmt.setString(6,b.getBdeptCode());
 			
 			result = pstmt.executeUpdate();
 			

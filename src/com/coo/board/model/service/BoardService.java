@@ -65,10 +65,15 @@ public class BoardService {
 		return result;
 	}
 
-	public int insertBoard(Board b) throws CooException {
+	public int insertBoard(Board b){
 		Connection con = getConnection();
 		
-		int result = bDao.insertBoard(con,b);
+		int result = 0;
+		try {
+			result = bDao.insertBoard(con,b);
+		} catch (CooException e) {
+			e.getMessage();
+		}
 		
 		if(result > 0) commit(con); else rollback(con);
 		
