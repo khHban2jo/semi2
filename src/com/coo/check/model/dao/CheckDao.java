@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.coo.check.model.vo.CheckDoc;
 import com.coo.check.model.vo.PayDoc;
+import com.coo.check.model.vo.PmapMember;
 import com.coo.check.model.vo.RoundDoc;
 import com.coo.check.model.vo.Vacation;
 import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
@@ -38,7 +39,7 @@ public class CheckDao {
 	 * @param con
 	 * @return
 	 */
-	public int getListCount(Connection con, String id, int status) {
+	public int getListCount(Connection con, int id, int status) {
 		int result =0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -52,11 +53,11 @@ public class CheckDao {
 		}
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, id);
-			pstmt.setString(3, id);
-			pstmt.setString(4, id);
-			pstmt.setString(5, id);
+			pstmt.setInt(1, id);
+			pstmt.setInt(2, id);
+			pstmt.setInt(3, id);
+			pstmt.setInt(4, id);
+			pstmt.setInt(5, id);
 			
 			if(status == 3 || status ==2) {
 				pstmt.setInt(6, status);
@@ -90,7 +91,7 @@ public class CheckDao {
 	 * @param status 
 	 * @return
 	 */
-	public ArrayList<CheckDoc> getList(Connection con, int currentPage, int limitPage, String id, int status) {
+	public ArrayList<CheckDoc> getList(Connection con, int currentPage, int limitPage, int id, int status) {
 		ArrayList<CheckDoc> docs= null;
 
 		PreparedStatement pstmt = null;
@@ -115,11 +116,11 @@ public class CheckDao {
 		
 			
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			pstmt.setString(2, id);
-			pstmt.setString(3, id);
-			pstmt.setString(4, id);
-			pstmt.setString(5, id);
+			pstmt.setInt(1, id);
+			pstmt.setInt(2, id);
+			pstmt.setInt(3, id);
+			pstmt.setInt(4, id);
+			pstmt.setInt(5, id);
 			int i = 6;
 			if(status ==2 || status ==3) {
 			pstmt.setInt(i, status);
@@ -138,7 +139,8 @@ public class CheckDao {
 				CheckDoc cd = new CheckDoc();
 				cd.setDocNumber(rset.getInt("DOC_NUMBER"));
 				cd.setaTitle(rset.getString("ATITLE"));
-				cd.setaWriter(rset.getString("AWRITER"));
+				cd.setaWriter(rset.getInt("AWRITER"));
+				//cd.setAwriterName("EMPNAME");
 				cd.setDocType(rset.getString("DOC_TYPE"));
 				cd.setaStatus(rset.getInt("ASTATUS"));
 				cd.setApprover(rset.getString("APPROVER"));
@@ -152,11 +154,11 @@ public class CheckDao {
 				cd.setViewPeople(rset.getString("VIEW_PEOPLE"));
 				cd.setDocDate(rset.getDate("DOC_DATE"));
 				cd.setReturnComment(rset.getString("RETURNCOMMENT"));
-				cd.setDocfile(rset.getString("DOCFILE"));
+
 				
 				docs.add(cd);
 			}
-			System.out.println(docs.get(0));
+
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -188,7 +190,8 @@ public class CheckDao {
 				info = new CheckDoc();
 				info.setDocNumber(rset.getInt("DOC_NUMBER"));
 				info.setaTitle(rset.getString("ATITLE"));
-				info.setaWriter(rset.getString("AWRITER"));
+				info.setaWriter(rset.getInt("AWRITER"));
+				//info.setAwriterName("EMPNAME");
 				info.setDocType(rset.getString("DOC_TYPE"));
 				info.setaStatus(rset.getInt("ASTATUS"));
 				info.setApprover(rset.getString("APPROVER"));
@@ -203,7 +206,6 @@ public class CheckDao {
 				info.setDocDate(rset.getDate("DOC_DATE"));
 				info.setDeleteyn(rset.getString("DELETE_YN"));
 				info.setReturnComment(rset.getString("RETURNCOMMENT"));
-				info.setDocfile(rset.getString("DOCFILE"));
 			}
 			
 		}catch(SQLException e) {
@@ -325,7 +327,7 @@ public class CheckDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,info.getaTitle() );
-			pstmt.setString(2,info.getaWriter());
+			pstmt.setInt(2,info.getaWriter());
 			pstmt.setString(3,info.getDocType());
 		
 			pstmt.setString(4,info.getApprover());
@@ -357,9 +359,6 @@ public class CheckDao {
 			}else {
 				pstmt.setNull(12,java.sql.Types.NULL);
 			}
-			if(info.getDocfile()!=null) {
-			pstmt.setString(13,info.getDocfile());
-			}
 			result =pstmt.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -371,35 +370,6 @@ public class CheckDao {
 		return result;
 	}
 
-	/**
-	 * 저장된 문서번호 가져오기
-	 * @param con
-	 * @param getaWriter
-	 * @return
-	 */
-	public int getDocNum(Connection con, String getaWriter) {
-		int docNum =0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectDocNo");
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, getaWriter);
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				docNum = rset.getInt("DOC_NUMBER");
-			}
-			System.out.println(docNum);
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-			
-		}
-		
-		return docNum;
-	}
 
 	/**
 	 * 문서 내용저장
@@ -413,10 +383,10 @@ public class CheckDao {
 		RoundDoc docText= null;
 		PreparedStatement pstmt = null;
 		String sql= "";
-		if(docType =="품의서") {
+		if(docType.equals("품의서")) {
 			sql = prop.getProperty("insertRoundDoc");
 			docText = doc;
-		}else if(docType =="지출결의서") {
+		}else if(docType.equals("지출결의서")) {
 			sql = prop.getProperty("insertPayDoc");
 			docText = (PayDoc)doc;
 		}else {
@@ -425,16 +395,15 @@ public class CheckDao {
 		try {
 			System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, doc.getDocNumber());
-			pstmt.setString(2,doc.getText());
-			if(docType =="지출결의서") {
-			pstmt.setInt(3, ((PayDoc)doc).getEndPay());
-			}else if(docType =="휴가신청서") {
+			pstmt.setString(1,doc.getText());
+			if(docType.equals("지출결의서")) {
+			pstmt.setInt(2, ((PayDoc)doc).getEndPay());
+			}else if(docType.equals("휴가신청서")) {
 				//sql=prop.getProperty("insertVacDoc");
+				//sql.setDate(2,((Vacation)doc).getStart());
 				//sql.setDate(3,((Vacation)doc).getStart());
 				//sql.setDate(4,((Vacation)doc).getStart());
 				//sql.setDate(5,((Vacation)doc).getStart());
-				//sql.setDate(6,((Vacation)doc).getStart());
 				//sql.setDate(6,((Vacation)doc).getStart());
 			}
 			result=pstmt.executeUpdate();
@@ -442,11 +411,143 @@ public class CheckDao {
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			
 		}finally {
 			close(pstmt);
 		}
 
 		return result;
+	}
+	
+	public int insertfile(Connection con,  ArrayList<String> files) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql= "insertFile";
+
+		
+		try {
+			for(int i = 0; i<files.size(); i++) {
+			pstmt = con.prepareStatement(sql);
+			
+			
+			pstmt.setString(1, files.get(i));
+			
+			}
+			result=pstmt.executeUpdate();
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+	
+	
+
+	/**
+	 * 
+	 * 결재 해야될 카운트 가져오기
+	 * @param con
+	 * @param id
+	 * @return
+	 */
+	public int getMyCount(Connection con, int id) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = -1;
+		String sql = prop.getProperty("mydocCount");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 조직도용 부서코드 가져오기
+	 * @param con
+	 * @return
+	 */
+	public ArrayList<String> getDcnList(Connection con) {
+		ArrayList<String> dcnlist= null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectDept");
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			dcnlist = new ArrayList<String>();
+			while(rset.next()) {
+				String dcode = 	(rset.getString(1));
+
+				
+				dcnlist.add(dcode);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();	
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		
+		return dcnlist;
+		
+	}
+
+	/**
+	 * 조직도용 멤버 가져오기
+	 * @param con
+	 * @return
+	 */
+	public ArrayList<PmapMember> getPmapList(Connection con) {
+		ArrayList<PmapMember> pmaplist =null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String sql= prop.getProperty("selectMapmember");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(sql);
+			pmaplist = new ArrayList<PmapMember>();
+			while(rset.next()) {
+				PmapMember pm = new PmapMember();
+				pm.setEmpCode(rset.getInt("EMP_CODE"));
+				pm.setEmpName(rset.getString("EMP_NAME"));
+				pm.setDeptCode(rset.getString("DEPT_CODE"));
+				pm.setDeptName(rset.getString("DEPT_TITLE"));
+				pm.setJob(rset.getString("JOB_NAME"));
+				
+				pmaplist.add(pm);
+			}
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return pmaplist;
 	}
 
 }

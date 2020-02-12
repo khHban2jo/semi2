@@ -48,7 +48,7 @@ public class MemberDao {
 				 result = new Member(rset.getString("EMP_ID"), rset.getInt("EMP_CODE"), 
 						 rset.getString("PWD"), rset.getString("EMP_NAME"), rset.getString("PERSONAL_ID"), 
 						 rset.getString("EMAIL"), rset.getString("GENDER"), rset.getInt("AGE"), rset.getInt("SALARY"), 
-						 rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("DEPT_CODE"), rset.getString("JOB_CODE"), 
+						 rset.getString("PHONE"), rset.getString("ADDRESS"), rset.getString("DEPT_TITLE"), rset.getString("JOB_NAME"), 
 						 rset.getString("ETC"), rset.getString("MANAGER_YN"), rset.getDate("HIRE_DATE"), rset.getString("SUB_DEPT"));
 			 }
 			

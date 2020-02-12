@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.coo.check.model.service.CheckService;
 import com.coo.check.model.vo.CheckDoc;
 import com.coo.check.model.vo.PageInfo;
+import com.coo.member.model.vo.Member;
 
 /**
  * 
@@ -35,17 +36,30 @@ public class CheckListServlet extends HttpServlet {
 	 */
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//세션 들고오기 
-//		HttpSession session = request.getSession(false);
-//		if(session == null) {
-//			
-//		}
-		
 		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		//세션 들고오기 
+		HttpSession session = request.getSession(false);
+		if(session == null) {
+		 request.setAttribute("msg", "로그인인 해주세요");
+		 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
+		
 		 //세션에서 empno 가져오기
-		String id ="203";
+		Member m = (Member) session.getAttribute("member");
+		int id = m.getEmpCode();
 		//int status = Integer.valueOf(request.getParameter("ASTAT"));
-		int status =4;
+		int status;
+		if(request.getParameter("status")!=null) {
+			status = Integer.valueOf(request.getParameter("status"));
+		}else {
+			status = 4;
+		}
+		
+		
+		
+		
 		ArrayList<CheckDoc> list = null;
 		//페이징 처리
 		
@@ -86,7 +100,7 @@ public class CheckListServlet extends HttpServlet {
 		
 		//게시글 총갯수
 		checkListCount = cs.getListCount(id,status);
-		System.out.println(checkListCount +"서블릿 카운트");
+
 		
 		startPaging = ((int)((double)currentPage/limitPaging +0.9)-1)*limitPaging+1;
 		
@@ -97,8 +111,7 @@ public class CheckListServlet extends HttpServlet {
 		if(maxPaging< endPaging) {
 			endPaging = maxPaging;
 		}
-		System.out.println("끝:" + endPaging);
-		System.out.println("맨뒤" + maxPaging);
+	;
 		
 		list = cs.getList(currentPage,limitPage, id, status);
 		
@@ -109,17 +122,19 @@ public class CheckListServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			
 			PageInfo pi = new PageInfo();
+		
 			
 			pi = new PageInfo(checkListCount,startPaging,endPaging,maxPaging,limitPaging,limitPage,currentPage);
+			pi.setStatus(status);
 			request.setAttribute("pi", pi);
 			
 			page = "views/EP_list.jsp";
 		
 		}
-		//else {
+//		else {
 //			request.setAttribute("msg", "정보를 가져오지 못했습니다.");
 //			page ="views/common/errorPage";
-//					
+					
 //		}
 		
 		request.getRequestDispatcher(page).forward(request, response);

@@ -1,6 +1,7 @@
 package com.coo.check.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.servlet.ServletException;
@@ -36,6 +37,7 @@ public class CheckInsertServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unused")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	//1. 제목 작성자no 문서서종류   현재결재진행자(내부결재 인원 잘라서 1번,2번 인덱스) 결재부서  내부 결재인원 내부결재상황(렝스/2 의 0,0,0) 합의부서 합의인원 합의결재상황 , 최종결재자, 참조자 , 파일
 	//2. 내용 문서에 따른 컬럼값 가져오기
@@ -56,8 +58,9 @@ public class CheckInsertServlet extends HttpServlet {
 				);
 		
 		String doctitle = mrequest.getParameter("doctitle");   
-//		String docwriter = mrequest.getParameter("docwriter"); //int로 바꿀것
-//		String doctype =mrequest.getParameter("doctype");
+		int docwriter = Integer.valueOf(mrequest.getParameter("empcode")); //int로 바꿀것
+		String doctype =mrequest.getParameter("doctype");
+		System.out.println(doctype);
 //		String checkdept = mrequest.getParameter("checkdept");
 //		String checkper = mrequest.getParameter("checkper");
 //		String coldept = mrequest.getParameter("coldept");
@@ -66,9 +69,6 @@ public class CheckInsertServlet extends HttpServlet {
 //		String viewper = mrequest.getParameter("viewper");
 		
 		
-		//String doctitle = "예비제목입니다.";
-		String docwriter = "203"; //int로 바꿀것
-		String doctype = "지출결의서";
 		String checkdept = "D2";
 		String checkper = "288, 250, 821, 581, 820, 741";
 		String coldept = null;
@@ -106,11 +106,25 @@ public class CheckInsertServlet extends HttpServlet {
 		}
 		
 		//String fileName = mrequest.getParameter("fileup");
+		ArrayList<String> files = new ArrayList<String>();
+//		for(int i = 0; i <5; i++) {
+//			String str = "file"+i;
+//			String filechan = mrequest.getFilesystemName(str);
+//			System.out.println(filechan);
+//			if(!filechan.equals(null)) {
+//				files.add(filechan);
+//			}
+//		}
 		
-		String fileName="";//처리해야됨
+		
+	
+			
+
+	
 		CheckDoc info= new CheckDoc(doctitle,docwriter,doctype, approval, checkdept, checkper, inStatus, 
-									coldept, colper,colStatus, endper,viewper, fileName	
+									coldept, colper,colStatus, endper,viewper
 									);
+		System.out.println(info.getDocType());
 		
 
 		RoundDoc doc = null;
@@ -129,7 +143,7 @@ public class CheckInsertServlet extends HttpServlet {
 		
 		
 		
-		int result = new CheckService().insertDoc(info, doc);
+		int result = new CheckService().insertDoc(info, doc, files);
 		
 		if(result>0) {
 			response.sendRedirect("clist.ch");

@@ -40,15 +40,37 @@
             <div class="margin-list-head">
                 <h1 align="left">결재 게시판</h1>
                 <hr color="lightgray">
-                <button type="button" class="btn btn-light">전체</button>
+                <button type="button" class="btn btn-light" id="all">전체</button>
                 <button type="button" class="btn btn-primary">제안</button>
                 <button type="button" class="btn btn-wait ">결재대기</button>
-                <button type="button" class="btn btn-info">진행중</button>
-                <button type="button" class="btn btn-success">결재완료</button>
-                <button type="button" class="btn btn-warning">반려</button>
+                <button type="button" class="btn btn-info"  id="flow">진행중</button>
+                <button type="button" class="btn btn-success" id="end" >결재완료</button>
+                <button type="button" class="btn btn-warning" id="return">반려</button>
+                <input type ="hidden" id="status">
                 <br><br><br>
                 <!-- 홍석코드 -->
                 &nbsp; 
+                
+                <script >
+                	$("#all").click(function(){
+                		 
+                		location.href='/semi/clist.ch?status=4' ;
+                	})
+                	$("#flow").click(function(){
+                		
+                		location.href='/semi/clist.ch?status=0';
+                	})
+                	$("#end").click(function(){
+                		
+                		location.href='/semi/clist.ch?status=2';
+                	})
+                	$("#return").click(function(){
+                	
+                		location.href='/semi/clist.ch?status=3';
+                	})
+                	
+                	
+                </script>
 
                 <!-- 부서, 관리자의 전체 공지등 알아야 하는 필요한 만 띄운다.  -->
                 <!--<input type="checkbox" name="name1">  -->
@@ -106,11 +128,11 @@
  
                      <button id="btn">검색</button>
                     <div class="pagingArea" align="center">
-			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=1'"><<</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=1&status=<%=pi.getStatus()%>'"><<</button>
 			<%  if(currentPage <= 1){  %>
 			<button disabled><</button>
 			<%  }else{ %>
-			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage - 1 %>'"><</button>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage - 1 %>&status=<%=pi.getStatus()%>'"><</button>
 			<%  } %>
 			
 			<% for(int p = startPage; p <= endPage; p++){
@@ -118,16 +140,16 @@
 			%>
 				<button disabled><%= p %></button>
 			<%      }else{ %>
-				<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= p %>'"><%= p %></button>
+				<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= p %>&status=<%=pi.getStatus()%>'"><%= p %></button>
 			<%      } %>
 			<% } %>
 				
 			<%  if(currentPage >= maxPage){  %>
 			<button disabled>></button>
 			<%  }else{ %>
-			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage + 1 %>'">></button>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage + 1 %>&status=<%=pi.getStatus()%>'">></button>
 			<%  } %>
-			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= maxPage %>'">>></button>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= maxPage %>&status=<%=pi.getStatus()%>'">>></button>
 			
 		</div>
                 </div>

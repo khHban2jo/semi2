@@ -9,15 +9,19 @@
     position: relative;
     width: 480px;
     height: 280px;
-    background-color: #4a83da;
+    background-color: whitesmoke;
+    border: 2px solid darkgray;
+    border-radius: 10px;
 }
 
-.changeArea{
+.area2{
     position: relative;
     top: 5px;
     width: auto;
     height: 490px;
-    background-color: #4a83da;
+    background-color: whitesmoke;
+    border: 2px solid darkgray;
+    border-radius: 10px;
 }
 
 #day{
@@ -27,7 +31,7 @@
     width: 300px;
     font-size: 20px;
     font-weight: bold;
-    color: snow;
+    color: black;
 }
 
 #time{
@@ -37,38 +41,49 @@
     width: 300px;
     font-size: 28px;
     font-weight: bold;
-    color: snow;
+    color: black;
+    margin-bottom: 50px;
+}
+
+#userName{
+    position: relative;
+    top: 20px;
+    left: 190px;
+    width: 300px;
+    font-size: 28px;
+    font-weight: bold;
+    color: black;
     margin-bottom: 50px;
 }
 
 hr{
     width: 450px;
-    border: 1px solid snow;
+    border: 1px solid black;
 }
 
-.start{
+.La{
     position: relative;
     top: 20px;
-    left: 25px;
-    color: snow;
-    font-size: 13px;
-    font-weight: lighter;
+    left: 30px;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
 }
 
-#start{
+#startTime{
     position: relative;
     top: 20px;           
     left: 320px;
-    color: snow;
+    color: black;
     font-size: 20px;
     font-weight: bolder;
 }
 
-#end{
+#endTime{
     position: relative;
     top: 20px;
     left: 320px;
-    color: rgb(175, 175, 175);
+    color: black;
     font-size: 20px;
     font-weight: bolder;
 }
@@ -107,7 +122,7 @@ hr{
 .leaveArea1>label{
     position: relative;
     left: 13px;
-    color: snow;
+    color: black;
     font-weight: bolder;
     font-size: 18px;
 }
@@ -115,7 +130,7 @@ hr{
 .leaveArea1>p{
     position:relative;
     left: 15px;
-    color: snow;
+    color: black;
     margin-bottom: 5px;
 }
 
@@ -152,4 +167,125 @@ hr{
 .leaveArea1>input[type=Date]{
     position: relative;
     left: 20px;
+}
+
+#area2Field{
+	position: relative;
+	top: 10px;
+	left: 9px;
+	border: 1px solid darkgray;
+	border-radius: 10px;
+	width: 430px;
+	height: 230px;
+}
+
+#area2Field>legend{
+	color: black;
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+.La2{
+	position: relative;
+	top: 10px;
+	left: 50px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.La2b{
+	position: relative;
+	top: 10px;
+	left: 40px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.La2Value{
+	position: relative;
+	top: 10px;
+	left: 200px;
+	color: red;
+	font-size: 18px;
+	font-weight: bold;
+}
+.La2Valueb{
+	position: relative;
+	top: 10px;
+	left: 135px;
+	color: red;
+	font-size: 18px;
+	font-weight: bold;
+}
+.La2Valuec{
+	position: relative;
+	top: 10px;
+	left: 181px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#area2Field2{
+	position: relative;
+	top: 20px;
+	left: 9px;
+	border: 1px solid darkgray;
+	border-radius: 10px;
+	width: 430px;
+	height: 190px;
+}
+
+#area2Field2>legend{
+	color: black;
+	font-size: 20px;
+	font-weight: bolder;
+}
+
+.La3{
+	position: relative;
+	top: 10px;
+	left: 40px;
+	color: black;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.La3Value{
+	position: relative;
+	top: 10px;
+	left: 120px;
+	color: red;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.progress{
+	position: relative;
+	border:2px solid black;
+	border-radius:6px;
+	left: 40px;
+	width: 350px;
+	height: 30px;
+	text-align: center;
+	font-weight: bolder;
+	font-size: 20px;
+}
+
+.progressBar{
+	position:absolute;
+	background: rgb(183, 230, 55);
+	border-radius:6px;
+	height: 30px;
+	opacity: 0.8;
+}
+
+.La4Value{
+	position: relative;
+	left: 270px;
+	color: red;
+	font-size: 15px;
+	font-weight: bold;
 }

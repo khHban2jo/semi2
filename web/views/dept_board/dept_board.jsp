@@ -1,44 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.coo.board.model.vo.*, java.util.ArrayList"%>
-<%-- <% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); 
+<% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); 
 		PageInfo pi = (PageInfo)request.getAttribute("pi");
 		int listCount = pi.getListCount();
 		int currentPage = pi.getCurrentPage();
-		int endPage = pi.getEndPage();
-		int limit = pi.getLimit();
-		int startPage = pi.getStartPage(); %> --%>
+		int maxPage = pi.getMaxPage();
+		int startPage = pi.getStartPage();
+		int endPage = pi.getEndPage(); 
+%>
     
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>COO - 부서게시판</title>
+    <title>COO - 게시판</title>
    
     <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/button.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/margin.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/table.css">
-
+	<script src="/semi/resource/js/common/boardbutton.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    
 </head>
 <body>
     <div class="total">
         <!-- 헤더부분 include -->
-    	<%@ include file="../common/COO_header.jsp" %>
+    	<%@ include file="/views/common/COO_header.jsp" %>
     	
     	<!-- 화면 좌측 고정부 include -->
-    	<%@ include file="../common/COO_left.jsp" %>
+    	<%@ include file="/views/common/COO_left.jsp" %>
 
         <div class="right">
             <!-- 게시판 시작 -->
             <div class="margin-list-head">
-                <h1 align="left">부서별 게시판</h1>
+                <h1 align="left" id="board-Title">게시판</h1>
                 <hr class="table-line" color="lightgray">
-                <button type="button" class="btn btn-light">전체</button>
-                <button type="button" class="btn btn-primary">부서별</button>
-                <button type="button" class="btn btn-info">일반</button>
-                <button type="button" class="btn btn-success">업무</button>
+                 <button type="button" class="btn btn-light" id="allb">전체</button>
+                <button type="button" class="btn btn-primary" id="deptb">부서별</button>
+                <button type="button" class="btn btn-info" id="normalb">일반</button>
+                <button type="button" class="btn btn-success" id="bizb">업무</button>
                 <br><br><br>
                 <!-- 홍석코드 -->
                 &nbsp; 
@@ -75,21 +76,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <%-- 	<% for(Board b : list){ %>
+                        	<% for(Board b : list){ %>
                             <tr align="center" class='table-line'>
                                 <input type="hidden" value="<%= b.getBno() %>">
                                 <td><input type="checkbox" name="list"></td>
                                 <td><%=b.getBno() %></td> 
-                                <td><%=b.getBtype() %></td>
+                                <td><%=b.getCategory() %></td>
                                 <td><%=b.getBtitle() %></td>
                                 <td><%=b.getBwriter() %></td>
                                 <td><%=b.getBdate() %></td>
                                 <td><%=b.getBcount() %></td>
                             </tr>
-                            <%} %> --%>
+                            <%} %>
                         </tbody>
                     </table>
+                    <%if(m != null){ %>
                     <button id="write" class="btn btn-light" style="margin-left:-10px;">글쓰기</button> 
+                    <%} %>
                     <br>
                     <div>
                         
@@ -108,29 +111,29 @@
  
                      <button id="btn">검색</button>
                     <ul id="pagenation" align="center" style="margin-left:-90px;">
-                    <%-- 
-                        <li><button onclick="location.href='<%=request.getContextPath() %>
-                        /selectList.bo?currentPage=1'" class="listbtn">&lt;&lt;</button></li>
+                    
+                        <li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=1'">&lt;&lt;</button></li>
                         <% if(currentPage <= 1){ %>
                         <li><button disabled>&lt;</button></li>
                         <% }else{ %>
-                        <li><button onclick="location.href='<%=request.getContextPath() %>
-                        /selectList.bo?currentPage=<%=currentPage -1 %>'" class="listbtn">&lt;</button></li>
+                        <li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%=currentPage -1 %>'">&lt;</button></li>
                         <% } %>
-                        
+                       
                         <% for(int p = startPage; p <= endPage; p++){
                         	if(p == currentPage){
                        	%>
 							<li><button disabled><%= p %></button></li>
 							<% }else{ %>
-							<li><button onclick="location.href='<%=request.getContextPath() %>
-							/selectList.bo?currentPage=<%=p %>'" class="listbtn"><%=p %></button></li>
+							<li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%=p %>'"><%=p %></button></li>
 							<%} %>        
-						  <%} %> --%>	              
-                        <li><button class="listbtn" value="1">1</button></li>
-                        <li><button class="listbtn" value="2">2</button></li>
-                        <li><button class="listbtn" value="3">3</button></li>
-                        <li><button class="listbtn" value="+1">&gt;</button></li>
+						  <%} %>	            
+						  
+						  <%  if(currentPage >= maxPage){  %>
+							<li><button disabled>&gt;</button></li>
+							<%  }else{ %>
+							<li><button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%=currentPage + 1 %>'">&gt;</button></li>
+							<%  } %>
+							<li><button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage %>'">&gt;&gt;</button></li> 
                     </ul>
                 </div>
             </div>
@@ -139,8 +142,36 @@
     </div>
 
     <!-- 풋터 부분 include -->
-    <%@ include file="../common/COO_footer.jsp" %>
+    <%@ include file="/views/common/COO_footer.jsp" %>
 </div>
+  <script>
+  	 $('#write').click(function(){
+  		 var url = "/semi/views/se2/write.jsp";
+  		 var name = "글쓰기";
+  		 var option = "top=200px,left=500px,width=850px,height=550px,location=no,resizable=no,toolbars=no";
+  		window.open(url,name,option);
+  	 });
+  	 
+  	 $('#list td').click(function(){
+  		 var bno = $(this).parent().find("input").val();
+  		 location.href="<%=request.getContextPath() %>/selectOne.bo?bno="+bno;
+  	 });
+  	 
+  	$('#allb').click(function(){
+		   location.href="<%=request.getContextPath() %>/selectBoardAll.bo";
+	});
+  	
+	$('#deptb').click(function(){
+	  location.href="<%=request.getContextPath() %>/selectBoardDept.bo";
+	});
 	
+	$('#normalb').click(function(){
+	  location.href="<%=request.getContextPath() %>/selectBoardNormal.bo";
+	});
+	
+	$('#bizb').click(function(){
+	  location.href="<%=request.getContextPath() %>/selectBoardBiz.bo";
+	});
+  </script>	
 </body>
 </html>

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.coo.check.model.dao.CheckDao;
 import com.coo.check.model.vo.CheckDoc;
 import com.coo.check.model.vo.PayDoc;
+import com.coo.check.model.vo.PmapMember;
 import com.coo.check.model.vo.RoundDoc;
 import com.coo.check.model.vo.Vacation;
 
@@ -14,19 +15,19 @@ import static com.coo.common.JDBCTemplate.*;
 public class CheckService {
 	private CheckDao cDao = new CheckDao();
 
-	public int getListCount(String id,int status) {
+	public int getListCount(int id,int status) {
 		Connection con = getConnection();
 		
 		int listCount = cDao.getListCount(con, id, status);
-
 		close(con);
 		return listCount;
 	}
 
-	public ArrayList<CheckDoc> getList(int currentPage, int limitPage,String id, int status) {
+	public ArrayList<CheckDoc> getList(int currentPage, int limitPage,int id, int status) {
 		Connection con = getConnection();
 
 		ArrayList<CheckDoc> docs= cDao.getList(con, currentPage, limitPage, id, status);
+		
 
 		close(con);
 		
@@ -80,34 +81,79 @@ public class CheckService {
 		return null;
 	}
 
-	public int insertDoc(CheckDoc info, RoundDoc doc) {
+	public int insertDoc(CheckDoc info, RoundDoc doc, ArrayList<String> files) {
 		int result = 0;
-		int docNum = 0;
+
 		Connection con = getConnection();
 
 		
 		result = cDao.insertInfo(con, info);
 		if(result >0) {
-			docNum = cDao.getDocNum(con,info.getaWriter());
-			System.out.println(result);
-			if(docNum > 0) {
-				doc.setDocNumber(docNum);
-				System.out.println(docNum);
+			System.out.println(info.getDocType());
 				result = cDao.insertText(con, doc, info.getDocType());
-				System.out.println(result);
-				if(result>0) commit(con);
-				else rollback(con);
+				if(result>0) {
+					if(!files.isEmpty() ) {
+					result = cDao.insertfile(con, files);
+					}
+					if(result >0) 	commit(con);
+					else rollback(con);
+				}else { 
+					System.out.println("업데이트 에러");
+				}
 			}else {
-				//에러로 쓰로우
-				System.out.println("번호 가져오는데 에러");
-			}
-		}else {
 			System.out.println("인포저장에러");
 		}
 		//2 체크독 번호 가져오기(int값으로)
 		//3 독 넣기
 		close(con);
 		return result;
+	}
+	
+	
+
+	/**
+	 * 자신이 결재중인 것 갯수
+	 * @param id
+	 * @return
+	 */
+	public int getMyCount(int id) {
+		Connection con = getConnection();
+		
+		
+		int result = cDao.getMyCount(con, id);
+		
+		close(con);
+		
+		return result;
+	}
+
+	/**
+	 * 조직도 부서 가져오기
+	 * @return
+	 */
+	public ArrayList<String> getDcnList() {
+		Connection con = getConnection();
+		
+		ArrayList<String> dcnlist = cDao.getDcnList(con);
+		
+		if(dcnlist == null) {
+			//에러 처리용
+			System.out.println("dcn null");
+		}
+		close(con);
+		return dcnlist;
+	}
+
+	public ArrayList<PmapMember> getPmapList() {
+		Connection con = getConnection();
+		
+		ArrayList<PmapMember> pmaplist = cDao.getPmapList(con);
+		if(pmaplist == null) {
+			//에러 처리용
+			System.out.println("dcn null");
+		}
+		close(con);
+		return pmaplist;
 	}
 
 

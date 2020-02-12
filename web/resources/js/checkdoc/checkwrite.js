@@ -7,6 +7,7 @@ $(function(){
         $("#doctype1").css("display","block");
         $("#doctype2").css("display","none");
         $("#doctype3").css("display","none");
+        $("#type1").val("품의서");
 
     });
     //결의서 버튼
@@ -14,6 +15,7 @@ $(function(){
         $("#doctype1").css("display","none");
         $("#doctype2").css("display","block");
         $("#doctype3").css("display","none");
+        $("#type1").val("지출결의서");
 
     });
     //휴가 신청서
@@ -21,9 +23,11 @@ $(function(){
         $("#doctype1").css("display","none");
         $("#doctype2").css("display","none");
         $("#doctype3").css("display","block");
+        $("#type1").val("휴가계획서");
 
     });
-
+    $("#btn_1").click();
+    
     //작성일자
     var month;
     if((date.getMonth()+1).length =1){
@@ -35,24 +39,28 @@ $(function(){
     
 
 //결재자 자동채우기용
+    function fillp(){
+    	console.log("부모함수 실행")
     $(".hiddenper").on("change",function(){
+    	
+    		
         // console.log($(this).val());
         // console.log($(this).prev("table"));
         // console.log($(this).prev("table").find(".people").html());
 
         //배열 자르기
-        //var person1 = $(this).val().split();
+        var person1 = $(this).val().split();
         //자르고 데이터베이스에서 정 부 가져오기 mainp , subp
         //배열당 보기
         var personfill ="";
         //최종 넘어갈 사람
         //var personend ;
-        // for(var i in person1){
-        //     persontfill +=  "<div class='person' onclick ='delperson(this);'>"+ i+" . 정:" +mainp+"<br> 부:" +sub +"</div>"
-        // }
+         for(var i = 0; i<person1.length; i++){
+             persontfill +=  "<div class='person' onclick ='delperson(this);'>"+ i+" . 정:" +mainp+"<br> 부:" +sub +"</div>"
+         }
 
-            personfill +=  "<div class='person' onclick ='delperson(this);'>" +1+".정:" + $(this).val()+"<br>&nbsp; 부:" +$(this).val() +"</div>"
-            $(this).prev("table").find(".people").html(personfill);
+           // personfill +=  "<div class='person' onclick ='delperson(this);'>" +1+".정:" + $(this).val()+"<br>&nbsp; 부:" +$(this).val() +"</div>"
+           // $(this).prev("table").find(".people").html(personfill);
     });
 
     //참조자 자동채우기용
@@ -60,26 +68,18 @@ $(function(){
          //배열 자르기 및 넘어감
         //var person1 = $(this).val().split();
         $(this).prev("table").find(".people2").html($(this).val());
-
     });
+    
+    }
 
 
     //결재자체크 버튼
 $("#setLine").click(function(){
-    window.open("people.html","childform","target : _blank");
+    window.open("checkpeople.jsp","childform","target : _blank");
    // console.log($(".hiddenper").filter("input[type=text]"));
    
 //     $(".hiddenper").filter("input[type=text]").eq(0).val(12345);
 //    $(".hiddenper").filter("input[type=text]").eq(0).trigger("change");
-   $(".hiddenper").eq(0).val(12345);
-   $(".hiddenper").eq(1).val(4567);
-   $(".hiddenper").eq(2).val(11111);
-   $(".hiddenper1").eq(0).val(855);
-   $(".hiddenper1").eq(1).val(851214);
-   $(".hiddenper").filter("input[type=hidden]").trigger("change");
-   $(".hiddenper1").filter("input[type=hidden]").trigger("change");
-   
-        
 
 });
 
@@ -87,23 +87,28 @@ $("#setLine").click(function(){
 
 //파일 목록 출력
 $("#upload").change(function(){
-    var fileset = $(this).get(0);
-         if(fileset.files.length <6){
-            for(var i =0; i<fileset.files.length; i++ ){
-                if(fileset.files[i].size <=10485760){
-                     document.getElementById("filenames").innerHTML += fileset.files[i].name +"<br>";
-                }else{
-                    alert(fileset.files[i].name +" 의 크기가 너무 큽니다. 파일1개의 최대 크기는 10mb입니다." );
-                    $(this).val("");
-                }
-         }
-         }else{
-             alert("파일은 5개 까지 가능합니다.");
-             $(this).val("");
-     }
-
- });
-     
+//    var fileset = $(this).get(0);
+//    console.log(fileset)
+//         if(fileset.files.length <6){
+//            for(var i =0; i<fileset.files.length; i++ ){
+//                if(fileset.files[i].size <=10485760){
+//                  	   document.getElementById("filenames").innerHTML += fileset.files[i].name +"<br>";
+//                  	   filestext[i].value =fileset.files[i].name; 
+//                }else{
+//                    alert(fileset.files[i].name +" 의 크기가 너무 큽니다. 파일1개의 최대 크기는 10mb입니다." );
+//                    $(this).val("");
+//                }
+//         }
+//         }else{
+//             alert("파일은 5개 까지 가능합니다.");
+//             $(this).val("");
+//     }
+//    
+//    console.log($("#filenames").html());
+//
+		var fileset= $(this).get(0);
+		console.log(fileset);
+	});
 });
 
     //결재자클릭시 제거

@@ -1,0 +1,24 @@
+#editor{
+    border:1px solid black;
+    display:inline-block;
+    width:725px;
+}
+
+input[name=writer]{
+    border: none;
+    background: none;
+}
+
+body{
+	margin-top:60px;
+    margin-left:50px;
+}
+
+textarea{
+    margin:10px;
+}
+
+button{
+    float:right; 
+    margin:14px;
+}

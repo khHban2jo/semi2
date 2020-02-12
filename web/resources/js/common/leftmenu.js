@@ -22,11 +22,12 @@
 
         //  근태관리 버튼 - 팝업 띄우기
         $('#btn2').click(function(){
-            var url = "/semi/views/popup/TA.jsp";
+            var url = "/semi/open.ta";
             var name = "근태관리";
             var option = 'top=100px, left=300px width=500px,height=800px, resizable=no, location=no, toolbars=no,scrollbars=no';
             window.open(url, name, option);
         });
+
 
         //  전자결재 버튼 - 팝업 띄우기
         $('#btn1').click(function(){
@@ -52,7 +53,7 @@
 
         //  나머지 nav 5개 버튼 - 화면 이동
         $('#listBtn').click(function(){
-            location.href = "/semi/views/dept_board/dept_board.jsp";
+            location.href = "/semi/selectList.bo"
         });
 
      // 공지사항 게시판 출력
@@ -70,8 +71,8 @@
         });
 
         $('#documentsBtn').click(function(){
-            
-            location.href='/semi/clist.ch?id='+'203';
+        	
+            location.href='/semi/clist.ch';
         });
 
         //  헤더 span - 화면이동 및 팝업
@@ -92,7 +93,7 @@
         });
 
         $('#headTA').click(function(){
-            var url = "/semi/views/popup/TA.jsp";
+            var url = "/semi/open.ta";
             var name = "근태관리";
             var option = 'top=100px, left=300px width=500px,height=800px, resizable=no, location=no, toolbars=no,scrollbars=no';
             window.open(url, name, option);
