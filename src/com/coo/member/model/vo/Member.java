@@ -20,7 +20,9 @@ public class Member implements Serializable {
 	private String phone;
 	private String address;
 	private String deptCode;
+	private String deptTitle;
 	private String jobCode;
+	private String jobName;
 	private String etc;
 	private String managerYn;
 	private Date hireDate;
@@ -28,20 +30,20 @@ public class Member implements Serializable {
 	
 	public Member() {}
 
-	public int getEmpCode() {
-		return empCode;
-	}
-
-	public void setEmpCode(int empCode) {
-		this.empCode = empCode;
-	}
-
 	public String getEmpId() {
 		return empId;
 	}
 
 	public void setEmpId(String empId) {
 		this.empId = empId;
+	}
+
+	public int getEmpCode() {
+		return empCode;
+	}
+
+	public void setEmpCode(int empCode) {
+		this.empCode = empCode;
 	}
 
 	public String getEmpPwd() {
@@ -124,12 +126,28 @@ public class Member implements Serializable {
 		this.deptCode = deptCode;
 	}
 
+	public String getDeptTitle() {
+		return deptTitle;
+	}
+
+	public void setDeptTitle(String deptTitle) {
+		this.deptTitle = deptTitle;
+	}
+
 	public String getJobCode() {
 		return jobCode;
 	}
 
 	public void setJobCode(String jobCode) {
 		this.jobCode = jobCode;
+	}
+
+	public String getJobName() {
+		return jobName;
+	}
+
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
 	}
 
 	public String getEtc() {
@@ -165,8 +183,8 @@ public class Member implements Serializable {
 	}
 
 	public Member(String empId, int empCode, String empPwd, String empName, String personalId, String email,
-			String gender, int age, int salary, String phone, String address, String deptCode, String jobCode,
-			String etc, String managerYn, String subDept) {
+			String gender, int age, int salary, String phone, String address, String deptCode, String deptTitle,
+			String jobCode, String jobName, String etc, String managerYn, Date hireDate, String subDept) {
 		super();
 		this.empId = empId;
 		this.empCode = empCode;
@@ -180,29 +198,9 @@ public class Member implements Serializable {
 		this.phone = phone;
 		this.address = address;
 		this.deptCode = deptCode;
+		this.deptTitle = deptTitle;
 		this.jobCode = jobCode;
-		this.etc = etc;
-		this.managerYn = managerYn;
-		this.subDept = subDept;
-	}
-
-	public Member(String empId, int empCode, String empPwd, String empName, String personalId, String email,
-			String gender, int age, int salary, String phone, String address, String deptCode, String jobCode,
-			String etc, String managerYn, Date hireDate, String subDept) {
-		super();
-		this.empId = empId;
-		this.empCode = empCode;
-		this.empPwd = empPwd;
-		this.empName = empName;
-		this.personalId = personalId;
-		this.email = email;
-		this.gender = gender;
-		this.age = age;
-		this.salary = salary;
-		this.phone = phone;
-		this.address = address;
-		this.deptCode = deptCode;
-		this.jobCode = jobCode;
+		this.jobName = jobName;
 		this.etc = etc;
 		this.managerYn = managerYn;
 		this.hireDate = hireDate;
@@ -215,12 +213,27 @@ public class Member implements Serializable {
 		this.empPwd = empPwd;
 	}
 
-	@Override
-	public String toString() {
-		return "Member [empCode=" + empCode + ", empId=" + empId + ", empPwd=" + empPwd + ", empName=" + empName
-				+ ", personalId=" + personalId + ", email=" + email + ", gender=" + gender + ", age=" + age
-				+ ", salary=" + salary + ", phone=" + phone + ", address=" + address + ", deptCode=" + deptCode
-				+ ", jobCode=" + jobCode + ", etc=" + etc + ", managerYn=" + managerYn + ", hireDate=" + hireDate
-				+ ", subDept=" + subDept + "]";
+	public Member(String empId, int empCode, String empPwd, String empName, String personalId, String email,
+			String gender, int age, String phone, String address, String deptCode, String deptTitle, String jobCode,
+			String jobName, String etc, String subDept) {
+		super();
+		this.empId = empId;
+		this.empCode = empCode;
+		this.empPwd = empPwd;
+		this.empName = empName;
+		this.personalId = personalId;
+		this.email = email;
+		this.gender = gender;
+		this.age = age;
+		this.phone = phone;
+		this.address = address;
+		this.deptCode = deptCode;
+		this.deptTitle = deptTitle;
+		this.jobCode = jobCode;
+		this.jobName = jobName;
+		this.etc = etc;
+		this.subDept = subDept;
 	}
+
+
 }

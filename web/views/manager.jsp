@@ -11,18 +11,9 @@
     <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
 
     <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
-    
-    
-    
-    <style>
-        .div{
-            border-radius: 10px;
-        }
-    </style>
+   
 <script>
-   $('#emp').click(function(){
-		console.log("으앙");
-    });
+
 	function showId(value){
 		
 		switch(value){
