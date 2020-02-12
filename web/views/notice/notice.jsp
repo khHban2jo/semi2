@@ -60,12 +60,12 @@
 				<br>
 				<br>
 				<!-- 홍석코드 -->
-				&nbsp; <label>분류</label> <select id="searchType" name="searchType">
-					<!-- 로그인한 사용자에 대한 권한과 부서등에 따라서 alert등으로 접근 금지를 설정 한다. --->
+<!-- 				&nbsp; <label>분류</label> <select id="searchType" name="searchType">
+					로그인한 사용자에 대한 권한과 부서등에 따라서 alert등으로 접근 금지를 설정 한다. -
 					<option>전체</option>
 					<option>공지사항</option>
 					<option>인사명령</option>
-				</select> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+				</select> &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; -->
 				
 				<!-- 안 될것 같으면 변경 및 삭제 -->
 				<label>기 간 설 정</label> <input type="date" id="time1"> ~ <input type="date" id="time2">&nbsp;

@@ -318,25 +318,56 @@ public class noticeDao {
 		String sql = "";
 		
 		System.out.println("====================================");
+		System.out.println("search : "+ search);
 		System.out.println("date1 : "+Datelist.get(0));
 		System.out.println("date2 : "+Datelist.get(1));
 		System.out.println("====================================");
 		
-		switch(search) {
-		case "title":
-			sql = prop.getProperty("searchTitleNotice");
-			break;
-		case "content":
-			sql = prop.getProperty("searchContentNotice");
-			break;
+//		switch(search) {
+//		case "title":
+//			sql = prop.getProperty("searchTitleNotice");
+//			break;
+//		case "content":
+//			sql = prop.getProperty("searchContentNotice");
+//			break;
+//		}
+		
+		if(Datelist.get(0).equals("") || Datelist.get(1).equals("") ) {
+			switch(search) {
+			case "title":
+				sql = prop.getProperty("searchTitleNotice");
+				break;
+			case "content":
+				sql = prop.getProperty("searchContentNotice");
+				break;
+			}
+		}else {
+			switch(search) {
+				case "title":
+					sql = prop.getProperty("searchTitleNotice1");
+					break;
+				case "content":
+					sql = prop.getProperty("searchContentNotice1");
+					break;
+			}
 		}
 		
 		try {
 			System.out.println("sql : "+ sql);
 			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setString(1, keyword);
 
+			if(Datelist.get(0).equals("") || Datelist.get(1).equals("") ) {
+				
+				pstmt.setString(1, keyword);
+				
+			}else {
+				
+				pstmt.setString(1, keyword);
+				pstmt.setString(2, Datelist.get(0));
+				pstmt.setString(3, Datelist.get(1));
+				
+			}
+			
 			rset = pstmt.executeQuery();
 			
 			System.out.println("조건이 있는 상태에서 날짜를 적용 하여 전체 행의 갯수 출력");
@@ -422,6 +453,7 @@ public class noticeDao {
 			
 			System.out.println("startRow : "+ startRow);
 			System.out.println("endRow : "+ endRow);
+			System.out.println("sql : "+ sql);
 			
 			if(Datelist.get(0).equals("") || Datelist.get(1).equals("") ) {
 				pstmt.setString(1, keyword);

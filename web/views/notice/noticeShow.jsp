@@ -70,7 +70,7 @@
 		             	&nbsp; &nbsp; 
 		             <% } %>
 		        	</form>
-		            <button id="goNoticeList" style="width: 100px; height: 30px;"> 취 소 </button>
+		        	<button style="width: 100px; height: 30px;" onclick="location.href = '/semi/noticeListServlet?search=all&date1=all&date2=all'"> 취 소 </button>
 		        	 &nbsp; &nbsp; 
 		        	<% if(m.getEmpId().equals("admin")){%>
 		            	<button id="deleteNotice" style="width: 100px; height: 30px; margin-bottom: 50px"> 삭 제 </button>
@@ -104,9 +104,9 @@
 //		return false;
 //	}
     
-	document.getElementById("goNoticeList").onclick = function(){
+/* 	document.getElementById("goNoticeList").onclick = function(){
 		 location.href = "/semi/noticeListServlet?search=all&date1=all&date2=all"
-	}
+	} */
 	
 	
     </script>

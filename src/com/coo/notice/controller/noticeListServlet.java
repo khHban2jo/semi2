@@ -75,7 +75,7 @@ public class noticeListServlet extends HttpServlet {
 		currentPage = 1;
 		
 		// 글 개수 및 페이지 수 제한
-		limit = 7;
+		limit = 10;
 		
 		// 특정 페이지호 수정해야 한다.
 		if(request.getParameter("currentPage") != null) {
@@ -109,8 +109,12 @@ public class noticeListServlet extends HttpServlet {
 		startPage = ((int)((double)currentPage / limit + 0.9) -1) * limit + 1;
 		
 		endPage = startPage + limit -1;
-		
+		System.out.println("==============================");
 		System.out.println("listcount : " +listcount);
+		System.out.println("maxPage : " +maxPage);
+		System.out.println("startPage : " +startPage);
+		System.out.println("endPage : " +endPage);
+		System.out.println("==============================");
 		// 만약 마지막 페이지보다 현재 게시글이 끝나는 페이지가 적다면
 		if(endPage > maxPage) {
 			endPage = maxPage;
@@ -124,7 +128,7 @@ public class noticeListServlet extends HttpServlet {
 			list = bs.selectList(currentPage, limit, Datelist);
 			
 		}else {
-			
+			System.out.println("조건 검색");
 			list = bs.selectList(currentPage, limit, search, keyword, Datelist);
 			
 		}
