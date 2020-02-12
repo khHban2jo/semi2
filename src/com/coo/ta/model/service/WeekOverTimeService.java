@@ -16,6 +16,12 @@ public class WeekOverTimeService {
 
 	private WeekOverTimeDao wotDao = new WeekOverTimeDao();
 
+	/**
+	 * 추가 근무 시간 등록 UPDATE 또는 INSERT
+	 * @param wot
+	 * @return
+	 * @throws CooException
+	 */
 	public int overTime(WeekOverTime wot) throws CooException {
 
 		Connection con = getConnection();
@@ -43,6 +49,13 @@ public class WeekOverTimeService {
 		return result;
 	}
 
+	/**
+	 * 특근 추가 근무 시간 등록 UPDATE / INSERT
+	 * @param wot
+	 * @param now
+	 * @return
+	 * @throws CooException
+	 */
 	public int holiOverTime(WeekOverTime wot, String now) throws CooException {
 
 		Connection con = getConnection();
@@ -112,6 +125,18 @@ public class WeekOverTimeService {
 		return result;
 		
 	}
+
+	public int selectOverTime(int empCode, int week) throws CooException {
+
+		Connection con = getConnection();
+		
+		int allOverTime = wotDao.selectOverTime(con, empCode, week);
+		
+		close(con);
+		
+		return allOverTime;
+	}
+	
 	
 	
 }

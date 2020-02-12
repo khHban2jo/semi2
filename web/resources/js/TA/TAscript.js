@@ -8,6 +8,8 @@ $(function(){
     function timer(){
         $('#time').html(new Date().toLocaleTimeString());
     }
+    
+    $('.progressBar').css('width',per+'%');
 
     //  출근버튼 클릭
     $('#startBtn').click(function(){

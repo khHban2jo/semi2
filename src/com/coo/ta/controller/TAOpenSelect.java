@@ -1,6 +1,7 @@
 package com.coo.ta.controller;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -13,20 +14,22 @@ import javax.servlet.http.HttpSession;
 import com.coo.exception.CooException;
 import com.coo.member.model.vo.Member;
 import com.coo.ta.model.service.TaDataService;
+import com.coo.ta.model.service.WeekOverTimeService;
 import com.coo.ta.model.service.WorkTimeService;
 import com.coo.ta.model.vo.TaData;
+import com.coo.ta.model.vo.WeekOverTime;
 
 /**
  * Servlet implementation class TAOpen
  */
 @WebServlet("/open.ta")
-public class TAOpen extends HttpServlet {
+public class TAOpenSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TAOpen() {
+    public TAOpenSelect() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,11 +47,11 @@ public class TAOpen extends HttpServlet {
 		try {
 			//	empCode로 출,퇴근 시간 받아오기
 			HashMap<Integer, String> wtMap = new WorkTimeService().selectWorkTime(empCode);
-			
+			System.out.println("근태관리 open [WORKTIME SELECT]");
 			request.setAttribute("wtMap", wtMap);
 		} catch (CooException e) {
 			//	에러 발생 시
-			request.setAttribute("msg", "출근 / 퇴근 시간을 찾아오는 중 에러 발생!");
+			request.setAttribute("msg", "출근/퇴근 시간을 불러오는 중 에러 발생!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 
@@ -56,11 +59,28 @@ public class TAOpen extends HttpServlet {
 		try {
 			TaData td = new TaDataService().selectOne(empCode);
 			
-			
+			System.out.println("근태관리 open [TA_DATA SELECT]");
+			request.setAttribute("td", td);
 		} catch (CooException e) {
 			//	에러 발생 시
-			request.setAttribute("msg", "근무 현황을 찾아오는 중 에러 발생!");
+			request.setAttribute("msg", "근무 현황을 불러오는 중 에러 발생!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
+		//	empCode로 WEEK_OVERTIEM 테이블 값 받아오기
+		Calendar cal = Calendar.getInstance();
+		int week = cal.get(Calendar.WEEK_OF_YEAR);
+		
+		try {
+			int allOverTime = new WeekOverTimeService().selectOverTime(empCode, week);
+			
+			System.out.println("근태관리 open [WEEK_OVERTIME SELECT]");
+			request.setAttribute("allOT", ""+allOverTime);
+		} catch (CooException e) {
+			//	에러 발생 시
+			request.setAttribute("msg", "추가 근무 시간을 불러오는 중 에러 발생!");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			
 		}
 		
 		System.out.println("근태관리 open");

@@ -207,7 +207,7 @@ hr{
 	position: relative;
 	top: 10px;
 	left: 200px;
-	color: black;
+	color: red;
 	font-size: 18px;
 	font-weight: bold;
 }
@@ -215,7 +215,7 @@ hr{
 	position: relative;
 	top: 10px;
 	left: 135px;
-	color: black;
+	color: red;
 	font-size: 18px;
 	font-weight: bold;
 }
@@ -257,7 +257,7 @@ hr{
 	position: relative;
 	top: 10px;
 	left: 120px;
-	color: black;
+	color: red;
 	font-size: 18px;
 	font-weight: bold;
 }
@@ -265,7 +265,7 @@ hr{
 .progress{
 	position: relative;
 	border:2px solid black;
-	border-radius:5px;
+	border-radius:6px;
 	left: 40px;
 	width: 350px;
 	height: 30px;
@@ -276,15 +276,15 @@ hr{
 
 .progressBar{
 	position:absolute;
-	background: yellowgreen;
-	width: 60%;
+	background: rgb(183, 230, 55);
+	border-radius:6px;
 	height: 30px;
 	opacity: 0.8;
 }
 
 .La4Value{
 	position: relative;
-	left: 250px;
+	left: 270px;
 	color: red;
 	font-size: 15px;
 	font-weight: bold;

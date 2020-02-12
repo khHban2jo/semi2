@@ -36,7 +36,7 @@ public class WeekOverTimeDao {
 	}
 
 	/**
-	 * 등록된 wot가 있는지 select
+	 * 오늘 날짜로 등록된 wot가 있는지 select
 	 * @param con
 	 * @param wot
 	 * @return
@@ -143,6 +143,34 @@ public class WeekOverTimeDao {
 		
 		return result;
 	
+	}
+
+	public int selectOverTime(Connection con, int empCode, int week) throws CooException {
+
+		int allOverTime = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, empCode);
+			pstmt.setInt(2, week);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				allOverTime = rset.getInt(1);
+			}
+			
+		}catch(SQLException e) {
+			throw new CooException(e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return allOverTime;
 	}
 
 	
