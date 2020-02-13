@@ -31,9 +31,8 @@ public class CheckEmpServlet extends HttpServlet {
 		int result = new MemberService().checkEmp()+1;
 		
 		if(result >0) {
-			System.out.println("전달 성공");
+			
 		}else {
-			System.out.println("에러");
 		}
 		System.out.println(result);
 		response.getWriter().print(result);
