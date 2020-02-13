@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.coo.exception.CooException;
+import com.coo.ta.model.dao.TaDataDao;
 import com.coo.ta.model.dao.WorkTimeDao;
 import com.coo.ta.model.vo.WeekOverTime;
 import com.coo.ta.model.vo.WorkTime;
@@ -44,10 +45,26 @@ public class WorkTimeService {
 		
 		int result = wtDao.wtT1Insert(con, wt);
 		
+		TaDataDao tdDao = new TaDataDao();
+		
+		//	INSERT 완료 후, 지각이 아니면 TA_DATA테이블의 WORKDAY_COUNT +1 (UPDATE)
+		if(result > 0 && 900>wt.getWtTime()) {
+			//	WORKDAY_COUNT UPDATE
+			result = tdDao.workDayCountUpdate(con, wt.getEmpCode());
+		}
+		//	INSERT 완료 후, 지각이면 WORKDAY_COUNT / LATE_COUNT 각각 +1 (UPDATE)
+		else if (result>0 && 900<wt.getWtTime()) {
+			//	WORKDAY_COUNT UPDATE
+			result = tdDao.workDayCountUpdate(con, wt.getEmpCode());
+			
+			//	LATE_COUNT UPDATE
+			if(result > 0) {
+				result = tdDao.lateCountUpdate(con, wt.getEmpCode());
+			}
+		}
+		
 		if(result > 0 ) commit(con);
 		else rollback(con);
-		
-		System.out.println("출근시간 INSERT");
 		
 		close(con);
 		

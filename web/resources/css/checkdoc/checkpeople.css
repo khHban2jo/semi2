@@ -327,7 +327,7 @@
    }
            
     /*저장용*/
-   #pushper1{
+   #listsave1{
     position: absolute;
     top :80px;
     left: 10px;
@@ -335,7 +335,7 @@
 
     }
     /*불러오기용*/
-    #pushper2{
+    #listget1{
     position: absolute;
     top :80px;
     left: 10px;

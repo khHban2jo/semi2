@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.coo.exception.CooException;
 import com.coo.member.model.vo.Member;
+import com.coo.ta.model.service.TaDataService;
 import com.coo.ta.model.service.WorkTimeService;
 import com.coo.ta.model.vo.WorkTime;
 
@@ -79,16 +80,16 @@ public class StartTime extends HttpServlet {
 		//	WorkTime 객체 생성
 		WorkTime wt = new WorkTime(empCode, taType, taTime);
 		
-		//	service로 객체 전송
+		//	service로 객체 전송 해서 결과 받기
 		int result = 0;
-		
 		try {
 			result = new WorkTimeService().wtT1Insert(wt);
 		} catch (CooException e) {
 			request.setAttribute("msg", "출근 시간 등록 중 오류 발생!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-
+		
+		
 		//	ajax 결과 넘기기
 		String msg = null;
 		
@@ -102,6 +103,7 @@ public class StartTime extends HttpServlet {
 			msg = "출근 시간 등록 실패! 다시 시도하세요";
 		}
 		
+		System.out.println("출근시간 INSERT / 근무일 +1");
 		response.getWriter().print(msg);
 		
 	}

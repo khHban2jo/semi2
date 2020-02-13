@@ -38,7 +38,7 @@ public class PeopleMapServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
-		
+		int st= 0;
 		ArrayList<String> dcnList= null;
 		ArrayList<PmapMember> pmapList = null;
 		ArrayList<PmapMember> pmapValue= null;
@@ -55,7 +55,7 @@ public class PeopleMapServlet extends HttpServlet {
 		
 		PmapMember pm = null;
 		//pmapValue = new ArrayList<PmapMember>();
-		dcnList = cs.getDcnList();
+		dcnList = cs.getDcnList(st);
 		if(dcnList != null) {
 			pmapList = cs.getPmapList();
 			if(pmapList != null) {

@@ -19,7 +19,7 @@
         <img src="/semi/resources/image/user_icon.png" class="user_icon">
         <span id="user_name"><b><%=m.getEmpName() %></b></span> 
         <br>
-        <b id="user_dept"><%=m.getDeptCode() %></b> <b id="user_job"><%=m.getJobCode() %></b> 
+        <b id="user_dept"><%=m.getDeptTitle() %></b> <b id="user_job"><%=m.getJobName() %></b> 
         <br><br><br><br>
         <button id="btn1" class="btn">전자결재</button>
         <button id="btn2" class="btn">근태관리</button>

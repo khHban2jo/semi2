@@ -16,6 +16,7 @@ import com.coo.check.model.vo.CheckDoc;
 import com.coo.check.model.vo.PayDoc;
 import com.coo.check.model.vo.PmapMember;
 import com.coo.check.model.vo.RoundDoc;
+import com.coo.check.model.vo.StockLine;
 import com.coo.check.model.vo.Vacation;
 import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
 
@@ -481,15 +482,21 @@ public class CheckDao {
 	}
 
 	/**
-	 * 조직도용 부서코드 가져오기
+	 * 조직도용 부서코드, 부서명 가져오기
 	 * @param con
+	 * @param st 
 	 * @return
 	 */
-	public ArrayList<String> getDcnList(Connection con) {
+	public ArrayList<String> getDcnList(Connection con, int st) {
 		ArrayList<String> dcnlist= null;
 		Statement stmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectDept");
+		String sql ="";
+		 if(st== 0) {
+			sql = prop.getProperty("selectDN");
+		 }else if(st == 1) {
+			sql= prop.getProperty("selectDC");
+		 }
 		try {
 			stmt = con.createStatement();
 			rset = stmt.executeQuery(sql);
@@ -548,6 +555,133 @@ public class CheckDao {
 		}
 		
 		return pmaplist;
+	}
+
+	public ArrayList<StockLine> getStocklist(Connection con, int empcode) {
+		ArrayList<StockLine> line = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql= prop.getProperty("getStockline");
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, empcode);
+			
+			rset = pstmt.executeQuery();
+			line = new ArrayList<StockLine>();
+			while(rset.next()) {
+				StockLine sl = new StockLine();
+				sl.setEmpcode(empcode);
+				sl.setDeptCode(rset.getString("DEPT_CODE"));
+				sl.setDeptName(rset.getString("DEPT_TITLE"));
+				sl.setList1(rset.getString("LINE1"));
+				sl.setList2(rset.getString("LINE2"));
+				sl.setList3(rset.getString("LINE3"));
+				
+				
+				line.add(sl);
+			}
+			if(!line.isEmpty()) {
+			
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return line;
+	}
+
+	public int saveStockline(Connection con, int empcode, String deptcode, int number, String table) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql =prop.getProperty("saveline" + number);
+
+
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,table);
+			pstmt.setInt(2, empcode);
+			pstmt.setString(3, deptcode);
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<StockLine> getMassub(Connection con, String[] arr, String dename) {
+		ArrayList<StockLine> masub = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql= prop.getProperty("getMassubcode");// dept code, id 조인
+		
+		try {
+			
+			masub = new ArrayList<StockLine>();
+			pstmt = con.prepareStatement(sql);
+			for(int i = 0; i<arr.length; i++) {
+				System.out.println(sql);
+				int j = Integer.valueOf(arr[i]);
+			 pstmt.setInt(1, j);
+			 pstmt.setString(2,dename);
+			 rset = pstmt.executeQuery();
+			 if(rset.next()) {
+				 StockLine save = new StockLine();
+				 save.setEmpcode(rset.getInt("EMP_CODE"));
+				 save.setSubcode(rset.getInt("SUB_CODE"));
+				 save.setDeptCode(rset.getString("DEPT_CODE"));
+				 masub.add(save);
+				 
+			 	}	
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return masub;
+	}
+
+	public ArrayList<String> getMSName(Connection con, ArrayList<Integer> savePcodes) {
+		ArrayList<String> names = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql= prop.getProperty("getEmpName");// dept code, id 조인
+		
+		try {
+			
+			names = new ArrayList<String>();
+			pstmt = con.prepareStatement(sql);
+			for(int i = 0; i<savePcodes.size(); i++) {
+				
+				int j = savePcodes.get(i);
+			 pstmt.setInt(1, j);
+			 rset = pstmt.executeQuery();
+			 if(rset.next()) {
+				 names.add(rset.getString("EMP_NAME"));
+				 
+			 	}	
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return names;
 	}
 
 }
