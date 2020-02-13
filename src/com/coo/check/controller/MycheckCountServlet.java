@@ -31,6 +31,8 @@ public class MycheckCountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//ajax용
+		response.setContentType("application/json; charset=UTF-8");
 		HttpSession session = request.getSession();
 		
 		Member m = (Member)session.getAttribute("member");
@@ -44,7 +46,7 @@ public class MycheckCountServlet extends HttpServlet {
 		
 		
 		if(result >=0) {
-			request.setAttribute("myCheckCount", result);
+			response.getWriter().print(result);
 			
 		}else {
 			//오류 페이지

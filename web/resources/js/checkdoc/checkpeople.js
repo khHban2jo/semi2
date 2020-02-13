@@ -112,17 +112,6 @@ $(function(){
 	   //체크 풀기
 	   $("#map input[type=checkbox]").prop("checked","");
 	   
-	   
-	 
-//	       var origin = $(i).siblings("div").find("tbody").html();
-//	       var inp = $("#selectper tbody").html();
-//	       
-//	       
-//		   $(i).siblings("div").find("tbody").html(origin + inp);
-//	      
-//	       $("#selectper tbody").html("");
-//		   //체크 풀기
-//		   $("#map input[type=checkbox]").prop("checked","");
    }
    
    

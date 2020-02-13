@@ -56,9 +56,7 @@ public class GetStockLineServlet extends HttpServlet {
 			for(int i = 0; i<dcnlist.size(); i++) {
 				for(int j = 0; j<stocklist.size(); j++) {
 					if(stocklist.get(j).getDeptCode().equals(dcnlist.get(i))){
-						pushlist.put(dcnlist.get(i),stocklist.get(j));
-						//pushlist.put(stocklist.get(j).getDeptCode(),stocklist.get(j));
-	
+						pushlist.put(dcnlist.get(i),stocklist.get(j));	
 						break;
 					}
 				}

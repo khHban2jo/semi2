@@ -615,4 +615,73 @@ public class CheckDao {
 		return result;
 	}
 
+	public ArrayList<StockLine> getMassub(Connection con, String[] arr, String dename) {
+		ArrayList<StockLine> masub = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql= prop.getProperty("getMassubcode");// dept code, id 조인
+		
+		try {
+			
+			masub = new ArrayList<StockLine>();
+			pstmt = con.prepareStatement(sql);
+			for(int i = 0; i<arr.length; i++) {
+				System.out.println(sql);
+				int j = Integer.valueOf(arr[i]);
+			 pstmt.setInt(1, j);
+			 pstmt.setString(2,dename);
+			 rset = pstmt.executeQuery();
+			 if(rset.next()) {
+				 StockLine save = new StockLine();
+				 save.setEmpcode(rset.getInt("EMP_CODE"));
+				 save.setSubcode(rset.getInt("SUB_CODE"));
+				 save.setDeptCode(rset.getString("DEPT_CODE"));
+				 masub.add(save);
+				 
+			 	}	
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return masub;
+	}
+
+	public ArrayList<String> getMSName(Connection con, ArrayList<Integer> savePcodes) {
+		ArrayList<String> names = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql= prop.getProperty("getEmpName");// dept code, id 조인
+		
+		try {
+			
+			names = new ArrayList<String>();
+			pstmt = con.prepareStatement(sql);
+			for(int i = 0; i<savePcodes.size(); i++) {
+				
+				int j = savePcodes.get(i);
+			 pstmt.setInt(1, j);
+			 rset = pstmt.executeQuery();
+			 if(rset.next()) {
+				 names.add(rset.getString("EMP_NAME"));
+				 
+			 	}	
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return names;
+	}
+
 }
