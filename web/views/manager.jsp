@@ -50,7 +50,7 @@
 	});
 	
 	$('#uEmp').click(function(name){
-		var url = "<%=request.getContextPath() %>/views/manager/modifyEmp.jsp";
+		var url = "<%=request.getContextPath() %>/mSearch.me";
 		window.open(url,name,option);
 	});
 	$('#dEmp').click(function(name){
