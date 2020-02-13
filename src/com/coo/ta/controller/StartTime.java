@@ -89,11 +89,10 @@ public class StartTime extends HttpServlet {
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
-		
 		//	ajax 결과 넘기기
 		String msg = null;
 		
-		if( result > 0 ) {
+		if( result >= 0 ) {
 			if( 900 > taTime ) {
 				msg = "출근 등록 완료!";
 			}else {

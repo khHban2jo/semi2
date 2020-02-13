@@ -105,7 +105,6 @@ public class WorkTimeDao {
 			pstmt.setInt(3, wt.getWtTime());
 			
 			result = pstmt.executeUpdate();
-			
 		}catch(SQLException e) {
 			throw new CooException(e.getMessage());
 		}finally {

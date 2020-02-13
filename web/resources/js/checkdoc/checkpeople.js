@@ -158,7 +158,7 @@ $(function(){
 
    $(".endenter").click(function(){
        $(this).siblings("div").find("tbody").html(
-           "<tr>"+$("#selectper tr:eq(1)").html()+"<tr>")
+           "<tr>"+$("#selectper>tbody>tr:eq(0)").html()+"<tr>")
            $("#selectper tbody").html("");
        $("#map input[type=checkbox]").prop("checked","");
    });
@@ -321,7 +321,7 @@ function end(){
         alert("최대 4명까지");
         tfcheck = false;
     }
-   $("#coladept").val($("#colper tr").find("td:eq(1)").html());
+   $("#coladept").val($("#colper").find("td:eq(1)").html());
     $("#colper tr").each(function(index,item){
        arr.push($(this).find("td:eq(0)").html())
    })
@@ -336,6 +336,7 @@ function end(){
 
 
    //최종
+    $("#enddept").val($("#endline").find("td:eq(1)").html());
     $("#endper").val($("#endline").find("td:eq(0)").html())
   
 
@@ -350,17 +351,30 @@ function end(){
 	    $("#chdept",parent.opener.document).val($("#chedept").val());
 	    $("#chper",parent.opener.document).val($("#cheper").val());
 	    $("#colladept",parent.opener.document).text($("#coladept").val());
-	    $("#codept",parent.opener.document).val($("#coladept").val());
+	    $("#codept1",parent.opener.document).val($("#coladept").val());
 	    $("#cope",parent.opener.document).val($("#colaper").val());
-	    $("#endp",parent.opener.document).val($("#resper").val());
-	    $("#viewp",parent.opener.document).val($("#endper").val());
+	    $("#enddept1",parent.opener.document).val($("#enddept").val());
+	    $("#endp",parent.opener.document).val($("#endper").val());
+	    $("#viewp",parent.opener.document).val($("#resper").val());
+	 
+	    $("#chper",parent.opener.document).click();
+	    if($("#colaper").val() !=""){
+	    	 $("#cope",parent.opener.document).click();
+	    }
+    	if($("#endper").val() != ""){
+    		$("#endp",parent.opener.document).click();
+    	}
+    	
+    	if($("#resper").val() != ""){
+    		$("#viewp",parent.opener.document).click();
+    	}
    }
     
 
    if(tfcheck){
 	  
 	
-       window.close();
+       //window.close();
    }
 }
 

@@ -36,16 +36,16 @@
 		              </tr>
 		              <tr>
 		                  <td> 이 름 </td>
-		                  <td><input type="text" id="empName" maxlength="8"> &nbsp;&nbsp;
+		                  <td><input type="text" id="pName" name="empName" maxlength="8"> &nbsp;&nbsp;
 		              </tr>
 		              <tr>
 		              	  <td>영문이름</td>
-		              	  <td><input type="text" id="eName1" maxlength="8" placeholder="성"><input type="text" id="eName2" maxlength="8" placeholder="이름">
+		              	  <td><input type="text" id="eName1" maxlength="8" placeholder="성" name="eName"><input type="text" id="eName2" maxlength="8" placeholder="이름">
 		              	  <input type="button" id="eNameCheck" value="입력"></td>
 		              </tr>
 		              <tr>
 		              	  <td>주민등록번호</td>
-		              	  <td><input type="text" id="psid" maxlength="13" placeholder="-없이 입력"><input type="button" id="pschk" value="확인">
+		              	  <td><input type="text" id="psid" maxlength="13" placeholder="-없이 입력" name="personalId"><input type="button" id="pschk" value="확인">
 		              	  </tr>
 		              <tr>
 		                  <td>비상이메일</td>
@@ -70,8 +70,8 @@
 		              <tr>
 		                  <td>연락처(자택)</td>
 		                  <td class="numberInput" colspan="2"> &nbsp;
-		                  <input type="text" list="t1">
-		                  <datalist id="t1" name="tel1"> 
+		                  <input type="text" list="t1" name="tel1" id="t2">
+		                  <datalist id="t1"> 
 		                  <option value="02">서울 </option>
                           <option value="031">경기 </option>
                           <option value="032">인천</option>
