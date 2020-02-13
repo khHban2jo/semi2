@@ -66,11 +66,11 @@ $(function(){
     });
 
     //참조자 자동채우기용
-    $(".hiddenper1").on("change",function(){
+/*    $(".hiddenper1").on("click",function(){
          //배열 자르기 및 넘어감
         //var person1 = $(this).val().split();
         $(this).prev("table").find(".people2").html($(this).val());
-    });
+    });*/
     
     }
 
@@ -78,10 +78,6 @@ $(function(){
     //결재자체크 버튼
 $("#setLine").click(function(){
     window.open("checkpeople.jsp","childform","target : _blank");
-   // console.log($(".hiddenper").filter("input[type=text]"));
-   
-//     $(".hiddenper").filter("input[type=text]").eq(0).val(12345);
-//    $(".hiddenper").filter("input[type=text]").eq(0).trigger("change");
 
 });
 
@@ -135,15 +131,7 @@ $("#upload").change(function(){
 	});
 	
 	
-});
+	});
 
     //결재자클릭시 제거
-function delperson(i){
-    var indext =parseInt(i.innerText) -1;
-    console.log(indext)
-    if(confirm( i.innerText +" 결제선을 삭제하시겠습니까?")){
-       i.remove();
-    // 최종 인덱스에 맞는 값 splice()로 잘라내기 
-} 
-
-}
+ 

@@ -50,20 +50,23 @@ public class SearchEmpNameServlet extends HttpServlet {
 		
 		if(!request.getParameter("pcodes").equals("")) {
 			String deptcode ="";
-			String[] arr = request.getParameter("pcodes").split(", ");
+			String[] arr = request.getParameter("pcodes").split(",");
 			String dename = request.getParameter("deptname");
 			//String[] arr = {"100", "204"};
 			//dename = "임원";
 			CheckService cs = new CheckService();
 			ArrayList<StockLine> getMassub = cs.getMassub(arr, dename);// 정부부서코드 가져오기
+			
 			ArrayList<Integer> savePcodes = new ArrayList<>();
 			for(int i = 0; i<getMassub.size();i++) {
 				if(deptcode.equals("")) {
 					deptcode = getMassub.get(0).getDeptCode(); //부서코드 설정
 				}
-				savePcodes.add(getMassub.get(0).getEmpcode());
-				savePcodes.add(getMassub.get(0).getSubcode());		
+				savePcodes.add(getMassub.get(i).getEmpcode());
+				savePcodes.add(getMassub.get(i).getSubcode());	
+				
 			}
+		
 			ArrayList<String> getMSName = cs.getMSName(savePcodes);		
 			
 			

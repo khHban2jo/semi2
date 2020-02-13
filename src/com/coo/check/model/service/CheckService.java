@@ -216,6 +216,13 @@ public class CheckService {
 		return names;
 	}
 
+	public ArrayList<StockLine> getDeptTN(ArrayList<Integer> savePcodes) {
+		Connection con = getConnection();
+		ArrayList<StockLine> list = cDao.getDeptTN(con, savePcodes);
+		close(con);
+		return list;
+	}
+
 
 
 }
