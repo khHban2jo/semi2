@@ -43,7 +43,7 @@ public class BoardListServlet extends HttpServlet {
 		int currentPage;
 		BoardService bs = new BoardService();
 		currentPage = 1;
-		limit = 6;
+		limit = 8;
 		HttpSession session = request.getSession();
 		Member m = (Member)session.getAttribute("member");
 		String deptView = m.getDeptCode();

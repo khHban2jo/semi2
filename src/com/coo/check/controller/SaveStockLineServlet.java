@@ -7,22 +7,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.coo.check.model.service.CheckService;
-import com.coo.member.model.vo.Member;
+import com.google.gson.Gson;
 
 /**
- * Servlet implementation class MycheckCount
+ * Servlet implementation class SaveStockLineServlet
  */
-@WebServlet("/cmycount.ch")
-public class MycheckCountServlet extends HttpServlet {
+@WebServlet("/sStline.ch")
+public class SaveStockLineServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MycheckCountServlet() {
+    public SaveStockLineServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +30,24 @@ public class MycheckCountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ajax용
+	
+	
 		response.setContentType("application/json; charset=UTF-8");
-		HttpSession session = request.getSession();
+		int empcode= Integer.valueOf(request.getParameter("empcode"));
+		String deptcode = request.getParameter("dept");
+		int number = Integer.valueOf(request.getParameter("number"));
+		String table = request.getParameter("table");
 		
-		Member m = (Member)session.getAttribute("member");
+		table = table.substring(18);
 		
-		int id = m.getEmpCode();
+		System.out.print(empcode +" " + deptcode + " " +number + table);
+		CheckService cs = new CheckService();
+		
+		int result = cs.saveStockline(empcode, deptcode, number, table);
+	
+		new Gson().toJson((result>0)?"완료":"실패",response.getWriter());
 		
 		
-		
-		int result = new CheckService().getMyCount(id);
-		String page="";
-		
-		
-		if(result >=0) {
-			response.getWriter().print(result);
-			
-		}else {
-			//오류 페이지
-		}
 	}
 
 	/**

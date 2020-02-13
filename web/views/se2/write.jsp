@@ -19,7 +19,7 @@
     <label for="tt" style="margin:10px;">제목&nbsp;&nbsp;
     <input type="text" size="30" name="title" id="tt"></label>&nbsp;&nbsp;
    	
-   	<input type="hidden" name="deptview" value="<%=m.getDeptCode()%>">
+   	<input type="hidden" name="deptview" value="<%=m.getDeptCode() %>">
     <label for="sel">분류&nbsp;<select name="category" id="sel">
         <option value="1">전체</option>
         <option value="2">일반</option>

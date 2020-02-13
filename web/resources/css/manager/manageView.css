@@ -1,54 +1,41 @@
-
-    hr, td, tr, input, textarea, select, FORM{
-        font-family:고딕;
-        font-size:1em;
-        /* border-radius:5px;             */
-    }
-                
-    /* table, FORM{
-        border:1px solid black;
-        border-spacing:15px;
-        width: 300px;
-        height: 300px;
-    } */
-    .managerTable{
-         border-style:none;
-         background:whitesmoke;
-         margin-left:145px;   
-         color: #7e848f;
-         line-height: 250%;      
-    }
-    
-    table>tbody>tr>td:nth-child(1){
-        padding-left: 10px;
-    }
-
-    table>tbody>tr>td:nth-child(2){
-        padding-left: 10px;
-    }
-
-    .managerTable>tbody>tr{
-        border:0.5px solid gray;
-    }
-
-    .right{
-        background:whitesmoke;
-    }
-
-    .cap{
-        border-style:none;
-        color:black;
-    }
-
-    #foot{
-        border:none;
-    }
-
-    .numberInput{
-        font-size:10px;
-        size:4;
-        
-    }
-    /*
-    cellspacing = "1"
-    */
+	hr, td, tr, input, textarea, select, FORM{
+	    font-family:고딕;
+	    font-size:1em;
+	}
+	.managerTable{
+	     margin-left:70px;      
+	     border-style:none;
+	     background:whitesmoke;
+	     color: #7e848f;
+	     line-height: 250%;
+	}
+	
+	table>tbody>tr>td:nth-child(1){
+	    padding-left: 10px;
+	}
+	
+	table>tbody>tr>td:nth-child(2){
+	    padding-left: 10px;
+	}
+	
+	.managerTable>tbody>tr{
+	    border:0.5px solid gray;
+	}
+	
+	.right{
+	    background:whitesmoke;
+	}
+	
+	.cap{
+	    border-style:none;
+	    color:black;
+	}
+	
+	#foot{
+	    border:none;
+	}
+	
+	.numberInput{
+	    font-size:10px;
+	    size:4;
+	}

@@ -1,28 +1,31 @@
 package com.coo.check.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.coo.check.model.service.CheckService;
-import com.coo.member.model.vo.Member;
+import com.coo.check.model.vo.StockLine;
+import com.google.gson.Gson;
 
 /**
- * Servlet implementation class MycheckCount
+ * Servlet implementation class GetStockLineServlet
  */
-@WebServlet("/cmycount.ch")
-public class MycheckCountServlet extends HttpServlet {
+@WebServlet("/gStLine.ch")
+public class GetStockLineServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MycheckCountServlet() {
+    public GetStockLineServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +34,39 @@ public class MycheckCountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ajax용
+		request.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json; charset=UTF-8");
-		HttpSession session = request.getSession();
+		int empcode= Integer.valueOf(request.getParameter("empcode"));
 		
-		Member m = (Member)session.getAttribute("member");
+		ArrayList<String> dcnlist = null;
 		
-		int id = m.getEmpCode();
+		ArrayList<StockLine> stocklist = null;
+		 int st = 1;
 		
+		Map<String, StockLine> pushlist = new HashMap<String, StockLine>();
 		
+		Map fulling = new HashMap();
+ 		
+		CheckService cs = new CheckService();
 		
-		int result = new CheckService().getMyCount(id);
-		String page="";
+		dcnlist = cs.getDcnList(st);
+
+		stocklist= cs.getStocklist(empcode);
+		if(dcnlist != null) {
+			for(int i = 0; i<dcnlist.size(); i++) {
+				for(int j = 0; j<stocklist.size(); j++) {
+					if(stocklist.get(j).getDeptCode().equals(dcnlist.get(i))){
+						pushlist.put(dcnlist.get(i),stocklist.get(j));	
+						break;
+					}
+				}
+			}
+			fulling.put("list1", dcnlist);
+			fulling.put("list2", pushlist);
 		
-		
-		if(result >=0) {
-			response.getWriter().print(result);
-			
-		}else {
-			//오류 페이지
+			new Gson().toJson(fulling,response.getWriter());
 		}
+		
 	}
 
 	/**

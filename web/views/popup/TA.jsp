@@ -50,11 +50,11 @@
 	//	근무현황
 	TaData td = (TaData)request.getAttribute("td");
 	String workdayCount = 
-			td.getWorkdayCount()>10? ""+td.getWorkdayCount():"0"+td.getWorkdayCount();
+			td.getWorkdayCount()>=10? ""+td.getWorkdayCount():"0"+td.getWorkdayCount();
 	String lateCount = 
-			td.getLateCount()>10? ""+td.getLateCount():"0"+td.getLateCount();
+			td.getLateCount()>=10? ""+td.getLateCount():"0"+td.getLateCount();
 	String absentCount =
-			td.getAbsentCount()>10? ""+td.getAbsentCount():"0"+td.getAbsentCount();
+			td.getAbsentCount()>=10? ""+td.getAbsentCount():"0"+td.getAbsentCount();
 	
 	//	총 추가 근무 시간
 	String ot = (String) request.getAttribute("allOT"); 

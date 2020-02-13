@@ -120,6 +120,7 @@ public class BoardDao {
 				b.setBdate(rset.getDate("bdate"));
 				b.setStatus(rset.getString("status"));
 				b.setCategory(rset.getString("CNAME"));
+				b.setBdeptCode(rset.getString("BDEPT_CODE"));
 			}
 			
 		}catch(SQLException e) {

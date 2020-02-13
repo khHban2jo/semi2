@@ -25,4 +25,31 @@ public class MemberService {
 		return result;
 	}
 
+	public int checkEmp() {
+		Connection con = getConnection();
+		
+		int result = 0;
+		try {
+			result = mDao.checkEmp(con);
+		} catch (CooException e) {
+			e.getMessage();
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int idDupChk(String id) {
+		Connection con = getConnection();
+		int result = -1;
+		try {
+			result = mDao.idDupChk(con,id);
+		} catch (CooException e) {
+			e.getMessage();
+		}
+		
+		return result;
+	}
+
 }

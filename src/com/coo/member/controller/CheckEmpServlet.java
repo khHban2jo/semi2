@@ -1,28 +1,25 @@
-package com.coo.check.controller;
+package com.coo.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.coo.check.model.service.CheckService;
-import com.coo.member.model.vo.Member;
+import com.coo.member.model.service.MemberService;
 
 /**
- * Servlet implementation class MycheckCount
+ * Servlet implementation class CheckEmpServlet
  */
-@WebServlet("/cmycount.ch")
-public class MycheckCountServlet extends HttpServlet {
+@WebServlet("/mCheckEmp.me")
+public class CheckEmpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MycheckCountServlet() {
+    public CheckEmpServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +28,15 @@ public class MycheckCountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ajax용
-		response.setContentType("application/json; charset=UTF-8");
-		HttpSession session = request.getSession();
+		int result = new MemberService().checkEmp()+1;
 		
-		Member m = (Member)session.getAttribute("member");
-		
-		int id = m.getEmpCode();
-		
-		
-		
-		int result = new CheckService().getMyCount(id);
-		String page="";
-		
-		
-		if(result >=0) {
-			response.getWriter().print(result);
-			
+		if(result >0) {
+			System.out.println("전달 성공");
 		}else {
-			//오류 페이지
+			System.out.println("에러");
 		}
+		System.out.println(result);
+		response.getWriter().print(result);
 	}
 
 	/**

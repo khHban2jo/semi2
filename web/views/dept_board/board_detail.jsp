@@ -42,7 +42,9 @@
                 <button type="button" class="btn btn-info" id="normalb">일반</button>
                 <button type="button" class="btn btn-success" id="bizb">업무</button>
                 <br><br><br>
+        	<%if(m.getDeptCode().equals(b.getBdeptCode())){ %>
         <table style="width:95%; height:300px;" border="1" class="table-line">
+         	
          	<thead><tr>
          		<th>제목</th>
          		<th colspan="3"><%=b.getBtitle() %></th>
@@ -75,6 +77,7 @@
         		</tr>
         	</tbody>
          </table>
+        	<%} %>
          <button id="back" class="btn btn-light">뒤로가기</button>
          <%if(b.getBwriter().equals(m.getEmpId())){ %>
           <button class="btn2 btn btn-light" id="modify">수정</button>
