@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+ <meta charset="UTF-8">
+  <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>  
  <form action="<%=request.getContextPath() %>/mInsert.me" method="POST">
-		      <table border="1" id = "change1" class="managerTable">
+		      <table border="1" id ="change1" class="managerTable">
 		       
 		       <thead><tr><th class="cap">기본정보입력</th></tr></thead>
 		            
@@ -13,20 +20,19 @@
 		                  <td rowspan="8" style="width: 270px; height: 270px;"> 
 		                      <img src="" width="320px" height="320px" id="Show" alt="프로필사진"> 
 		                  </td>
-		
 		              </tr>
 		              <tr>
 		                  <td> 아이디  </td>
 		                  <td> 
-		                      <input type="text" id="userId" maxlength="8" placeholder="8자이하 특수문자 금지" style="width: 200px;"> 
-		                      <input type="button" id="checkId" value="확인">
+		                      <input type="text" id="userId" maxlength="20" style="width: 200px;" readonly placeholder="영어이름 먼저입력"> 
+		                      <input type="button" id="checkId" value="중복확인">
 		                  </td>
 		              </tr>
 		              <tr>
 		                  <td> 비밀번호 </td> <td><input type="password" id="userPwd" style="width: 200px;" maxlength="16"></td></tr>
 		                  <tr>
 		                  <td> 비밀번호 확인  </td>
-		                  <td> <input type="password" id="userPwd2" style="width: 200px;" maxlength="16"> <input type="button" onclick="passwordCheck();" value=" 확 인"></td>
+		                  <td> <input type="password" id="userPwd2" style="width: 200px;" maxlength="16"> <input type="button" id="pwdCheck" value=" 확 인"></td>
 		              </tr>
 		              <tr>
 		                  <td> 이 름 </td>
@@ -34,17 +40,18 @@
 		              </tr>
 		              <tr>
 		              	  <td>영문이름</td>
-		              	  <td><input type="text" id="eName" maxlength="8" placeholder="성"><input type="text" id="eName2" maxlength="8" placeholder="이름"></td>
+		              	  <td><input type="text" id="eName1" maxlength="8" placeholder="성"><input type="text" id="eName2" maxlength="8" placeholder="이름">
+		              	  <input type="button" id="eNameCheck" value="입력"></td>
 		              </tr>
 		              <tr>
 		              	  <td>주민등록번호</td>
-		              	  <td><input type="text" id="psid1" maxlength="6">-<input type="password" id="psid2" size="7">
+		              	  <td><input type="text" id="psid1" maxlength="6">-<input type="password" id="psid2" size="7"> <input type="button" id="pschk" value="확인"> 
 		              </tr>
 		              <tr>
 		                  <td>비상이메일</td>
 		                  <td>
-		                      <input type="text" id = "N14"> 
-		                      <select id = "N15">
+		                      <input type="text" id="maillist" name="email"> 
+		                      <select id = "mailst">
 		                          <option value="">직접 입력</option>
 		                          <option value="@Daum.com">@Daum.com</option>
 		                          <option value="@hanmail.net">@hanmail.net</option>
@@ -141,7 +148,6 @@
 		          </form>
 		     <script>
 		     	$('#checkemp').click(function(){
-		     	   event.preventDefault()
 		     	   $.ajax({
 		     		   url:"<%=request.getContextPath() %>/mCheckEmp.me",
 		     		   type:"post",
@@ -152,5 +158,61 @@
 		     		   }
 		     	   });
 		     	});
-		     </script>
-		          
+		     	  $('#eNameCheck').click(function(){
+		     	        var regExp = /[a-z]/;
+		     	        var eName1 = $('#eName1').val();
+		     	        var eName2 = $('#eName2').val();
+
+		     	        if(!regExp.test(eName1)){
+		     	           alert("영문만 입력해주세요");
+		     	           return false;
+		     	        }
+
+		     	        if(!regExp.test(eName2)){
+		     	           alert("영문만 입력해주세요");
+		     	           return false;
+		     	        }
+		     	        $('#userId').val(eName1+"."+eName2);
+		     	     });
+		     	  $('#checkId').click(function(){
+		     	        $.ajax({
+		     	          url:"<%= request.getContextPath() %>/idDup.me",
+		     	          type:"get",
+		     	          data:{
+		     	        	    userId:$('#userId').val()
+		     	          },success:function(data){
+		     	        	 
+		     	        	  if(data=='y'){
+		     	        		 alert("아이디 사용가능");
+		     	        	  }else{
+		     	        		 alert("아이디 사용불가");
+		     	        	  }
+		     	          },error:function(){
+		     	        	  alert("조회 실패");
+		     	          }
+		     	        })
+		     	     });
+		     	  $('#pwdCheck').click(function(){
+		     		 var pwd = $('#userPwd').val();
+		     		 var pwd2 = $('#userPwd2');
+		     		 var regExp = /[0-9|a-z]/;
+		     		 
+		     		 if(!regExp.test(pwd)){
+		     			alert("숫자와 영문으로만 작성해주시기 바랍니다."); 
+		     			return false;
+		     		 }
+		     		 
+		     		 if(pwd==pwd2.val()){
+		     			alert("비밀번호가 일치합니다.");		     			 
+		     		 }else{
+		     			alert("비밀번호가 틀립니다.");
+		     			pwd2.select();
+		     			return false;
+		     		 }
+		     	  });
+		     	 $('#pschk').click(function(){
+		     		 
+		     	 }); 
+		    </script>
+</body>		     
+</html>		       

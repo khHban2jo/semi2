@@ -3,26 +3,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-
     <meta charset="UTF-8">
     <title>COO - 관리자</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
-
     <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
-   
-<script>
-
-	function showId(value){
-		
-		switch(value){
-		 case "1":$('#start').load("<%=request.getContextPath() %>/views/manager/join.jsp"); break;
-		 case "2":$('#start').load("<%=request.getContextPath() %>/views/manager/modifyEMP.jsp"); break;
-		 case "3":$('#start').load("<%=request.getContextPath() %>/views/manager/deleteEMP.jsp"); break;
-		}
-	}
-</script>
 </head>
 <!-- style="overflow:hidden;" -->
 <body style="background: white;">
@@ -38,9 +24,9 @@
 	
 		<br>&nbsp;
 		<%if(m.getEmpId().equals("admin")){ %>
-		  <button value="1" id="userId" style="width: 100px; height: 40px;" onclick="showId(this.value);">사원ID생성</button>
-		  <button value="2" id="pwd"style="width: 100px; height: 40px;" onclick="showId(this.value);">사원정보수정</button>
-		  <button value="3" id="deleteId" style="width: 100px; height: 40px;" onclick="showId(this.value);">사원삭제</button>
+		  <button id="iEmp" style="width:100px; height:40px;">사원ID생성</button>
+		  <button id="uEmp" style="width:100px; height:40px;">사원정보수정</button>
+		  <button id="dEmp" style="width:100px; height:40px;">사원삭제</button>
 		 <%}else{ 
 		 	 
 		   }
@@ -53,7 +39,25 @@
     <!-- 풋터 부분 include -->
 	<%@ include file="common/COO_footer.jsp" %>
 </div>
+   
+<script>
+	var option ="top=80px,left=300px,width=1200px,height=800px,location=no,resizable=no,toolbars=no";
+	var name = $(this).text();
 
+	$('#iEmp').click(function(name){
+		var url = "<%=request.getContextPath() %>/views/manager/join.jsp";
+		window.open(url,name,option);
+	});
+	
+	$('#uEmp').click(function(name){
+		var url = "<%=request.getContextPath() %>/views/manager/modifyEmp.jsp";
+		window.open(url,name,option);
+	});
+	$('#dEmp').click(function(name){
+		var url = "<%=request.getContextPath() %>/views/manager/deleteEmp.jsp";
+		window.open(url,name,option); 
+	});
+</script>
 
 </body>
 </html>
