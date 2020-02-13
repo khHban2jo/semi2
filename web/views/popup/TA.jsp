@@ -37,7 +37,6 @@
 		}
 		wtMap2.put(i, time);
 	}
-	
 	String temp="";
 	if(wtMap2.get(1).length() != 3){
 		if(wtMap2.get(0).compareTo(wtMap2.get(1)) > 0 ){
