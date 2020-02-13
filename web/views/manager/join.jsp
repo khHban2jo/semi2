@@ -29,7 +29,7 @@
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <td> 비밀번호 </td> <td><input type="password" name="userPwd" id="pwd1"style="width: 200px;" maxlength="16"></td></tr>
+		                  <td> 비밀번호 </td> <td><input type="password" name="userPwd" id="pwd1" style="width: 200px;" maxlength="16"></td></tr>
 		                  <tr>
 		                  <td> 비밀번호 확인  </td>
 		                  <td> <input type="password" id="pwd2" style="width: 200px;" maxlength="16"> <input type="button" id="pwdCheck" value=" 확 인"></td>
@@ -178,7 +178,7 @@
 		     	   });
 		     	});
 		     	  $('#eNameCheck').click(function(){
-		     	        var regExp = /[a-z]/;
+		     	        var regExp = /[a-z|A-Z]/;
 		     	        var eName1 = $('#eName1').val();
 		     	        var eName2 = $('#eName2').val();
 
@@ -191,7 +191,7 @@
 		     	           alert("영문만 입력해주세요");
 		     	           return false;
 		     	        }
-		     	        $('#userId').val(eName1+"."+eName2);
+		     	        $('#uid').val(eName1+"."+eName2);
 		     	  		return true;
 		     	     });
 		     	  
@@ -214,16 +214,21 @@
 		     	        });
 		     	     });
 		     	  $('#pwdCheck').click(function(){
-		     		 var pwd = $('#userPwd').val();
-		     		 var pwd2 = $('#userPwd2');
+		     		 var pwd1 = $('#pwd1').val();
+		     		 var pwd2 = $('#pwd2');
 		     		 var regExp = /[0-9|a-z]/;
 		     		 
-		     		 if(!regExp.test(pwd)){
+		     		 if(!regExp.test(pwd1)){
 		     			alert("숫자와 영문으로만 작성해주시기 바랍니다."); 
 		     			return false;
 		     		 }
 		     		 
-		     		 if(pwd==pwd2.val()){
+		     		 if(!regExp.test(pwd2)){
+		     			alert("숫자와 영문으로만 작성해주시기 바랍니다."); 
+		     			return false;
+		     		 }
+		     		 
+		     		 if(pwd1==pwd2.val()){
 		     			alert("비밀번호가 일치합니다.");		     			 
 		     		 }else{
 		     			alert("비밀번호가 틀립니다.");

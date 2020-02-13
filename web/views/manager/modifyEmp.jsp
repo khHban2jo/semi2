@@ -9,8 +9,8 @@
 </head>
 <body>
 
-		          <form action="" method="POST">
-<table id = "change2" class="managerTable" border="1">
+<form action="<%=request.getContextPath() %>/mUpdate.me" method="POST">
+			<table class="managerTable" border="1">
 		              <tr>
 		                  <th colspan="3" style="font-size: 1em; font-family: 고딕; text-align:left; padding-left:10px;" class="cap" >사원 수정</th>
 		              </tr>
