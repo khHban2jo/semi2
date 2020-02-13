@@ -24,19 +24,19 @@
 		              <tr>
 		                  <td> 아이디  </td>
 		                  <td> 
-		                      <input type="text" id="userId" maxlength="20" style="width: 200px;" readonly placeholder="영어이름 먼저입력"> 
+		                      <input type="text" id="uid" name="userId" maxlength="20" style="width: 200px;" readonly placeholder="영어이름 먼저입력"> 
 		                      <input type="button" id="checkId" value="중복확인">
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <td> 비밀번호 </td> <td><input type="password" id="userPwd" style="width: 200px;" maxlength="16"></td></tr>
+		                  <td> 비밀번호 </td> <td><input type="password" name="userPwd" id="pwd1"style="width: 200px;" maxlength="16"></td></tr>
 		                  <tr>
 		                  <td> 비밀번호 확인  </td>
-		                  <td> <input type="password" id="userPwd2" style="width: 200px;" maxlength="16"> <input type="button" id="pwdCheck" value=" 확 인"></td>
+		                  <td> <input type="password" id="pwd2" style="width: 200px;" maxlength="16"> <input type="button" id="pwdCheck" value=" 확 인"></td>
 		              </tr>
 		              <tr>
 		                  <td> 이 름 </td>
-		                  <td><input type="text" id="pName" maxlength="8"> &nbsp;&nbsp;
+		                  <td><input type="text" id="empName" maxlength="8"> &nbsp;&nbsp;
 		              </tr>
 		              <tr>
 		              	  <td>영문이름</td>
@@ -104,10 +104,9 @@
 		              </td>
 		              </tr>
 		              <tr>
-		                  <td>주소  <input type="button" value="확 인" style="width: 70px;" id = "N15"
-		                      onclick="showAddress();"> </td>
+		                  <td>주소  </td>
 		                  <td colspan="2">
-		                      <label id = "N16"> 여기에서 출력 됩니다.</label>
+		                      <input type="text" name="address" value="서울시">
 		                  </td>
 		                  
 		              </tr>
@@ -157,9 +156,9 @@
 		              <tfoot><tr>
 		                  <td align="center" colspan="3" id="foot">
 		                      <!-- 나중에 submit 로 바꿀것-->
-		                      <input type="button" id="regist" value = " 확 인 " style="width: 150px; height: 50px;"> 
+		                      <input type="submit" value = "확 인 " style="width: 150px; height: 50px; text-align:center;"> 
 		                      &nbsp; &nbsp; 
-		                      <input type="reset" value = " 취 소 " style="width: 150px; height: 50px;">
+		                      <input type="reset" value = " 취 소 " style="width: 150px; height: 50px; text-align:center;">
 		                  </td>
 		              </tr>
 		              </tfoot>
