@@ -22,7 +22,4 @@ public class TaDataService {
 		return td;
 	}
 
-	
-	
-
 }

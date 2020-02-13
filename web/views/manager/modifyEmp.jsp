@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-		          <form action="" method="POST">
-<table id = "change2" class="managerTable" border="1">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사원수정</title>
+    <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
+</head>
+<body>
+
+<form action="<%=request.getContextPath() %>/mUpdate.me" method="POST">
+			<table class="managerTable" border="1">
 		              <tr>
 		                  <th colspan="3" style="font-size: 1em; font-family: 고딕; text-align:left; padding-left:10px;" class="cap" >사원 수정</th>
 		              </tr>
@@ -123,3 +132,5 @@
 		              
 		      </table>
 		          </form>
+</body>
+</html>
