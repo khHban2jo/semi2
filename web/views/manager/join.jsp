@@ -56,8 +56,6 @@
 		                          <option value="@daum.net">@daum.net</option>
 		                          <option value="@naver.com">@naver.com</option>
 		                      </select>
-						
-		                      <input type="button" value="중복 확인" id="inputFunction14" onclick="emailCheck();">
 		                  </td>
 		              <tr>
 		                  <td> 성 별 </td>
@@ -71,18 +69,38 @@
 		                 </tr>
 		              <tr>
 		                  <td>연락처(자택)</td>
-		                  <td class="numberInput" colspan="2"> &nbsp;<input type="text" maxlength="3">-<input type="text" maxlength="4">-<input type="text" maxlength="4"></td>
+		                  <td class="numberInput" colspan="2"> &nbsp;
+		                  <input type="text" list="t1">
+		                  <datalist id="t1" name="tel1"> 
+		                  <option value="02">서울 </option>
+                          <option value="031">경기 </option>
+                          <option value="032">인천</option>
+                          <option value="033">강원 </option>
+                          <option value="041">충남 </option>
+                          <option value="042">대전 </option>
+                          <option value="043">충북 </option>
+                          <option value="051">부산 </option>
+                          <option value="052">울산 </option>
+                          <option value="053">대구 </option>
+                          <option value="054">경북 </option>
+                          <option value="054">경북 </option>
+                          <option value="055">경남 </option>
+                          <option value="061">전남 </option>
+                          <option value="062">광주 </option>
+                          <option value="063">전북 </option>
+                          <option value="064">제주 </option></datalist>
+		                  -<input type="text" maxlength="4" id="t2" name="tel2">-<input type="text" id="t3" maxlength="4" name="tel3"></td>
 		              </tr>
 		              <tr>
 		                  <td>연락처(PHONE)</td>
-		                  <td colspan="2"><select name="" id="">
-		                      <option value="">010</option>
-		                      <option value="">011</option>
-		                      <option value="">016</option>
-		                      <option value="">017</option>
-		                      <option value="">019</option>
+		                  <td colspan="2"><select name="phone1">
+		                      <option value="010">010</option>
+		                      <option value="011">011</option>
+		                      <option value="016">016</option>
+		                      <option value="017">017</option>
+		                      <option value="019">019</option>
 		                  </select>
-		                  - <input type="text" maxlength="4" class="numberInput"> - <input type="text" maxlength="4" class="numberInput">
+		                  - <input type="text" maxlength="4" id="p2" name="phone2"> - <input type="text" maxlength="4" id="p3" name="phone3">
 		              </td>
 		              </tr>
 		              <tr>
@@ -96,7 +114,7 @@
 		                  <tr>
 		                  <td> 직 급 </td>
 		                  <td>
-		                       <select id="CompanyRank11" style="width: 150px;">
+		                       <select name="jobCode" style="width: 150px;">
 		                          <option value="J8"> 사 원 </option>
 		                          <option value="J7"> 대 리 </option>
 		                          <option value="J6"> 과 장 </option>
@@ -111,12 +129,14 @@
 		              <tr>
 		                  <td> 부 서  </td>
 		                  <td>
-		                      <select id="Department11" style="width: 150px;">
-		                          <option value = "기 획">기 획</option>
-		                          <option value = "영 업">영 업</option>
-		                          <option value = "인 사">인 사</option>
-		                          <option value = "R&D">R&D</option>
-		                          <option value = "임 시">임 시</option>
+		                      <select name="deptCode" style="width: 150px;">
+		                      	  <option>--</option>
+		                      	  <option value="D0">임원</option>
+		                          <option value="D1">인사부서</option>
+		                          <option value="D2">영업부서</option>
+		                          <option value="D3">기획부서</option>
+		                          <option value="D4">연구부서</option>
+		                          <option value="D5">미발령</option>
 		                      </select>
 		                  </td>
 		              </tr>
@@ -127,7 +147,7 @@
 		              <tr>
 		                  <td>비고 </td>
 		                  <td colspan="2" rowspan="2">
-		                      <textarea style="resize: none; width: 600px; height: 60;" id="N17">
+		                      <textarea style="resize: none; width: 600px; height: 60;" name="etc">
 		
 		                      </textarea>
 		                  </td>
@@ -141,7 +161,8 @@
 		                      &nbsp; &nbsp; 
 		                      <input type="reset" value = " 취 소 " style="width: 150px; height: 50px;">
 		                  </td>
-		              </tr></tfoot>
+		              </tr>
+		              </tfoot>
 		              
 		      </table>
 		          </form>
@@ -153,7 +174,7 @@
 		     		   success:function(data){
 		     			   $('#mEmpCode').val(data);
 		     		   },error:function(){
-		     			   
+		     			   alert("에러발생");
 		     		   }
 		     	   });
 		     	});
@@ -172,7 +193,9 @@
 		     	           return false;
 		     	        }
 		     	        $('#userId').val(eName1+"."+eName2);
+		     	  		return true;
 		     	     });
+		     	  
 		     	  $('#checkId').click(function(){
 		     	        $.ajax({
 		     	          url:"<%= request.getContextPath() %>/idDup.me",
@@ -189,7 +212,7 @@
 		     	          },error:function(){
 		     	        	  alert("조회 실패");
 		     	          }
-		     	        })
+		     	        });
 		     	     });
 		     	  $('#pwdCheck').click(function(){
 		     		 var pwd = $('#userPwd').val();
@@ -208,7 +231,9 @@
 		     			pwd2.select();
 		     			return false;
 		     		 }
+		     		 return true;
 		     	  });
+		     	  
 		     	 $('#pschk').click(function(){
 		     		 var regExp = /^[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0-1])[1-4][0-9]{6}$/;
 		     	 	 var psid = $('#psid').val();
@@ -229,12 +254,36 @@
 		     	 	case "4":$('#female').attr('checked','true'); break;
 		     	 	}
 		     	 	
-		     	 	var age = $('#age1').val(2000 - parseInt(str.substr(1,2)));
-		     	 	$('#age1').val(age-1900);
+		     	 	$('#age1').val(2000 - parseInt(str.substr(1,2)) - 1900);
 		     	 	
-		     	 }); 
+		     	 	return true;
+		     	 });
+		     	 
 		     	 $('#maillist').change(function(){
 		     		 $('#mail').val($('#mail').val()+$('#maillist').val());
+		     	 });
+		     	 $('#p2').change(function(){
+		     		 var regExp = /[0-9]{3,4}/;
+		     		 var p2 = $('#p2').val();
+		     		 
+		     		 if(!regExp.test(p2)){
+		     			 alert("잘못된 입력 양식. 숫자를 입력해주세요");
+		     			 return false;
+		     			 p2.focus();
+		     		 }
+		     		 	return true;
+		     	 });
+		     	 
+		     	 $('#p3').change(function(){
+		     		 var regExp = /[0-9]{3,4}/;
+		     		 var p3 = $('#p3').val();
+		     		 
+		     		 if(!regExp.test(p3)){
+		     			 alert("잘못된 입력 양식. 숫자를 입력해주세요");
+		     			 p3.focus();
+		     			 return false;
+		     		 }
+		     		 	return true;
 		     	 });
 		    </script>
 </body>		     
