@@ -135,16 +135,35 @@ $(function(){
 
     //  휴무신청 버튼
     $('#vacationBtn').click(function(){
-        
+    	var url = "/semi/views/checkdoc/writedoc.jsp";
+        var name = "문서상신";
+        var option = 'top=80px, left=250px width=1250px,height=850px, resizable=no, location=no, toolbars=no,scrollbars=no';
+        window.open(url, name, option);
     });
     
     //	결재확인 버튼
     $('#checkBtn').click(function(){
+    	if( $('#checkBtn').html() =='결재 확인' ){
+    		$('#checkBtn').html('근무 현황');
+    		$.ajax({
+        		url: "/semi/myVacDoc.ta",
+        		type: "get",
+        		success: function(){
+        			
+        		},
+        		complete: function(){
+        			
+        		}
+        	});
+    		$('.area2').css('display','none');
+    		$('.area3').css('display','block');
+    	}else{
+    		$('#checkBtn').html('결재 확인');
+    		$('.area3').css('display','none');
+    		$('.area2').css('display','block');
+    	}
     	
     });
     
-    var barProgress = $('.progress');
-    barProgress.eq(0).progress({value:25});
-    barProgress.eq(0).find(".ui-progressbar-value").css({"background":"#CC66CC"});
 
 });

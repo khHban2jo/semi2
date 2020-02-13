@@ -50,11 +50,9 @@
 	//	근무현황
 	TaData td = (TaData)request.getAttribute("td");
 	String workdayCount = 
-			td.getWorkdayCount()>=10? ""+td.getWorkdayCount():"0"+td.getWorkdayCount();
+			td!=null? (td.getWorkdayCount()>=10? ""+td.getWorkdayCount():"0"+td.getWorkdayCount()):"00";
 	String lateCount = 
-			td.getLateCount()>=10? ""+td.getLateCount():"0"+td.getLateCount();
-	String absentCount =
-			td.getAbsentCount()>=10? ""+td.getAbsentCount():"0"+td.getAbsentCount();
+			td!=null? (td.getLateCount()>=10? ""+td.getLateCount():"0"+td.getLateCount()):"00";
 	
 	//	총 추가 근무 시간
 	String ot = (String) request.getAttribute("allOT"); 
@@ -121,17 +119,17 @@
             	<button id="endBtn" class="btn" disabled>퇴근 등록</button>
             <%} %>
             <button id="vacationBtn" class="btn">휴무 신청</button>
-            <button id="checkId" class="btn">결재 확인</button>
+            <button id="checkBtn" class="btn">결재 확인</button>
         </div>
 
         <div id="area2" class="area2">
         	<fieldset id="area2Field">
         		<legend>&nbsp;&nbsp;이번달 근무 현황&nbsp;&nbsp;</legend>
         		<span class="La2">총 근무일</span>	<span id="" class="La2Value"><%= workdayCount %> 일</span> <br><br>
-        		<span class="La2">지각 횟수</span>	<span id="" class="La2Value"><%= lateCount %> 회</span> <br><br>
-        		<span class="La2">결근 횟수</span>	<span id="" class="La2Value"><%= absentCount %> 회</span> <br><br><br>
+        		<span class="La2">지각 횟수</span>	<span id="" class="La2Value"><%= lateCount %> 회</span> <br><br><br>
+        		<span class="La2b">휴무 예정일</span> <span id="" class="La2Valueb">XX 일/ XX 일/ XX 일</span> <br><br>
+        		<span class="La2b">반차 예정일</span> <span id="" class="La2Valuec">XX 일</span> <br><br>
         		
-        		<span class="La2b">휴무 예정일</span> <span id="" class="La2Valueb">XX일/XX일/XX일</span> <br><br>
         	</fieldset>
         	<fieldset id="area2Field2">
         		<br>
@@ -140,6 +138,25 @@
 				<div class="progress"><div class="progressBar"></div><%=per%>%</div>
 				<span class="La4Value">12시간 中  <%=per %>%</span>
         	</fieldset>
+        </div>
+        
+        <div id="area3" class="area3">
+        	<table>
+        		<thead>
+        			<tr>
+        				<td class="td1">문서번호</td>
+        				<td class="td2">문서제목</td>
+        				<td class="td3">문서상태</td>
+        			</tr>
+        		</thead>
+        		<tbody>
+        			<tr>
+        				<td class="td1">1</td>
+        				<td class="td2" title="홍길동의 연차 신청서 가나다라마바사아자차"><a>홍길동의 연차 신청서 가나다라마바사아자차</a></td>
+        				<td class="td3">미승인</td>
+        			</tr>
+        		</tbody>
+        	</table>
         </div>
 
     </div>
