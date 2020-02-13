@@ -12,10 +12,13 @@
     <meta charset="UTF-8">
     <title>COO - 전자결재</title>
     <link rel="stylesheet" href="/semi/resources/css/checkdoc/checkwrite.css">
+    <link rel="stylesheet" href="/semi/resources/css/notice/button.css"><!-- 1순위 -->
     <script
     src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
     crossorigin="anonymous"></script>
+    
+    <script type="text/javascript" src="/semi/views/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
     <script src = "/semi/resources/js/checkdoc/checkwrite.js"></script>
 
     <style>
@@ -188,8 +191,9 @@
                     <fieldset>
                     <div id="docbody">
                          <!-- 인클루드 용-->    
-					<textArea cols="20" rows="20" name="text"></textArea>
-
+					
+					<textarea name="ir1" id="contents" rows="10" cols="100"
+									style="width:100%; height:550px; min-width:610px; display:none;"></textarea>
                     </div>
                 </fieldset>
 
@@ -199,7 +203,27 @@
         </div>
 
     </div> 
+    
     <script>
+    	$('#btn_1')
+    </script>
+    <script type="text/javascript">
+    
+	var oEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+	 oAppRef: oEditors,
+	 elPlaceHolder: "contents",
+	 sSkinURI: "/semi/views/se2/SmartEditor2Skin.html",
+	 fCreator: "createSEditor2"
+	});
+	
+	  function goSaveAndSubmit(){
+	    
+	   oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD",[]);
+	   
+	   $('#gosubmit').submit();
+
+	   }
        
 
 
