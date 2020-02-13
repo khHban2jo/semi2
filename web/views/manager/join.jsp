@@ -45,16 +45,15 @@
 		              </tr>
 		              <tr>
 		              	  <td>주민등록번호</td>
-		              	  <td><input type="text" id="psid1" maxlength="6">-<input type="password" id="psid2" size="7"> <input type="button" id="pschk" value="확인"> 
-		              </tr>
+		              	  <td><input type="text" id="psid" maxlength="13" placeholder="-없이 입력"><input type="button" id="pschk" value="확인">
+		              	  </tr>
 		              <tr>
 		                  <td>비상이메일</td>
 		                  <td>
-		                      <input type="text" id="maillist" name="email"> 
-		                      <select id = "mailst">
+		                      <input type="text" id="mail" name="email"> 
+		                      <select id="maillist">
 		                          <option value="">직접 입력</option>
-		                          <option value="@Daum.com">@Daum.com</option>
-		                          <option value="@hanmail.net">@hanmail.net</option>
+		                          <option value="@daum.net">@daum.net</option>
 		                          <option value="@naver.com">@naver.com</option>
 		                      </select>
 						
@@ -62,13 +61,13 @@
 		                  </td>
 		              <tr>
 		                  <td> 성 별 </td>
-		                  <td>  
-		                      <input type="radio" value="남" name="gender1"> 남 &nbsp; <input type="radio" value="여" name="gender1"> 여
+		                  <td>  	
+		                      <input type="radio" value="M" name="gender" id="male" disabled> 남 &nbsp; <input type="radio" value="F" id="female" name="gender" disabled> 여
 		                  </td>
 		              </tr>
 		                 <tr>
 		                 <td>나이</td>
-		                 <td><input type="text"></td>
+		                 <td><input type="text" id="age1" name="age" readonly></td>
 		                 </tr>
 		              <tr>
 		                  <td>연락처(자택)</td>
@@ -211,8 +210,32 @@
 		     		 }
 		     	  });
 		     	 $('#pschk').click(function(){
-		     		 
+		     		 var regExp = /^[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0-1])[1-4][0-9]{6}$/;
+		     	 	 var psid = $('#psid').val();
+		     	 	 
+		     	 	if(regExp.test(psid)){
+		     	 		alert("keep going");
+		     	 	}else{
+		     	 		alert("주민등록번호 양식에 맞지 않습니다.");
+		     	 		return false;
+		     	 	}
+		     	 	
+		     	 	//성별, 나이
+		     	 	var str = $('#psid').val();
+		     	 	switch(str.substr(7,1)){
+		     	 	case "1":$('#male').attr('checked','true'); break;
+		     	 	case "3":$('#male').attr('checked','true'); break;
+		     	 	case "2":$('#female').attr('checked','true'); break;
+		     	 	case "4":$('#female').attr('checked','true'); break;
+		     	 	}
+		     	 	
+		     	 	var age = $('#age1').val(2000 - parseInt(str.substr(1,2)));
+		     	 	$('#age1').val(age-1900);
+		     	 	
 		     	 }); 
+		     	 $('#maillist').change(function(){
+		     		 $('#mail').val($('#mail').val()+$('#maillist').val());
+		     	 });
 		    </script>
 </body>		     
 </html>		       
