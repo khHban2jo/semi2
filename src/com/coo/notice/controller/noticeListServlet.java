@@ -75,7 +75,7 @@ public class noticeListServlet extends HttpServlet {
 		currentPage = 1;
 		
 		// 글 개수 및 페이지 수 제한
-		limit = 10;
+		limit = 7;
 		
 		// 특정 페이지호 수정해야 한다.
 		if(request.getParameter("currentPage") != null) {
