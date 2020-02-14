@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class StockLine implements Serializable{
 	private int empcode;
+	private String empName;
 	private String deptCode;
 	private String deptName;
 	private int subcode;
@@ -66,6 +67,13 @@ public class StockLine implements Serializable{
 	}
 	public void setList3(String list3) {
 		this.list3 = list3;
+	}
+	
+	public String getEmpName() {
+		return empName;
+	}
+	public void setEmpName(String empName) {
+		this.empName = empName;
 	}
 	@Override
 	public String toString() {

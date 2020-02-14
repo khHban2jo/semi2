@@ -6,20 +6,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.coo.member.model.service.MemberService;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class CheckEmpServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/mCheckEmp.me")
-public class CheckEmpServlet extends HttpServlet {
+@WebServlet("/logout.me")
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckEmpServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,14 +27,14 @@ public class CheckEmpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int result = new MemberService().checkEmp()+1;
-		
-		if(result >0) {
-			
-		}else {
-		}
-		System.out.println(result);
-		response.getWriter().print(result);
+	   HttpSession session = request.getSession(false);
+	   
+	   if(session !=null) {
+		   System.out.println("로그아웃이 실행됩니다.");
+		   session.invalidate();
+	   }
+	   response.sendRedirect("views/home.jsp");
+	
 	}
 
 	/**

@@ -214,7 +214,7 @@ hr{
 .La2Valueb{
 	position: relative;
 	top: 10px;
-	left: 135px;
+	left: 118px;
 	color: red;
 	font-size: 18px;
 	font-weight: bold;
@@ -223,7 +223,7 @@ hr{
 	position: relative;
 	top: 10px;
 	left: 181px;
-	color: black;
+	color: red;
 	font-size: 18px;
 	font-weight: bold;
 }
@@ -288,4 +288,49 @@ hr{
 	color: red;
 	font-size: 15px;
 	font-weight: bold;
+}
+
+
+
+
+
+
+.area3{
+    position: relative;
+    top: 5px;
+    width: auto;
+    height: 490px;
+    background-color: whitesmoke;
+    border: 2px solid darkgray;
+    border-radius: 10px;
+    display:none;
+    
+}
+.area3>table{
+	position: relative;
+	top: 20px;
+	text-align: center;
+	left: 5%;
+	width:90%;
+	border: 1px solid black;
+	table-layout:fixed;
+}
+.td1{
+	border: 1px solid black;
+	text-overflow:ellipsis; 
+	overflow:hidden;
+	width:20%;
+}
+.td2{
+	border: 1px solid black;
+	text-overflow:ellipsis; 
+	overflow:hidden;
+	white-space:nowrap;
+	width:60%;
+}
+.td3{
+	border: 1px solid black;
+	text-overflow:ellipsis; 
+	overflow:hidden;
+	width:20%;
 }

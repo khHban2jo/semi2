@@ -37,6 +37,7 @@ public class SearchEmpNameServlet extends HttpServlet {
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
+		
 		// 받는 값 스트링 ", " 형태의 값 , 부서명
 		
 		//스플릿후 조인된 테이블에서  정 부 아이디  부서 코드 검색 후 반환
@@ -50,20 +51,23 @@ public class SearchEmpNameServlet extends HttpServlet {
 		
 		if(!request.getParameter("pcodes").equals("")) {
 			String deptcode ="";
-			String[] arr = request.getParameter("pcodes").split(", ");
+			String[] arr = request.getParameter("pcodes").split(",");
 			String dename = request.getParameter("deptname");
 			//String[] arr = {"100", "204"};
 			//dename = "임원";
 			CheckService cs = new CheckService();
 			ArrayList<StockLine> getMassub = cs.getMassub(arr, dename);// 정부부서코드 가져오기
+			
 			ArrayList<Integer> savePcodes = new ArrayList<>();
 			for(int i = 0; i<getMassub.size();i++) {
 				if(deptcode.equals("")) {
 					deptcode = getMassub.get(0).getDeptCode(); //부서코드 설정
 				}
-				savePcodes.add(getMassub.get(0).getEmpcode());
-				savePcodes.add(getMassub.get(0).getSubcode());		
+				savePcodes.add(getMassub.get(i).getEmpcode());
+				savePcodes.add(getMassub.get(i).getSubcode());	
+				
 			}
+		
 			ArrayList<String> getMSName = cs.getMSName(savePcodes);		
 			
 			

@@ -208,20 +208,21 @@
          <input type ="text" name= "cheper" id="cheper" value="">
          <input type ="text" name= "coladept" id ="coladept" value="">
          <input type ="text" name= "colaper" id = "colaper" value="">
-         <input type ="text" name= "resper" id = "resper" value="">
+         <input type ="text" name= "enddept" id ="enddept" value="">
          <input type ="text" name= "endper" id = "endper" value="">
+         <input type ="text" name= "resper" id = "resper" value="">
          <input type="submit" onclick ="return end()" value="전송">
 
     </div>
     <input type="button" value ="닫기" onclick="close1();" id ="clo">
 </div>
-
+	
 
     <!--결제선 가져오기-->
 
     <div id="backdiv">
-
-      
+			
+      	
 
     </div>
     <div id="seldiv">
@@ -395,7 +396,7 @@
 			
 			$.ajax({
 				url:"/semi/sStline.ch",
-				type:"get",
+				type:"post",
 				data:{
 					empcode :<%=m.getEmpCode()%>,
 					dept:$("#deptsel").val(),
@@ -412,7 +413,8 @@
 			  
 			});
 		});
-
+		
+		
 
 		
 		

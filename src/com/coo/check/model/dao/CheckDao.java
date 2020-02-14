@@ -626,7 +626,7 @@ public class CheckDao {
 			masub = new ArrayList<StockLine>();
 			pstmt = con.prepareStatement(sql);
 			for(int i = 0; i<arr.length; i++) {
-				System.out.println(sql);
+
 				int j = Integer.valueOf(arr[i]);
 			 pstmt.setInt(1, j);
 			 pstmt.setString(2,dename);
@@ -656,7 +656,7 @@ public class CheckDao {
 		ArrayList<String> names = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql= prop.getProperty("getEmpName");// dept code, id 조인
+		String sql = prop.getProperty("getEmpName");// dept code, id 조인
 		
 		try {
 			
@@ -682,6 +682,41 @@ public class CheckDao {
 		
 		
 		return names;
+	}
+
+	public ArrayList<StockLine> getDeptTN(Connection con, ArrayList<Integer> savePcodes) {
+		ArrayList<StockLine> tn= null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getEmpNDt");
+		
+		try {
+			
+			tn = new ArrayList<StockLine>();
+			pstmt = con.prepareStatement(sql);
+			for(int i = 0; i<savePcodes.size(); i++) {
+				
+				int j = savePcodes.get(i);
+			 pstmt.setInt(1, j);
+			 rset = pstmt.executeQuery();
+			 if(rset.next()) {
+				 StockLine cl = new StockLine ();
+				 cl.setEmpName(rset.getString("EMP_NAME"));
+				 cl.setDeptName(rset.getString("DEPT_TITLE"));
+				 
+				 tn.add(cl);
+			 	}	
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return tn;
 	}
 
 }

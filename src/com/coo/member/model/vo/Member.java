@@ -12,11 +12,13 @@ public class Member implements Serializable {
 	private int empCode;
 	private String empPwd;
 	private String empName;
+	private String eName;
 	private String personalId;
 	private String email;
 	private String gender;
 	private int age;
 	private int salary;
+	private String contact;
 	private String phone;
 	private String address;
 	private String deptCode;
@@ -29,6 +31,27 @@ public class Member implements Serializable {
 	private String subDept;
 	
 	public Member() {}
+
+	
+	public String getContact() {
+		return contact;
+	}
+
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+
+	public String geteName() {
+		return eName;
+	}
+
+
+	public void seteName(String eName) {
+		this.eName = eName;
+	}
+
 
 	public String getEmpId() {
 		return empId;
@@ -182,19 +205,21 @@ public class Member implements Serializable {
 		this.subDept = subDept;
 	}
 
-	public Member(String empId, int empCode, String empPwd, String empName, String personalId, String email,
-			String gender, int age, int salary, String phone, String address, String deptCode, String deptTitle,
+	public Member(String empId, int empCode, String empPwd, String empName,String eName, String personalId, String email,
+			String gender, int age, int salary,String contact, String phone, String address, String deptCode, String deptTitle,
 			String jobCode, String jobName, String etc, String managerYn, Date hireDate, String subDept) {
 		super();
 		this.empId = empId;
 		this.empCode = empCode;
 		this.empPwd = empPwd;
 		this.empName = empName;
+		this.eName= eName;
 		this.personalId = personalId;
 		this.email = email;
 		this.gender = gender;
 		this.age = age;
 		this.salary = salary;
+		this.contact=contact;
 		this.phone = phone;
 		this.address = address;
 		this.deptCode = deptCode;
@@ -213,18 +238,20 @@ public class Member implements Serializable {
 		this.empPwd = empPwd;
 	}
 
-	public Member(String empId, int empCode, String empPwd, String empName, String personalId, String email,
-			String gender, int age, String phone, String address, String deptCode, String deptTitle, String jobCode,
+	public Member(String empId, int empCode, String empPwd, String empName,String eName, String personalId, String email,
+			String gender, int age,String contact, String phone, String address, String deptCode, String deptTitle, String jobCode,
 			String jobName, String etc, String subDept) {
 		super();
 		this.empId = empId;
 		this.empCode = empCode;
 		this.empPwd = empPwd;
 		this.empName = empName;
+		this.eName= eName;
 		this.personalId = personalId;
 		this.email = email;
 		this.gender = gender;
 		this.age = age;
+		this.contact = contact;
 		this.phone = phone;
 		this.address = address;
 		this.deptCode = deptCode;
@@ -234,6 +261,20 @@ public class Member implements Serializable {
 		this.etc = etc;
 		this.subDept = subDept;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Member [empId=" + empId + ", empCode=" + empCode + ", empPwd=" + empPwd + ", empName=" + empName
+				+ ", eName=" + eName + ", personalId=" + personalId + ", email=" + email + ", gender=" + gender
+				+ ", age=" + age + ", salary=" + salary + ", contact=" + contact + ", phone=" + phone + ", address="
+				+ address + ", deptCode=" + deptCode + ", deptTitle=" + deptTitle + ", jobCode=" + jobCode
+				+ ", jobName=" + jobName + ", etc=" + etc + ", managerYn=" + managerYn + ", hireDate=" + hireDate
+				+ ", subDept=" + subDept + "]";
+	}
+
+
+	
 
 
 }

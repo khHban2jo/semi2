@@ -1,4 +1,4 @@
-package com.coo.member.controller;
+package com.coo.check.model.service;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,19 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.coo.member.model.service.MemberService;
+import com.google.gson.Gson;
 
 /**
- * Servlet implementation class CheckEmpServlet
+ * Servlet implementation class WriteBodyServlet
  */
-@WebServlet("/mCheckEmp.me")
-public class CheckEmpServlet extends HttpServlet {
+@WebServlet("/wBody.ch")
+public class WriteBodyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckEmpServlet() {
+    public WriteBodyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,14 +28,11 @@ public class CheckEmpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int result = new MemberService().checkEmp()+1;
+		response.setContentType("application/json; charset=UTF-8");
 		
-		if(result >0) {
-			
-		}else {
-		}
-		System.out.println(result);
-		response.getWriter().print(result);
+		String type = request.getParameter("type");
+		String a = "<%@ include file=\"/views/checkdoc/include/vacDoc.jsp\"%>";
+		new Gson().toJson( a,response.getWriter() );
 	}
 
 	/**

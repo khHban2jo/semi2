@@ -63,7 +63,7 @@ public class WorkTimeService {
 			}
 		}
 		
-		if(result > 0 ) commit(con);
+		if(result >= 0 ) commit(con);
 		else rollback(con);
 		
 		close(con);

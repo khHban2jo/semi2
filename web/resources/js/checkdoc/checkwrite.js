@@ -27,8 +27,14 @@ $(function(){
         $("#doctype3").css("display","block");
         $("#type1").val("휴가계획서");
         
+        $("#type1").trigger("click");
+        
+        
     });
-    $("#btn_1").click();
+    
+  
+    
+    
     
     //작성일자
     var month;
@@ -66,11 +72,11 @@ $(function(){
     });
 
     //참조자 자동채우기용
-    $(".hiddenper1").on("change",function(){
+/*    $(".hiddenper1").on("click",function(){
          //배열 자르기 및 넘어감
         //var person1 = $(this).val().split();
         $(this).prev("table").find(".people2").html($(this).val());
-    });
+    });*/
     
     }
 
@@ -78,17 +84,13 @@ $(function(){
     //결재자체크 버튼
 $("#setLine").click(function(){
     window.open("checkpeople.jsp","childform","target : _blank");
-   // console.log($(".hiddenper").filter("input[type=text]"));
-   
-//     $(".hiddenper").filter("input[type=text]").eq(0).val(12345);
-//    $(".hiddenper").filter("input[type=text]").eq(0).trigger("change");
 
 });
 
 
 
 //파일 목록 출력
-$("#upload").change(function(){
+//$("#upload").change(function(){
 //    var fileset = $(this).get(0);
 //    console.log(fileset)
 //         if(fileset.files.length <6){
@@ -108,13 +110,14 @@ $("#upload").change(function(){
 //    
 //    console.log($("#filenames").html());
 //
-		var fileset= $(this).get(0);
-		console.log(fileset);
+//		var fileset= $(this).get(0);
+//		console.log(fileset);
 	});
 
 
 	//	휴가 신청서 include용 script
-	$('#leaveCode').change(function(){
+function leaveCode(item){
+	$(item).change(function(){
 	    if( $('#leaveCode').val()=="L1" ){
 	        $('.dayOffType').css('visibility','hidden');
 	        $('.endDate').css('visibility','visible');
@@ -133,17 +136,4 @@ $("#upload").change(function(){
 	        $('.startDate').css('visibility','visible');
 	    }
 	});
-	
-	
-});
-
-    //결재자클릭시 제거
-function delperson(i){
-    var indext =parseInt(i.innerText) -1;
-    console.log(indext)
-    if(confirm( i.innerText +" 결제선을 삭제하시겠습니까?")){
-       i.remove();
-    // 최종 인덱스에 맞는 값 splice()로 잘라내기 
-} 
-
-}
+}	

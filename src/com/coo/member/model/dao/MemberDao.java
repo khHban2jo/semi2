@@ -121,5 +121,110 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+public int insertMember(Connection con, Member m) throws CooException {
+		
+		int result= 0; 
+		
+		PreparedStatement pstmt = null;
+	
+		String sql = prop.getProperty("insertMember");
+		try {
+			
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getEmpId());
+			pstmt.setString(2, m.getEmpPwd());
+			pstmt.setString(3, m.getEmpName());
+			pstmt.setString(4, m.geteName());
+			
+			pstmt.setString(5, m.getPersonalId());
+			pstmt.setString(6, m.getEmail());
+			pstmt.setString(7, m.getGender());
+			pstmt.setInt(8, m.getAge());
+			pstmt.setString(9, m.getContact());
+			pstmt.setString(10, m.getPhone());
+			pstmt.setString(11, m.getAddress()); 
+			pstmt.setString(12, m.getDeptCode());
+			pstmt.setString(13, m.getJobCode());
+			pstmt.setString(14, m.getEtc());
+			pstmt.setString(15, m.getSubDept());
+				
+			result = pstmt.executeUpdate();
+							   
+		}catch(SQLException e) {
+			throw new CooException(e.getMessage());			
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+public int updateMember(Connection con, Member m) throws CooException {
+	
+	int result=0;
+	PreparedStatement pstmt = null;
+	
+	try {
+		String sql= prop.getProperty("updateMember");
+		
+		pstmt = con.prepareStatement(sql);
+
+		
+		pstmt.setString(1, m.getEmpId());
+		pstmt.setInt(2, m.getEmpCode());
+		pstmt.setString(3, m.getEmpPwd());
+		pstmt.setString(4, m.getEmpName());
+		pstmt.setString(5, m.getPersonalId());
+		pstmt.setString(6, m.getEmail());
+		pstmt.setString(7, m.getGender());
+		pstmt.setInt(8, m.getAge());
+		pstmt.setInt(9, m.getSalary());
+		pstmt.setString(10, m.getPhone());
+		pstmt.setString(11, m.getAddress());
+		pstmt.setString(12, m.getDeptCode());
+		pstmt.setString(13,m.getJobCode());
+		pstmt.setString(14, m.getJobCode());
+		pstmt.setString(15, m.getEtc());
+		pstmt.setString(17, m.getSubDept());
+		
+		result = pstmt.executeUpdate();
+		
+	}catch(SQLException e) {
+		throw new CooException(e.getMessage());
+		
+	}finally{
+		close(pstmt);
+	}
+	return result;
+		
+}
+
+public int deleteMember(Connection con, String empId) throws CooException {
+	int result=0;
+	PreparedStatement pstmt = null;
+	
+	try {
+		String sql = prop.getProperty("deleteMember");
+		
+		pstmt = con.prepareStatement(sql);
+		
+		pstmt.setString(1, empId);
+		result = pstmt.executeUpdate();
+		
+	}catch(SQLException e) {
+		throw new CooException(e.getMessage());
+	}finally {
+		close(pstmt);
+	}
+	return result;
+	
+	// TODO Auto-generated method stub
+	
+}
+
+
+
+	
 
 }

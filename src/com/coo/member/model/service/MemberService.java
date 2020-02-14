@@ -51,5 +51,50 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public int insertMember(Member m) throws CooException{
+		Connection con = getConnection();
+		int result=0;
+	
+		result = mDao.insertMember(con,m);
+		
+		System.out.println("result : " + result);
+		if(result>0) commit(con); else rollback(con);
+		close(con);
+		
+		return result;
+		
+		
+	}
+public int updateMember(Member m) {
+		
+		Connection con = getConnection();
+		
+		int result = 0;
+		try {
+			result = mDao.updateMember(con,m);
+		} catch (CooException e) {
+
+		}
+		
+		if(result>0) commit(con);
+		else rollback(con);
+		
+		close(con);
+		
+		return result;
+		
+	}
+public int deleteMember(String empId) throws CooException {
+	// TODO Auto-generated method stub
+	Connection con = getConnection();
+	int result= mDao.deleteMember(con,empId);
+	if(result>0) commit(con);
+	else rollback(con);
+	close(con);
+	return result;
+	
+}
+	
 
 }

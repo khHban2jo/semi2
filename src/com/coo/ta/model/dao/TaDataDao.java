@@ -50,7 +50,7 @@ private Properties prop;
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
-				td = new TaData(rset.getInt("EMP_CODE"), rset.getInt("LATE_COUNT"), rset.getInt("ABSENT_COUNT"), rset.getInt("WORKDAY_COUNT"));
+				td = new TaData(rset.getInt("EMP_CODE"), rset.getInt("LATE_COUNT"), rset.getInt("WORKDAY_COUNT"));
 			}
 			
 		}catch(SQLException e) {

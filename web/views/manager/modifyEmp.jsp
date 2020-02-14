@@ -1,56 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.coo.member.model.vo.Member"%>
+<%-- <% Member m = (Member)request.getAttribute("member"); %> --%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
- <meta charset="UTF-8">
-  <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  </head>
-  <body>  
- <form action="<%=request.getContextPath() %>/mInsert.me" method="POST" onsubmit="return check()">
-		      <table class="managerTable">
-		       
-		       <thead><tr><th class="cap">기본정보입력</th></tr></thead>
-		            
-		              <tbody><tr>
+<meta charset="UTF-8">
+<title>사원수정</title>
+    <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
+</head>
+<body>
+
+<form action="<%=request.getContextPath() %>/mUpdate.me" method="POST" onsubmit="return check();">
+			<table class="managerTable">
+		              <tr>
+		                  <th colspan="3" style="font-size: 1em; font-family: 고딕; text-align:left; padding-left:10px;" class="cap" >사원 수정</th>
+		              </tr>
+		              <tr>
 		                  <td> 사 번  </td>
-		                  <td> <input type="text" id="mEmpCode" disabled>&nbsp; <input type="button" value="확인" id="checkemp">	   
-		                  <!-- 사진 -->
-		                  <td rowspan="8" id="pic"> 
-		                      <img src="" width="320px" height="320px" id="Show" alt="프로필사진"> 
+		                  <td> <input type="text" value="<%-- <%=m.getEmpCode() %> --%>" name="empCode" disabled> 
+		                  </td>
+		                  <td rowspan="8"> 
+		                  	<img src="" width="320px" height="320px" id="pic"> 
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <td> 아이디  </td>
+		                  <td> 아이디 </td>
 		                  <td> 
-		                      <input type="text" id="uid" name="userId" maxlength="20" readonly placeholder="영어이름 먼저입력"> 
-		                      <input type="button" id="checkId" value="중복확인" disabled>
+		                      <input type="text" id="uid" name="userId" maxlength="14"> 
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <td> 비밀번호 </td> <td><input type="password" name="userPwd" id="pwd1" maxlength="16"></td></tr>
-		                  <tr>
-		                  <td> 비밀번호 확인  </td>
-		                  <td> <input type="password" id="pwd2" maxlength="16">&nbsp;
-		                  <input type="button" id="pwdCheck" value="확 인"></td>
+		                  <td> 이름 </td>
+		                  <td><input type="text" id="pName" name="userName" maxlength="8" value="<%-- <%=m.getEmpName() %> --%>"> &nbsp;&nbsp;</td>
 		              </tr>
 		              <tr>
-		                  <td> 이 름 </td>
-		                  <td><input type="text" id="pName" name="empName" maxlength="8">&nbsp;&nbsp;
+		                  <td> 변경할 비밀번호  </td>
+		                  <td> 
+		                      <input type="password" id="pwd1" name="userPwd">
+		                  </td>
 		              </tr>
 		              <tr>
-		              	  <td>영문이름</td>
-		              	  <td><input type="text" id="eName1" maxlength="8" placeholder="성" name="eName">&nbsp;&nbsp;
-		              	  <input type="text" id="eName2" maxlength="8" placeholder="이름">
-		              	  <input type="button" id="eNameCheck" value="입력"></td>
+		                  <td> 비밀번호 확인 </td>
+		                  <td> 
+		                      <input type="password" id="pwd2">
+		                       <input type="button" value="확인" id="checkPwd">
+		                  </td>
 		              </tr>
-		              <tr>
-		              	  <td>주민등록번호</td>
-		              	  <td><input type="text" id="psid" maxlength="13" placeholder="-없이 입력" name="personalId">&nbsp;
-		              	  <input type="button" id="pschk" value="확인">
-		              	  </tr>
-		              <tr>
+		                <tr>
 		                  <td>이메일</td>
 		                  <td>
 		                      <input type="text" id="mail" name="email"> 
@@ -61,18 +57,8 @@
 		                      </select>
 		                  </td>
 		                 </tr>
-		              <tr>
-		                  <td> 성 별 </td>
-		                  <td>  	
-		                      <input type="radio" value="M" name="gender" id="male" disabled> 남 &nbsp; <input type="radio" value="F" id="female" name="gender" disabled> 여
-		                  </td>
-		              </tr>
 		                 <tr>
-		                 <td>나이</td>
-		                 <td><input type="text" id="age1" name="age" readonly></td>
-		                 </tr>
-		              <tr>
-		                  <td>연락처(자택)</td>
+		                <td>연락처(자택)</td>
 		                  <td colspan="2">
 		                  <input type="text" list="t1" name="tel1">
 		                  <datalist id="t1"> 
@@ -114,7 +100,7 @@
 		                  </td>
 		                  
 		              </tr>
-		                  <tr>
+		              <tr>
 		                  <td> 직 급 </td>
 		                  <td>
 		                       <select name="jobCode" style="width: 150px;">
@@ -144,20 +130,16 @@
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <!-- 사진 등록 스크립트 onchange 이벤트 발생시로 해야 이미지가 불러 와 진다.-->
-		                  <td><input type="file" id="" value="사진 전송" onchange="ShowImage(this);"></td>
-		              </tr>
-		              <tr>
 		                  <td>비고 </td>
 		                  <td colspan="2" rowspan="2">
-		                      <textarea style="resize:none; width: 600px; height:60px;" name="etc">
+		                      <textarea style="resize: none; width: 600px; height: 60;" id="modifyShowText">
 		
 		                      </textarea>
 		                  </td>
 		              </tr>
 		              <tr>
-		              </tr></tbody>
-		              <tfoot><tr>
+		              </tr>
+		            <tfoot><tr>
 		                  <td align="center" colspan="3">
 		                      <input type="submit" value ="확인 " style="width: 100px; height: 30px; text-align:center;"> 
 		                      &nbsp; &nbsp; 
@@ -168,6 +150,5 @@
 		              
 		      </table>
 		          </form>
-	 <script src="<%=request.getContextPath() %>/resources/js/manager/join.js"></script>  
-</body>		     
-</html>		       
+</body>
+</html>

@@ -11,18 +11,16 @@ public class TaData implements Serializable{
 	
 	private int empCode;		//	회원 코드
 	private int lateCount;		//	지각 횟수
-	private int absentCount;	//	결근 횟수
 	private int workdayCount;	//	근무일수
 	
 	public TaData() {
 		
 	}
 	
-	public TaData(int empCode, int lateCount, int absentCount,int workdayCount) {
+	public TaData(int empCode, int lateCount, int workdayCount) {
 		super();
 		this.empCode = empCode;
 		this.lateCount = lateCount;
-		this.absentCount = absentCount;
 		this.workdayCount = workdayCount;
 	}
 
@@ -42,14 +40,6 @@ public class TaData implements Serializable{
 		this.lateCount = lateCount;
 	}
 	
-	public int getAbsentCount() {
-		return absentCount;
-	}
-	
-	public void setAbsentCount(int absentCount) {
-		this.absentCount = absentCount;
-	}
-
 	public int getWorkdayCount() {
 		return workdayCount;
 	}
@@ -60,7 +50,7 @@ public class TaData implements Serializable{
 
 	@Override
 	public String toString() {
-		return "TaData [empCode=" + empCode + ", lateCount=" + lateCount + ", absentCount=" + absentCount +", workdayCount=" + workdayCount + "]";
+		return "TaData [empCode=" + empCode + ", lateCount=" + lateCount + ", workdayCount=" + workdayCount + "]";
 	}
 	
 	
