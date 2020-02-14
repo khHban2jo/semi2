@@ -189,9 +189,9 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
                             
                         </tr>
                         <tr>
-                            <td align="center"><%if(check.getColDept()!=null) {%>
+                            <td align="center"><%//if(check.getColDept()!=null) {%>
                             					<%=check.getDeptCode() %>
-                            		<%} %>
+                            		<%//} %>
                             					</td>
                            
                         </tr>
