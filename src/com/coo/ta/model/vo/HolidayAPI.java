@@ -52,6 +52,7 @@ public class HolidayAPI {
 	    		}
 	    	}
     	}catch(Exception e) {
+    		System.out.println("api오류");
     		e.printStackTrace();
     	}
 		
