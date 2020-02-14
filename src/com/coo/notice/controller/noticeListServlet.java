@@ -152,7 +152,7 @@ public class noticeListServlet extends HttpServlet {
 			request.setAttribute("pi", pi);
 		}else {
 			// 에러 페이지 작성 필요
-			page = "";
+			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시글 목록 조회 실패");
 		}
 		

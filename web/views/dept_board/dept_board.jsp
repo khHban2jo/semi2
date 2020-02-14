@@ -46,10 +46,10 @@
                 <label>분류</label> 
                 <select id="searchType" name="searchType"> 
                     <!-- 로그인한 사용자에 대한 권한과 부서등에 따라서 alert등으로 접근 금지를 설정 한다. --->
-                <option>전체</option>
-                <option>일반</option>
-                <option>업무</option>
-                <option>부서별</option>
+                <option value="1">전체</option>
+                <option value="2">일반</option>
+                <option value="3">업무</option>
+                <option value="4">부서별</option>
                 </select> &nbsp;
                 <!-- 부서, 관리자의 전체 공지등 알아야 하는 필요한 만 띄운다.  -->
                 <!--<input type="checkbox" name="name1">  -->
@@ -57,7 +57,7 @@
                  &nbsp;&nbsp;&nbsp;
                  <!-- 안 될것 같으면 변경 및 삭제 -->
                  <label>기 간 설 정</label>
-                 <input type="month" id="time1"> ~ <input type="month" id="time2">&nbsp;
+                 <input type="date" id="time1"> ~ <input type="date" id="time2">&nbsp;
                  <!-- <select id="showNumber" style="float: right;">
                      <option></option>
                  </select> -->
@@ -104,7 +104,7 @@
                          <option value="content">내용</option>
                          <option value="dept">직급</option>
          <!-- 분류에 따른 게시판을 직급별로 쓴 것을 보는 것 단 권한이 없으면 접근 불가 -->
-                         <option value="titlencontent">제목+내용</option>
+         <!--                 <option value="titlencontent">제목+내용</option> -->
                          <option value="all">전체조건</option>
                      </select>&nbsp;
                      <input class="form-control" type="text" id="keyword" 
@@ -174,6 +174,36 @@
 	$('#bizb').click(function(){
 	  location.href="<%=request.getContextPath() %>/selectBoardBiz.bo";
 	});
+	
+// 검색 이벤트 등록
+<%-- 	document.getElementById('btn').setAttribute("method", "Post");
+	document.getElementById('btn').setAttribute("click", "location.href='<%=request.getContextPath() %>'/searchBoard.bo?search=true"); --%>
+		
+	$('#btn').click(function(){
+		var title = document.getElementById('searchCondition').value;
+		var keyword = document.getElementById('keyword').value;
+		// searchType
+		var date1 = document.getElementById('time1').value;
+		var date2 = document.getElementById('time2').value;
+		var searchType = document.getElementById('searchType').value;
+		
+		console.log(typeof(date1));
+		
+		if(date1 > date2){
+			alert("날짜가 잘못 입력 되었습니다. 다시 입력 해주세요.");
+			return false;	
+		}else if( (date1.length <= 0 && date2.length > 0) ||  (date1.length > 0 && date2.length <= 0) ){
+			alert("날짜가 잘못 입력 되었습니다. 다시 입력 해주세요.");
+			return false;	
+		}
+		
+		location.href="<%=request.getContextPath() %>/searchBoard.bo?search=true&title="+title
+																			+"&keyword="+keyword
+																			+"&date1="+date1
+																			+"&date2="+date2
+																			+"&searchType="+searchType;
+	});
+	
   </script>	
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.coo.board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,6 +47,7 @@ public class BoardListServlet extends HttpServlet {
 		limit = 8;
 		HttpSession session = request.getSession();
 		Member m = (Member)session.getAttribute("member");
+		
 		String deptView = m.getDeptCode();
 		
 		if(request.getParameter("currentPage") != null) {
@@ -53,6 +55,7 @@ public class BoardListServlet extends HttpServlet {
 		}
 		
 		int listCount = bs.getListCount();
+		
 		
 		maxPage = (int)((double)listCount / limit + 0.9);
 		startPage = ((int)((double)currentPage / limit + 0.9) -1)  * limit + 1;
@@ -63,7 +66,7 @@ public class BoardListServlet extends HttpServlet {
 		}
 		
 		list = bs.selectList(currentPage,limit,deptView);
-
+		
 		if(list != null) {
 			PageInfo pi = new PageInfo(currentPage, startPage, endPage, listCount, limit, maxPage);
 			request.setAttribute("list",list);

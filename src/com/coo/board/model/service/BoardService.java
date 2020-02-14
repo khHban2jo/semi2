@@ -4,6 +4,7 @@ import static com.coo.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import com.coo.board.model.dao.BoardDao;
 import com.coo.board.model.vo.Board;
@@ -124,6 +125,24 @@ public class BoardService {
 			if(result>0) commit(con); else rollback(con);
 			
 		}catch(CooException e) {
+			e.getMessage();
+		}
+		
+		close(con);
+		
+		return result;
+	}
+
+// ========================== 검색을 위한 코드 ==================================
+	
+	public int getListCount(Hashtable<String, String> parameters) {
+		System.out.println("getListCount(Hashtable<String, String> parameters 실행");
+		Connection con = getConnection();
+		
+		int result = 0;
+		try {
+			result = bDao.getListCount(con, parameters);
+		} catch (Exception e) {
 			e.getMessage();
 		}
 		

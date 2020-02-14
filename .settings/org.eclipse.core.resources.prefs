@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//src/com/coo/pmap/controller/PmapAllServlet.java=UTF-8
+encoding//src/config/board-query.properties=UTF-8
 encoding//src/config/check-query.properties=UTF-8
 encoding//src/config/notice-query.properties=UTF-8
 encoding//src/config/pmap-query.properties=UTF-8
