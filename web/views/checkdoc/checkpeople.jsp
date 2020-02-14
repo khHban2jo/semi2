@@ -216,13 +216,13 @@
     </div>
     <input type="button" value ="닫기" onclick="close1();" id ="clo">
 </div>
-
+	
 
     <!--결제선 가져오기-->
 
     <div id="backdiv">
-
-      
+			
+      	
 
     </div>
     <div id="seldiv">
@@ -413,7 +413,8 @@
 			  
 			});
 		});
-
+		
+		
 
 		
 		

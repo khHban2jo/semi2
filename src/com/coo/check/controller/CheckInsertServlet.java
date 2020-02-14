@@ -61,20 +61,15 @@ public class CheckInsertServlet extends HttpServlet {
 		int docwriter = Integer.valueOf(mrequest.getParameter("empcode")); //int로 바꿀것
 		String doctype =mrequest.getParameter("doctype");
 		System.out.println(doctype);
-//		String checkdept = mrequest.getParameter("checkdept");
-//		String checkper = mrequest.getParameter("checkper");
-//		String coldept = mrequest.getParameter("coldept");
-//		String colper = mrequest.getParameter("colper");
-//		String endper = mrequest.getParameter("endper");
-//		String viewper = mrequest.getParameter("viewper");
+		String checkdept = mrequest.getParameter("checkdept");
+		String checkper = mrequest.getParameter("checkper");
+		String coldept = mrequest.getParameter("coldept");
+		String colper = mrequest.getParameter("colper");
+		String endper = mrequest.getParameter("endper");
+		String viewper = mrequest.getParameter("viewper");
 		
 		
-		String checkdept = "D2";
-		String checkper = "288, 250, 821, 581, 820, 741";
-		String coldept = null;
-		String colper = null;
-		String endper = "201, 202";
-		String viewper ="303";
+		
 		
 		String[] arr= null;
 		String[] status =null;
@@ -84,7 +79,7 @@ public class CheckInsertServlet extends HttpServlet {
 		String approval = arr[0]+", "+ arr[1];
 		for(int i = 0; i<arr.length/2; i++) {
 			if(i<arr.length/2-1) {
-				a.append("0, ");
+				a.append("0,");
 			}else {
 				a.append("0");
 			}

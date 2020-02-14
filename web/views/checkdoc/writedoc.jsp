@@ -4,7 +4,7 @@
     <%
     	
     	Member m = (Member)session.getAttribute("member");
-    
+    	String type ="";
     %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -298,7 +298,10 @@
 
                     <fieldset>
                     <div id="docbody">
-                         <!-- 인클루드 용-->    
+                         <!-- 인클루드 용  ajax로 깜박임 처리-->   
+                         <%//if($("type1").val().equasl("품의서")){%>
+                        	
+                        <%//} %> 
 					<textArea cols="20" rows="20" name="text"></textArea>
 
                     </div>
@@ -311,8 +314,27 @@
 
     </div> 
     <script>
-       
-
+     
+    $("#type1").click(function(){
+    	
+    	$.ajax({
+    		url: "/semi/wBody.ch",
+    		type:"get",
+    		dataType:"html",
+    		data: 	{
+    			type :$("#type1").val()
+    		},
+    		success:function(data){
+    			console.log(data);
+    			$("#docbody").html(data);
+    			console.log($("#docbody").html())
+    		},
+    	
+    		error:function(){
+    			alert("인크루드");
+    		}
+     	});
+    });
 
     </script>
 

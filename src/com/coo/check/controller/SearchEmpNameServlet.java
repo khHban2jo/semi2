@@ -37,6 +37,7 @@ public class SearchEmpNameServlet extends HttpServlet {
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
+		
 		// 받는 값 스트링 ", " 형태의 값 , 부서명
 		
 		//스플릿후 조인된 테이블에서  정 부 아이디  부서 코드 검색 후 반환
