@@ -29,9 +29,10 @@ $(function(){
         
         $("#type1").trigger("click");
         
-        
+     $("btn_1").click();
     });
     
+  
   
     
     

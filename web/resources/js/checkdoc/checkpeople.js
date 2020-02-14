@@ -347,27 +347,28 @@ function end(){
        alert("결제인원은 비어있을수 없습니다.");
        tfcheck = false;
    }else{
+	    $(".people",parent.opener.document).html("");
+	    $(".deptC",parent.opener.document).val("");
+	    $(".perend",parent.opener.document).val("");
 	    $("#indept",parent.opener.document).text($("#chedept").val());
-	    $("#chdept",parent.opener.document).val($("#chedept").val());
+	    $("#chdeptN",parent.opener.document).val($("#chedept").val());
 	    $("#chper",parent.opener.document).val($("#cheper").val());
 	    $("#colladept",parent.opener.document).text($("#coladept").val());
-	    $("#codept1",parent.opener.document).val($("#coladept").val());
+	    $("#codeptN",parent.opener.document).val($("#coladept").val());
 	    $("#cope",parent.opener.document).val($("#colaper").val());
-	    $("#enddept1",parent.opener.document).val($("#enddept").val());
+	    $("#enddeptN",parent.opener.document).val($("#enddept").val());
 	    $("#endp",parent.opener.document).val($("#endper").val());
 	    $("#viewp",parent.opener.document).val($("#resper").val());
 	 
 	    $("#chper",parent.opener.document).click();
-	    if($("#colaper").val() !=""){
-	    	 $("#cope",parent.opener.document).click();
-	    }
-    	if($("#endper").val() != ""){
-    		$("#endp",parent.opener.document).click();
-    	}
+	   
+	    $("#cope",parent.opener.document).click();
+	   
     	
-    	if($("#resper").val() != ""){
-    		$("#viewp",parent.opener.document).click();
-    	}
+        $("#endp",parent.opener.document).click();
+    	
+        $("#viewp",parent.opener.document).click();
+    	
    }
     
 
