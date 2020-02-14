@@ -60,12 +60,25 @@ public class PmapDao {
 
 			while(rset.next()) {
 				p = new Member();
-
-				p.setEmpCode(rset.getInt("EMP_CODE"));
-				p.setEmpName(rset.getString("emp_name"));
-				p.setEmail(rset.getString("email"));
-				p.setJobCode(rset.getString("job_name"));
-				p.setDeptCode(rset.getString("dept_title"));
+				 p.setEmpId(rset.getString("EMP_ID"));
+				 p.setEmpCode(rset.getInt("EMP_CODE"));
+				 p.setEmpPwd(rset.getString("PWD"));
+				 p.setEmpName(rset.getString("EMP_NAME"));
+				 p.setPersonalId(rset.getString("PERSONAL_ID"));
+				 p.setEmail(rset.getString("EMAIL"));
+				 p.setGender(rset.getString("GENDER"));
+				 p.setAge(rset.getInt("AGE"));
+				 p.setSalary(rset.getInt("SALARY"));
+				 p.setPhone(rset.getString("PHONE")); 
+				 p.setAddress(rset.getString("ADDRESS"));
+				 p.setDeptCode(rset.getString("DEPT_CODE"));
+				 p.setJobCode(rset.getString("JOB_CODE"));
+				 p.setDeptTitle(rset.getString("DEPT_TITLE"));
+				 p.setJobName(rset.getString("JOB_NAME")); 
+				 p.setEtc(rset.getString("ETC"));
+				 p.setManagerYn(rset.getString("MANAGER_YN"));
+				 p.setHireDate(rset.getDate("HIRE_DATE"));
+				 p.setSubDept(rset.getString("SUB_DEPT"));
 
 				list.add(p);
 			}
@@ -160,11 +173,25 @@ public class PmapDao {
 				
 				Member m = new Member();
 				
-				m.setEmpName(rset.getString("emp_name"));
-				m.setEmail(rset.getString("email"));
-				m.setDeptCode(rset.getString("dept_title"));
-				m.setJobCode(rset.getString("job_name"));
-				m.setEmpCode(rset.getInt("emp_code"));
+				 m.setEmpId(rset.getString("EMP_ID"));
+				 m.setEmpCode(rset.getInt("EMP_CODE"));
+				 m.setEmpPwd(rset.getString("PWD"));
+				 m.setEmpName(rset.getString("EMP_NAME"));
+				 m.setPersonalId(rset.getString("PERSONAL_ID"));
+				 m.setEmail(rset.getString("EMAIL"));
+				 m.setGender(rset.getString("GENDER"));
+				 m.setAge(rset.getInt("AGE"));
+				 m.setSalary(rset.getInt("SALARY"));
+				 m.setPhone(rset.getString("PHONE")); 
+				 m.setAddress(rset.getString("ADDRESS"));
+				 m.setDeptCode(rset.getString("DEPT_CODE"));
+				 m.setJobCode(rset.getString("JOB_CODE"));
+				 m.setDeptTitle(rset.getString("DEPT_TITLE"));
+				 m.setJobName(rset.getString("JOB_NAME")); 
+				 m.setEtc(rset.getString("ETC"));
+				 m.setManagerYn(rset.getString("MANAGER_YN"));
+				 m.setHireDate(rset.getDate("HIRE_DATE"));
+				 m.setSubDept(rset.getString("SUB_DEPT"));
 				
 				list.add(m);
 			}

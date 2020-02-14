@@ -31,11 +31,11 @@ public class CheckEmpServlet extends HttpServlet {
 		int result = new MemberService().checkEmp()+1;
 		
 		if(result >0) {
-			
+			response.getWriter().print(result);
 		}else {
+			
 		}
 		System.out.println(result);
-		response.getWriter().print(result);
 	}
 
 	/**

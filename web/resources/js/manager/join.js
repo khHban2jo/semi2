@@ -1,14 +1,3 @@
-$('#checkemp').click(function(){
-    $.ajax({
-        url:"<%=request.getContextPath() %>/mCheckEmp.me",
-        type:"post",
-        success:function(data){
-            $('#mEmpCode').val(data);
-        },error:function(){
-            alert("에러발생");
-        }
-    });
- });
    $('#eNameCheck').click(function(){
          var regExp = /[a-z|A-Z]/;
          var eName1 = $('#eName1').val();

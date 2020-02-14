@@ -15,7 +15,7 @@
 		            
 		              <tbody><tr>
 		                  <td> 사 번  </td>
-		                  <td> <input type="text" id="mEmpCode" disabled>&nbsp; <input type="button" value="확인" id="checkemp">	   
+		                  <td> <input type="text" id="mEmpCode" readonly>&nbsp; <input type="button" value="확인" id="checkemp">	   
 		                  <!-- 사진 -->
 		                  <td rowspan="8" id="pic"> 
 		                      <img src="" width="320px" height="320px" id="Show" alt="프로필사진"> 
@@ -168,6 +168,19 @@
 		              
 		      </table>
 		          </form>
-	 <script src="<%=request.getContextPath() %>/resources/js/manager/join.js"></script>  
+	 <script src="../../resources/js/manager/join.js"></script>
+	 <script>
+	 $('#checkemp').click(function(){
+		    $.ajax({
+		        url:"<%=request.getContextPath() %>/mCheckEmp.me",
+		        type:"post",
+		        success:function(data){
+		            $('#mEmpCode').val(data);
+		        },error:function(){
+		            alert("에러발생");
+		        }
+		    });
+		 });
+	 </script>  
 </body>		     
 </html>		       
