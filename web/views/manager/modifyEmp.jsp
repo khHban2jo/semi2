@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.coo.member.model.vo.Member"%>
+<%-- <% Member m = (Member)request.getAttribute("member"); %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,108 +10,124 @@
 </head>
 <body>
 
-<form action="<%=request.getContextPath() %>/mUpdate.me" method="POST">
-			<table class="managerTable" border="1">
+<form action="<%=request.getContextPath() %>/mUpdate.me" method="POST" onsubmit="return check();">
+			<table class="managerTable">
 		              <tr>
 		                  <th colspan="3" style="font-size: 1em; font-family: 고딕; text-align:left; padding-left:10px;" class="cap" >사원 수정</th>
 		              </tr>
 		              <tr>
 		                  <td> 사 번  </td>
-		                  <td> <input type="text" style="width: 200px;" id="N21" disabled> 
-		                      <input type="button" value="중복 확인" id="inputFunction21" onclick="showModify(this)">
+		                  <td> <input type="text" value="<%-- <%=m.getEmpCode() %> --%>" name="empCode" disabled> 
 		                  </td>
 		                  <td rowspan="8"> 
-		                  	사진<img src="" width="320px" height="320px" id="show2"> 
+		                  	<img src="" width="320px" height="320px" id="pic"> 
 		                  </td>
-		
 		              </tr>
 		              <tr>
 		                  <td> 아이디 </td>
 		                  <td> 
-		                      <input type="text" style="width: 200px;" id="inputFunction22"> 
-		                      <input type="button" id="inputFunction23" value=" 찾 기" onclick="IdModify();">
+		                      <input type="text" id="uid" name="userId" maxlength="14"> 
 		                  </td>
 		              </tr>
 		              <tr>
 		                  <td> 이름 </td>
-		                  <td><input type="text" id="pName" maxlength="8" disabled value="홍길동"> &nbsp;&nbsp;</td>
+		                  <td><input type="text" id="pName" name="userName" maxlength="8" value="<%-- <%=m.getEmpName() %> --%>"> &nbsp;&nbsp;</td>
 		              </tr>
 		              <tr>
 		                  <td> 변경할 비밀번호  </td>
 		                  <td> 
-		                      <input type="password" style="width: 200px;" id="inputFunction24">
+		                      <input type="password" id="pwd1" name="userPwd">
 		                  </td>
-		                  
 		              </tr>
 		              <tr>
 		                  <td> 비밀번호 확인 </td>
 		                  <td> 
-		                      <input type="password" style="width: 200px;" id="inputFunction24">
-		                       <input type="button" value="확인" id="inputFunction25" onclick="passwordCheck();;">
+		                      <input type="password" id="pwd2">
+		                       <input type="button" value="확인" id="checkPwd">
 		                  </td>
 		              </tr>
-		              <tr>
-		                  <td> 직 급 변 경  </td>
+		                <tr>
+		                  <td>이메일</td>
 		                  <td>
-		                      <select id="CompanyRank2" style="width: 150px;">
-		                          <option value="사 원"> 사 원</option>
-		                          <option value="대 리"> 대 리</option>
-		                          <option value="과 장"> 과 장 </option>
-		                          <option value="차 장"> 차 장 </option>
-		                          <option value="팀 장"> 팀 장 </option>
-		                          <option value="사 장"> 사 장 </option>
+		                      <input type="text" id="mail" name="email"> 
+		                      <select id="maillist">
+		                          <option value="">직접 입력</option>
+		                          <option value="@daum.net">@daum.net</option>
+		                          <option value="@naver.com">@naver.com</option>
 		                      </select>
 		                  </td>
-		              </tr>
-		              <tr>
-		                  <td> 성 별 </td>
-		                  <td> <input type="radio" value="남" name="gender1" checked disabled> 남 &nbsp; <input type="radio" value="여" name="gender1"> 여</td>
-		              </tr>
-		              <tr>
-		                  <td> 부서 변경 </td>
-		                  <td>
-		                      <select id="Department2" style="width: 150px;">
-		                          <option value = "기 획">기 획</option>
-		                          <option value = "영 업">영 업</option>
-		                          <option value = "인 사">인 사</option>
-		                          <option value = "R&D">R&D</option>
-		                          <option value = "임 시">임 시</option>
-		                      </select>
-		                  </td>
-		              </tr>
-		              <tr>
-		                  <td>이메일 </td>
-		                  <td>
-		                      <input type="text" id="modifyEmailShow">&nbsp;&nbsp;<input type="button" value="중복 확인" onclick="ModifyEmail();">
-		                  </td>
-		                  <!-- 사진 등록 스크립트 onchange 이벤트 발생시로 해야 이미지가 불러 와 진다. -->
-		                  
-		                  <td>
-		                      <input type="file" id="aa" value="사진 전송" onchange="fileShow(this);">
-		                  </td>
-		              </tr>
-		              <tr>
-		                  <td>주소  <input type="button" value="확 인" style="width: 70px;" onclick="ModifyAddress();"> </td>
+		                 </tr>
+		                 <tr>
+		                <td>연락처(자택)</td>
 		                  <td colspan="2">
-		                      <label id="inputFunction26"> 여기에서 출력 됩니다.</label>
-		                  </td>
-		                  
-		              </tr>
-		              <tr>
-		                  <td>연락처(자택)</td>
-		                  <td class="numberInput" colspan="2"> &nbsp;<input type="text" maxlength="3">-<input type="text" maxlength="4">-<input type="text" maxlength="4"></td>
+		                  <input type="text" list="t1" name="tel1">
+		                  <datalist id="t1"> 
+		                  <option value="02">서울 </option>
+                          <option value="031">경기 </option>
+                          <option value="032">인천</option>
+                          <option value="033">강원 </option>
+                          <option value="041">충남 </option>
+                          <option value="042">대전 </option>
+                          <option value="043">충북 </option>
+                          <option value="051">부산 </option>
+                          <option value="052">울산 </option>
+                          <option value="053">대구 </option>
+                          <option value="054">경북 </option>
+                          <option value="054">경북 </option>
+                          <option value="055">경남 </option>
+                          <option value="061">전남 </option>
+                          <option value="062">광주 </option>
+                          <option value="063">전북 </option>
+                          <option value="064">제주 </option></datalist>
+		                  ― <input type="text" maxlength="4" id="t2" name="tel2"> ― <input type="text" id="t3" maxlength="4" name="tel3"></td>
 		              </tr>
 		              <tr>
 		                  <td>연락처(PHONE)</td>
-		                  <td colspan="2"><select name="" id="">
-		                      <option value="">010</option>
-		                      <option value="">011</option>
-		                      <option value="">016</option>
-		                      <option value="">017</option>
-		                      <option value="">019</option>
+		                  <td colspan="2"><select name="phone1">
+		                      <option value="010">010</option>
+		                      <option value="011">011</option>
+		                      <option value="016">016</option>
+		                      <option value="017">017</option>
+		                      <option value="019">019</option>
 		                  </select>
-		                  - <input type="text" maxlength="4" class="numberInput"> - <input type="text" maxlength="4" class="numberInput">
+		                  ― <input type="text" maxlength="4" id="p2" name="phone2"> ― <input type="text" maxlength="4" id="p3" name="phone3">
 		              </td>
+		              </tr>
+		              <tr>
+		                  <td>주소  </td>
+		                  <td colspan="2">
+		                      <input type="text" name="address" value="서울시">
+		                  </td>
+		                  
+		              </tr>
+		              <tr>
+		                  <td> 직 급 </td>
+		                  <td>
+		                       <select name="jobCode" style="width: 150px;">
+		                          <option value="J8"> 사 원 </option>
+		                          <option value="J7"> 대 리 </option>
+		                          <option value="J6"> 과 장 </option>
+		                          <option value="J5"> 차 장 </option>
+		                          <option value="J4"> 부 장 </option>
+		                          <option value="J3"> 상 무 </option>
+		                          <option value="J2"> 부사장 </option>
+		                          <option value="J1"> 사장 </option>
+		                      </select>
+		                  </td>
+		              </tr>
+		              <tr>
+		                  <td> 부 서  </td>
+		                  <td>
+		                      <select name="deptCode" style="width: 150px;">
+		                      	  <option>--</option>
+		                      	  <option value="D0">임원</option>
+		                          <option value="D1">인사부서</option>
+		                          <option value="D2">영업부서</option>
+		                          <option value="D3">기획부서</option>
+		                          <option value="D4">연구부서</option>
+		                          <option value="D5">미발령</option>
+		                      </select>
+		                  </td>
 		              </tr>
 		              <tr>
 		                  <td>비고 </td>
@@ -122,13 +139,14 @@
 		              </tr>
 		              <tr>
 		              </tr>
-		              <tr>
-		                  <td align="center" colspan="3" class="managerTable">
-		                      <input type="button" value = " 확 인 " style="width: 150px; height: 50px;" id="modify"> 
+		            <tfoot><tr>
+		                  <td align="center" colspan="3">
+		                      <input type="submit" value ="확인 " style="width: 100px; height: 30px; text-align:center;"> 
 		                      &nbsp; &nbsp; 
-		                      <input type="reset" value = " 취 소 " style="width: 150px; height: 50px;">
+		                      <input type="reset" value ="삭제 " style="width: 100px; height: 30px; text-align:center;">
 		                  </td>
 		              </tr>
+		              </tfoot>
 		              
 		      </table>
 		          </form>

@@ -1,7 +1,12 @@
 	hr, td, tr, input, textarea, select, FORM{
 	    font-family:고딕;
-	    font-size:1em;
+	    /* font-size:1em; */
 	}
+	
+	td{
+		width:300px;
+	}
+	
 	.managerTable{
 	     margin-left:70px;      
 	     border-style:none;
@@ -14,28 +19,21 @@
 	    padding-left: 10px;
 	}
 	
-	table>tbody>tr>td:nth-child(2){
-	    padding-left: 10px;
-	}
-	
-	.managerTable>tbody>tr{
-	    border:0.5px solid gray;
-	}
-	
-	.right{
-	    background:whitesmoke;
-	}
-	
-	.cap{
-	    border-style:none;
-	    color:black;
-	}
-	
 	#foot{
 	    border:none;
 	}
 	
-	.numberInput{
-	    font-size:10px;
-	    size:4;
+	table{
+		border-collapse:collapse;
 	}
+	
+	#pic{
+	     width: 270px; height: 270px; border:1px solid black;
+		 position:relative;
+	}
+	
+	#t2,#t3,#p2,#p3{
+		width:40px;
+	}
+	
+	

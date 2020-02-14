@@ -41,7 +41,7 @@
 </div>
    
 <script>
-	var option ="top=80px,left=300px,width=1200px,height=800px,location=no,resizable=no,toolbars=no";
+	var option ="top=80px,left=300px,width=1080px,height=800px,location=no,resizable=no,toolbars=no";
 	var name = $(this).text();
 
 	$('#iEmp').click(function(name){
@@ -50,7 +50,8 @@
 	});
 	
 	$('#uEmp').click(function(name){
-		var url = "<%=request.getContextPath() %>/mSearch.me";
+		var url = "<%=request.getContextPath() %>/views/manager/modifyEmp.jsp";
+		let option = "top=80px,left=300px,width=950px,height=800px,location=no,resizable=no,toolbars=no";
 		window.open(url,name,option);
 	});
 	$('#dEmp').click(function(name){
