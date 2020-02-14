@@ -57,42 +57,67 @@ public class CheckInsertServlet extends HttpServlet {
 				request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy()
 				);
 		
+		
+		
 		String doctitle = mrequest.getParameter("doctitle");   
 		int docwriter = Integer.valueOf(mrequest.getParameter("empcode")); //int로 바꿀것
 		String doctype =mrequest.getParameter("doctype");
-		System.out.println(doctype);
-		String checkdept = mrequest.getParameter("checkdept");
+		String deptCode = mrequest.getParameter("checkdeptC");
+		String deptName = mrequest.getParameter("checkdeptN");
 		String checkper = mrequest.getParameter("checkper");
-		String coldept = mrequest.getParameter("coldept");
+		String coldeptCode= mrequest.getParameter("coldeptC");
+		String coldeptName = mrequest.getParameter("coldeptN");
 		String colper = mrequest.getParameter("colper");
+		String enddeptC = mrequest.getParameter("enddeptC");
+		String enddeptN = mrequest.getParameter("enddeptN");
 		String endper = mrequest.getParameter("endper");
 		String viewper = mrequest.getParameter("viewper");
 		
+//		System.out.println("doctitle" + doctitle);
+//		System.out.println("docwriter" + docwriter);
+//		System.out.println("deptCode" + deptCode);
+//		System.out.println("deptName" + deptName);
+//		System.out.println("checkper" + checkper);
+//		System.out.println("coldeptCode" + coldeptCode);
+//		System.out.println("coldeptName" + coldeptName);
+//		System.out.println("colper" + colper);
+//		System.out.println("enddeptC" + enddeptC);
+//		System.out.println("enddeptN" + enddeptN);
+//		System.out.println("endper" + endper);
+//		System.out.println("viewper" + viewper);
 		
 		
 		
-		String[] arr= null;
-		String[] status =null;
 		
-		arr= checkper.split(", ");
+		
+		
+		String[] arr= checkper.split(",");
 		StringBuffer a = new StringBuffer();
-		String approval = arr[0]+", "+ arr[1];
+		String approval = arr[0]+","+ arr[1];
 		for(int i = 0; i<arr.length/2; i++) {
-			if(i<arr.length/2-1) {
+			if(i== 0) {
+				a.append("5,");
+			}else if(i<arr.length/2-1) {
 				a.append("0,");
 			}else {
 				a.append("0");
 			}
 		}
+		
 		String inStatus = a.toString() ;
+		//System.out.println(inStatus);
 		a.delete(0, maxSize);
 		
 		String colStatus ="";
-		if(coldept!=null) {
+		if(coldeptCode!=null) {
 			arr= colper.split(", ");
 			for(int i = 0; i<arr.length/2; i++) {
-				if(i<arr.length/2-1) {
-					a.append("0, ");
+				if(i== 0) {
+					a.append("5,");
+				}else if(i<arr.length/2-1) {
+					
+					a.append("0,");
+					
 				}else {
 					a.append("0");
 				}
@@ -100,8 +125,12 @@ public class CheckInsertServlet extends HttpServlet {
 			colStatus =a.toString();
 		}
 		
-		//String fileName = mrequest.getParameter("fileup");
+		System.out.println(colStatus);
+		
 		ArrayList<String> files = new ArrayList<String>();
+		
+		//String fileName = mrequest.getParameter("fileup");
+		
 //		for(int i = 0; i <5; i++) {
 //			String str = "file"+i;
 //			String filechan = mrequest.getFilesystemName(str);
@@ -112,14 +141,12 @@ public class CheckInsertServlet extends HttpServlet {
 //		}
 		
 		
-	
-			
 
 	
-		CheckDoc info= new CheckDoc(doctitle,docwriter,doctype, approval, checkdept, checkper, inStatus, 
-									coldept, colper,colStatus, endper,viewper
+		CheckDoc info= new CheckDoc(doctitle,docwriter,doctype, approval,deptCode,deptName , checkper, inStatus,coldeptCode,coldeptName
+					, colper,colStatus,enddeptC,enddeptN, endper,viewper
 									);
-		System.out.println(info.getDocType());
+		System.out.println(info);
 		
 
 		RoundDoc doc = null;

@@ -78,10 +78,9 @@
 
                         
                     </table>
-                   
-                   
-                     <input type="hidden" name ="checkdept" class ="checkdept" id="chdept">
-                     <input type="hidden" class ="hiddenper" class ="checkper" id="chper">
+                   <input type="text" name ="checkdeptC" class ="deptC" >
+                    <input type="text" name ="checkdeptN" class ="deptN" id="chdeptN">
+                     <input type="text" class ="hiddenper"  id="chper">
                     <input type="text" name ="checkper"  class="perend">
 					</div>
                    
@@ -105,8 +104,8 @@
                                     </tr>
                                 </tbody>
                             </table>
-                             <!--<input type="text" name ="checkper" class ="hiddenper">-->
-                              <input type="text" name ="coldept " class ="coldept" id="codept1">
+                             <input type="text" name ="coldeptC" class ="deptC">
+                             <input type="text" name ="coldeptN" class ="deptN" id="codeptN">
                              <input type="text" class ="hiddenper" id="cope">
                             
                              <input type="text" name ="colper" class ="perend" >
@@ -126,8 +125,8 @@
                                     </tr>
                                     </tbody>
                                 </table>
-                                  <!--<input type="text" name ="checkper" class ="hiddenper">-->
-                                <input type="text" name ="enddept " class ="enddept" id="enddept1">
+                                <input type="text" name ="enddeptC" class ="deptC">
+                                <input type="text" name ="enddeptN " class ="deptN" id="enddeptN">
                                 <input type="text" class ="hiddenper" id="endp">
                                 <input type="text" name ="endper" class ="perend" >
                     </div>
@@ -146,7 +145,6 @@
                                  </tr>
                                 </tbody>
                             </table>
-                              <!--<input type="text" name ="checkper" class ="hiddenper">-->
                             <input type="text" name ="viewper" class ="hiddenper1 perend" id=viewp>
                       </div>
                     </div>
@@ -191,26 +189,25 @@
                     		url:"/semi/sEName.ch",
                     		type:"get",
                     		data:{
-                    			pcodes : $(this).val(),
-                    			deptname : $(this).prev().val()
+                    			pcodes : imhidden.val(),
+                    			deptname : imhidden.siblings(".deptN").val()
                     		},
                     		success: function(data){
+                    			//console.log(data);
                     			var dept = data["list1"];
                     			var pcodes = data["list2"];
                     			var pnames = data["list3"];
-/*                     			console.log(dept);
+                     			/*console.log(dept);
                     			console.log(pcodes);
-                    			console.log(pnames);
-                    			console.log(imhidden.prev());
-                    			
-                    			console.log(imhidden.prev().prev().find(".people")); */
-                    			imhidden.prev().val(dept);
-                    			var a = imhidden.prev().prev().find(".people").html("")
+                    			console.log(pnames);*/
+                    		
+                    			imhidden.siblings(".deptC").val(dept);
+                    			var a = imhidden.siblings(".table").find(".people").html("")
                     			for(var i = 0; i< pnames.length; i = i+2){
-                    				var a = imhidden.prev().prev().find(".people").html()
+                    				var a = imhidden.siblings("table").find(".people").html()
                     				
                     				var label = "<div onclick='delperson(this);' class ='person'><input type='hidden' value="+i+"> 정 : " + pnames[i] +"<br> 부 : " +pnames[i+1]+"</div>";
-                    				imhidden.prev().prev().find(".people").html( a + "&nbsp"+ label);
+                    				imhidden.siblings("table").find(".people").html( a + "&nbsp"+ label);
                     			}
                     			imhidden.next().val(pcodes.join());
                     			
@@ -226,12 +223,14 @@
                    });
                     $(".hiddenper1").on("click",function(){
                     	var imhidden = $(this);
+                    	console.log(imhidden);
+                    	console.log(imhidden.val());
                       
                     	$.ajax({
                     		url:"/semi/sECName.ch",
                     		type:"get",
                     		data:{
-                    			pcodes : $(this).val()
+                    			pcodes : imhidden.val()
                     		},
                     		success: function(data){
                     			console.log(data);

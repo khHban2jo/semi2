@@ -103,7 +103,7 @@
                            <td><%=b.getaTitle() %></td>
                            <td><%=b.getaWriter() %></td>
                            <td><%=b.getDeptCode() %></td>
-                           <%if(b.getaStatus() ==0 ||b.getaStatus()==1 ){%> <td>결재중</td><%}else if(b.getaStatus()==2){%><td>결재완료</td><%}else{ %><td>반려</td> <% }%>
+                           <%if(b.getaStatus() ==0 ||b.getaStatus()==1||b.getaStatus()==2 ){%> <td>결재중</td><%}else if(b.getaStatus()==3){%><td>결재완료</td><%}else{ %><td>반려</td> <% }%>
                            
                            <td><%=b.getDocDate() %></td>
                            <tr>

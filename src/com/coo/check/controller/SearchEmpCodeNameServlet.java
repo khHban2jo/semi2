@@ -34,6 +34,7 @@ public class SearchEmpCodeNameServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json; charset=UTF-8");
 		
+		if(!request.getParameter("pcodes").equals("")) {
 		String[] data = request.getParameter("pcodes").split(",");
 		ArrayList<Integer> savePcodes = new ArrayList<>();
 		for(int i = 0; i<data.length; i++) {
@@ -44,7 +45,7 @@ public class SearchEmpCodeNameServlet extends HttpServlet {
 		
 		new Gson().toJson(fulling,response.getWriter());
 		
-		
+		}
 	}
 
 	/**

@@ -146,11 +146,15 @@ public class CheckDao {
 				cd.setaStatus(rset.getInt("ASTATUS"));
 				cd.setApprover(rset.getString("APPROVER"));
 				cd.setDeptCode(rset.getString("DEPT_CODE"));
+				cd.setDeptName(rset.getString("DEPT_TITLE"));
 				cd.setInPeople(rset.getString("INPEOPLE"));
 				cd.setInStatus(rset.getString("INSTATUS"));
-				cd.setColDept(rset.getString("COL_DEPT"));
+				cd.setColDeptCode(rset.getString("COL_DEPT"));
+				cd.setColdeptName(rset.getString("COL_DEPTNAME"));
 				cd.setColPeople(rset.getString("COL_PEOPLE"));
 				cd.setColStatus(rset.getString("COL_STATUS"));
+				cd.setEndDeptCode(rset.getString("END_DEPTC"));
+				cd.setEnddeptName(rset.getString("END_DEPTN"));
 				cd.setEndPerson(rset.getString("END_PERSON"));
 				cd.setViewPeople(rset.getString("VIEW_PEOPLE"));
 				cd.setDocDate(rset.getDate("DOC_DATE"));
@@ -199,7 +203,7 @@ public class CheckDao {
 				info.setDeptCode(rset.getString("DEPT_CODE"));
 				info.setInPeople(rset.getString("INPEOPLE"));
 				info.setInStatus(rset.getString("INSTATUS"));
-				info.setColDept(rset.getString("COL_DEPT"));
+				info.setColDeptCode(rset.getString("COL_DEPT"));
 				info.setColPeople(rset.getString("COL_PEOPLE"));
 				info.setColStatus(rset.getString("COL_STATUS"));
 				info.setEndPerson(rset.getString("END_PERSON"));
@@ -334,31 +338,36 @@ public class CheckDao {
 			pstmt.setString(4,info.getApprover());
 			
 			pstmt.setString(5,info.getDeptCode());
-			pstmt.setString(6,info.getInPeople() );
-			pstmt.setString(7,info.getInStatus());
-			if(info.getDeptCode()!= null ){ 
-				pstmt.setString(8,info.getColDept());
-				pstmt.setString(9,info.getColPeople());
-				pstmt.setString(10,info.getColStatus());
+			pstmt.setString(6, info.getDeptName());
+			pstmt.setString(7,info.getInPeople());
+			pstmt.setString(8,info.getInStatus());
+			if(info.getColDeptCode()!= null ){ 
+				pstmt.setString(9,info.getColDeptCode());
+				pstmt.setString(10, info.getColdeptName());
+				pstmt.setString(11,info.getColPeople());
+				pstmt.setString(12,info.getColStatus());
 			
 			}else {
-			pstmt.setNull(8,java.sql.Types.NULL); //sql의 null 설정
-			pstmt.setNull(9,java.sql.Types.NULL);
+			pstmt.setNull(9,java.sql.Types.NULL); //sql의 null 설정
 			pstmt.setNull(10,java.sql.Types.NULL);
+			pstmt.setNull(11,java.sql.Types.NULL);
+			pstmt.setNull(12,java.sql.Types.NULL);
 			}
 			
 		
 			if(info.getEndPerson()!=null) {
-			 pstmt.setString(11,info.getEndPerson());
+			 pstmt.setString(13, info.getEndDeptCode());
+			 pstmt.setString(14, info.getEndDeptCode());
+			 pstmt.setString(15,info.getEndPerson());
 			}else {
-				pstmt.setNull(11,java.sql.Types.NULL);
+				pstmt.setNull(15,java.sql.Types.NULL);
 			}
 		 
 			if(info.getDeptCode()!=null) {
-				pstmt.setString(12,info.getViewPeople());
+				pstmt.setString(16,info.getViewPeople());
 			
 			}else {
-				pstmt.setNull(12,java.sql.Types.NULL);
+				pstmt.setNull(16,java.sql.Types.NULL);
 			}
 			result =pstmt.executeUpdate();
 		}catch(SQLException e) {
@@ -428,9 +437,8 @@ public class CheckDao {
 
 		
 		try {
-			for(int i = 0; i<files.size(); i++) {
 			pstmt = con.prepareStatement(sql);
-			
+			for(int i = 0; i<files.size(); i++) {
 			
 			pstmt.setString(1, files.get(i));
 			
@@ -557,6 +565,12 @@ public class CheckDao {
 		return pmaplist;
 	}
 
+	/**
+	 * 저장된 결제라인 가져오기
+	 * @param con
+	 * @param empcode
+	 * @return
+	 */
 	public ArrayList<StockLine> getStocklist(Connection con, int empcode) {
 		ArrayList<StockLine> line = null;
 		PreparedStatement pstmt = null;
@@ -594,6 +608,15 @@ public class CheckDao {
 		return line;
 	}
 
+	/**
+	 * 결제라인 저장하기
+	 * @param con
+	 * @param empcode
+	 * @param deptcode
+	 * @param number
+	 * @param table
+	 * @return
+	 */
 	public int saveStockline(Connection con, int empcode, String deptcode, int number, String table) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -614,7 +637,15 @@ public class CheckDao {
 		}
 		return result;
 	}
+	
 
+	/**
+	 * 정부 부서코드 가져오기
+	 * @param con
+	 * @param arr
+	 * @param dename
+	 * @return
+	 */
 	public ArrayList<StockLine> getMassub(Connection con, String[] arr, String dename) {
 		ArrayList<StockLine> masub = null;
 		PreparedStatement pstmt = null;
@@ -652,6 +683,12 @@ public class CheckDao {
 		return masub;
 	}
 
+	/**
+	 * 정/부 이름 가져오기
+	 * @param con
+	 * @param savePcodes
+	 * @return
+	 */
 	public ArrayList<String> getMSName(Connection con, ArrayList<Integer> savePcodes) {
 		ArrayList<String> names = null;
 		PreparedStatement pstmt = null;
@@ -684,6 +721,12 @@ public class CheckDao {
 		return names;
 	}
 
+	/**
+	 * 참조인원 부서 이름 가져오기
+	 * @param con
+	 * @param savePcodes
+	 * @return
+	 */
 	public ArrayList<StockLine> getDeptTN(Connection con, ArrayList<Integer> savePcodes) {
 		ArrayList<StockLine> tn= null;
 		PreparedStatement pstmt = null;

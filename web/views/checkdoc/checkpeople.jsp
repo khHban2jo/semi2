@@ -271,7 +271,7 @@
 				var $li = $("<li>");
 				var $check = $('<input type ="checkbox" class ="person1" onclick="checkperson(this);">');
 				var $la = $('<label onclick="clickla(this);>');
-				
+				console.log(data);
 
 				for(var i in data["list1"]){
 					var code= data["list1"][i];
