@@ -171,23 +171,17 @@ public int updateMember(Connection con, Member m) throws CooException {
 		pstmt = con.prepareStatement(sql);
 
 		
-		pstmt.setString(1, m.getEmpId());
-		pstmt.setInt(2, m.getEmpCode());
-		pstmt.setString(3, m.getEmpPwd());
-		pstmt.setString(4, m.getEmpName());
-		pstmt.setString(5, m.getPersonalId());
-		pstmt.setString(6, m.getEmail());
-		pstmt.setString(7, m.getGender());
-		pstmt.setInt(8, m.getAge());
-		pstmt.setInt(9, m.getSalary());
-		pstmt.setString(10, m.getPhone());
-		pstmt.setString(11, m.getAddress());
-		pstmt.setString(12, m.getDeptCode());
-		pstmt.setString(13,m.getJobCode());
-		pstmt.setString(14, m.getJobCode());
-		pstmt.setString(15, m.getEtc());
-		pstmt.setString(17, m.getSubDept());
-		
+		pstmt.setString(1, m.getEmpPwd());
+		pstmt.setString(2, m.getEmpName());
+		pstmt.setString(3, m.getEmail());
+		pstmt.setString(4, m.getPhone());
+		pstmt.setString(5, m.getAddress());
+		pstmt.setString(6, m.getDeptCode());
+		pstmt.setString(7, m.getJobCode());
+		pstmt.setString(8, m.getEtc());
+		pstmt.setString(9, m.getSubDept());
+		pstmt.setString(10, m.getContact());
+		pstmt.setInt(11, 205);
 		result = pstmt.executeUpdate();
 		
 	}catch(SQLException e) {
