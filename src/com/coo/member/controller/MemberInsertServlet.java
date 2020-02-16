@@ -53,6 +53,7 @@ public class MemberInsertServlet extends HttpServlet {
 		String deptCode = request.getParameter("deptCode"); 
 		String jobCode = request.getParameter("jobCode");
 		String etc = request.getParameter("etc");
+		String subDept = request.getParameter("subDept");
         
 	     Member m = new Member();
 	     m.setEmpId(userId);
@@ -69,6 +70,7 @@ public class MemberInsertServlet extends HttpServlet {
 	     m.setJobCode(jobCode);
 	     m.setEtc(etc);
 	     m.setPersonalId(personalId);
+	     m.setSubDept(subDept);
 	     
 	     System.out.println("변경한 회원 정보 확인: "+ m);
 	     

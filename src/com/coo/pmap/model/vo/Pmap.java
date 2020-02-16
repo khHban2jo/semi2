@@ -1,12 +1,12 @@
-package com.coo.pmap.model.vo;
+/*package com.coo.pmap.model.vo;
 
 import java.io.Serializable;
 
 public class Pmap implements Serializable{
 	
-	/**
+	*//**
 	 * 
-	 */
+	 *//*
 	private static final long serialVersionUID = 1L;
 	
 	private String emp_code;
@@ -65,3 +65,4 @@ public class Pmap implements Serializable{
 
 	
 }
+*/

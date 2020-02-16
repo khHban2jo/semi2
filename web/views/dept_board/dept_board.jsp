@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="/semi/resources/css/notice/button.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/margin.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/table.css">
-	<script src="/semi/resource/js/common/boardbutton.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    
 </head>

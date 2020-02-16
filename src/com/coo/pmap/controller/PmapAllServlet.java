@@ -8,11 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.coo.member.model.vo.Member;
 import com.coo.pmap.model.service.PmapService;
-import com.coo.pmap.model.vo.Pmap;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import com.coo.pmap.model.vo.*;
 
 /**
@@ -35,8 +34,10 @@ public class PmapAllServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		ArrayList<Member> list = new ArrayList<Member>();
+		
+		HttpSession session = request.getSession();
+		Member m = (Member)session.getAttribute("member");
 		
 		PmapService ps = new PmapService();
 		//------페이지 표시 -------------------------------------------------------------
@@ -83,6 +84,7 @@ public class PmapAllServlet extends HttpServlet {
 			request.setAttribute("list",list);
 			PmapInfo pa = new PmapInfo(currentPage,listCount,limit,maxPage,startPage,endPage);
 			request.setAttribute("pa", pa);
+			
 			
 		}else {
 			page = "views/common/errorPage.jsp";

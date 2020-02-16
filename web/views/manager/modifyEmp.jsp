@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.coo.member.model.vo.Member"%>
-<%-- <% Member m = (Member)request.getAttribute("member"); %> --%>
+    pageEncoding="UTF-8" import="com.coo.member.model.vo.*"
+    errorPage="/views/common/errorPage.jsp" %>
+<% Member mem = (Member)session.getAttribute("member"); 
+   Member md = (Member)request.getAttribute("searchResult");
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>사원수정</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
 </head>
 <body>
-
+<% if(mem.getEmpId().equals("admin")){ %>
 <form action="<%=request.getContextPath() %>/mUpdate.me" method="POST" onsubmit="return check();">
 			<table class="managerTable">
 		              <tr>
@@ -17,39 +22,46 @@
 		              </tr>
 		              <tr>
 		                  <td> 사 번  </td>
-		                  <td> <input type="text" value="<%-- <%=m.getEmpCode() %> --%>" name="empCode" disabled> 
+		                  <td> <input type="text" value="<%=md.getEmpCode() %>" name="empCode" disabled> 
 		                  </td>
 		                  <td rowspan="8"> 
 		                  	<img src="" width="320px" height="320px" id="pic"> 
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <td> 아이디 </td>
+		                  <td> 아이디  </td>
 		                  <td> 
-		                      <input type="text" id="uid" name="userId" maxlength="14"> 
+		                      <input type="text" id="uid" name="userId" maxlength="20" readonly placeholder="영어이름 먼저입력" value="<%=md.getEmpId()%>"> 
+		                      <input type="button" id="checkId" value="중복확인" disabled>
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <td> 이름 </td>
-		                  <td><input type="text" id="pName" name="userName" maxlength="8" value="<%-- <%=m.getEmpName() %> --%>"> &nbsp;&nbsp;</td>
+		                  <td> 비밀번호 </td> <td><input type="password" name="userPwd" id="pwd1" maxlength="16"></td></tr>
+		                  <tr>
+		                  <td> 비밀번호 확인  </td>
+		                  <td> <input type="password" id="pwd2" maxlength="16">&nbsp;
+		                  <input type="button" id="pwdCheck" value="확 인"></td>
 		              </tr>
 		              <tr>
-		                  <td> 변경할 비밀번호  </td>
-		                  <td> 
-		                      <input type="password" id="pwd1" name="userPwd">
-		                  </td>
+		                  <td> 이 름 </td>
+		                  <td><input type="text" id="pName" name="empName" maxlength="8" value="<%=md.getEmpName() %>">&nbsp;&nbsp;
 		              </tr>
 		              <tr>
-		                  <td> 비밀번호 확인 </td>
-		                  <td> 
-		                      <input type="password" id="pwd2">
-		                       <input type="button" value="확인" id="checkPwd">
-		                  </td>
+		              	  <td>영문이름</td>
+		              	  <td><input type="text" id="eName1" maxlength="8" placeholder="성" name="eName">&nbsp;&nbsp;
+		              	  <input type="text" id="eName2" maxlength="8" placeholder="이름">
+		              	  <input type="button" id="eNameCheck" value="입력"></td>
 		              </tr>
+		              <tr>
+		              	  <td>주민등록번호</td>
+		              	  <td><input type="text" id="psid" maxlength="13" placeholder="-없이 입력" name="personalId" value="<%=md.getPersonalId().substring(0,6) %>">&nbsp;
+		              	  <input type="button" id="pschk" value="확인">
+		              	  </tr>
+		              <tr>
 		                <tr>
 		                  <td>이메일</td>
 		                  <td>
-		                      <input type="text" id="mail" name="email"> 
+		                      <input type="text" id="mail" name="email" value="<%=md.getEmail() %>"> 
 		                      <select id="maillist">
 		                          <option value="">직접 입력</option>
 		                          <option value="@daum.net">@daum.net</option>
@@ -94,14 +106,14 @@
 		              </td>
 		              </tr>
 		              <tr>
-		                  <td>주소  </td>
+		                  <td>주 소  </td>
 		                  <td colspan="2">
-		                      <input type="text" name="address" value="서울시">
+		                      <input type="text" name="address" value="<%=md.getAddress() %>">
 		                  </td>
 		                  
 		              </tr>
 		              <tr>
-		                  <td> 직 급 </td>
+		                  <td> 직 급(이전 직급) &nbsp;&nbsp;<input type="text" class="pr" disabled value="<%=md.getJobCode() %>"></td>
 		                  <td>
 		                       <select name="jobCode" style="width: 150px;">
 		                          <option value="J8"> 사 원 </option>
@@ -116,7 +128,7 @@
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <td> 부 서  </td>
+		                  <td> 부 서(이전 직급) &nbsp;&nbsp;<input type="text" class="pr" disabled value="<%= md.getDeptTitle() %>"> </td>
 		                  <td>
 		                      <select name="deptCode" style="width: 150px;">
 		                      	  <option>--</option>
@@ -130,14 +142,26 @@
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <td>비고 </td>
-		                  <td colspan="2" rowspan="2">
-		                      <textarea style="resize: none; width: 600px; height: 60;" id="modifyShowText">
-		
-		                      </textarea>
+		              <td>겸 직</td>
+		                  <td>
+		                      <select name="deptCode" style="width: 150px;">
+		                      	  <option>--</option>
+		                      	  <option value="D0">임원</option>
+		                          <option value="D1">인사부서</option>
+		                          <option value="D2">영업부서</option>
+		                          <option value="D3">기획부서</option>
+		                          <option value="D4">연구부서</option>
+		                          <option value="D5">미발령</option>
+		                      </select>
 		                  </td>
 		              </tr>
 		              <tr>
+		                  <td>비 고 </td>
+		                  <td colspan="2" rowspan="1">
+		                      <textarea style="resize: none; width: 600px; height: 60;" id="modifyShowText">
+								<%= md.getEtc() %>
+		                      </textarea>
+		                  </td>
 		              </tr>
 		            <tfoot><tr>
 		                  <td align="center" colspan="3">
@@ -150,5 +174,24 @@
 		              
 		      </table>
 		          </form>
+		          <%}%>
+	<script>
+		$(function(){
+			window.resizeTo(1080,800);
+		});
+		 $('#checkemp').click(function(){
+			    $.ajax({
+			        url:"<%=request.getContextPath() %>/mCheckEmp.me",
+			        type:"post",
+			        success:function(data){
+			            $('#mEmpCode').val(data);
+			        },error:function(){
+			            alert("에러발생");
+			        }
+			    });
+			 });
+	</script>
+	<script src="resources/js/manager/join.js"></script>
+	
 </body>
 </html>

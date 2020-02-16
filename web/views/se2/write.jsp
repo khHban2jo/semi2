@@ -50,8 +50,8 @@
 	   oEditors.getById["contents"].exec("UPDATE_CONTENTS_FIELD",[]);
 	   
 	   $('#gosubmit').submit();
-
-	   }
+		
+	  }
  </script>
 </body>
 </html>

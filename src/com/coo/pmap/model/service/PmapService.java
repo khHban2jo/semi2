@@ -10,7 +10,6 @@ import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 
 import com.coo.member.model.vo.Member;
 import com.coo.pmap.model.Dao.PmapDao;
-import com.coo.pmap.model.vo.Pmap;
 
 import javafx.scene.control.Alert;
 public class PmapService {
