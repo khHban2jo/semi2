@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.coo.exception.CooException;
 import com.coo.member.model.service.MemberService;
 import com.coo.member.model.vo.Member;
+import com.coo.ta.model.service.MemberTAService;
 
 /**
  * Servlet implementation class MemberInsertServlet
@@ -80,6 +81,10 @@ public class MemberInsertServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		
+		//	근태관련 코드 추가
+		new MemberTAService().memberTaDataInsert(userId);
+		
 		
 		response.sendRedirect("views/home.jsp");
 		
