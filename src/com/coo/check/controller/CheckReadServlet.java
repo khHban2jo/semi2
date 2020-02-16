@@ -37,11 +37,12 @@ public class CheckReadServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		int docnumber =Integer.valueOf(request.getParameter("docNumber"));
-		System.out.println(docnumber);
+		//System.out.println(docnumber);
 		
 		CheckService cs = new CheckService();
 		
 		CheckDoc docInfo = cs.getDocInfo(docnumber);
+		//System.out.println(docInfo);
 		
 		String page="";
 	
@@ -49,18 +50,7 @@ public class CheckReadServlet extends HttpServlet {
 		
 		if(docInfo != null ) {
 			request.setAttribute("info", docInfo);
-//			inPname = cs.getPname(docInfo.getInPeople());
-//			
-//			if(docInfo.getColDept() != null) {
-//				colPname = cs.getPname(docInfo.getColPeople());
-//				
-//			}
-//			if(docInfo.getEndPerson() != null) {
-//				endPname = cs.getPname(docInfo.getColPeople());
-//			}
-//			if(docInfo.getColDept() != null) {
-//				viewPname = 
-//			}  --> ajax처리
+
 			int dn = docInfo.getDocNumber();
 			String doc="";
 			if(docInfo.getDocType().equals("품의서")) {
@@ -75,11 +65,12 @@ public class CheckReadServlet extends HttpServlet {
 				doc = doc3.getText();
 			}
 			request.setAttribute("doc",doc);
-			System.out.println(docInfo);
-			System.out.println(doc);
-			System.out.println(docInfo.getInPeople());
-			System.out.println(docInfo.getColPeople());
+//			System.out.println(docInfo);
+//			System.out.println(doc);
+//			System.out.println(docInfo.getInPeople());
+//			System.out.println(docInfo.getColPeople());
 			page="views/checkdoc/read.jsp";
+			
 		}else {
 			//에러
 		}
