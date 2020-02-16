@@ -204,13 +204,13 @@
      <input type = "button" value ="결제선가져오기" id="push1"> 
     <div id="sub" style="border :0px;">
  
-         <input type ="text" name ="chedept" id="chedept" value="">
-         <input type ="text" name= "cheper" id="cheper" value="">
-         <input type ="text" name= "coladept" id ="coladept" value="">
-         <input type ="text" name= "colaper" id = "colaper" value="">
-         <input type ="text" name= "enddept" id ="enddept" value="">
-         <input type ="text" name= "endper" id = "endper" value="">
-         <input type ="text" name= "resper" id = "resper" value="">
+         <input type ="hidden" name ="chedept" id="chedept" value="">
+         <input type ="hidden" name= "cheper" id="cheper" value="">
+         <input type ="hidden" name= "coladept" id ="coladept" value="">
+         <input type ="hidden" name= "colaper" id = "colaper" value="">
+         <input type ="hidden" name= "enddept" id ="enddept" value="">
+         <input type ="hidden" name= "endper" id = "endper" value="">
+         <input type ="hidden" name= "resper" id = "resper" value="">
          <input type="submit" onclick ="return end()" value="전송">
 
     </div>
@@ -334,35 +334,29 @@
 		}); 
 		 return getTable;
 	});
-
+	//체크박스
 		function checkperson(i){
 
 	 		if($(i).prop("checked")){
-
 				var a= $(i).siblings("label").text().split(" ");
-				var c= $("#selectper tbody");
+				var c= $("#selectper tbody").html();
 				var d="<tr><td>"+a[0]+"</td><td>"+a[1]+"</td><td>"+a[2]+"</td><td>"+a[3] +"</td></tr>";
-			//기존 배열과 확인후 삭제
-				 if(c.find("tr").length >0){
-					c.find("tr").each(function(index,item){				
-					$("#selectper tbody").html(c.html()+d );
-				 	});
+			//기존 배열과 확인후 삭제		
+				$("#selectper tbody").html(c+d );
 		
-	 			}else{
-	   				$("#selectper tbody").html(d);
-	 			}
 			}else{
 				 var a= $(i).siblings("label").text().split(" ");
-				 $('#selectper tr:contains('+a[0]+')').remove(); 
+				 var b=$('#selectper tr:contains('+a[0]+')')&&$('#selectper tr:contains('+a[1]+')')
+				if(b){
+					b.remove();
+				}
 			}
 
 		}
 		
 		
 		function clickla(i){
-			console.log($(i));
-		       //$(i).prev(".person1").click();
-		    console.log($(i).prev(".person1"));
+		      $(i).prev(".person1").click();
 		   }
 	
 	

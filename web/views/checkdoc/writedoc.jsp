@@ -40,7 +40,7 @@
                     <h2 id ='doctype1'>품의서</h2>
                     <h2 id ='doctype2'>결의서</h2>
                     <h2 id ='doctype3'>휴가신청서</h2>
-                    <input type="text" name="doctype" id="type1">
+                    <input type="hidden" name="doctype" id="type1">
 
 
                     <fieldset class="writerField">
@@ -79,11 +79,11 @@
                         
                     </table>
                    <input type="text" name ="checkdeptC" class ="deptC" >
-                    <input type="text" name ="checkdeptN" class ="deptN" id="chdeptN">
-                     <input type="text" class ="hiddenper"  id="chper">
-                    <input type="text" name ="checkper"  class="perend">
+                   <input type="text" name ="checkdeptN" class ="deptN" id="chdeptN">
+                   <input type="text" class ="hiddenper"  id="chper">
+                   <input type="text" name ="checkper"  class="perend">
 					</div>
-                   
+                 
                    <div>
                         <table>
                             <tbody>
@@ -107,7 +107,6 @@
                              <input type="text" name ="coldeptC" class ="deptC">
                              <input type="text" name ="coldeptN" class ="deptN" id="codeptN">
                              <input type="text" class ="hiddenper" id="cope">
-                            
                              <input type="text" name ="colper" class ="perend" >
                              </div>
                              <div>
@@ -120,15 +119,19 @@
                                             <td></td>
                                     </tr>
                                     <tr>
+                                     <td width ="80px" >부서</td>
+                                        <td class ="deptview" colspan="3" id="endladept"></td>
+                                        </tr>
+                                    <tr>
                                         <td style="height: 40px;">최종결재자</td>
                                         <td class="people" colspan="3"></td>
                                     </tr>
                                     </tbody>
                                 </table>
-                                <input type="text" name ="enddeptC" class ="deptC">
-                                <input type="text" name ="enddeptN " class ="deptN" id="enddeptN">
-                                <input type="text" class ="hiddenper" id="endp">
-                                <input type="text" name ="endper" class ="perend" >
+                                <input type="hidden" name ="enddeptC" class ="deptC">
+                                <input type="hidden" name ="enddeptN" class ="deptN" id="enddeptN">
+                                <input type="hidden" class ="hiddenper" id="endp">
+                                <input type="hidden" name ="endper" class ="perend" >
                     </div>
                      <div>
                         <table>
@@ -145,43 +148,58 @@
                                  </tr>
                                 </tbody>
                             </table>
-                            <input type="text" name ="viewper" class ="hiddenper1 perend" id=viewp>
+                            <input type="hidden" name ="viewper" class ="hiddenper1 perend" id=viewp>
                       </div>
                     </div>
                     </fieldset>
                     <br>
                     <fieldset style= "height :140px;">
                         <legend>첨부파일 </legend>
-                        <input type="file"value ="파일 업로드" id="upload" name ="fileup" multiple>
-                        <div id = "filenames" style ="height : 130px; font-size:14px;"></div>
+                               <div id = "filenames" style ="height : 130px; font-size:14px;">
+                        <input type="file"value ="파일 업로드"  name ="fileup0" class ="upload"><label onclick ="delfile();">취소</label>
+                 </div>
                         
                     </fieldset>
                     <script>
-                    $("#upload").change(function(){
-                      var fileset = $(this).get(0);
-                      filestext= document.getElementsByClassName("ddd");
-                      console.log(fileset)
-                           if(fileset.files.length <6){
-                              for(var i =0; i<fileset.files.length; i++ ){
-                                  if(fileset.files[i].size <=10485760){
-                                   	   document.getElementById("filenames").innerHTML += fileset.files[i].name +"<br>";
-                                    	   filestext[i].value =fileset.files[i].name; 
-                                  }else{
-                                      alert(fileset.files[i].name +" 의 크기가 너무 큽니다. 파일1개의 최대 크기는 10mb입니다." );
-                                      $(this).val("");
-                                      
-                                  }
-                           }
-                           }else{
-                               alert("파일은 5개 까지 가능합니다.");
-                               $(this).val("");
-                               
-                       }
-                      
-                    console.log($("#filenames").html());
-
-                  	});
+                    $(function(){
+                    	 $("#btn_1").click();
+                    	 
+                    });
+                  
                     
+                    var flength = 0;
+                    //$(".upload").change(function(){
+                      
+                      //var files = $(this)
+                      //var fileset = $(this).get(0);
+                     // console.log(files);
+                     // console.log(flength);
+                         //  if(flength <5 ){
+                                  //if(fileset.files.size <=10*1024*1024){
+                                	  //console.log(flength);
+                                	  //flength++;
+                                	  //var $input = $("<input type='file' name ='fileup"+flength+"'>")
+                                	 
+                                	//  $input.addClass('upload')
+                                	  //var input = "<label class='delfile'>취소</label><br>"
+                                	 // console.log(input);
+                                	 // $("#filenames").append($input);
+                                	 // $("#filenames").append(input);
+                                    	 
+                                  //}else{
+                                      //alert(fileset.files.name +" 의 크기가 너무 큽니다. 파일1개의 최대 크기는 10mb입니다." );
+                                      //$(this).val("");
+                                  //}                     
+                          // }else{
+                            //  alert("파일은 5개 까지 가능합니다.");
+                           //   $(this).val("");
+                              
+                     //  }      
+
+                  	//}};
+                 // onclick ="delfile();
+                    
+                    //결재자, 합의자, 최종결재자 이름 가져오기
                     $(".hiddenper").on("click",function(){
                     	var imhidden = $(this);
                       
@@ -193,13 +211,11 @@
                     			deptname : imhidden.siblings(".deptN").val()
                     		},
                     		success: function(data){
-                    			//console.log(data);
+ 
                     			var dept = data["list1"];
                     			var pcodes = data["list2"];
                     			var pnames = data["list3"];
-                     			/*console.log(dept);
-                    			console.log(pcodes);
-                    			console.log(pnames);*/
+                    
                     		
                     			imhidden.siblings(".deptC").val(dept);
                     			var a = imhidden.siblings(".table").find(".people").html("")
@@ -258,12 +274,19 @@
                         cut.splice(indext,2);
                         $(i).parents("table").siblings(".perend").val(cut);
                         var child =$(i).parent().children("div");
-                        var check = child[1];
+                       
                         
                        for(var k = indext+1; k< child.length; k++){
                     	   $(child[k]).children("input").val(k-1)
                     	   console.log($(child[k]).children("input").val());
+                    	  
                        }
+                       console.log(child.length);
+                       if(child.length==1){
+                		  $(i).parents("table").siblings(".deptC").val("");
+                		  $(i).parents("table").siblings(".deptN").val("");
+                		  $(i).parents("table").find(".deptview").html("");
+                	   }
                        i.remove();
                     }
                    }
@@ -297,12 +320,8 @@
 
                     <fieldset>
                     <div id="docbody">
-                         <!-- 인클루드 용  ajax로 깜박임 처리-->   
-                         <%//if($("type1").val().equasl("품의서")){%>
-                        	
-                        <%//} %> 
-					<textArea cols="20" rows="20" name="text"></textArea>
-
+                         <textArea cols="20" rows="20" name="text"></textArea>
+						
                     </div>
                 </fieldset>
 
@@ -312,30 +331,34 @@
         </div>
 
     </div> 
-    <script>
-     
-    $("#type1").click(function(){
-    	
-    	$.ajax({
-    		url: "/semi/wBody.ch",
-    		type:"get",
-    		dataType:"html",
-    		data: 	{
-    			type :$("#type1").val()
-    		},
-    		success:function(data){
-    			console.log(data);
-    			$("#docbody").html(data);
-    			console.log($("#docbody").html())
-    		},
-    	
-    		error:function(){
-    			alert("인크루드");
-    		}
-     	});
-    });
-
-    </script>
+		<script>
+			<%-- $(".btn").change(function(){
+				var a
+			 if($("#doctype").val()=="품의서"){
+				 <%type = "품의서"; %>
+				 a="<%=type%>"
+			 }else if($("#doctype").val()=="지출결의서"){
+				 <%type = "지출결의서"; %>
+				 a="<%=type%>"
+			 }else if($("#doctype").val()=="휴가신청서"){
+				 a = <%@include file="/views/checkdoc/include/vacDoc.jsp" %>
+			 }			
+			 
+			  $.ajax({
+				  url:"/semi/writebody.ch",
+				  type:"post",
+				  success:function(data){
+					  console.log(data);
+					  
+					  $("#docbody").html(a );
+				  },
+			     error:function(){
+					  alert("독바디에러");
+				  }
+			  });
+			}); --%>
+		
+		</script>
 
 </body>
 </html>

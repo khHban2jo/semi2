@@ -102,7 +102,7 @@
                            <td><%=i%></td>
                            <td><%=b.getaTitle() %></td>
                            <td><%=b.getaWriter() %></td>
-                           <td><%=b.getDeptCode() %></td>
+                           <td><%=b.getDeptName() %></td>
                            <%if(b.getaStatus() ==0 ||b.getaStatus()==1||b.getaStatus()==2 ){%> <td>결재중</td><%}else if(b.getaStatus()==3){%><td>결재완료</td><%}else{ %><td>반려</td> <% }%>
                            
                            <td><%=b.getDocDate() %></td>
@@ -173,7 +173,11 @@ $(function(){
 		//console.log($(this).parent().find("input[type=hidden]").val());
 		var docNumber = $(this).parent().find("input[type=hidden]").val();
 		location.href="<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber;
+		//window.open('<%=request.getContextPath()%>/cread.ch?docNumber=' + docNumber;','','target:_blank;');
 		//번호 가져 오기.  -> selectOne.no로 값 보내기
+	
+
+
 	});
 });
 </script>

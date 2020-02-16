@@ -28,32 +28,13 @@ $(function(){
    });
   
    //체크박스
-   $(".person1").on("click",function(){
-   
-      console.log($(this));
-        if($(this).prop("checked")){
-
-       var a= $(this).siblings("label").text().split(" ");
-       var c= $("#selectper tbody").html();
-
-       var d="<tr><td>"+a[0]+"</td><td>"+a[1]+"</td><td>"
-       +a[2]+"</td><td>"+
-       a[3] +"</td></tr>";
-
-       $("#selectper tbody").html(d+c );
-       
-        }else{
-           var a= $(this).siblings("label").text().split(" ");
-           $('#selectper tr:contains('+a[0]+')').remove();
-        }
-   
-   });
 
    $("#peoplemap input[type=checkbox]").on("click",function(){
        //만약 체크했는데 이전 체크가 된것들이 있으면 해재 
        if($(this).prop("checked")){
            $(this).parent().next("ul").children().children("input[type=checkbox]").filter(":checked").each(function(index,item){
                item.click();
+ 
             })
        //만약 체크를 풀었는데 이전 체크가 안된것들 있으면 우선 체크   
        }else{ $(this).parent().next("ul").children().children("input[type=checkbox]").not(":checked").each(function(index,item){
@@ -375,7 +356,7 @@ function end(){
    if(tfcheck){
 	  
 	
-       //window.close();
+       window.close();
    }
 }
 

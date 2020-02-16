@@ -68,6 +68,7 @@ public class CheckService {
 	public PayDoc getPayD(int dn) {
 		Connection con = getConnection();
 		PayDoc doc = cDao.getPayD(con, dn);
+		close(con);
 		return doc;
 	}
 
@@ -78,8 +79,9 @@ public class CheckService {
 	 */
 	public Vacation getVacD(int dn) {
 		Connection con = getConnection();
-		
-		return null;
+		Vacation doc = cDao.getVacD(con, dn);
+		close(con);
+		return doc;
 	}
 
 	public int insertDoc(CheckDoc info, RoundDoc doc, ArrayList<String> files) {
@@ -90,7 +92,7 @@ public class CheckService {
 		
 		result = cDao.insertInfo(con, info);
 		if(result >0) {
-			System.out.println(info.getDocType());
+			//System.out.println(info.getDocType());
 				result = cDao.insertText(con, doc, info.getDocType());
 				if(result>0) {
 					if(!files.isEmpty() ) {
@@ -193,7 +195,7 @@ public class CheckService {
 	}
 
 	/**
-	 * 정부부서코드 
+	 * 정/부,부서코드 
 	 * @param arr
 	 * @param dename
 	 * @return
@@ -221,6 +223,22 @@ public class CheckService {
 		ArrayList<StockLine> list = cDao.getDeptTN(con, savePcodes);
 		close(con);
 		return list;
+	}
+
+	/**
+	 * 진행상황 업데이트(진행/완료/반려)
+	 * @param info
+	 * @return
+	 */
+	public int updateInfo(CheckDoc info) {
+		Connection con = getConnection();
+		
+		int result = cDao.updateInfo(con, info);
+		if(result>0) commit(con);
+		else rollback(con);
+		close(con);
+		
+		return result;
 	}
 
 
