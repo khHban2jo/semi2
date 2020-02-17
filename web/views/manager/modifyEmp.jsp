@@ -22,7 +22,7 @@
 		              </tr>
 		              <tr>
 		                  <td> 사 번  </td>
-		                  <td> <input type="text" value="<%=md.getEmpCode() %>" name="empCode" disabled> 
+		                  <td> <input type="text" value="<%=md.getEmpCode() %>" name="empCode" readonly> 
 		                  </td>
 		                  <td rowspan="8"> 
 		                  	<img src="" width="320px" height="320px" id="pic"> 
@@ -144,7 +144,7 @@
 		              <tr>
 		              <td>겸 직</td>
 		                  <td>
-		                      <select name="deptCode" style="width: 150px;">
+		                      <select name="subDept" style="width: 150px;">
 		                      	  <option>--</option>
 		                      	  <option value="D0">임원</option>
 		                          <option value="D1">인사부서</option>
@@ -190,6 +190,8 @@
 			        }
 			    });
 			 });
+		 
+		 
 	</script>
 	<script src="resources/js/manager/join.js"></script>
 	
