@@ -1,12 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.coo.board.model.vo.*, java.util.ArrayList"%>
-<% ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); 
+    pageEncoding="UTF-8" import="com.coo.board.model.vo.*, java.util.ArrayList, java.util.Hashtable"%>
+<% 
+		ArrayList<Board> list = (ArrayList<Board>)request.getAttribute("list"); 
 		PageInfo pi = (PageInfo)request.getAttribute("pi");
+		Hashtable<String, String> parameters = (Hashtable<String, String>)request.getAttribute("parameters");
 		int listCount = pi.getListCount();
 		int currentPage = pi.getCurrentPage();
 		int maxPage = pi.getMaxPage();
 		int startPage = pi.getStartPage();
 		int endPage = pi.getEndPage(); 
+		
+		String pagingSearchType = parameters.get("searchType");
+		String pagingtitle = parameters.get("title");
+		String pagingKeyword = parameters.get("keyword");
+		String pagingDate1 = parameters.get("date1");
+		String pagingDate2 = parameters.get("date2");
 %>
     
 <!DOCTYPE html>
@@ -30,17 +38,25 @@
     	<!-- 화면 좌측 고정부 include -->
     	<%@ include file="/views/common/COO_left.jsp" %>
 
+		<!-- 페이징 처리시에 버튼 클릭시에 값을 가져 오기 위한 값 저장 용도 -->
+		
         <div class="right">
+			
             <!-- 게시판 시작 -->
             <div class="margin-list-head">
                 <h1 align="left" id="board-Title">게시판</h1>
-                <hr class="table-line" color="lightgray">
-                 <button type="button" class="btn btn-light" id="allb">전체</button>
+            	<hr class="table-line" color="lightgray">
+                <!-- <button type="button" class="btn btn-light" id="allb">전체</button>
                 <button type="button" class="btn btn-primary" id="deptb">부서별</button>
                 <button type="button" class="btn btn-info" id="normalb">일반</button>
-                <button type="button" class="btn btn-success" id="bizb">업무</button>
-                <br><br><br>
+                <button type="button" class="btn btn-success" id="bizb">업무</button> -->
+                <br><br>
                 <!-- 홍석코드 -->
+            	<input type="hidden" id = "pagingMoveSearchType" value = <%= pagingSearchType %> >
+				<input type="hidden" id = "pagingMovetitle" value = <%= pagingtitle %> >
+				<input type="hidden" id = "pagingMovekeyword" value = <%= pagingKeyword %>>
+				<input type="hidden" id = "pagingMoveDate1" value = <%= pagingDate1 %>>
+				<input type="hidden" id = "pagingMoveDate2" value = <%= pagingDate2 %>>
                 &nbsp; 
                 <label>분류</label> 
                 <select id="searchType" name="searchType"> 
@@ -75,9 +91,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                        	<input type="hidden" value = "<%=m.getEmpId()  %>">
                         	<% for(Board b : list){ %>
-                        	<%if(m.getDeptCode().equals(b.getBdeptCode())){ %>
+<%--                         	<%if(m.getDeptCode().equals(b.getBdeptCode())){ %> --%>
                             <tr align="center" class='table-line'>
+                            	
                                 <input type="hidden" value="<%= b.getBno() %>">
                                 <td><input type="checkbox" name="list"></td>
                                 <td><%=b.getBno() %></td> 
@@ -87,7 +105,7 @@
                                 <td><%=b.getBdate() %></td>
                                 <td><%=b.getBcount() %></td>
                             </tr>
-                            <%} %>
+<%--                             <%} %> --%>
                            <%} %>
                         </tbody>
                     </table>
@@ -98,13 +116,12 @@
                     <div>
                         
                    <select id="searchCondition" name="searchCondition" style="height: 30px; margin-left:300px;"> 
-                         <option value="">검색조건</option>
+                         <option value="all">전체조건</option>
                          <option value="title">제목</option> 
                          <option value="content">내용</option>
                          <option value="dept">직급</option>
          <!-- 분류에 따른 게시판을 직급별로 쓴 것을 보는 것 단 권한이 없으면 접근 불가 -->
          <!--                 <option value="titlencontent">제목+내용</option> -->
-                         <option value="all">전체조건</option>
                      </select>&nbsp;
                      <input class="form-control" type="text" id="keyword" 
                          name="keyword"  placeholder="검색어를 입력하세요"
@@ -113,11 +130,11 @@
                      <button id="btn">검색</button>
                     <ul id="pagenation" align="center" style="margin-left:-90px;">
                     
-                        <li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=1'">&lt;&lt;</button></li>
+                        <li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=1'+movingFage()">&lt;&lt;</button></li>
                         <% if(currentPage <= 1){ %>
                         <li><button disabled>&lt;</button></li>
                         <% }else{ %>
-                        <li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%=currentPage -1 %>'">&lt;</button></li>
+                        <li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=<%=currentPage -1 %>'+movingFage()">&lt;</button></li>
                         <% } %>
                        
                         <% for(int p = startPage; p <= endPage; p++){
@@ -125,23 +142,23 @@
                        	%>
 							<li><button disabled><%= p %></button></li>
 							<% }else{ %>
-							<li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%=p %>'"><%=p %></button></li>
+							<li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=<%=p %>'+movingFage()"> <%=p %> </button></li>
 							<%} %>        
 						  <%} %>	            
 						  
 						  <%  if(currentPage >= maxPage){  %>
 							<li><button disabled>&gt;</button></li>
 							<%  }else{ %>
-							<li><button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%=currentPage + 1 %>'">&gt;</button></li>
+							<li><button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/searchBoard.bo?currentPage=<%=currentPage + 1 %>'+movingFage()">&gt;</button></li>
 							<%  } %>
-							<li><button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage %>'">&gt;&gt;</button></li> 
+							<li><button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/searchBoard.bo?currentPage=<%= maxPage %>'+movingFage()">&gt;&gt;</button></li> 
                     </ul>
                 </div>
             </div>
         </div>
 
     </div>
-
+    
     <!-- 풋터 부분 include -->
     <%@ include file="/views/common/COO_footer.jsp" %>
 </div>
@@ -153,11 +170,11 @@
   		window.open(url,name,option);
   	 });
   	 
-  	 $('#list td').click(function(){
+   	 $('#list td').click(function(){
   		 var bno = $(this).parent().find("input").val();
   		 location.href="<%=request.getContextPath() %>/selectOne.bo?bno="+bno;
   	 });
-  	 
+<%--  	 
   	$('#allb').click(function(){
 		   location.href="<%=request.getContextPath() %>/selectBoardAll.bo";
 	});
@@ -172,11 +189,26 @@
 	
 	$('#bizb').click(function(){
 	  location.href="<%=request.getContextPath() %>/selectBoardBiz.bo";
-	});
+	}); --%>
 	
 // 검색 이벤트 등록
 <%-- 	document.getElementById('btn').setAttribute("method", "Post");
 	document.getElementById('btn').setAttribute("click", "location.href='<%=request.getContextPath() %>'/searchBoard.bo?search=true"); --%>
+	// 페이징 처리와 이동을 위한 함수
+	function movingFage(){
+		var SearchType =  document.getElementById('pagingMoveSearchType').value;
+		var keyword =  document.getElementById('pagingMovekeyword').value;
+		var title =  document.getElementById('pagingMovetitle').value;
+		var date1 =  document.getElementById('pagingMoveDate1').value;
+		var date2 =  document.getElementById('pagingMoveDate2').value;
+			 
+		return "&title="+title
+					+"&keyword="+keyword
+					+"&SearchType="+SearchType
+					+"&date1="+date1
+					+"&date2="+date2;
+	}
+	
 		
 	$('#btn').click(function(){
 		var title = document.getElementById('searchCondition').value;
@@ -202,6 +234,7 @@
 																			+"&date2="+date2
 																			+"&searchType="+searchType;
 	});
+	
 	
   </script>	
 </body>

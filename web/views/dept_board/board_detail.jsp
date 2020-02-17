@@ -42,9 +42,8 @@
                 <button type="button" class="btn btn-info" id="normalb">일반</button>
                 <button type="button" class="btn btn-success" id="bizb">업무</button>
                 <br><br><br>
-        	<%if(m.getDeptCode().equals(b.getBdeptCode())){ %>
-        <table style="width:95%; height:300px;" border="1" class="table-line">
-         	
+        	<%if(m.getDeptCode().equals(b.getBdeptCode()) || m.getEtc().equals("관리자")){ %> <!-- 관리자는 모두 부서와 상관 없이 모두 볼수 있어야 한다. =>|| m.getEtc().equals("관리자")-->
+        	<table style="width:95%; height:300px;" border="1" class="table-line">
          	<thead><tr>
          		<th>제목</th>
          		<th colspan="3"><%=b.getBtitle() %></th>
@@ -90,7 +89,7 @@
     
     <script>
     	$('#back').click(function(){
-    		location.href="/semi/selectList.bo";
+    		location.href="/semi/searchBoard.bo?title=all";
     	});
     	
     	$('#allb').click(function(){

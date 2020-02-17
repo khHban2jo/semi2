@@ -320,6 +320,38 @@ public class CheckDao {
 		}
 		return doc;
 	}
+	
+	
+	/**
+	 * 파일 정보 가져오기
+	 * @param con
+	 * @param docnumber
+	 * @return
+	 */
+	public ArrayList<String> getFiles(Connection con, int docnumber) {
+		ArrayList<String> files = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("findfile");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, docnumber);
+			rset = pstmt.executeQuery();
+			files = new ArrayList<String>();
+			while(rset.next()) {
+				files.add(rset.getString("DOC_FILES"));
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return files;
+	}
 
 	/**
 	 * 문서 결재 정보 저장
@@ -439,19 +471,20 @@ public class CheckDao {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
-		String sql= "insertFile";
+		String sql = prop.getProperty("insertFile");
+		System.out.println(files.size());
 
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			for(int i = 0; i<files.size(); i++) {
-			
+				System.out.println(files.get(i));
 			pstmt.setString(1, files.get(i));
 			
-			}
+			
 			result=pstmt.executeUpdate();
 			
-			
+			}
 		}catch(SQLException e) {
 			e.printStackTrace();
 			
@@ -803,4 +836,7 @@ public class CheckDao {
 		return result;
 	}
 
+	
+
 }
+

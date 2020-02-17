@@ -2,6 +2,7 @@ package com.coo.board.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Comparator;
 
 public class Board implements Serializable{
 	
@@ -181,5 +182,6 @@ public class Board implements Serializable{
 				+ bwriter + ", bwriterId=" + bwriterId + ", bcount=" + bcount + ", boardfile=" + boardfile + ", bdate="
 				+ bdate + ", status=" + status + ", category=" + category + ", bdeptCode=" + bdeptCode + "]";
 	}
+
 	
 }

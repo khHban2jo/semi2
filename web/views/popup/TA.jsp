@@ -66,6 +66,10 @@
 	String otH = otArr[0]+otArr[1];
 	String otM = otArr[2]+otArr[3];
 	
+	//	휴무 데이터
+	String DateL1 = (String) request.getAttribute("DateL1");
+	String DateL2 = (String) request.getAttribute("DateL2");
+	String DateL3 = (String) request.getAttribute("DateL3");
 	
 	//	총 추가 근무 시간 (퍼센트)
 	double hour12 = 12 * 60;
@@ -126,14 +130,15 @@
         		<legend>&nbsp;&nbsp;이번달 근무 현황&nbsp;&nbsp;</legend>
         		<span class="La2">총 근무일</span>	<span id="" class="La2Value"><%= workdayCount %> 일</span> <br><br>
         		<span class="La2">지각 횟수</span>	<span id="" class="La2Value"><%= lateCount %> 회</span> <br><br><br>
-        		<span class="La2b">휴무 예정일</span> <span id="" class="La2Valueb">XX 일/ XX 일/ XX 일</span> <br><br>
-        		<span class="La2b">반차 예정일</span> <span id="" class="La2Valuec">XX 일</span> <br><br>
+        		<span class="La2b">연차 예정일</span> <span id="" class="La2Valueb"><%= DateL1 %></span> <br><br>
+        		<span class="La2b">월차 예정일</span> <span id="" class="La2Valueb"><%= DateL2 %></span> <br><br>
+        		<span class="La2b">반차 예정일</span> <span id="" class="La2Valueb"><%= DateL3 %></span> <br><br>
         		
         	</fieldset>
         	<fieldset id="area2Field2">
         		<br>
         		<legend>&nbsp;&nbsp;이번주 추가 근무 현황&nbsp;&nbsp;</legend>
-        		<span class="La3">총 추가 근무 시간</span>	<span id="" class="La3Value"><%=otH %>시간 <%=otM %>분</span> <br><br><br>
+        		<span class="La3">총 추가 근무 시간</span>	<span id="" class="La3Value"><%=otH %>시간 <%=otM %>분</span> <br><br>
 				<div class="progress"><div class="progressBar"></div><%=per%>%</div>
 				<span class="La4Value">12시간 中  <%=per %>%</span>
         	</fieldset>

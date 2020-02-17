@@ -173,8 +173,9 @@ $(function(){
 		//console.log($(this).parent().find("input[type=hidden]").val());
 		var docNumber = $(this).parent().find("input[type=hidden]").val();
 		location.href="<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber;
-		//window.open('<%=request.getContextPath()%>/cread.ch?docNumber=' + docNumber;','','target:_blank;');
-		//번호 가져 오기.  -> selectOne.no로 값 보내기
+		//window.open('www.naver.com','','target:_blank;');
+		//'<%=request.getContextPath()%>/cread.ch?docNumber=' + docNumber;'
+		
 	
 
 

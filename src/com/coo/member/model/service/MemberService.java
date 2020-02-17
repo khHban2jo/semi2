@@ -1,5 +1,6 @@
 package com.coo.member.model.service;
 
+import com.coo.check.model.vo.StockLine;
 import com.coo.exception.CooException;
 import com.coo.member.model.dao.MemberDao;
 import com.coo.member.model.vo.Member;
@@ -113,6 +114,37 @@ public class MemberService {
 		close(con);
 		
 		return m;
+	}
+
+	public int insertStockLine(StockLine d) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		try {
+			result = mDao.insertStockLine(d,con);
+			
+			if(result>0) commit(con); else rollback(con);
+			
+		} catch (CooException e) {
+			e.getMessage();
+		}
+		
+		return result;
+	}
+
+	public int searchEmpCode(int empCode) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		try {
+			result = mDao.searchEmpCode(con,empCode);
+		} catch (CooException e) {
+			e.getMessage();
+		}
+		
+		return result;
 	}
 
 }
