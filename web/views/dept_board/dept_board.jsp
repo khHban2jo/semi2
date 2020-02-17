@@ -68,7 +68,7 @@
                 </select> &nbsp;
                 <!-- 부서, 관리자의 전체 공지등 알아야 하는 필요한 만 띄운다.  -->
                 <!--<input type="checkbox" name="name1">  -->
-                 공 지 <input type="checkbox" name="name1">
+                 <!-- 공 지 <input type="checkbox" name="name1"> -->
                  &nbsp;&nbsp;&nbsp;
                  <!-- 안 될것 같으면 변경 및 삭제 -->
                  <label>기 간 설 정</label>

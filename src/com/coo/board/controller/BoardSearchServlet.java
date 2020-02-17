@@ -52,7 +52,7 @@ public class BoardSearchServlet extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		String date1 = request.getParameter("date1");
 		String date2 = request.getParameter("date2");
-		String searchType = request.getParameter("searchType");
+		String searchType = request.getParameter("SearchType");
 
 		// 검색을 위한 여러 조건의 값을 넘겨 주기 위해 생성
 		Hashtable<String, String> parameters = new Hashtable<String, String>();

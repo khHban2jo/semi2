@@ -670,8 +670,7 @@ public class BoardDao {
 			rset = pstmt.executeQuery();
 			
 			while (rset.next()) {
-				System.out.println("실행");
-				
+
 				Board b = new Board();
 				b.setBno(rset.getInt("bno"));
 				b.setBtype(rset.getInt("btype"));
