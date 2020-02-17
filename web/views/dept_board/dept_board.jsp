@@ -142,7 +142,7 @@
                        	%>
 							<li><button disabled><%= p %></button></li>
 							<% }else{ %>
-							<li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=<%=p %>'+movingFage()"><%=p %></button></li>
+							<li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=<%=p %>'+movingFage()"> <%=p %> </button></li>
 							<%} %>        
 						  <%} %>	            
 						  
@@ -201,7 +201,7 @@
 		var title =  document.getElementById('pagingMovetitle').value;
 		var date1 =  document.getElementById('pagingMoveDate1').value;
 		var date2 =  document.getElementById('pagingMoveDate2').value;
-		
+			 
 		return "&title="+title
 					+"&keyword="+keyword
 					+"&SearchType="+SearchType
@@ -234,6 +234,7 @@
 																			+"&date2="+date2
 																			+"&searchType="+searchType;
 	});
+	
 	
   </script>	
 </body>

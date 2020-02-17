@@ -89,7 +89,7 @@
     
     <script>
     	$('#back').click(function(){
-    		location.href="/semi/selectList.bo";
+    		location.href="/semi/searchBoard.bo?title=all";
     	});
     	
     	$('#allb').click(function(){

@@ -712,7 +712,7 @@ public class BoardDao {
 			System.out.println("list.size() : "+list.size());
 			
 			// 8개 데이터를 가져 오는 경우 : 1 ~ 8 => 0 ~ 7
-			for(int i = startRow-1; i<=endRow && i < list.size(); i++) {
+			for(int i = startRow-1; i<endRow && i < list.size(); i++) {
 				copy.add(list.get(i));
 			}
 			
