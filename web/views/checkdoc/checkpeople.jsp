@@ -346,18 +346,21 @@
 		
 			}else{
 				 var a= $(i).siblings("label").text().split(" ");
-				 var b=$('#selectper tr:contains('+a[0]+')')&&$('#selectper tr:contains('+a[1]+')')
-				if(b){
-					b.remove();
+				 var b = $('#selectper>tbody>tr');
+				for(var i =0; i< b.length;i++){
+					if(b[i].innerHTML.indexOf(a[0])>-1){
+						if(b[i].innerHTML.indexOf(a[1])>-1){
+							b[i].remove();
+						}	
+					}
 				}
+
 			}
 
 		}
 		
 		
-		function clickla(i){
-		      $(i).prev(".person1").click();
-		   }
+		
 	
 	
 	$("#push1").click(function(){
