@@ -80,15 +80,6 @@ div.nav{
     background: whitesmoke;
     cursor: pointer;
 }
-div.calendarArea{
-    position: relative;
-    top: 20px;
-    width: 290px;
-    height: 370px;
-    border: 2px solid darkgray;
-
-    background: #fffefe;
-}
 
 tr.table-line{
     border:1px;
@@ -107,6 +98,64 @@ tbody>tr.table-line:hover{
     table-layout:fixed;
 }
 
+div.calendarArea{
+    position: relative;
+    top: 20px;
+    width: 290px;
+    height: 40px;
+    border: 2px solid darkgray;
+
+    background: whitesmoke;
+}
+
+h3 { 
+	margin-top:10px; 
+	margin-right:10px; 
+	margin-bottom:10px; 
+	margin-left:10px; 
+}
+
+ul{
+	padding-inline-start: 10px;
+}
+
+li{
+	list-style:none;
+	padding-inline-start: 00px;
+	width: 270px;
+}
+
+/* #cal_edit{
+	
+	 position: relative;
+	width: 100px;
+	height: 100px;
+	top:10px;
+	left:200px;
+}
+ */
+
+#todo_list {
+	/*    margin-left:45px;
+   margin-top:10px; */
+    /* font-size: 10px; */
+	position: relative;
+	top: 30px;
+	width: 290px;
+	height: 323px;
+	display: inline-block;
+	border: 2px solid darkgray;
+	background: whitesmoke; /* #fffefe; */
+}
+
+#todo{
+   margin-left:45px;
+   margin-top:10px;
+   width:466px;
+   height:330px;
+   display:inline-block;
+}
+
 tbody>tr.table-line:hover{
     background:lightgray;    
 }
@@ -120,14 +169,6 @@ tbody>tr.table-line:hover{
    margin-top:30px;
    width:1045px;
    height:415px;
-}
-
-#todo{
-   margin-left:45px;
-   margin-top:10px;
-   width:466px;
-   height:330px;
-   display:inline-block;
 }
 
 #approval{
@@ -235,7 +276,7 @@ tbody>tr.table-line:hover{
 }
 
 #listBtn{
-    top: -3px;
+    top: -1px;
 }
 
 

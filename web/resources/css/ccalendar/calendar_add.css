@@ -1,16 +1,26 @@
+/* #totalSize{
+	width: 600px;
+	height: 600px;
+} */
+
 #total{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     border: 2px solid gray;
+    border-radius: 10px;
+    resize: both;
+    scrollbars:none;
+    
 }
 
 #addArea{
     position: relative;
     width: 450px;
-    height: 480px;
+    height: 500px;
     background-color:whitesmoke;
+    border-radius: 10px;
 }
 
 #addtitle{
@@ -19,7 +29,8 @@
     left: 22px;
     width: 400px;
     height: 30px;
-    font-size: 25px;
+    font-size: 15px;
+    border-radius: 10px;
 }
 
 .span1{
@@ -27,26 +38,41 @@
     left: 30px;
     font-size: 20px;
     font-weight: bolder;
+    border-radius: 10px;
+	padding-bottom: 10px;
 }
 
 #start{
     position: relative;
-    left: 180px;
+    left: 160px;
     font-size: 20px;
     font-weight: bolder;
+    border-radius: 10px;
 }
 
 #end{
     position: relative;
-    left: 180px;
+    left: 160px;
     font-size: 20px;
     font-weight: bolder;
+    border-radius: 10px;
 }
 
 textarea{
     position: relative;
-    left: 30px;
-    font-size: 15px;
+    left: 25px;
+    top:10px;
+    font-size: 18px;
+    border-radius: 10px;
+	width: 89%;
+	height: 200px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: solid 2px #1E90FF; /* darkgray; */ 
+	border-radius: 10px;
+	font-size: 16px;
+	resize: both;
+    
 }
 
 .btn{
@@ -59,5 +85,5 @@ textarea{
     left: 260px;
     width: 80px;
     height: 30px;
-    top: 20px;
+    top: 18px;
 }
