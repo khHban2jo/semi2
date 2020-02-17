@@ -66,7 +66,8 @@ public class MemberService {
 		
 		
 	}
-public int updateMember(Member m) {
+	
+	public int updateMember(Member m) {
 		
 		Connection con = getConnection();
 		
@@ -85,8 +86,9 @@ public int updateMember(Member m) {
 		return result;
 		
 	}
-public int deleteMember(String empId) throws CooException {
-	// TODO Auto-generated method stub
+	
+	public int deleteMember(String empId) throws CooException {
+
 	Connection con = getConnection();
 	int result= mDao.deleteMember(con,empId);
 	if(result>0) commit(con);
@@ -94,7 +96,23 @@ public int deleteMember(String empId) throws CooException {
 	close(con);
 	return result;
 	
-}
+	}
 	
+	public Member searchMember(String empId) {
+		
+		Connection con = getConnection();
+		
+		Member m = null;
+		try {
+			m = mDao.searchMember(empId, con);
+		
+		} catch (CooException e) {
+			e.getMessage();
+		}
+		
+		close(con);
+		
+		return m;
+	}
 
 }

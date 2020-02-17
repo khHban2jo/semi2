@@ -25,15 +25,11 @@ $(function(){
         $("#doctype1").css("display","none");
         $("#doctype2").css("display","none");
         $("#doctype3").css("display","block");
-        $("#type1").val("휴가계획서");
-        
-        $("#type1").trigger("click");
-        
-     $("btn_1").click();
+        $("#type1").val("휴가신청서");
+     
     });
     
-  
-  
+   
     
     
     
@@ -45,41 +41,7 @@ $(function(){
         (date.getMonth()+1)
     }
     $("#docdate").val(date.getFullYear()+"-"+month+"-"+date.getDate());
-    
 
-//결재자 자동채우기용
-    function fillp(){
-    	console.log("부모함수 실행")
-    $(".hiddenper").on("change",function(){
-    	
-    		
-        // console.log($(this).val());
-        // console.log($(this).prev("table"));
-        // console.log($(this).prev("table").find(".people").html());
-
-        //배열 자르기
-        var person1 = $(this).val().split();
-        //자르고 데이터베이스에서 정 부 가져오기 mainp , subp
-        //배열당 보기
-        var personfill ="";
-        //최종 넘어갈 사람
-        //var personend ;
-         for(var i = 0; i<person1.length; i++){
-             persontfill +=  "<div class='person' onclick ='delperson(this);'>"+ i+" . 정:" +mainp+"<br> 부:" +sub +"</div>"
-         }
-
-           // personfill +=  "<div class='person' onclick ='delperson(this);'>" +1+".정:" + $(this).val()+"<br>&nbsp; 부:" +$(this).val() +"</div>"
-           // $(this).prev("table").find(".people").html(personfill);
-    });
-
-    //참조자 자동채우기용
-/*    $(".hiddenper1").on("click",function(){
-         //배열 자르기 및 넘어감
-        //var person1 = $(this).val().split();
-        $(this).prev("table").find(".people2").html($(this).val());
-    });*/
-    
-    }
 
 
     //결재자체크 버튼

@@ -36,7 +36,7 @@ public class CheckDao {
 
 	/**
 	 * 테이블의 삭제되지 않은 것 총 수 가져오기
-	 * 4일때 전부 2,3 일때 완료/반려  0,1 일땐 진행
+	 * 4일때 전부 2,3 일때 완료/반려  /0 진행
 	 * @param con
 	 * @return
 	 */
@@ -201,9 +201,11 @@ public class CheckDao {
 				info.setaStatus(rset.getInt("ASTATUS"));
 				info.setApprover(rset.getString("APPROVER"));
 				info.setDeptCode(rset.getString("DEPT_CODE"));
+				info.setDeptName(rset.getString("DEPT_TITLE"));
 				info.setInPeople(rset.getString("INPEOPLE"));
 				info.setInStatus(rset.getString("INSTATUS"));
 				info.setColDeptCode(rset.getString("COL_DEPT"));
+				info.setColdeptName(rset.getString("COL_DEPTNAME"));
 				info.setColPeople(rset.getString("COL_PEOPLE"));
 				info.setColStatus(rset.getString("COL_STATUS"));
 				info.setEndPerson(rset.getString("END_PERSON"));
@@ -232,11 +234,11 @@ public class CheckDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectRound");
-		System.out.println(dn);
+		//System.out.println(dn);
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			System.out.println(sql);
+			//System.out.println(sql);
 			pstmt.setInt(1, dn);
 			rset = pstmt.executeQuery();
 			doc = new RoundDoc();
@@ -286,12 +288,12 @@ public class CheckDao {
 		return doc;
 	}
 	/**
-	 * 휴가계획서 내용
+	 * 휴가신청서 내용
 	 * @param con
 	 * @param dn
 	 * @return
 	 */
-	public Vacation geVacD(Connection con, int dn) {
+	public Vacation getVacD(Connection con, int dn) {
 		Vacation doc = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -305,9 +307,10 @@ public class CheckDao {
 			if(rset.next()) {
 				doc.setDocNumber(dn);
 				doc.setText(rset.getString("TCONTENT"));
-				doc.setStart(rset.getDate("startDate"));
-				doc.setEnd(rset.getDate(""));
-				doc.setType(rset.getString("type"));
+				doc.setLeave_code(rset.getString("LEAVE_CODE"));
+				doc.setStart_Date(rset.getDate("START_DATE"));
+				doc.setEnd_Date(rset.getDate("END_DATE"));
+				doc.setDayOff_MA(rset.getString("DAYOFF_MA"));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -346,7 +349,7 @@ public class CheckDao {
 				pstmt.setString(10, info.getColdeptName());
 				pstmt.setString(11,info.getColPeople());
 				pstmt.setString(12,info.getColStatus());
-			
+				System.out.println(info.getColStatus());
 			}else {
 			pstmt.setNull(9,java.sql.Types.NULL); //sql의 null 설정
 			pstmt.setNull(10,java.sql.Types.NULL);
@@ -403,18 +406,21 @@ public class CheckDao {
 			sql=prop.getProperty("insertVacDoc");
 		}
 		try {
-			System.out.println(sql);
+			//System.out.println(sql);
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,doc.getText());
 			if(docType.equals("지출결의서")) {
 			pstmt.setInt(2, ((PayDoc)doc).getEndPay());
+			 
 			}else if(docType.equals("휴가신청서")) {
-				//sql=prop.getProperty("insertVacDoc");
-				//sql.setDate(2,((Vacation)doc).getStart());
-				//sql.setDate(3,((Vacation)doc).getStart());
-				//sql.setDate(4,((Vacation)doc).getStart());
-				//sql.setDate(5,((Vacation)doc).getStart());
-				//sql.setDate(6,((Vacation)doc).getStart());
+				sql=prop.getProperty("insertVacDoc");
+				
+				
+				pstmt.setString(2,((Vacation)doc).getLeave_code());
+				pstmt.setDate(3,((Vacation)doc).getStart_Date());
+				pstmt.setDate(4,((Vacation)doc).getEnd_Date());
+				pstmt.setString(5,((Vacation)doc).getDayOff_MA());
+
 			}
 			result=pstmt.executeUpdate();
 			
@@ -760,6 +766,41 @@ public class CheckDao {
 		
 		
 		return tn;
+	}
+
+	public int updateInfo(Connection con, CheckDoc info) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateInfo");
+		
+		try {
+			//ASTATUS =?, APPROVER =?, INSTATUS=?, COL_STATUS=?,RETURNCOMMENT =? WHERE DOC_NUMBER =?
+			pstmt = con.prepareStatement(sql);
+			
+				 
+				
+			pstmt.setInt(1, info.getaStatus());
+			pstmt.setString(2, info.getApprover());
+			pstmt.setString(3,info.getInStatus());
+			if(info.getColStatus()!=null) {
+			pstmt.setString(4,info.getColStatus());
+			}else {
+				pstmt.setNull(4,java.sql.Types.NULL);
+			}
+			if(info.getReturnComment()!=null) {
+			pstmt.setString(5,info.getReturnComment());
+			}else {
+				pstmt.setNull(5,java.sql.Types.NULL);
+			}
+			pstmt.setInt(6,info.getDocNumber());
+			
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 }

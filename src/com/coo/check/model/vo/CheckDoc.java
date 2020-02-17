@@ -53,11 +53,24 @@ public class CheckDoc implements Serializable{
 		this.endPerson = endPerson;
 		this.viewPeople = viewPeople;
 	}
+	
+	
+
+	public CheckDoc(int docNumber, int aStatus, String approver, String inStatus, String colStatus,
+			String returnComment) {
+		super();
+		this.docNumber = docNumber;
+		this.aStatus = aStatus;
+		this.approver = approver;
+		this.inStatus = inStatus;
+		this.colStatus = colStatus;
+		this.returnComment = returnComment;
+	}
 
 	public CheckDoc(int docNumber, String aTitle, int aWriter, String awriterName, String docType, int aStatus,
 			String approver, String deptCode, String deptName, String inPeople, String inStatus, String colDeptCode,String coldeptName, String colPeople,
-			String colStatus, String endDeptCode, String enddeptName, String endPerson, String viewPeople, Date docDate, String returnComment, String deleteyn
-) {
+			String colStatus, String endDeptCode, String enddeptName, String endPerson, String viewPeople, Date docDate, String returnComment, String deleteyn) {
+ 
 		super();
 		this.docNumber = docNumber;
 		this.aTitle = aTitle;

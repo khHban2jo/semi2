@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.coo.member.model.vo.*"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,46 +19,36 @@
 	<!-- 화면 좌측 고정부 include -->
 	<%@ include file="common/COO_left.jsp" %>
 
-
 	<div class="right" id="area">
 	
 		<br>&nbsp;
 		<%if(m.getEmpId().equals("admin")){ %>
-		  <button id="iEmp" style="width:100px; height:40px;">사원ID생성</button>
-		  <button id="uEmp" style="width:100px; height:40px;">사원정보수정</button>
-		  <button id="dEmp" style="width:100px; height:40px;">사원삭제</button>
-		 <%}else{ 
-		 	 
-		   }
-			%>
-		  <hr id="start">
+		  <button id="iEmp" value="1" style="width:100px; height:40px;">사원ID생성</button>
+		  <button id="uEmp" value="2" style="width:100px; height:40px;">사원정보수정</button>
+		  <button id="dEmp" value="3" style="width:100px; height:40px;">사원삭제</button>
+		  <button id="sEmp" value="4" style="width:100px; height:40px;">연봉수정</button>
+		
+
+   
+<script>
+    
+	var option ="top=80px,left=700px,width=1280px,height=1000px,location=no,resizable=no,toolbars=no";
+	$('#iEmp,#uEmp,#dEmp,#sEmp').click(function(){
+	var btnDen = $(this).val();
+	var name = $(this).text();
+    var url ="<%=request.getContextPath() %>/checkAdmin.me?btnDen="+btnDen;
+    window.open(url,name,option);
+    
+	});
+</script>
+ <%} %> 
+    <hr id="start">
 		   
-		<!-- <script src="/semi/resources/js/manager/loginPage.js"></script> -->
 	
 	</div>
     <!-- 풋터 부분 include -->
 	<%@ include file="common/COO_footer.jsp" %>
 </div>
-   
-<script>
-	var option ="top=80px,left=300px,width=1080px,height=800px,location=no,resizable=no,toolbars=no";
-	var name = $(this).text();
-
-	$('#iEmp').click(function(name){
-		var url = "<%=request.getContextPath() %>/views/manager/join.jsp";
-		window.open(url,name,option);
-	});
-	
-	$('#uEmp').click(function(name){
-		var url = "<%=request.getContextPath() %>/views/manager/modifyEmp.jsp";
-		let option = "top=80px,left=300px,width=950px,height=800px,location=no,resizable=no,toolbars=no";
-		window.open(url,name,option);
-	});
-	$('#dEmp').click(function(name){
-		var url = "<%=request.getContextPath() %>/views/manager/deleteEmp.jsp";
-		window.open(url,name,option); 
-	});
-</script>
 
 </body>
 </html>

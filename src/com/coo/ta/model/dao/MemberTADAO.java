@@ -9,22 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import com.coo.exception.CooException;
-import com.coo.member.model.dao.MemberDao;
-import com.coo.ta.model.vo.TaData;
-
 import static com.coo.common.JDBCTemplate.*;
 
-public class TaDataDao {
-
-	private Properties prop;
+public class MemberTADAO {
 	
+	private Properties prop;
 	/**
 	 * Properties 생성
 	 */
-	public TaDataDao() {
+	public MemberTADAO() {
 		prop = new Properties();
-		String filePath = TaDataDao.class.getResource("/config/taData-query.properties").getPath();
+		String filePath = TaDataDao.class.getResource("/config/taMember-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(filePath));
@@ -35,41 +30,39 @@ public class TaDataDao {
 		}
 		
 	}
-	
-	public TaData selectOne(Connection con, int empCode) throws CooException {
 
-		TaData td = null;
+	public int selectEmpCode(Connection con, String empId) {
+
+		int empCode = 0;
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectOne");
+		String sql = prop.getProperty("selectEmpCode");
 		
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, empCode);
+			pstmt.setString(1, empId);
 			
 			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				td = new TaData(rset.getInt("EMP_CODE"), rset.getInt("LATE_COUNT"), rset.getInt("WORKDAY_COUNT"));
-			}
 			
+			if(rset.next()) {
+				empCode = rset.getInt("EMP_ID");
+			}
 		}catch(SQLException e) {
-			e.printStackTrace();
-			throw new CooException(e.getMessage());
+			
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
-		
-		return td;
+		return empCode;
 	}
 
-	public int workDayCountUpdate(Connection con, int empCode) throws CooException {
+	public int insertMemberTA(Connection con, int empCode) {
 
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("workDayCount");
+		String sql = prop.getProperty("insertTADATA");
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -77,53 +70,39 @@ public class TaDataDao {
 			
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
-			throw new CooException(e.getMessage());
+			
 		}finally {
 			close(pstmt);
 		}
-		
+
 		return result;
 	}
 
-	public int lateCountUpdate(Connection con, int empCode) throws CooException {
+	public int insertMemberLeave(Connection con, int empCode) {
 
 		int result = 0;
 		PreparedStatement pstmt = null;
-		
-		String sql = prop.getProperty("lateCount");
-		
+		String sql = prop.getProperty("insertLeave");
+
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, empCode);
 			
-			result = pstmt.executeUpdate();
+			for(int i = 1 ; i < 4 ; i++) {
+				pstmt.setString(2, "L"+i);
+				
+				result = pstmt.executeUpdate();
+				if(result<=0) 
+					break;
+			}
 		}catch(SQLException e) {
-			throw new CooException(e.getMessage());
+			
 		}finally {
 			close(pstmt);
 		}
 		
 		return result;
-		
 	}
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

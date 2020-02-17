@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.coo.exception.CooException;
 import com.coo.member.model.service.MemberService;
 import com.coo.member.model.vo.Member;
+import com.coo.ta.model.service.MemberTAService;
 
 /**
  * Servlet implementation class MemberInsertServlet
@@ -52,6 +53,7 @@ public class MemberInsertServlet extends HttpServlet {
 		String deptCode = request.getParameter("deptCode"); 
 		String jobCode = request.getParameter("jobCode");
 		String etc = request.getParameter("etc");
+		String subDept = request.getParameter("subDept");
         
 	     Member m = new Member();
 	     m.setEmpId(userId);
@@ -68,6 +70,7 @@ public class MemberInsertServlet extends HttpServlet {
 	     m.setJobCode(jobCode);
 	     m.setEtc(etc);
 	     m.setPersonalId(personalId);
+	     m.setSubDept(subDept);
 	     
 	     System.out.println("변경한 회원 정보 확인: "+ m);
 	     
@@ -80,6 +83,10 @@ public class MemberInsertServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
+		
+		//	근태관련 코드 추가
+		new MemberTAService().memberTaDataInsert(userId);
+		
 		
 		response.sendRedirect("views/home.jsp");
 		

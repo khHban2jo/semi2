@@ -213,28 +213,46 @@
 
         /*코멘트*/
 
-       #retruncomment{
-            position: absolute;
-        top :170px;
-        left : 300px;
-        height: 400px;
-        width: 600px;
-        border: 1px solid black;
-        z-index: 9997;
-        background: lightgray;
-        display: none;
+         #returnCopop{
+         position: absolute;
+           top :170px;
+           left : 300px;
+           height: 270px;
+           width: 300px;
+           border: 1px solid black;
+           z-index: 9999;
+           background: lightgray;
+           display: none;
        }
 
-       #comment{
+
+       #comment1{
         position: absolute;
         top :25px;
         left : 5px;
-        height: 365px;
-        width: 590px;
         border: 1px solid black;
         background: white;
        }
-
+	
+	 #retruncomment{
+         position: absolute;
+           top :170px;
+           left : 300px;
+           height: 270px;
+           width: 300px;
+           border: 1px solid black;
+           z-index: 9999;
+           background: lightgray;
+           display: none;
+       }
         
-
+		comment{
+        position: absolute;
+        top :25px;
+        left : 5px;
+        border: 1px solid black;
+        height: 270px;
+        width: 300px;
+        background: white;
+       }
 

@@ -50,7 +50,15 @@ public class BoardInsertServlet extends HttpServlet {
 		result = new BoardService().insertBoard(b);
 		
 		if(result > 0) {
-			response.sendRedirect("selectList.bo");
+			response.getWriter().print("<html>");
+			response.getWriter().print("<body>");
+			response.getWriter().print("<script>");
+			response.getWriter().print("window.setTimeout(function(){"+ 
+					             "window.close();"+ 
+				                 "},500);");
+			response.getWriter().print("</script>");
+			response.getWriter().print("</body>");
+			response.getWriter().print("</html>");
 		}else {
 			request.setAttribute("msg","게시글 작성 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
