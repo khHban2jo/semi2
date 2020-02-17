@@ -271,10 +271,7 @@ public class Member implements Serializable {
 				+ address + ", deptCode=" + deptCode + ", deptTitle=" + deptTitle + ", jobCode=" + jobCode
 				+ ", jobName=" + jobName + ", etc=" + etc + ", managerYn=" + managerYn + ", hireDate=" + hireDate
 				+ ", subDept=" + subDept + "]";
-	}
-
-
-	
+	}	
 
 
 }
