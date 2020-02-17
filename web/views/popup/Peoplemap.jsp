@@ -10,6 +10,7 @@
 	int maxPage = pa.getMaxPage();
 	int startPage = pa.getStartPage();
 	int endPage = pa.getEndPage();
+	Member mem = (Member)session.getAttribute("member");
 %>
 <!DOCTYPE html>
 <html>
@@ -82,7 +83,8 @@
 				for (Member m : list) {
 			%>
 
-			<tr>
+			<tr id="po">
+			<input type="hidden" name="eSearch" value="<%=m.getEmpId() %>">
 				<th><%=m.getEmpCode()%></th>
 				<th><%=m.getDeptCode()%></th>
 				<th><%=m.getJobCode()%></th>
@@ -155,12 +157,18 @@
 			
 			
 		</div>
-
+		
 		<!--  검색 키워드 찾아오는 펑션 	 -->
 		<script>
 			function search(){
 				location.href="<%=request.getContextPath()%>/PSearch.ps?con="+$('#searchCondition').val()+"&keyword="+$('#keyword').val();
 			}
+			$('#po th').mouseenter(function(){
+					$(this).parent().css({"cursor":"pointer"});
+			}).click(function(){
+					var eSearch = $(this).parent().find('input').val();
+					location.href="<%=request.getContextPath() %>/empSearch.me?eSearch="+eSearch;
+			});
 		</script>
 </body>
 </html>

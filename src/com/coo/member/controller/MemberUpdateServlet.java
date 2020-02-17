@@ -30,13 +30,13 @@ public class MemberUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-       String empPwd = request.getParameter("empPwd");
+       String empPwd = request.getParameter("userPwd");
        String empName = request.getParameter("empName");
        String email = request.getParameter("email");
        String contact = request.getParameter("tel1")+"-" +
     		            request.getParameter("tel2")+"-" +
     		            request.getParameter("tel3");
-    		            
+       int empCode =Integer.parseInt(request.getParameter("empCode"));
        String phone = request.getParameter("phone1")+"-" +
 	                  request.getParameter("phone2")+"-" +
 	                  request.getParameter("phone3");
@@ -61,26 +61,32 @@ public class MemberUpdateServlet extends HttpServlet {
        m.setPhone(phone);
        m.setAddress(address);
        m.setEtc(etc);
-       
+       m.setEmpCode(empCode); 
        m.setSubDept(subDept);
        
        System.out.println("변경한 회원 정보 확인:" + m);
        
-       MemberService ms = new MemberService();
-       
-       ms.updateMember(m);
-        System.out.println("회원 정보 수정 완료!");
+       MemberService ms = new MemberService();       
+              
         try {
+        	
+        	ms.updateMember(m);
+        	System.out.print("회원 정보 수정 완료!");
+        	
         	response.sendRedirect("views/home.jsp");
+        	
         }catch(IOException e) {
+        	request.setAttribute("msg","회원 정보 수정중 에러 발생!");
+        	request.setAttribute("exception", e);
         	e.printStackTrace();
+        	
+        	request
+        	.getRequestDispatcher("views/home.jsp")
+        	.forward(request, response);
         }
        
     		   
 	
-	}
-	private void forward(HttpServletRequest request, HttpServletResponse response ) {
-		
 	}
 
 	/**

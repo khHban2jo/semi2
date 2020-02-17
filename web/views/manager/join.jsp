@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.coo.member.model.vo.*"
+    errorPage="/views/common/errorPage.jsp" %>
+<% Member mem = (Member)session.getAttribute("member");  %>    
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,6 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   </head>
   <body>  
+  <% if(mem.getEmpId().equals("admin")){ %>
  <form action="<%=request.getContextPath() %>/mInsert.me" method="POST" onsubmit="return check()">
 		      <table class="managerTable">
 		       
@@ -144,6 +148,20 @@
 		                  </td>
 		              </tr>
 		              <tr>
+		              <td>겸직</td>
+		                  <td>
+		                      <select name="deptCode" style="width: 150px;">
+		                      	  <option>--</option>
+		                      	  <option value="D0">임원</option>
+		                          <option value="D1">인사부서</option>
+		                          <option value="D2">영업부서</option>
+		                          <option value="D3">기획부서</option>
+		                          <option value="D4">연구부서</option>
+		                          <option value="D5">미발령</option>
+		                      </select>
+		                  </td>
+		              </tr>
+		              <tr>
 		                  <!-- 사진 등록 스크립트 onchange 이벤트 발생시로 해야 이미지가 불러 와 진다.-->
 		                  <td><input type="file" id="" value="사진 전송" onchange="ShowImage(this);"></td>
 		              </tr>
@@ -168,7 +186,8 @@
 		              
 		      </table>
 		          </form>
-	 <script src="../../resources/js/manager/join.js"></script>
+		        
+	 <script src="resources/js/manager/join.js"></script>
 	 <script>
 	 $('#checkemp').click(function(){
 		    $.ajax({
@@ -181,6 +200,8 @@
 		        }
 		    });
 		 });
-	 </script>  
+	 </script>
+	 <%}%>
+  
 </body>		     
 </html>		       

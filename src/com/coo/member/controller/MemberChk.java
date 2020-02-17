@@ -1,7 +1,6 @@
 package com.coo.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,42 +8,39 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.coo.exception.CooException;
-import com.coo.member.model.service.MemberService;
 import com.coo.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberDeleteServlet
+ * Servlet implementation class MemberChk
  */
-@WebServlet("/mDelete.me")
-public class MemberDeleteServlet extends HttpServlet {
+@WebServlet("/checkAdmin.me")
+public class MemberChk extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberDeleteServlet() {
+    public MemberChk() {
         super();
         // TODO Auto-generated constructor stub
-    }  
-  
+    }
+
 	/**
-	 * @param EmpId 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response, String EmpId) throws ServletException, IOException, CooException {
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Member mem = (Member)session.getAttribute("member");
+		String btn = request.getParameter("btnDen");
+	    session.setAttribute("works",btn);
+	    
+		switch(btn) {
+		case "1":request.getRequestDispatcher("views/manager/join.jsp").forward(request, response); break;
+		case "2":request.getRequestDispatcher("pAll.do").forward(request, response); break;
+		case "3":request.getRequestDispatcher("pAll.do").forward(request, response); break;
+		case "4":request.getRequestDispatcher("pAll.do").forward(request, response); break;
+		}
 		
-		String empId = request.getParameter("userId");
-		
-	   
- 
-		
-	   MemberService ms = new MemberService();
-	
-	   ms.deleteMember(EmpId);
-	   System.out.println("회원 탈퇴 성공!");
-	   response.sendRedirect("views/home.jsp");
 	}
 
 	/**

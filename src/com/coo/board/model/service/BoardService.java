@@ -38,7 +38,7 @@ public class BoardService {
 		} catch (CooException e) {
 			e.getMessage();
 		}
-
+		
 		close(con);
 		
 		return list;
@@ -135,13 +135,14 @@ public class BoardService {
 
 // ========================== 검색을 위한 코드 ==================================
 	
-	public int getListCount(Hashtable<String, String> parameters) {
+	public ArrayList<Board> getListCount(Hashtable<String, String> parameters, ArrayList<Board> list) {
 		System.out.println("getListCount(Hashtable<String, String> parameters 실행");
 		Connection con = getConnection();
 		
-		int result = 0;
+		//int result = 0;
+		ArrayList<Board> result = new ArrayList<Board>();
 		try {
-			result = bDao.getListCount(con, parameters);
+			result = bDao.getListCount(con, parameters, list);
 		} catch (Exception e) {
 			e.getMessage();
 		}

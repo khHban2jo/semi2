@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.coo.member.model.vo.Member;
-import com.coo.pmap.model.vo.Pmap;
 
 public class PmapDao {
 
@@ -24,7 +23,7 @@ public class PmapDao {
 
 		prop = new Properties();
 
-		String filePath = Pmap.class.getResource("/config/pmap-query.properties").getPath();
+		String filePath = PmapDao.class.getResource("/config/pmap-query.properties").getPath();
 
 
 		try {
@@ -69,6 +68,7 @@ public class PmapDao {
 				 p.setGender(rset.getString("GENDER"));
 				 p.setAge(rset.getInt("AGE"));
 				 p.setSalary(rset.getInt("SALARY"));
+				 p.setContact(rset.getString("CONTACT"));
 				 p.setPhone(rset.getString("PHONE")); 
 				 p.setAddress(rset.getString("ADDRESS"));
 				 p.setDeptCode(rset.getString("DEPT_CODE"));
@@ -83,7 +83,7 @@ public class PmapDao {
 				list.add(p);
 			}
 
-			System.out.println(list);
+//			System.out.println(list);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -158,7 +158,7 @@ public class PmapDao {
 			sql = prop.getProperty("searchEmpName");
 			break;
 		}
-		System.out.println("에스큐엘이 머냐 : " + sql);
+//		System.out.println("에스큐엘이 머냐 : " + sql);
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -183,6 +183,7 @@ public class PmapDao {
 				 m.setAge(rset.getInt("AGE"));
 				 m.setSalary(rset.getInt("SALARY"));
 				 m.setPhone(rset.getString("PHONE")); 
+				 m.setContact(rset.getString("CONTACT"));
 				 m.setAddress(rset.getString("ADDRESS"));
 				 m.setDeptCode(rset.getString("DEPT_CODE"));
 				 m.setJobCode(rset.getString("JOB_CODE"));
@@ -203,7 +204,7 @@ public class PmapDao {
 			close(rset);
 			close(pstmt);
 		}
-		for(Member p : list) System.out.println("요녀석을뽑아보자 =  " +p);
+//		for(Member p : list) System.out.println("요녀석을뽑아보자 =  " +p);
 		
 		return list;
 	}
