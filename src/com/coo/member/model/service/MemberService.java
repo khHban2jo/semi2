@@ -132,19 +132,4 @@ public class MemberService {
 		
 		return result;
 	}
-
-	public int searchEmpCode(int empCode) {
-		Connection con = getConnection();
-		
-		int result = 0;
-		
-		try {
-			result = mDao.searchEmpCode(con,empCode);
-		} catch (CooException e) {
-			e.getMessage();
-		}
-		
-		return result;
-	}
-
 }

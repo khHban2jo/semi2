@@ -284,29 +284,4 @@ public int insertStockLine(StockLine d, Connection con) throws CooException {
 	return result;
 }
 
-public int searchEmpCode(Connection con, int empCode) throws CooException {
-	int result = 0;
-	PreparedStatement pstmt = null;
-	String sql = prop.getProperty("searchEmpCode");
-	ResultSet rset = null;
-	
-	try {
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, empCode);
-		
-		rset = pstmt.executeQuery();
-		if(rset.next()) {
-			result = rset.getInt(1); 
-		}
-		
-	}catch(SQLException e) {
-		throw new CooException("사번조회 실패");
-	}finally {
-		close(rset);
-		close(pstmt);
-	}
-	
-	return result;
-}
-
 }

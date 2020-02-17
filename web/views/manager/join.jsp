@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.coo.member.model.vo.*"
     errorPage="/views/common/errorPage.jsp" %>
-<% Member mem = (Member)session.getAttribute("member");  %>    
+<% Member mem = (Member)session.getAttribute("member");  
+   Member vv = new Member(); %>    
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -214,16 +215,21 @@
 		   if(sd>0){
 			   $('#crv2').removeAttr('disabled');
 		   if(sd==1){
-			   $('#crv3').attr('type','button').val("사번검색(부)");
+			   $('#crv3').attr('type','button').val("검색(부)");
 		   }else if(sd==2){
-			   $('#crv3').attr('type','button').val("사번검색(정)");
+			   $('#crv3').attr('type','button').val("검색(정)");
 		   }
 		   $('#crv3').click(function(){
-			    var url = "<%=request.getContextPath()%>/views/popup/searchBox.jsp";
-			    var option = "top=100px, left=150px, width=400px, height=310px, resizable=no, location=no, toolbars=no,scrollbars=no";
-			    var name = '사번검색';	
-				window.open(url,option,name);
-		   });
+			   var pre = this.window();
+			   var pop = window.open("about:black","검색","width=500,height=400");
+		   
+			    $.ajax({
+			    	success:function(){
+			    		pop.location.href="<%=request.getContextPath() %>/pAll.do";
+					
+			    	}
+			    	});
+			    });
 		   }
 	  });
 	 </script>
