@@ -155,8 +155,8 @@
                     <br>
                     <fieldset style= "height :140px;">
                         <legend>첨부파일 </legend>
+                        <label id="fileplus">파일추가</label>
                                <div id = "filenames" style ="height : 130px; font-size:14px;">
-                        <input type="file"value ="파일 업로드"  name ="fileup0" class ="upload"><label onclick ="delfile();">취소</label>
                  </div>
                         
                     </fieldset>
@@ -168,36 +168,56 @@
                   
                     
                     var flength = 0;
-                    //$(".upload").change(function(){
-                      
-                      //var files = $(this)
-                      //var fileset = $(this).get(0);
-                     // console.log(files);
-                     // console.log(flength);
-                         //  if(flength <5 ){
-                                  //if(fileset.files.size <=10*1024*1024){
-                                	  //console.log(flength);
-                                	  //flength++;
-                                	  //var $input = $("<input type='file' name ='fileup"+flength+"'>")
-                                	 
-                                	//  $input.addClass('upload')
-                                	  //var input = "<label class='delfile'>취소</label><br>"
-                                	 // console.log(input);
-                                	 // $("#filenames").append($input);
-                                	 // $("#filenames").append(input);
-                                    	 
-                                  //}else{
-                                      //alert(fileset.files.name +" 의 크기가 너무 큽니다. 파일1개의 최대 크기는 10mb입니다." );
-                                      //$(this).val("");
-                                  //}                     
-                          // }else{
-                            //  alert("파일은 5개 까지 가능합니다.");
-                           //   $(this).val("");
-                              
-                     //  }      
+                    $("#fileplus").click(function(){
+                    
+                          if(flength <5 ){
+                                	  var $input = $("<input type='file' name ='file"+flength+"'>")
+                                	 $input.addClass('upload')
+                                	  var input = "<label class = 'delfile' onclick='delfile(this);' >취소</label>"
+                                	 $("#filenames").append($input);
+                                	  $("#filenames").append(input);
+                                	  flength++;
+                                	  console.log(flength);
+                          }else{
+                              alert("파일은 5개 까지 가능합니다.");
+                             $(this).val("");    
+                          }         
+                  	});
+                    
+                   /*  $(".delfile").click(function (){
+                   	 flength = flength-1;
+                    	$(this).prev("input[type=file]").remove();
+                    	 console.log(flength);
+                    	$(this).siblings("input[type=file]");
+                    	for(var i =0; i<flength; i++){
+                    		$(this).siblings("input[type=file]").eq(i).attr("name","file" +i);
+                    	}
+                   	
+                    	$(this).remove();
+                   	 
+                    }); */
+                     	 
+                    function delfile(item){
+                  	 flength = flength-1;
+                   	$(item).prev("input[type=file]").remove();
+                   	 console.log(flength);
+                   	$(item).siblings("input[type=file]");
+                   	for(var i =0; i<flength; i++){
+                   		$(item).siblings("input[type=file]").eq(i).attr("name","file" +i);
+                   	}
+                  	
+                   	$(item).remove();
+                  	 
+                   };
 
-                  	//}};
-                 // onclick ="delfile();
+                   
+                    	
+                	   //if(fileset.files.size <=10*1024*1024){ 
+                    /*    }else{
+                           alert(fileset.files.name +" 의 크기가 너무 큽니다. 파일1개의 최대 크기는 10mb입니다." );
+                           $(this).val("");
+                       }  */           
+                
                     
                     //결재자, 합의자, 최종결재자 이름 가져오기
                     $(".hiddenper").on("click",function(){
@@ -332,32 +352,7 @@
 
     </div> 
 		<script>
-			<%-- $(".btn").change(function(){
-				var a
-			 if($("#doctype").val()=="품의서"){
-				 <%type = "품의서"; %>
-				 a="<%=type%>"
-			 }else if($("#doctype").val()=="지출결의서"){
-				 <%type = "지출결의서"; %>
-				 a="<%=type%>"
-			 }else if($("#doctype").val()=="휴가신청서"){
-				 a = <%@include file="/views/checkdoc/include/vacDoc.jsp" %>
-			 }			
-			 
-			  $.ajax({
-				  url:"/semi/writebody.ch",
-				  type:"post",
-				  success:function(data){
-					  console.log(data);
-					  
-					  $("#docbody").html(a );
-				  },
-			     error:function(){
-					  alert("독바디에러");
-				  }
-			  });
-			}); --%>
-		
+
 		</script>
 
 </body>

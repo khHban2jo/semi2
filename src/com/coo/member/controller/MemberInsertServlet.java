@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.coo.check.model.vo.StockLine;
 import com.coo.exception.CooException;
 import com.coo.member.model.service.MemberService;
 import com.coo.member.model.vo.Member;
@@ -53,7 +54,7 @@ public class MemberInsertServlet extends HttpServlet {
 		String deptCode = request.getParameter("deptCode"); 
 		String jobCode = request.getParameter("jobCode");
 		String etc = request.getParameter("etc");
-		String subDept = request.getParameter("subDept");
+		String subDept = request.getParameter("cr2");
         
 	     Member m = new Member();
 	     m.setEmpId(userId);
@@ -82,16 +83,48 @@ public class MemberInsertServlet extends HttpServlet {
 		} catch (CooException e) {
 			e.printStackTrace();
 		}
-
+		
+		// 결제 정 / 부 관련 추가
+		int empCode = Integer.parseInt(request.getParameter("empCode"));
+		String deptCodeA = request.getParameter("cr2");
+		String subcrA = request.getParameter("cr");
+		int subDeptCode = Integer.parseInt(request.getParameter("cr3"));
+		System.out.println(subcrA);
+//		String subDeptA = request.getParameter("subDeptA");
+		
+		StockLine d = new StockLine();
+		int result = 0;
+		if(subcrA.equals("1")) {
+			d.setEmpcode(empCode);
+			d.setDeptCode(deptCodeA);
+			d.setSubcode(subDeptCode);
+			result = new MemberService().insertStockLine(d);
+		}else if(subcrA.equals("2")) {
+			d.setSubcode(empCode);
+			d.setDeptCode(deptCodeA);
+			d.setEmpcode(subDeptCode);
+			result = new MemberService().insertStockLine(d);
+		}
+		
+		if(result > 0) {
+			System.out.println("성공");
+		}
 		
 		//	근태관련 코드 추가
 		int l1Value = Integer.parseInt(request.getParameter("l1Value"));
 		new MemberTAService().memberTaDataInsert(userId, l1Value);
 		
+		response.getWriter().print("<html>");
+		response.getWriter().print("<body>");
+		response.getWriter().print("<script>");
+		response.getWriter().print("window.setTimeout(function(){"+ 
+				             "window.close();"+ 
+			                 "},1000);");
+		response.getWriter().print("</script>");
+		response.getWriter().print("</body>");
+		response.getWriter().print("</html>");
 		
 		response.sendRedirect("views/home.jsp");
-		
-		
 	}
 
 	/**

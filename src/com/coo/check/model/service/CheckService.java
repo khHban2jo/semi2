@@ -1,5 +1,10 @@
 package com.coo.check.model.service;
 
+import static com.coo.common.JDBCTemplate.close;
+import static com.coo.common.JDBCTemplate.commit;
+import static com.coo.common.JDBCTemplate.getConnection;
+import static com.coo.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -10,8 +15,6 @@ import com.coo.check.model.vo.PmapMember;
 import com.coo.check.model.vo.RoundDoc;
 import com.coo.check.model.vo.StockLine;
 import com.coo.check.model.vo.Vacation;
-
-import static com.coo.common.JDBCTemplate.*;
 
 public class CheckService {
 	private CheckDao cDao = new CheckDao();
@@ -83,6 +86,22 @@ public class CheckService {
 		close(con);
 		return doc;
 	}
+	
+	/**
+	 * 파일 찾아오기
+	 * @param docnumber
+	 * @return
+	 */
+	public ArrayList<String> getFiles(int docnumber) {
+		Connection con = getConnection();
+		ArrayList<String> files = cDao.getFiles(con, docnumber);
+		close(con);
+		
+		return files;
+	}
+
+
+
 
 	public int insertDoc(CheckDoc info, RoundDoc doc, ArrayList<String> files) {
 		int result = 0;
@@ -240,7 +259,6 @@ public class CheckService {
 		
 		return result;
 	}
-
 
 
 }

@@ -17,7 +17,7 @@
     CheckDoc check = (CheckDoc)request.getAttribute("info");
     //사람이름 찾아와야됨.
  	String doctext = (String)request.getAttribute("doc");
-    //파일 테이블에서 파일 찾기. 파일 테이블용 서블릿 만들기
+    ArrayList<String> files = (ArrayList<String>)request.getAttribute("files");
     String approver = check.getApprover();
    	int docStatus = check.getaStatus();
 	String inPe = (check.getInPeople() ==null)?"":check.getInPeople();
@@ -296,35 +296,37 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 					
 					//반려용 메소드
 					$("#saveComment").click(function(){
-						var insertcode1 = '<%=check.getInStatus()%>';
-						var colcode1 = '<%=check.getColStatus()%>';
+						var insertcode = '<%=check.getInStatus()%>';
+						var colcode = '<%=check.getColStatus()%>';
+						var docStatus ='<%=docStatus%>';
 						console.log(docStatus);
 						comment = $("#comment1").val();
 						if(comment.length <= 300){
 							if(docStatus == 0){
-								
-							
 								cStatus=insertcode.split(",");
-								if(cStatus.length !="1"){
+								console.log(cStatus.length);
+								if(cStatus.length > 1){
 									flow = cStatus.indexOf("5");
 									cStatus[flow] = 2;
-									insertcode1 = cStatus.join();
+									insertcode = cStatus.join();
 								}else {
-									insertcode1 ="2";
+									console.log("반려 조건==2 떨어지는지 확인");
+									insertcode ="2";
+									console.log(insertcode)
 								}
 								
 								
 							}else if(docStatus ==1){
 								cStatus = colcode.split(",");
-								if(cStatus.length !="1"){
+								console.log(cStatus.length);
+								if(cStatus.length >1 ){
 									flow = cStatus.indexOf("5");
 									cStatus[flow] = 2;
-									colcode1 = cStatus.join();
+									colcode = cStatus.join();
 								}else {
-									colcode1 ="2";
+									console.log("반려 조건==1 떨어지는지 확인");
+									colcode ="2";
 								}
-							
-								
 							}
 							 approin =<%=id%>;
 						     docStatus = 4;
@@ -332,8 +334,8 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 						     $("#popback").css("display","none");
 						     $("#returnCopop").css("display","none");
 						     console.log(insertcode);
-						     console.log(colcode1);
-						     fulling(docNo, approin, docStatus, insertcode1, colcode1,comment);
+						     console.log(colcode);
+						     fulling(docNo, approin, docStatus, insertcode, colcode,comment);
 							 
 						
 						}else{
@@ -355,7 +357,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 						table.html(okcheck1);
 						cStatus[flow] = "1";
 						insertcode= cStatus.join();
-						/* if(!colpe == ""){ //겸직
+						if(!colpe == ""){ //겸직
 							myColin1 = colpe.split(",").indexOf(myCode);
 							myColin2 = colpe.split(",").lastIndexOf(myCode);
 							if(myColin1 != -1 && myColin2 != -1){
@@ -366,15 +368,29 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 						 	   		colstat[myColin2] ="7";
 						 	 	}
 						 	   colcode = colstat.join();
-							} */
+							}
+						}
   					
 						   if(flow+1 == cStatus.length){ //마지막 결재자였을 경우							  
 							 if(!colpe == ""){ //합의 결제자가 있을 경우
+								 
+							     
 								 docStatus = 1;
+								 colstat = colcode.split(",");
+								 if(colstat[0] == "7"){
+									colstat[0]== "1";
+									flow = colstat.indexOf("0");
+									for(var i = 1 ; i<flow;i++){
+								     colstat[i]== "1";
+									}
+									colstat[flow]="5";			
+									approin = colpe.split(",").slice(flow*2,flow*2+2);
+						
+								 }else{
 							     approin = colpe.split(",").slice(0,2).join();
-							     colstat = colcode.split(",");
 							     colstat[0] = "5";
-							  
+								 }
+						
 							     colcode = colstat.join();
 							    
 								 
@@ -397,11 +413,12 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 						flow = cStatus.indexOf("5");
 						console.log(flow);
 						cStatus[flow] ="1";
+						
 						if(flow != -1){
 						table = $("#top3 tr:eq(1)").find("td").eq(flow);
 						table.html(okcheck1);
 						}
-						 if(flow+1 == cStatus.length){ 
+						 if(flow+1 == cStatus.length){//최종 합의자일때 
 							 colcode = cStatus.join();
 							if(!endpe ==""){
 									docStatus =2;
@@ -410,12 +427,13 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 							}else{
 								docStatus = 3;
 							}
-						}else{
+						}else{//마지막 합의자가 아닐때
 							if(cStatus[flow+1] =="7"){ //겸직처리용
-								aa = cStatus.indexOf("0");
+								var aa = cStatus.indexOf("0");
 							    for(var i =flow+1; i<aa;i++ ){
 							    	cStatus[i] ="1"
 							    }
+							    
 								
 								if(aa+1 ==cStatus.length ){
 									docStatus =2;
@@ -423,7 +441,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 								}
 							
 							}else{
-								cStatus[flow+1] ="5"
+								cStatus[flow+1] ="5";
 								approin = colpe.split(",").slice((flow+1)*2, (flow+1)*2+2).join();
 							}
 							
@@ -443,18 +461,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				flowreturn();
 				}
 				
-				$("#saveComment").click(function(){
-					if(docStatus == 0){
-						var incode
-						
-					}else if(docStatus ==1){
-						
-					}
-					
-					docStatus = 4;
-					
-				})
-				
+								
 				
 			});
 		
@@ -616,8 +623,12 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
     <div id="bottom" align ="center"> 
         <label style="float: left;">첨부파일</label><br>
         <div id= filelist>
-        <%//로직처리 %>
-
+        <%if(!files.isEmpty()){ %>
+        <%for(int i = 0; i<files.size(); i++){
+        	%>
+        <a href="/semi/cfDown.ch?path=<%=files.get(i) %>"> <%=files.get(i) %>
+							</a>
+      <%}} %>
         </div>
     </div>
     <div id="retruncomment">
