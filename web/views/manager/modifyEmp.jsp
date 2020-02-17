@@ -32,7 +32,7 @@
 		                  <td> 아이디  </td>
 		                  <td> 
 		                      <input type="text" id="uid" name="userId" maxlength="20" readonly placeholder="영어이름 먼저입력" value="<%=md.getEmpId()%>"> 
-		                      <input type="button" id="checkId" value="중복확인" disabled>
+		                      <input type="button" id="checkId" value="중복확인" readonly>
 		                  </td>
 		              </tr>
 		              <tr>
@@ -113,7 +113,7 @@
 		                  
 		              </tr>
 		              <tr>
-		                  <td> 직 급(이전 직급) &nbsp;&nbsp;<input type="text" class="pr" disabled value="<%=md.getJobCode() %>"></td>
+		                  <td> 직 급(이전 직급) &nbsp;&nbsp;<input type="text" class="pr" readonly value="<%=md.getJobCode() %>"></td>
 		                  <td>
 		                       <select name="jobCode" style="width: 150px;">
 		                          <option value="J8"> 사 원 </option>
@@ -128,7 +128,7 @@
 		                  </td>
 		              </tr>
 		              <tr>
-		                  <td> 부 서(이전 직급) &nbsp;&nbsp;<input type="text" class="pr" disabled value="<%= md.getDeptTitle() %>"> </td>
+		                  <td> 부 서(이전 직급) &nbsp;&nbsp;<input type="text" class="pr" readonly value="<%= md.getDeptTitle() %>"> </td>
 		                  <td>
 		                      <select name="deptCode" style="width: 150px;">
 		                      	  <option>--</option>
