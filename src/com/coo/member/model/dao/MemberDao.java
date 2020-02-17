@@ -181,7 +181,7 @@ public int updateMember(Connection con, Member m) throws CooException {
 		pstmt.setString(8, m.getEtc());
 		pstmt.setString(9, m.getSubDept());
 		pstmt.setString(10, m.getContact());
-		pstmt.setInt(11, 205);
+		pstmt.setInt(11, m.getEmpCode());
 		result = pstmt.executeUpdate();
 		
 	}catch(SQLException e) {
@@ -193,6 +193,7 @@ public int updateMember(Connection con, Member m) throws CooException {
 	return result;
 		
 }
+
 
 public int deleteMember(Connection con, String empId) throws CooException {
 	int result=0;

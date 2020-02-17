@@ -33,17 +33,17 @@ public class MemberDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response, String EmpId) throws ServletException, IOException, CooException {
-	   HttpSession session = request.getSession(false);
+
+		
+		String empId = request.getParameter("userId");
+		
 	   
-	   String userId = ((Member)session.getAttribute("member")).getEmpId();
-	
-	   System.out.println("회원 기존 아이디: " + userId);
-	   
+ 
+		
 	   MemberService ms = new MemberService();
 	
 	   ms.deleteMember(EmpId);
 	   System.out.println("회원 탈퇴 성공!");
-	   session.invalidate();
 	   response.sendRedirect("views/home.jsp");
 	}
 
