@@ -160,6 +160,7 @@
 		                          <option value="D5">미발령</option>
 		                      </select>
 		                  </td>
+		                  <td>연차 보유 수량 : <input type="number" name="l1Value" value="0" min="0" max="30"></td>
 		              </tr>
 		              <tr>
 		                  <!-- 사진 등록 스크립트 onchange 이벤트 발생시로 해야 이미지가 불러 와 진다.-->

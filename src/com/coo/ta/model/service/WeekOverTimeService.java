@@ -126,6 +126,14 @@ public class WeekOverTimeService {
 		
 	}
 
+	/**
+	 * 근태 화면 OPEN 시
+	 * WEEK_OVERTIME 테이블에 SELECT
+	 * @param empCode
+	 * @param week
+	 * @return
+	 * @throws CooException
+	 */
 	public int selectOverTime(int empCode, int week) throws CooException {
 
 		Connection con = getConnection();

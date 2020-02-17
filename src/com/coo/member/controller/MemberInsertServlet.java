@@ -85,7 +85,8 @@ public class MemberInsertServlet extends HttpServlet {
 
 		
 		//	근태관련 코드 추가
-		new MemberTAService().memberTaDataInsert(userId);
+		int l1Value = Integer.parseInt(request.getParameter("l1Value"));
+		new MemberTAService().memberTaDataInsert(userId, l1Value);
 		
 		
 		response.sendRedirect("views/home.jsp");
