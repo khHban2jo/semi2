@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 import static com.coo.common.JDBCTemplate.*;
+
+import com.coo.check.model.vo.StockLine;
 import com.coo.exception.CooException;
 import com.coo.member.model.vo.Member;
 
@@ -153,7 +155,7 @@ public int insertMember(Connection con, Member m) throws CooException {
 			result = pstmt.executeUpdate();
 							   
 		}catch(SQLException e) {
-			throw new CooException(e.getMessage());			
+			throw new CooException(e.getMessage());
 		}finally {
 			close(pstmt);
 		}
@@ -260,5 +262,51 @@ public Member searchMember(String empId, Connection con) throws CooException {
 	}
 	return result;
 	}
+
+public int insertStockLine(StockLine d, Connection con) throws CooException {
+	int result = 0;
+	PreparedStatement pstmt = null;
+	String sql = prop.getProperty("insertStockLine");
+
+	try {
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1,d.getEmpcode());
+		pstmt.setString(2, d.getDeptCode());
+		pstmt.setInt(3, d.getSubcode());
+		
+		result = pstmt.executeUpdate();
+		
+	}catch(SQLException e) {
+		throw new CooException("데이터 생성 실패");
+	}finally {
+		close(pstmt);
+	}
+	return result;
+}
+
+public int searchEmpCode(Connection con, int empCode) throws CooException {
+	int result = 0;
+	PreparedStatement pstmt = null;
+	String sql = prop.getProperty("searchEmpCode");
+	ResultSet rset = null;
+	
+	try {
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, empCode);
+		
+		rset = pstmt.executeQuery();
+		if(rset.next()) {
+			result = rset.getInt(1); 
+		}
+		
+	}catch(SQLException e) {
+		throw new CooException("사번조회 실패");
+	}finally {
+		close(rset);
+		close(pstmt);
+	}
+	
+	return result;
+}
 
 }

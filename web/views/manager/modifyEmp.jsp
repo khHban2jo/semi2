@@ -115,7 +115,8 @@
 		              <tr>
 		                  <td> 직 급(이전 직급) &nbsp;&nbsp;<input type="text" class="pr" readonly value="<%=md.getJobCode() %>"></td>
 		                  <td>
-		                       <select name="jobCode" style="width: 150px;">
+		                      <select name="jobCode" style="width: 150px;">
+  		                      	  <option value="">--</option>
 		                          <option value="J8"> 사 원 </option>
 		                          <option value="J7"> 대 리 </option>
 		                          <option value="J6"> 과 장 </option>
@@ -130,7 +131,7 @@
 		              <tr>
 		                  <td> 부 서(이전 직급) &nbsp;&nbsp;<input type="text" class="pr" readonly value="<%= md.getDeptTitle() %>"> </td>
 		                  <td>
-		                      <select name="deptCode" style="width: 150px;">
+		                     <select name="deptCode" style="width: 150px;" id="ds">
 		                      	  <option>--</option>
 		                      	  <option value="D0">임원</option>
 		                          <option value="D1">인사부서</option>
@@ -142,10 +143,14 @@
 		                  </td>
 		              </tr>
 		              <tr>
-		              <td>겸 직</td>
-		                  <td>
-		                      <select name="subDept" style="width: 150px;">
-		                      	  <option>--</option>
+		             <td>겸직</td>
+		                  <td><select name="cr" id="crv">
+		                  		<option value="">--</option>
+								<option value="정">정</option>		                  
+		                  		<option value="부">부</option>
+		                  	</select>
+		                      <select name="cr2" style="width: 150px;" id="crv2" disabled>
+		                      	  <option value="">--</option>
 		                      	  <option value="D0">임원</option>
 		                          <option value="D1">인사부서</option>
 		                          <option value="D2">영업부서</option>
@@ -190,7 +195,21 @@
 			        }
 			    });
 			 });
-		 
+		  $.ajax({
+			  url:"<%=request.getContextPath() %>/aAppro.do",
+			  type:"get",
+			  data:{empCodeA:$('#mEmpCode').val(),
+				    deptCodeA:$('#ds').val(),
+				    
+			  }
+		  })
+		  
+		  $('#crv').change(function(){
+			   var sd = document.getElementById('crv').selectedIndex;
+			   if(sd>0){
+				   $('#crv2').removeAttr('disabled');
+			   }
+		  });
 		 
 	</script>
 	<script src="resources/js/manager/join.js"></script>
