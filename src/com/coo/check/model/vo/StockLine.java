@@ -3,11 +3,11 @@ package com.coo.check.model.vo;
 import java.io.Serializable;
 
 public class StockLine implements Serializable{
-	private int empcode;
+	private int empcode; //정
 	private String empName;
-	private String deptCode;
+	private String deptCode; //해당부서코드
 	private String deptName;
-	private int subcode;
+	private int subcode; //부
 	private String list1;
 	private String list2;
 	private String list3;

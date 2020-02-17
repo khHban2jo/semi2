@@ -43,11 +43,11 @@ public class CheckInsertServlet extends HttpServlet {
 	//2. 내용 문서에 따른 컬럼값 가져오기
 	//서비스에 객체 두개 넘기기.
 		
-//		if(!ServletFileUpload.isMultipartContent(request)) {
-//			//에러 페이지 메세지와 리퀘스트
-//			
-//		}
-//		
+		if(!ServletFileUpload.isMultipartContent(request)) {
+			//에러 페이지 메세지와 리퀘스트
+			System.out.println("타입 오류");
+		}
+		
 		int maxSize = 1024*1024*10;
 		
 		String root = request.getServletContext().getRealPath("/");
@@ -73,7 +73,7 @@ public class CheckInsertServlet extends HttpServlet {
 		String endper = mrequest.getParameter("endper");
 		String viewper = mrequest.getParameter("viewper");
 		
-//		System.out.println("doctitle" + doctitle);
+		System.out.println("doctitle" + doctitle);
 //		System.out.println("docwriter" + docwriter);
 //		System.out.println("deptCode" + deptCode);
 //		System.out.println("deptName" + deptName);
@@ -132,23 +132,17 @@ public class CheckInsertServlet extends HttpServlet {
 		}
 		
 		//System.out.println(colStatus);
-		
-		
+		String file ;
+	
+		//
 		ArrayList<String> files = new ArrayList<String>();
-		
-		
-//-----		
-		//String fileName = mrequest.getParameter("fileup");
-		
-//		for(int i = 0; i <5; i++) {
-//			String str = "file"+i;
-//			String filechan = mrequest.getFilesystemName(str);
-//			System.out.println(filechan);
-//			if(!filechan.equals(null)) {
-//				files.add(filechan);
-//			}
-//		}
-//--------		
+		for(int i = 0; i<5; i++) {
+			 if(mrequest.getFilesystemName("file"+i) != null) {
+					file = mrequest.getFilesystemName("file"+i);
+					files.add(file);
+				 }
+		}
+
 		
 
 	
@@ -162,7 +156,7 @@ public class CheckInsertServlet extends HttpServlet {
 			doc = new Vacation();
 			//((Vacation)doc).setStart();
 			//((Vacation)doc).setEnd();
-			//((Vacation)doc).setType();
+		//((Vacation)doc).setType();
 		}else if(info.getDocType()=="지출결의서") {
 			doc = new PayDoc();
 			((PayDoc)doc).setEndPay(200241);//Integer.valueOf(request.getParameter(""));
@@ -172,14 +166,14 @@ public class CheckInsertServlet extends HttpServlet {
 		doc.setText(mrequest.getParameter("text"));
 		
 		
-		
+	
 		int result = new CheckService().insertDoc(info, doc, files);
 		
 		if(result>0) {
 			response.sendRedirect("clist.ch");
 		}else {
 			System.out.println("오류");
-			//오류페이지
+		//오류페이지
 		}
 	}
 	

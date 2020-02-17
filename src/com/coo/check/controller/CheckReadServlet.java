@@ -65,6 +65,11 @@ public class CheckReadServlet extends HttpServlet {
 				doc = doc3.getText();
 			}
 			request.setAttribute("doc",doc);
+			ArrayList<String> files = new ArrayList<String>();
+			
+			files = cs.getFiles(docnumber);
+			request.setAttribute("files", files);
+			
 //			System.out.println(docInfo);
 //			System.out.println(doc);
 //			System.out.println(docInfo.getInPeople());
