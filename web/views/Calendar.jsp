@@ -12,24 +12,24 @@
     <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-    <script src="/semi/resources/js/Calendar/jquery.datetimepicker.full.min.js"></script>
-    <script src="/semi/resources/js/Calendar/jquery.datetimepicker.js"></script>
+    <script src="/semi/resources/js/ccalendar/jquery.datetimepicker.full.min.js"></script>
+    <script src="/semi/resources/js/ccalendar/jquery.datetimepicker.js"></script>
 
 
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    <link href="/semi/resources/css/Calendar/main2.css" rel="stylesheet" />
-    <link href="/semi/resources/css/Calendar/main.css" rel="stylesheet" />
-    <script src="/semi/resources/js/Calendar/main3.js"></script>
-    <script src="/semi/resources/js/Calendar/main2.js"></script>
-    <script src="/semi/resources/js/Calendar/main.js"></script>
-    <script src="/semi/resources/js/Calendar/editEvent.js"></script>
-    <script src="/semi/resources/js/Calendar/addEvent.js"></script>
-    <script src="/semi/resources/js/Calendar/etcSetting.js"></script>
+    <link href="/semi/resources/css/ccalendar/main2.css" rel="stylesheet" />
+    <link href="/semi/resources/css/ccalendar/main.css" rel="stylesheet" />
+    <script src="/semi/resources/js/ccalendar/main3.js"></script>
+    <script src="/semi/resources/js/ccalendar/main2.js"></script>
+    <script src="/semi/resources/js/ccalendar/main.js"></script>
+    <script src="/semi/resources/js/ccalendar/editEvent.js"></script>
+    <script src="/semi/resources/js/ccalendar/addEvent.js"></script>
+    <script src="/semi/resources/js/ccalendar/etcSetting.js"></script>
     
     
     <!-- 추가 js / css -->
-    <script src="/semi/resources/js/Calendar/js1.js"></script>
-	<link href="/semi/resources/css/Calendar/css1.css" rel="stylesheet" />
+    <script src="/semi/resources/js/ccalendar/js1.js"></script>
+	<link href="/semi/resources/css/ccalendar/css1.css" rel="stylesheet" />
 
 </head>
 

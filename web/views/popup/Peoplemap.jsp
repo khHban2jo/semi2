@@ -167,7 +167,13 @@
 					$(this).parent().css({"cursor":"pointer"});
 			}).click(function(){
 					var eSearch = $(this).parent().find('input').val();
+					if(document.referrer=="http://localhost:9999/semi/checkAdmin.me?btnDen=1"){
+					   $.ajax({
+						   
+					   });
+					}else{
 					location.href="<%=request.getContextPath() %>/empSearch.me?eSearch="+eSearch;
+					}
 			});
 		</script>
 </body>
