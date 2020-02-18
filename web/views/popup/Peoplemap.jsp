@@ -85,6 +85,7 @@
 
 			<tr id="po">
 			<input type="hidden" name="eSearch" value="<%=m.getEmpId() %>">
+			<input type="hidden" name="eSearch1" value="<%=m.getEmpCode() %>" id="ev">
 				<th><%=m.getEmpCode()%></th>
 				<th><%=m.getDeptCode()%></th>
 				<th><%=m.getJobCode()%></th>
@@ -166,11 +167,12 @@
 			$('#po th').mouseenter(function(){
 					$(this).parent().css({"cursor":"pointer"});
 			}).click(function(){
+				    
+					var eSearch1 = $(this).parent().find('#ev').val();
 					var eSearch = $(this).parent().find('input').val();
 					if(document.referrer=="http://localhost:9999/semi/checkAdmin.me?btnDen=1"){
-					   $.ajax({
-						   
-					   });
+							opener.document.getElementById('crv4').value = eSearch1;
+							window.close();
 					}else{
 					location.href="<%=request.getContextPath() %>/empSearch.me?eSearch="+eSearch;
 					}

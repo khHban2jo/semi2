@@ -73,7 +73,7 @@ public class MemberInsertServlet extends HttpServlet {
 	     m.setPersonalId(personalId);
 	     m.setSubDept(subDept);
 	     
-	     System.out.println("변경한 회원 정보 확인: "+ m);
+	     System.out.println("회원 정보 확인: "+ m);
 	     
 	     MemberService ms = new MemberService();
 	     
@@ -119,7 +119,7 @@ public class MemberInsertServlet extends HttpServlet {
 		response.getWriter().print("<script>");
 		response.getWriter().print("window.setTimeout(function(){"+ 
 				             "window.close();"+ 
-			                 "},1000);");
+			                 "},2000);");
 		response.getWriter().print("</script>");
 		response.getWriter().print("</body>");
 		response.getWriter().print("</html>");
