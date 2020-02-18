@@ -180,13 +180,14 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 			//데이터 베이스에 값 넘어간느 ajax
 			function fulling(docNo, approin, docStatus, insertcode, colcode,comment){
 				console.log(docNo);
+				console.log(approin);
 				var type ='<%=check.getDocType()%>'
 				
-				<%-- window.location.href='<%= request.getContextPath() %>/uDFlow.ch?docNumber='+docNo+'&next='+approin
+				/*window.location.href='<%= request.getContextPath() %>/uDFlow.ch?docNumber='+docNo+'&next='+approin
 																			+'&docSt='+docStatus+'&inCode='+insertcode
 																			+'&colcodes='+colcode+'&rcomment='+comment
-																			+'&doctype='+type; --%>
-				/$.ajax({
+																			+'&doctype='+type;*/
+				$.ajax({
 					url:"/semi/uDFlow.ch",
 					type:'get',
 					data:{
@@ -198,12 +199,13 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 						rcomment : comment,
 						doctype: type
 					},
-					success:function(result){
-						console.log(result);
+					success:function(data){
+						window.location.href='<%= request.getContextPath()%>/cread.ch?docNumber='+docNo
+						
 					},
 					error:function(){
 						alert("넘기는대 에러");
-					}
+					} 
 				}); 
 				
 				
@@ -214,6 +216,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				//넘어가야되는 값 총합  1. 다음 결재자, 2.독넘버, 3, 독스텟, 4.변경 결재 코드 5.합의변경코드, 6. 리스트코멘트
 			  var flowok =  function(docNo, table, approin, docStatus, insertcode, colcode,comment ){
 				$("#oksign").click(function(){
+					
 					var result = "";
 				         if(confirm("결재 하시겠습니까?")){	
 				            $("#checkpop").css("display","none");
@@ -262,26 +265,29 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				if(approver.indexOf(myCode) == 0){ //정일때
 					mystatus = true;
 				}else if(approver.indexOf(myCode)==1){ //부일때
-				/* 	mytstaus = $.ajax({
-										url:"",
-										post:"get",
+				  	 $.ajax({
+										url:"/semi/cMStatus.ch",
+										type:"get",
 										async: false,
 										data:{
 											masCode:approver[0]
 										},
 										success:function(data){
+											console.log(data);
 											var result;
 											if(data == 'Y'){
-												 result= false;
+												mystatus = false;
 											}else{
-												 result = true;
+												mystatus = true;
 											}
+											return result;
 										},error:function(){
 											alert("마스터 상태체크");
 										}
-										return result;
-								}); */
+									
+								});  
 				}
+				console.log(mystatus);
 				//내가 결재 가능할 때  결재문서 진행 상태에 따른 것 찾기
 				
 					var flow;
@@ -339,7 +345,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 							 
 						
 						}else{
-							alert("반려 코멘트는 300자를 넘길 수 없습니다.")
+							alert("반려 코멘트는 300자를 넘길 수 없습니다. 현재" + comment.length );
 						}
 					
 					
@@ -360,34 +366,58 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 						if(!colpe == ""){ //겸직
 							myColin1 = colpe.split(",").indexOf(myCode);
 							myColin2 = colpe.split(",").lastIndexOf(myCode);
+							console.log(colpe.split(",").indexOf("100"));
+							console.log(colpe.split(","));
+							console.log(myColin1);
+							console.log(myColin2);
 							if(myColin1 != -1 && myColin2 != -1){
 							  colstat = colcode.split(",");
 						 	   if(myColin1%2== 0 ){
-						 	    	colstat[myColin1] ="7"; //내가 정인 인덱스 찾기;	    	 
-						 	   }else if(myColin2%2== 0){
-						 	   		colstat[myColin2] ="7";
+						 		    var ab =myColin1/2;
+						 	    	colstat[ab] ="7"; //내가 정인 인덱스 찾기;	    	 
+						 	   }
+								if(myColin2%2== 0){
+						 	   		colstat[myColin2/2] ="7";
 						 	 	}
 						 	   colcode = colstat.join();
+						 	   console.log(colcode);
 							}
 						}
   					
 						   if(flow+1 == cStatus.length){ //마지막 결재자였을 경우							  
 							 if(!colpe == ""){ //합의 결제자가 있을 경우
 								 
-							     
+								 console.log(colcode);
 								 docStatus = 1;
 								 colstat = colcode.split(",");
+								 console.log(colstat[0]);
+								 console.log(typeof(colstat[0]));
+								 console.log(colstat[0]=="7")
 								 if(colstat[0] == "7"){
-									colstat[0]== "1";
+									colstat[0]= "1";
 									flow = colstat.indexOf("0");
-									for(var i = 1 ; i<flow;i++){
-								     colstat[i]== "1";
+									if(flow == -1){
+										for(var i = 1; i<colstat.length; i++){
+											colstat[i]= "1";
+										}
+										if(!endpe==""){
+											approin = endpe;
+											 docStatus = 2;
+										}else{
+											docStatus = 3;
+										}
+										
+									}else {
+										for(var i = 1 ; i<flow;i++){
+								    	 	colstat[i]== "1";
+										}
+										colstat[flow]="5";			
+										approin = colpe.split(",").slice(flow*2,flow*2+2).join(); 
 									}
-									colstat[flow]="5";			
-									approin = colpe.split(",").slice(flow*2,flow*2+2);
 						
 								 }else{
 							     approin = colpe.split(",").slice(0,2).join();
+							     console.log(2);
 							     colstat[0] = "5";
 								 }
 						
@@ -395,7 +425,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 							    
 								 
 							 }else if(!endpe ==""){
-							    
+								 console.log(3);
 								 docStatus =2;
 								 approin = endpe;
 								 
@@ -412,13 +442,14 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 						cStatus = '<%=check.getColStatus()%>'.split(",");
 						flow = cStatus.indexOf("5");
 						console.log(flow);
-						cStatus[flow] ="1";
+						
 						
 						if(flow != -1){
 						table = $("#top3 tr:eq(1)").find("td").eq(flow);
 						table.html(okcheck1);
+						cStatus[flow] ="1";
 						}
-						 if(flow+1 == cStatus.length){//최종 합의자일때 
+						if(flow+1 == cStatus.length){//최종 합의자일때 
 							 colcode = cStatus.join();
 							if(!endpe ==""){
 									docStatus =2;
@@ -428,17 +459,32 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 								docStatus = 3;
 							}
 						}else{//마지막 합의자가 아닐때
+							console.log(flow+1);
+							console.log(cStatus[flow+1]);
 							if(cStatus[flow+1] =="7"){ //겸직처리용
 								var aa = cStatus.indexOf("0");
-							    for(var i =flow+1; i<aa;i++ ){
-							    	cStatus[i] ="1"
-							    }
-							    
-								
-								if(aa+1 ==cStatus.length ){
-									docStatus =2;
-									approin = endpe;
+								if(aa!=-1){
+									for(var i =flow+1; i<aa-1;i++ ){
+								    	cStatus[i] ="1";
+								    }	
+									cStatus[aa] = "5";
+									approin = colpe.split(",").slice(aa*2, aa*2+2).join();
+
+								}else{
+									for(var i =flow+1; i<cStatus.length;i++ ){
+								    	cStatus[i] ="1";
+									}
+									
+									if(!endpe ==""){
+										docStatus =2;
+									 	approin = endpe;
+									 	
+									}else{
+									docStatus = 3;
+									}
 								}
+								
+							    
 							
 							}else{
 								cStatus[flow+1] ="5";
@@ -446,6 +492,8 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 							}
 							
 							colcode = cStatus.join();
+							console.log(colcode);
+							console.log(approin);
 							
 						}
 					
@@ -631,12 +679,14 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
       <%}} %>
         </div>
     </div>
+    
     <div id="retruncomment">
+      <button id="close3">닫기</button><span>최대 300자</span>
         <div id= comment style="white-space :pre;">
         <%=check.getReturnComment() %>
 
         </div>
-        <button id="close3">닫기</button>
+      
     </div>
 
     <script>

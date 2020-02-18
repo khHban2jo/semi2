@@ -177,30 +177,19 @@
                                 	 $("#filenames").append($input);
                                 	  $("#filenames").append(input);
                                 	  flength++;
-                                	  console.log(flength);
+                                	 
                           }else{
                               alert("파일은 5개 까지 가능합니다.");
                              $(this).val("");    
                           }         
                   	});
                     
-                   /*  $(".delfile").click(function (){
-                   	 flength = flength-1;
-                    	$(this).prev("input[type=file]").remove();
-                    	 console.log(flength);
-                    	$(this).siblings("input[type=file]");
-                    	for(var i =0; i<flength; i++){
-                    		$(this).siblings("input[type=file]").eq(i).attr("name","file" +i);
-                    	}
-                   	
-                    	$(this).remove();
-                   	 
-                    }); */
+  
                      	 
                     function delfile(item){
                   	 flength = flength-1;
                    	$(item).prev("input[type=file]").remove();
-                   	 console.log(flength);
+                 
                    	$(item).siblings("input[type=file]");
                    	for(var i =0; i<flength; i++){
                    		$(item).siblings("input[type=file]").eq(i).attr("name","file" +i);
@@ -231,16 +220,17 @@
                     			deptname : imhidden.siblings(".deptN").val()
                     		},
                     		success: function(data){
- 
+                    		
                     			var dept = data["list1"];
                     			var pcodes = data["list2"];
                     			var pnames = data["list3"];
                     
-                    		
+                    			console.log(pnames);
                     			imhidden.siblings(".deptC").val(dept);
                     			var a = imhidden.siblings(".table").find(".people").html("")
                     			for(var i = 0; i< pnames.length; i = i+2){
-                    				var a = imhidden.siblings("table").find(".people").html()
+                    				var a = imhidden.siblings("table").find(".people").html();
+                    				
                     				
                     				var label = "<div onclick='delperson(this);' class ='person'><input type='hidden' value="+i+"> 정 : " + pnames[i] +"<br> 부 : " +pnames[i+1]+"</div>";
                     				imhidden.siblings("table").find(".people").html( a + "&nbsp"+ label);
@@ -272,7 +262,6 @@
                     			console.log(data);
                     			var list= data;
                     			for(var i = 0; i< list.length; i ++){
-                    				console.log("확인")
                     				var a = imhidden.prev().find(".people").html()
                     				var label = "<div onclick='delvperson(this);' class ='person'><input type='hidden' value="+i+"> 부서 : " + data[i].deptName +"<br> 부 : " +data[i].empName+"</div>";
                     				imhidden.prev().find(".people").html( a + "&nbsp"+ label);
@@ -340,19 +329,41 @@
 
                     <fieldset>
                     <div id="docbody">
-                         <textArea cols="20" rows="20" name="text"></textArea>
+                   
 						
                     </div>
                 </fieldset>
 
                 </div>
-				<input type = "submit">
+                
+				<input type = "submit" onclick = "return gsubmit();">
             </form>
         </div>
-
+			
     </div> 
 		<script>
-
+		function gsubmit(){
+			if($("#type1").val() =="지출결의서"){
+				var a =$("#textm tr");
+				 var pay = 0;
+				for(var i = 0; i<a.length; i++){
+					var b = $("#fulling").val();
+				/* 	console.log(a.eq(i).find("label").text());
+					console.log(a.eq(i).find("input:eq(0)").val());
+					console.log(a.eq(i).find("input:eq(1)").val());
+					console.log(a.eq(i).find("input:eq(2)").val());
+					console.log(a.eq(i).find("input:eq(3)").val());
+					console.log(a.eq(i).find("input:eq(4)").val());
+					console.log(a.eq(i).find("input:eq(5)").val()); */
+					 pay += parseInt(a.eq(i).find(".pay").val());
+					$("#fulling").val(b+a.eq(i).find("label").text()+","+a.eq(i).find("input:eq(0)").val()+","+a.eq(i).find("input:eq(1)").val()+","+a.eq(i).find("input:eq(2)").val()+","+a.eq(i).find("input:eq(3)").val()+","+a.eq(i).find("input:eq(4)").val()+","+a.eq(i).find("input:eq(5)").val()+"/");
+				}
+				var c = $("#fulling").val();
+				$("#paide").val(pay);		
+				$("#fulling").val(c+$("#txta").val());
+			}
+			return true;
+		}
 		</script>
 
 </body>

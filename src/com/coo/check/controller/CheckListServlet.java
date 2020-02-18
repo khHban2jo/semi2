@@ -54,9 +54,9 @@ public class CheckListServlet extends HttpServlet {
 		if(request.getParameter("status")!=null) {
 			status = Integer.valueOf(request.getParameter("status"));
 		}else {
-			status = 4;
+			status = 1;
 		}
-		
+		//System.out.println(status);
 		
 		
 		

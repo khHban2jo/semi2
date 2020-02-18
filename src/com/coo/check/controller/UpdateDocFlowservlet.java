@@ -31,7 +31,7 @@ public class UpdateDocFlowservlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("charset=UTF-8");
+		response.setContentType("application/json; charset=UTF-8");
 		/*dcoNumber: docNo,
 		next : approin,
 		docSt : docStatus,
@@ -47,6 +47,7 @@ public class UpdateDocFlowservlet extends HttpServlet {
 		String recomment = request.getParameter("rcomment");
 		String doctype = request.getParameter("doctype");
 		
+		
 /*		System.out.println("문서번호 :"+ docNo);
 		System.out.println("독스텟 :"+ docSt);
 		System.out.println("다음인원 :"+ next);
@@ -60,19 +61,23 @@ public class UpdateDocFlowservlet extends HttpServlet {
 		CheckDoc info = new CheckDoc(docNo,docSt,next,inCode,colCodes,recomment);
 		
 		CheckService cs = new CheckService();
+		String ok = "완료";
 		int result =  cs.updateInfo(info);
-		if(result >1) {
+
+		if(result >0) {
 			if(doctype.equals("휴가신청서")) {
 				//업데이트 할예정
 				
 			}
 			
-			
-			request.getRequestDispatcher("/cread.ch?docnumber="+docNo).forward(request, response);
+		
+			//response.sendRedirect("/cread.ch?docNumber="+docNo);
+			new Gson().toJson(ok,response.getWriter());
+		
 		}else {
 			System.out.println("에러");
 		}
-		
+	
 		
 	}
 
