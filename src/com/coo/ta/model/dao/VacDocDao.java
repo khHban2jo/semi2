@@ -105,6 +105,35 @@ private Properties prop;
 		
 		return vList;
 	}
+
+	public ArrayList<CheckDoc> selectApprovalList(Connection con, int empCode) throws CooException {
+
+		ArrayList<CheckDoc> cdList = new ArrayList<CheckDoc>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectApprList");
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, empCode);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				CheckDoc cd = new CheckDoc();
+				cd.setaTitle(rset.getString("ATITLE"));
+				cd.setDocNumber(rset.getInt("DOC_NUMBER"));
+				cd.setaStatus(rset.getInt("ASTATUS"));
+				
+				cdList.add(cd);
+			}
+			
+		}catch(SQLException e) {
+			throw new CooException(e.getMessage());
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return cdList;
+	}
 	
 }
 
