@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.coo.member.model.vo.*"
     errorPage="/views/common/errorPage.jsp" %>
-<% Member mem = (Member)session.getAttribute("member");  %>    
-
+<% Member mem = (Member)session.getAttribute("member"); %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,7 +18,7 @@
 		            
 		              <tbody><tr>
 		                  <td> 사 번  </td>
-		                  <td> <input type="text" id="mEmpCode" readonly>&nbsp; <input type="button" value="확인" id="checkemp">	   
+		                  <td> <input type="text" id="mEmpCode" name="empCode" readonly>&nbsp; <input type="button" value="확인" id="checkemp">	   
 		                  <!-- 사진 -->
 		                  <td rowspan="8" id="pic"> 
 		                      <img src="" width="320px" height="320px" id="Show" alt="프로필사진"> 
@@ -78,7 +77,7 @@
 		              <tr>
 		                  <td>연락처(자택)</td>
 		                  <td colspan="2">
-		                  <input type="text" list="t1" name="tel1">
+		                  <input type="text" list="t1" name="tel1" id="tt1">
 		                  <datalist id="t1"> 
 		                  <option value="02">서울 </option>
                           <option value="031">경기 </option>
@@ -122,6 +121,7 @@
 		                  <td> 직 급 </td>
 		                  <td>
 		                       <select name="jobCode" style="width: 150px;">
+  		                      	  <option value="">--</option>
 		                          <option value="J8"> 사 원 </option>
 		                          <option value="J7"> 대 리 </option>
 		                          <option value="J6"> 과 장 </option>
@@ -136,7 +136,7 @@
 		              <tr>
 		                  <td> 부 서  </td>
 		                  <td>
-		                      <select name="deptCode" style="width: 150px;">
+		                      <select name="deptCode" style="width: 150px;" id="ds">
 		                      	  <option>--</option>
 		                      	  <option value="D0">임원</option>
 		                          <option value="D1">인사부서</option>
@@ -149,9 +149,13 @@
 		              </tr>
 		              <tr>
 		              <td>겸직</td>
-		                  <td>
-		                      <select name="deptCode" style="width: 150px;">
-		                      	  <option>--</option>
+		                  <td><select name="cr" id="crv">
+		                  		<option value="">--</option>
+								<option value="1">정</option>		                  
+		                  		<option value="2">부</option>
+		                  	</select>
+		                      <select name="cr2" style="width: 150px;" id="crv2" disabled>
+		                      	  <option value="">--</option>
 		                      	  <option value="D0">임원</option>
 		                          <option value="D1">인사부서</option>
 		                          <option value="D2">영업부서</option>
@@ -159,9 +163,12 @@
 		                          <option value="D4">연구부서</option>
 		                          <option value="D5">미발령</option>
 		                      </select>
+		                       <input type="hidden" value="사번검색" id="crv3">&nbsp;&nbsp;<input type="hidden" name="cr3" id="crv4" value="사번">
 		                  </td>
+		                  <td>연차 보유 수량 : <input type="number" name="l1Value" value="0" min="0" max="30"></td>
 		              </tr>
-		              <tr>
+		             
+		             <tr>
 		                  <!-- 사진 등록 스크립트 onchange 이벤트 발생시로 해야 이미지가 불러 와 진다.-->
 		                  <td><input type="file" id="" value="사진 전송" onchange="ShowImage(this);"></td>
 		              </tr>
@@ -200,6 +207,27 @@
 		        }
 		    });
 		 });
+	  
+	 $('#crv').change(function(){
+		   var sd = document.getElementById('crv').selectedIndex;
+		   if(sd>0){
+			   $('#crv2').removeAttr('disabled');
+		   if(sd==1){
+			   $('#crv3').attr('type','button').val("검색(부)");
+		   }else if(sd==2){
+			   $('#crv3').attr('type','button').val("검색(정)");
+		   }
+		   $('#crv4').attr('type','text').attr('readonly','true');
+		   
+		   $('#crv3').click(function(){
+			   var pop = window.open("about:black","검색","width=500,height=400");
+			    $.ajax({
+			    	url:pop.location.href="<%=request.getContextPath() %>/pAll.do",
+			    	type:"post",
+			    	});
+			    });
+		   }
+	  });
 	 </script>
 	 <%}%>
   

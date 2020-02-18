@@ -47,10 +47,10 @@ public class MemberTADAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				empCode = rset.getInt("EMP_ID");
+				empCode = rset.getInt("EMP_CODE");
 			}
 		}catch(SQLException e) {
-			
+			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
@@ -70,7 +70,7 @@ public class MemberTADAO {
 			
 			result = pstmt.executeUpdate();
 		}catch(SQLException e) {
-			
+			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
@@ -78,7 +78,7 @@ public class MemberTADAO {
 		return result;
 	}
 
-	public int insertMemberLeave(Connection con, int empCode) {
+	public int insertMemberLeave(Connection con, int empCode, int l1Value) {
 
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -89,14 +89,20 @@ public class MemberTADAO {
 			pstmt.setInt(1, empCode);
 			
 			for(int i = 1 ; i < 4 ; i++) {
-				pstmt.setString(2, "L"+i);
+				String lcode = "L" + i;
+				pstmt.setString(2, lcode);
+
+				if(lcode.equals("L1")) 
+					pstmt.setInt(3, l1Value);
+				else
+					pstmt.setInt(3, 1);
 				
 				result = pstmt.executeUpdate();
 				if(result<=0) 
 					break;
 			}
 		}catch(SQLException e) {
-			
+			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}

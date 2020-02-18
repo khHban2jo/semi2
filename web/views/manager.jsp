@@ -32,7 +32,7 @@
    
 <script>
     
-	var option ="top=80px,left=700px,width=1280px,height=1000px,location=no,resizable=no,toolbars=no";
+	var option ="top=20px,left=700px,width=1280px,height=1000px,location=no,resizable=no,toolbars=no,scrollbars=yes";
 	$('#iEmp,#uEmp,#dEmp,#sEmp').click(function(){
 	var btnDen = $(this).val();
 	var name = $(this).text();

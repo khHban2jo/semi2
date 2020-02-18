@@ -11,6 +11,13 @@ public class TaDataService {
 
 	private TaDataDao tdDao = new TaDataDao();
 	
+	/**
+	 * 근태 페이지 OPEN 시
+	 * TA_DATA 테이블 SELECT 하기
+	 * @param empCode
+	 * @return
+	 * @throws CooException
+	 */
 	public TaData selectOne(int empCode) throws CooException {
 
 		Connection con = getConnection();

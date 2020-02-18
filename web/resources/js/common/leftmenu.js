@@ -11,10 +11,10 @@
         // };
 
         //  달력 생성 메소드
-        $('#datepicker').datepicker({
+     /*   $('#datepicker').datepicker({
 
         });
-
+*/
         //  HOME 버튼 - 메인으로 이동
         $('#homeBtn').click(function(){
             location.href="/semi/views/home.jsp";
@@ -61,8 +61,10 @@
             location.href = "/semi/noticeListServlet?search=all&date1=all&date2=all"
         });
 
-        $('#mypageBtn').click(function(){
-            location.href = "/semi/views/Calendar.jsp";
+        // mypageBtn
+        $('#calendarAddBtn').click(function(){
+        	window.open("/semi/views/popup/calendar_add.jsp","","width=400,height=400,left=600");
+            //location.href = "/semi/views/popup/calendar_add.jsp";
         });
 
         $('#managerBtn').click(function(){

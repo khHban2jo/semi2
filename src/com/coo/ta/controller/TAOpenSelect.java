@@ -1,6 +1,7 @@
 package com.coo.ta.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -11,13 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.coo.check.model.vo.CheckDoc;
+import com.coo.check.model.vo.Vacation;
 import com.coo.exception.CooException;
 import com.coo.member.model.vo.Member;
 import com.coo.ta.model.service.TaDataService;
+import com.coo.ta.model.service.VacDocService;
 import com.coo.ta.model.service.WeekOverTimeService;
 import com.coo.ta.model.service.WorkTimeService;
 import com.coo.ta.model.vo.TaData;
-import com.coo.ta.model.vo.WeekOverTime;
 
 /**
  * Servlet implementation class TAOpen
@@ -80,9 +83,53 @@ public class TAOpenSelect extends HttpServlet {
 			//	에러 발생 시
 			request.setAttribute("msg", "추가 근무 시간을 불러오는 중 에러 발생!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			
 		}
 		
+//		//	empCode, 현재 month로 APPROVAL 테이블 승인된 DOC_NUMBER 받아오기
+//		int year = cal.get(Calendar.YEAR);
+//		int month = cal.get(Calendar.MONTH)+1;
+//		String ym = (year-2000)+"/"+( month/10==0? "0"+""+month : month );
+//		
+//		ArrayList<CheckDoc> cdList = null;
+//		try {
+//			cdList = new VacDocService().selectApprval(empCode, ym);
+//			
+//			System.out.println("근태관리 open [APPROVAL SELECT]");
+//		} catch (CooException e) {
+//			//	에러 발생 시
+//			request.setAttribute("msg", "결재 문서를 불러 오는 중 에러 발생!");
+//			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+//		}
+//		
+//		String DateL1 = "예정일 없음";
+//		String DateL2 = "예정일 없음";
+//		String DateL3 = "예정일 없음";
+//		
+//		if(cdList.size() != 0) {
+//			//	cdList 값이 있을 경우
+//			//	휴가 종류와 날짜를 VACTABLE 테이블에서 받아오기
+//			try {
+//				ArrayList<Vacation> vList = new VacDocService().selectVac(cdList);
+//				for(Vacation v : vList) {
+//					if(v.getLeave_code().equals("L1")) {
+//						DateL1 = v.getStart_Date() + "~" + v.getEnd_Date();
+//					}else if(v.getLeave_code().equals("L2")) {
+//						DateL2 = "" + v.getStart_Date();
+//					}else {
+//						DateL3 = v.getStart_Date() + " " + ((v.getDayOff_MA()=="M")?"오전":"오후");
+//					}
+//				}
+//				System.out.println("근태관리 open [VACTABLE SELECT]");
+//			} catch (CooException e) {
+//				//	에러 발생 시
+//				request.setAttribute("msg", "결재 문서를 불러 오는 중 에러 발생!");
+//				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+//			}
+//		}
+//		request.setAttribute("DateL1", DateL1);
+//		request.setAttribute("DateL2", DateL2);
+//		request.setAttribute("DateL3", DateL3);
+//		
 		System.out.println("근태관리 open");
 		request.getRequestDispatcher("views/popup/TA.jsp").forward(request, response);
 	}

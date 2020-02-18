@@ -54,18 +54,21 @@
 			td!=null? (td.getLateCount()>=10? ""+td.getLateCount():"0"+td.getLateCount()):"00";
 	
 	//	총 추가 근무 시간
-	String ot = (String) request.getAttribute("allOT"); 
+	String ot = "";
+	ot = (String) request.getAttribute("allOT"); 
 	if(ot.length() == 3){
 		ot = "0"+ot;
 	}else if (ot.length() == 2){
 		ot = "00"+ot;
 	}else if (ot.length() == 1){
 		ot = "000"+ot;
+	}else if (ot.length() == 0){
+		ot = "0000";
 	}
+	
 	String[] otArr = ot.split("");
 	String otH = otArr[0]+otArr[1];
 	String otM = otArr[2]+otArr[3];
-	
 	
 	//	총 추가 근무 시간 (퍼센트)
 	double hour12 = 12 * 60;
@@ -75,7 +78,6 @@
 	int otHM = otHour * 60 + otMin;
 	
 	double per = Math.round((otHM/hour12) * 10000)/100.0;
-	
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -90,6 +92,11 @@
     <script>
     	var holiday = <%= hList %>;
     	var per = <%=per%>;
+    	
+    	var DateL1 = "";
+    	var DateL2 = "";
+    	var DateL3 = "";
+    	
     </script>
     
     <script src="/semi/resources/js/TA/TAscript.js"></script>
@@ -126,14 +133,15 @@
         		<legend>&nbsp;&nbsp;이번달 근무 현황&nbsp;&nbsp;</legend>
         		<span class="La2">총 근무일</span>	<span id="" class="La2Value"><%= workdayCount %> 일</span> <br><br>
         		<span class="La2">지각 횟수</span>	<span id="" class="La2Value"><%= lateCount %> 회</span> <br><br><br>
-        		<span class="La2b">휴무 예정일</span> <span id="" class="La2Valueb">XX 일/ XX 일/ XX 일</span> <br><br>
-        		<span class="La2b">반차 예정일</span> <span id="" class="La2Valuec">XX 일</span> <br><br>
+        		<span class="La2b">연차 일정</span> <span id="La2ValuebL1" class="La2Valueb"></span> <br><br>
+        		<span class="La2b">월차 일정</span> <span id="La2ValuebL2" class="La2Valueb"></span> <br><br>
+        		<span class="La2b">반차 일정</span> <span id="La2ValuebL3" class="La2Valueb"></span> <br><br>
         		
         	</fieldset>
         	<fieldset id="area2Field2">
         		<br>
         		<legend>&nbsp;&nbsp;이번주 추가 근무 현황&nbsp;&nbsp;</legend>
-        		<span class="La3">총 추가 근무 시간</span>	<span id="" class="La3Value"><%=otH %>시간 <%=otM %>분</span> <br><br><br>
+        		<span class="La3">총 추가 근무 시간</span>	<span id="" class="La3Value"><%=otH %>시간 <%=otM %>분</span> <br><br>
 				<div class="progress"><div class="progressBar"></div><%=per%>%</div>
 				<span class="La4Value">12시간 中  <%=per %>%</span>
         	</fieldset>
@@ -151,7 +159,7 @@
         		<tbody>
         			<tr>
         				<td class="td1">1</td>
-        				<td class="td2" title="홍길동의 연차 신청서 가나다라마바사아자차"><a>홍길동의 연차 신청서 가나다라마바사아자차</a></td>
+        				<td class="td2" title='홍길동의 연차 신청서 가나다라마바사아자차'><a>홍길동의 연차 신청서 가나다라마바사아자차</a></td>
         				<td class="td3">미승인</td>
         			</tr>
         		</tbody>
