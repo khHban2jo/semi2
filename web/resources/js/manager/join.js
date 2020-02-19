@@ -169,11 +169,17 @@
   
      function check(){
       var chk = $('input').val();
-      if(chk=="" || chk==null || chk==undefined){
-         alert("빈 칸을 채워주세요");
-          return false;	 
-      }else{
-    	  
-      return true;
-      }
+     if($('#crv').val()=="0"){
+    	  	
+     }else{
+    	 if(chk=="" || chk==null || chk==undefined){
+    		 alert("빈 칸을 채워주세요");
+    		 return false;	 
+    	 }else{
+    		 return true;
+    	 }
+     }
+    	 
   }
+     
+    	  
