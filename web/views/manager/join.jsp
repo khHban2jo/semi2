@@ -6,7 +6,7 @@
 <html lang="ko">
 <head>
  <meta charset="UTF-8">
-  <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
+  <!-- <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
   </head>
@@ -60,15 +60,20 @@
 		                      <input type="text" id="mail" name="email"> 
 		                      <select id="maillist">
 		                          <option value="">직접 입력</option>
-		                          <option value="@daum.net">@daum.net</option>
-		                          <option value="@naver.com">@naver.com</option>
+		                          <option value="@nate.com">nate.com</option>
+		                          <option value="@gmail.com">gmail.com</option>
+		                          <option value="@daum.net">daum.net</option>
+		                          <option value="@naver.com">naver.com</option>
 		                      </select>
 		                  </td>
 		                 </tr>
+		                 <tr>
+		              	  <td colspan="8" align="right"><input type="file" id="" value="사진 업로드" onchange="ShowImage(this);"></td>
+		              	  </tr>
 		              <tr>
 		                  <td> 성 별 </td>
 		                  <td>  	
-		                      <input type="radio" value="M" name="gender" id="male" readonly> 남 &nbsp; <input type="radio" value="F" id="female" name="gender" readonly> 여
+		                      <input type="radio" value="M" name="gender" id="male" onclick="return(false);"> 남 &nbsp; <input type="radio" value="F" id="female" name="gender" onclick="return(false);"> 여
 		                  </td>
 		              </tr>
 		                 <tr>
@@ -127,7 +132,6 @@
 					<td><input type="text" id="address2" name="address2"></td>
 					<td></td>
 				</tr>		                     		                  
-		        </tr>
 		               <tr>
 		                  <td> 직 급 </td>
 		                  <td>
@@ -178,10 +182,6 @@
 		                  </td>
 		                  <td>연차 보유 수량 : <input type="number" name="l1Value" value="0" min="0" max="30"></td>
 		             </tr>		             
-		             <tr>
-		                  <!-- 사진 등록 스크립트 onchange 이벤트 발생시로 해야 이미지가 불러 와 진다.-->
-		                  <td><input type="file" id="" value="사진 전송" onchange="ShowImage(this);"></td>
-		              </tr>
 		              <tr>
 		                  <td>비고 </td>
 		                  <td colspan="2" rowspan="2">
@@ -238,9 +238,6 @@
 			    });
 		   }
 	  });
-	 </script>
-	  <script>
-		             
 		  				function addrSearch() {
 		  			        new daum.Postcode({
 		  			            oncomplete: function(data) {

@@ -92,6 +92,8 @@ public class BoardService {
 		} catch (CooException e) {
 			e.getMessage();
 		}
+		close(con);
+		
 		return b;
 	}
 
@@ -108,8 +110,6 @@ public class BoardService {
 		} catch (CooException e) {
 			e.getMessage();
 		}
-		
-		
 		close(con);
 		
 		return result;

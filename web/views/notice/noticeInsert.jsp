@@ -9,16 +9,15 @@
 <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
 
 <style>
-	.button1{
-		border: px solid black;
-	}
+	
 	
 	 th, td {
-    border: 1px solid #444444;
+    border: 1px solid white;
   }
   
   	th{
-  		background-color : #efefef;
+  		background-color : #A9D0F5;
+  		
   	}
   	
   	table{
@@ -132,7 +131,7 @@
 							<tr>
 								<th>내용</th>
 							
-								<td  colspan=2>
+								<td colspan=2>
 									<textarea id="ncontent" name="ncontent" style="height: 500px; width: 800px; resize: none; font-size: 20px"></textarea>
 								</td>
 							</tr>

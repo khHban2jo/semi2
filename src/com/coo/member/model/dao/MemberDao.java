@@ -68,6 +68,7 @@ public class MemberDao {
 				 result.setManagerYn(rset.getString("MANAGER_YN"));
 				 result.setHireDate(rset.getDate("HIRE_DATE"));
 				 result.setSubDept(rset.getString("SUB_DEPT"));
+				 result.setProfileA(rset.getString("PROFILE_FILE"));
 			 }
 			
 		}catch(SQLException e) {
@@ -151,6 +152,7 @@ public int insertMember(Connection con, Member m) throws CooException {
 			pstmt.setString(13, m.getJobCode());
 			pstmt.setString(14, m.getEtc());
 			pstmt.setString(15, m.getSubDept());
+			pstmt.setString(16, m.getProfileA());
 				
 			result = pstmt.executeUpdate();
 							   
@@ -183,7 +185,10 @@ public int updateMember(Connection con, Member m) throws CooException {
 		pstmt.setString(8, m.getEtc());
 		pstmt.setString(9, m.getSubDept());
 		pstmt.setString(10, m.getContact());
-		pstmt.setInt(11, m.getEmpCode());
+		pstmt.setString(11, m.getPersonalId());
+		pstmt.setString(12, m.geteName());
+		pstmt.setString(13, m.getProfileA());
+		pstmt.setInt(14, m.getEmpCode());
 		result = pstmt.executeUpdate();
 		
 	}catch(SQLException e) {
@@ -253,6 +258,7 @@ public Member searchMember(String empId, Connection con) throws CooException {
 			 result.setManagerYn(rset.getString("MANAGER_YN"));
 			 result.setHireDate(rset.getDate("HIRE_DATE"));
 			 result.setSubDept(rset.getString("SUB_DEPT"));
+			 result.setProfileA(rset.getString("PROFILE_FILE"));
 		 }
 	}catch(SQLException e) {
 		throw new CooException(e.getMessage());

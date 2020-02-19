@@ -29,9 +29,17 @@ public class Member implements Serializable {
 	private String managerYn;
 	private Date hireDate;
 	private String subDept;
+	private String profileA;
 	
 	public Member() {}
+	public String getProfileA() {
+		return profileA;
+	}
 
+
+	public void setProfileA(String profileA) {
+		this.profileA = profileA;
+	}
 	
 	public String getContact() {
 		return contact;
@@ -207,7 +215,7 @@ public class Member implements Serializable {
 
 	public Member(String empId, int empCode, String empPwd, String empName,String eName, String personalId, String email,
 			String gender, int age, int salary,String contact, String phone, String address, String deptCode, String deptTitle,
-			String jobCode, String jobName, String etc, String managerYn, Date hireDate, String subDept) {
+			String jobCode, String jobName, String etc, String managerYn, Date hireDate, String subDept, String profileA) {
 		super();
 		this.empId = empId;
 		this.empCode = empCode;
@@ -230,6 +238,7 @@ public class Member implements Serializable {
 		this.managerYn = managerYn;
 		this.hireDate = hireDate;
 		this.subDept = subDept;
+		this.profileA = profileA;
 	}
 
 	public Member(String empId, String empPwd) {
@@ -240,7 +249,7 @@ public class Member implements Serializable {
 
 	public Member(String empId, int empCode, String empPwd, String empName,String eName, String personalId, String email,
 			String gender, int age,String contact, String phone, String address, String deptCode, String deptTitle, String jobCode,
-			String jobName, String etc, String subDept) {
+			String jobName, String etc, String subDept,String profileA) {
 		super();
 		this.empId = empId;
 		this.empCode = empCode;
@@ -260,9 +269,8 @@ public class Member implements Serializable {
 		this.jobName = jobName;
 		this.etc = etc;
 		this.subDept = subDept;
+		this.profileA = profileA;
 	}
-
-
 	@Override
 	public String toString() {
 		return "Member [empId=" + empId + ", empCode=" + empCode + ", empPwd=" + empPwd + ", empName=" + empName
@@ -270,8 +278,6 @@ public class Member implements Serializable {
 				+ ", age=" + age + ", salary=" + salary + ", contact=" + contact + ", phone=" + phone + ", address="
 				+ address + ", deptCode=" + deptCode + ", deptTitle=" + deptTitle + ", jobCode=" + jobCode
 				+ ", jobName=" + jobName + ", etc=" + etc + ", managerYn=" + managerYn + ", hireDate=" + hireDate
-				+ ", subDept=" + subDept + "]";
-	}	
-
-
+				+ ", subDept=" + subDept + ", profileA=" + profileA + "]";
+	}
 }

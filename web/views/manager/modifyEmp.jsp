@@ -65,8 +65,10 @@
 		                      <input type="text" id="mail" name="email" value="<%=md.getEmail() %>"> 
 		                      <select id="maillist">
 		                          <option value="">직접 입력</option>
-		                          <option value="@daum.net">@daum.net</option>
-		                          <option value="@naver.com">@naver.com</option>
+		                          <option value="@nate.com">nate.com</option>
+		                          <option value="@gmail.com">gmail.com</option>
+		                          <option value="@daum.net">daum.net</option>
+		                          <option value="@naver.com">naver.com</option>
 		                      </select>
 		                  </td>
 		                 </tr>

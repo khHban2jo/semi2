@@ -33,7 +33,7 @@ public class LogoutServlet extends HttpServlet {
 		   System.out.println("로그아웃이 실행됩니다.");
 		   session.invalidate();
 	   }
-	   response.sendRedirect("views/home.jsp");
+	   response.sendRedirect("signin.html");
 	
 	}
 
