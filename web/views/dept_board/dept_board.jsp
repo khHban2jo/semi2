@@ -11,14 +11,25 @@
 		int endPage = pi.getEndPage(); 
 		
 		String pagingSearchType = parameters.get("searchType");
+		System.out.println("pagingSearchType : "+pagingSearchType);
+		
 		String pagingtitle = parameters.get("title");
+		System.out.println("pagingtitle : "+pagingtitle);
+		
 		String pagingKeyword = parameters.get("keyword");
+		System.out.println("pagingKeyword : "+pagingKeyword);
+		
 		String pagingDate1 = parameters.get("date1");
 		String pagingDate2 = parameters.get("date2");
+		
+		System.out.println("pagingDate1 : "+pagingDate1);
+		System.out.println("pagingDate2 : "+pagingDate2);
+	
 %>
     
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>COO - 게시판</title>
@@ -81,7 +92,6 @@
                     <table style="width:100%; border-collapse:collapse;" id="list">
                         <thead>
                             <tr class='table-line'>
-                                <th><input type="checkbox" id="checkAll"></th>
                                 <th>번호</th>
                                 <th>분류</th>
                                 <th>제목</th>
@@ -97,7 +107,6 @@
                             <tr align="center" class='table-line'>
                             	
                                 <input type="hidden" value="<%= b.getBno() %>">
-                                <td><input type="checkbox" name="list"></td>
                                 <td><%=b.getBno() %></td> 
                                 <td><%=b.getCategory() %></td>
                                 <td><%=b.getBtitle() %></td>
@@ -196,15 +205,15 @@
 	document.getElementById('btn').setAttribute("click", "location.href='<%=request.getContextPath() %>'/searchBoard.bo?search=true"); --%>
 	// 페이징 처리와 이동을 위한 함수
 	function movingFage(){
-		var SearchType =  document.getElementById('pagingMoveSearchType').value;
+		var searchType =  document.getElementById('pagingMoveSearchType').value;
 		var keyword =  document.getElementById('pagingMovekeyword').value;
 		var title =  document.getElementById('pagingMovetitle').value;
 		var date1 =  document.getElementById('pagingMoveDate1').value;
 		var date2 =  document.getElementById('pagingMoveDate2').value;
-			 
+		
 		return "&title="+title
 					+"&keyword="+keyword
-					+"&SearchType="+SearchType
+					+"&searchType="+searchType
 					+"&date1="+date1
 					+"&date2="+date2;
 	}
@@ -228,7 +237,7 @@
 			return false;	
 		}
 		
-		location.href="<%=request.getContextPath() %>/searchBoard.bo?search=true&title="+title
+		location.href="<%=request.getContextPath() %>/searchBoard.bo?title="+title
 																			+"&keyword="+keyword
 																			+"&date1="+date1
 																			+"&date2="+date2

@@ -47,7 +47,7 @@ public class noticeDao {
 				System.out.println("date 가 ''인 상태 ");
 				 sql = prop.getProperty("listCount");
 				 pstmt = con.prepareStatement(sql);
-			}else {
+			}else if( !Datelist.get(0).equals(Datelist.get(1))){
 				sql = prop.getProperty("lisDatetCount");
 				
 				System.out.println("sql : "+sql);
@@ -55,6 +55,14 @@ public class noticeDao {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, Datelist.get(0));
 				pstmt.setString(2, Datelist.get(1));
+				
+			}else if(Datelist.get(0).equals(Datelist.get(1))) {
+				sql = prop.getProperty("lisDatetCount2");
+				
+				System.out.println("sql : "+sql);
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, Datelist.get(0));
 			}
 			
 			rset = pstmt.executeQuery();
@@ -76,7 +84,7 @@ public class noticeDao {
 		return listCount;
 	}
 	
-	// date1 , date2 를 처리 하지 않을 시에 사용 하는 전체 공지를 불러 오는 코드
+	// 전체 검색을 통한 데이터를 가져오는 코드
 	public ArrayList<Notice> selectList(Connection con, int currentPage, int limit, ArrayList<String> Datelist) {
 		// 페이징 처리를 위한 곳
 		
@@ -88,9 +96,10 @@ public class noticeDao {
 
 		try {
 			
-			if(Datelist.get(0).equals("") || Datelist.get(1).equals("") ) {
+			if(Datelist.get(0).equals("") && Datelist.get(1).equals("") ) {
 				//selectList
 				sql = prop.getProperty("selectList");
+				System.out.println("sql : " + sql);
 				pstmt = con.prepareStatement(sql);
 				
 				int startRow = (currentPage-1)*limit+1;	// 1 11
@@ -98,9 +107,10 @@ public class noticeDao {
 				
 				pstmt.setInt(1, endRow);
 				pstmt.setInt(2, startRow);
-			}else {
-				// 
+			}else if( !Datelist.get(0).equals(Datelist.get(1))){
+				// 두개의 날짜가 서로 다를때
 				sql = prop.getProperty("selecDatetList");
+				System.out.println("sql : " + sql);
 				pstmt = con.prepareStatement(sql);
 				
 				int startRow = (currentPage-1)*limit+1;	// 1 11
@@ -110,6 +120,17 @@ public class noticeDao {
 				pstmt.setString(2, Datelist.get(1));
 				pstmt.setInt(3, endRow);
 				pstmt.setInt(4, startRow);
+			}else if(Datelist.get(0).equals(Datelist.get(1))){
+				// 두개의 날짜가 서로 같거나 동일한 한 날짜만 검색시
+				sql = prop.getProperty("selecDatetList2");
+				pstmt = con.prepareStatement(sql);
+				
+				int startRow = (currentPage-1)*limit+1;	// 1 11
+				int endRow = startRow + limit - 1; 		// 5
+				
+				pstmt.setString(1, Datelist.get(0));
+				pstmt.setInt(2, endRow);
+				pstmt.setInt(3, startRow);
 			}
 			
 //			pstmt = con.prepareStatement(sql);
@@ -455,7 +476,7 @@ public class noticeDao {
 			System.out.println("endRow : "+ endRow);
 			System.out.println("sql : "+ sql);
 			
-			if(Datelist.get(0).equals("") || Datelist.get(1).equals("") ) {
+			if(Datelist.get(0).equals("") && Datelist.get(1).equals("") ) {
 				pstmt.setString(1, keyword);
 				pstmt.setInt(2, endRow);
 				pstmt.setInt(3, startRow);
@@ -485,6 +506,10 @@ public class noticeDao {
 						);
 				list.add(b);
 			}
+		System.out.println("list 정보 확인");
+		for(Notice show : list) {
+			System.out.println(show.toString());
+		}
 			
 		}catch(SQLException e) {
 			e.printStackTrace();

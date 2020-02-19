@@ -19,8 +19,7 @@
 		<div class="right">
 			<div id="notice" align="center;">
 				<table class="managerTable">
-					<form action="<%= request.getContextPath()%>/noticeServletInsert"
-						method="POST">
+					<form action="<%= request.getContextPath()%>/noticeServletInsert" method="POST">
 						<tr>
 						<thead>
 							<th>공지 사항 작성</th>
@@ -56,7 +55,10 @@
 						</tr>
 						<tfoot>
 							<tr align="center">
-								<td id="foot"> <input type="submit" id="regist" value=" 확 인 " style="width: 100px; height: 30px;">
+								<td id="foot"> 
+								<% if(m.getEtc().equals("관리자")){%>
+									<input type="submit" id="regist" value=" 확 인 " style="width: 100px; height: 30px;">
+								<% } %>
 									&nbsp; &nbsp;
 							</form>
 								<!-- <input type="reset" value=" 취 소 "style="width: 100px; height: 30px;"> --> 
@@ -85,7 +87,8 @@
     })();
 
  	document.getElementById("goNoticeList").onsubmit = function(){
-		return false;
+		//return false;
+ 		history.back(-1);
 	}
     
 	document.getElementById("goNoticeList").onclick = function(){
