@@ -1,7 +1,6 @@
 package com.coo.ta.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -15,6 +14,7 @@ import com.coo.check.model.vo.CheckDoc;
 import com.coo.exception.CooException;
 import com.coo.member.model.vo.Member;
 import com.coo.ta.model.service.VacDocService;
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class ApprSelect
@@ -36,6 +36,8 @@ public class ApprSelect extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		response.setContentType("application/json; charset=UTF-8");
+		
 		HttpSession session = request.getSession();
 		Member emp = (Member)session.getAttribute("member");
 		int empCode = emp.getEmpCode();
@@ -50,10 +52,9 @@ public class ApprSelect extends HttpServlet {
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
-//		PrintWriter out = response.getWriter();
-//		out.print(cdList);
 		
 		
+		new Gson().toJson(cdList, response.getWriter());
 	}
 
 	/**

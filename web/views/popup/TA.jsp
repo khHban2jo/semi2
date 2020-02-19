@@ -147,21 +147,18 @@
         	</fieldset>
         </div>
         
+        <!-- 나의 휴가 계시판 -->
         <div id="area3" class="area3">
-        	<table>
+        	<table id="vacDT" class="vacDT">
         		<thead>
         			<tr>
-        				<td class="td1">문서번호</td>
-        				<td class="td2">문서제목</td>
-        				<td class="td3">문서상태</td>
+        				<td class="td4">문서번호</td>
+        				<td class="td5">문서제목</td>
+        				<td class="td6">문서상태</td>
         			</tr>
         		</thead>
+        		
         		<tbody>
-        			<tr>
-        				<td class="td1">1</td>
-        				<td class="td2" title='홍길동의 연차 신청서 가나다라마바사아자차'><a>홍길동의 연차 신청서 가나다라마바사아자차</a></td>
-        				<td class="td3">미승인</td>
-        			</tr>
         		</tbody>
         	</table>
         </div>

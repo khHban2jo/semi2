@@ -158,17 +158,20 @@
 $(function(){
 	
 	$("#list tr").mouseenter(function(){
-		if($(this).children().eq(1).text() != '번호'){
+		if($(this).children().eq(0).text() != '번호'){
 			$(this).css({"background":"snow", "cursor":"pointer"});
 		}
 	}).mouseout(function(){
 		$(this).css({"background":"white"});
 	}).click(function(){
-		var nno = $(this).children().eq(1).text()
-		console.log($(this).children().eq(1).text());
-		if(!nno == '번호'){			
-			location.href="<%=request.getContextPath()%>/noticeSelectOn?nno=" + nno;
-		}	
+		var nno = $(this).children().eq(0).text()
+		console.log($(this).children().eq(0).text());
+		if(nno == '번호'){			
+			
+		}else{
+			location.href="<%=request.getContextPath()%>/noticeSelectOn?nno=" + nno;			
+		}
+		
 	});
 
 });
