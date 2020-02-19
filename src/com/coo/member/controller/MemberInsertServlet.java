@@ -89,20 +89,20 @@ public class MemberInsertServlet extends HttpServlet {
 		String deptCodeA = request.getParameter("cr2");
 		String subcrA = request.getParameter("cr");
 		int subDeptCode = Integer.parseInt(request.getParameter("cr3"));
-		System.out.println(subcrA);
 //		String subDeptA = request.getParameter("subDeptA");
 		
 		StockLine d = new StockLine();
 		int result = 0;
+		
 		if(subcrA.equals("1")) {
 			d.setEmpcode(empCode);
 			d.setDeptCode(deptCodeA);
 			d.setSubcode(subDeptCode);
 			result = new MemberService().insertStockLine(d);
 		}else if(subcrA.equals("2")) {
-			d.setSubcode(empCode);
-			d.setDeptCode(deptCodeA);
 			d.setEmpcode(subDeptCode);
+			d.setDeptCode(deptCodeA);
+			d.setSubcode(empCode);
 			result = new MemberService().insertStockLine(d);
 		}
 		
@@ -124,7 +124,6 @@ public class MemberInsertServlet extends HttpServlet {
 		response.getWriter().print("</body>");
 		response.getWriter().print("</html>");
 		
-		response.sendRedirect("views/home.jsp");
 	}
 
 	/**

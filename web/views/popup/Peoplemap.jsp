@@ -170,7 +170,7 @@
 				    
 					var eSearch1 = $(this).parent().find('#ev').val();
 					var eSearch = $(this).parent().find('input').val();
-					if(document.referrer=="http://localhost:9999/semi/checkAdmin.me?btnDen=1"){
+					if(document.referrer.includes("btnDen=1")){
 							opener.document.getElementById('crv4').value = eSearch1;
 							window.close();
 					}else{

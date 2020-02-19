@@ -67,7 +67,7 @@
 		              <tr>
 		                  <td> 성 별 </td>
 		                  <td>  	
-		                      <input type="radio" value="M" name="gender" id="male" disabled> 남 &nbsp; <input type="radio" value="F" id="female" name="gender" disabled> 여
+		                      <input type="radio" value="M" name="gender" id="male" readonly> 남 &nbsp; <input type="radio" value="F" id="female" name="gender" readonly> 여
 		                  </td>
 		              </tr>
 		                 <tr>
