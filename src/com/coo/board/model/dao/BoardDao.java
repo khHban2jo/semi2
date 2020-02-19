@@ -264,11 +264,9 @@ public class BoardDao {
 			if (title.equals("title")) {
 
 				if (!parameters.get("searchType").equals("1")) {
-					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminListTitleCount"
-							: (date1.equals(date2)) ? "adminListTitleOneDateCount" : "adminListTitleTwoDateCount";
+					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminListTitleCount" : (date1.equals(date2)) ? "adminListTitleOneDateCount" : "adminListTitleTwoDateCount";
 				} else {
-					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminListTitleCount1"
-							: (date1.equals(date2)) ? "adminListTitleOneDateCount1" : "adminListTitleTwoDateCount1";
+					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminListTitleCount1" : (date1.equals(date2)) ? "adminListTitleOneDateCount1" : "adminListTitleTwoDateCount1";
 				}
 
 			} else if (title.equals("content")) {
@@ -293,26 +291,26 @@ public class BoardDao {
 				
 			} else if (title.equals("all")) { // 전체조건
 				// 전체조건 에서는 제목 내용 상관 없이 모두 보여주는 것
-				// 관리자 처음 올시에 조건이 없는 상태에서의 페이지 처리와 페이징 처리를 위해 따로 '전체조건' 을 위한 코드를 만든다. 
-				if (!parameters.get("searchType").equals("1")) {
-					
+				
+				if (!parameters.get("searchType").equals("1")) {				
 					// parameters.get("searchType") - 2
-					if(parameters.get("searchType").equals("2")) {						
-						inputSql = "adminlist2";
-					}
-					
+					if(parameters.get("searchType").equals("2")) {	
+						//inputSql = "adminlist2";
+						inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminlist2" : (date1.equals(date2)) ? "adminlist2One" : "adminlist2Two";
+					}					
 					// parameters.get("searchType") - 3
 					if(parameters.get("searchType").equals("3")) {						
-						inputSql = "adminlist3";
-					}
-					
+						//inputSql = "adminlist3";
+						inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminlist3" : (date1.equals(date2)) ? "adminlist3One" : "adminlist3Two";
+					}					
 					// parameters.get("searchType") - 4		
 					if(parameters.get("searchType").equals("4")) {						
-						inputSql = "adminlist4";
-					}
-					
+						//inputSql = "adminlist4";
+						inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminlist4" : (date1.equals(date2)) ? "adminlist4One" : "adminlist4Two";
+					}				
 				}else {
-					inputSql = "adminlistAll";
+					//inputSql = "adminlistAll";
+					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminlistAll" : (date1.equals(date2)) ? "adminlistAllOne" : "adminlistAllTwo";
 				}
 			}
 
@@ -349,13 +347,23 @@ public class BoardDao {
 				// 유저가 처음 올시에 조건이 없는 상태에서의 페이지 처리와 페이징 처리를 위해 따로 '전체조건' 을 위한 코드를 만든다. 
 				if (!parameters.get("searchType").equals("1")) {
 					// parameters.get("searchType") - 2
-					inputSql = "listAll2";
+					if(parameters.get("searchType").equals("2")) {						
+						//inputSql = "listAll2";
+						inputSql = (date1.isEmpty() && date2.isEmpty()) ? "listAll2" : (date1.equals(date2)) ? "listAll2One" : "listAllCount2Two";
+					}
 					// parameters.get("searchType") - 3
-					inputSql = "listAll3";
+					if(parameters.get("searchType").equals("3")) {			
+						//inputSql = "listAll3";
+						inputSql = (date1.isEmpty() && date2.isEmpty()) ? "listAll3" : (date1.equals(date2)) ? "listAllCount3One" : "listAllCount3Two";
+					}
 					// parameters.get("searchType") - 4			
-					inputSql = "listAll4";
+					if(parameters.get("searchType").equals("4")) {		
+						//inputSql = "listAll4";
+						inputSql = (date1.isEmpty() && date2.isEmpty()) ? "listAll4" : (date1.equals(date2)) ? "listAllCount4One" : "listAllCount4Two";
+					}
 				}else {
-					inputSql = "listAll";
+					//inputSql = "listAll";
+					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "listAll" : (date1.equals(date2)) ? "listAllOne" : "listAllTwo";
 				}
 			}
 		}
@@ -465,9 +473,14 @@ public class BoardDao {
 						}
 
 					} else if (title.equals("all")) { // 전체조건
-						// 관리자는 모든 부서와 내용 날짜 상관없이 봐야 되므로 조건 x
-						// 전체 조건이 아니므로 전체 조건이 아니고 title.equals("all") 할시에는 부서 searchType 에 따라서 sql구문에서 걸러 내준다.
-						// 
+						if (date1.isEmpty() && date2.isEmpty()) {
+							
+						} else if (date1.equals(date2)) {
+							pstmt.setString(1, parameters.get("date1")); // 날짜 1
+						} else if (!date1.equals(date2)) {
+							pstmt.setString(1, parameters.get("date1")); // 날짜 1
+							pstmt.setString(2, parameters.get("date2")); // 날짜 2
+						}
 					}
 				} else {
 					
@@ -525,7 +538,15 @@ public class BoardDao {
 						}
 
 					} else if (title.equals("all")) { // 전체조건 
-						// 
+						// inputSql로 구분하여 파라미터 값을 넣는다. 전체 검색 이므로 분류나 부서코드 x 그래서 inputSql로 비교가 가능하다.
+						if(inputSql.equals("adminlistAll")) {
+							
+						}else if(inputSql.equals("adminlistAllOne")) {
+							pstmt.setString(1, parameters.get("date1")); // 날짜 1
+						}else if(inputSql.equals("adminlistAllTwo")) {
+							pstmt.setString(1, parameters.get("date1")); // 날짜 1
+							pstmt.setString(2, parameters.get("date2")); // 날짜 2
+						}
 					}
 				}
 				
@@ -604,6 +625,18 @@ public class BoardDao {
 
 					} else if (title.equals("all")) { // 전체조건
 						pstmt.setString(1, parameters.get("deptView")); // 부서 코드
+						
+						if (date1.isEmpty() && date2.isEmpty()) {
+							
+						} else if (date1.equals(date2)) {
+							
+							pstmt.setString(2, parameters.get("date1")); // 날짜 1
+							
+						} else if (!date1.equals(date2)) {
+							
+							pstmt.setString(2, parameters.get("date1")); // 날짜 1
+							pstmt.setString(3, parameters.get("date2")); // 날짜 2
+						}
 					}
 
 				} else {
@@ -663,6 +696,17 @@ public class BoardDao {
 
 					} else if (title.equals("all")) { // 전체조건
 						pstmt.setString(1, parameters.get("deptView")); // 부서 코드
+						if (date1.isEmpty() && date2.isEmpty()) {
+							
+						} else if (date1.equals(date2)) {
+							
+							pstmt.setString(2, parameters.get("date1")); // 날짜 1
+							
+						} else if (!date1.equals(date2)) {
+							
+							pstmt.setString(2, parameters.get("date1")); // 날짜 1
+							pstmt.setString(3, parameters.get("date2")); // 날짜 2
+						}
 					}
 				}
 			}
@@ -670,8 +714,7 @@ public class BoardDao {
 			rset = pstmt.executeQuery();
 			
 			while (rset.next()) {
-				System.out.println("실행");
-				
+
 				Board b = new Board();
 				b.setBno(rset.getInt("bno"));
 				b.setBtype(rset.getInt("btype"));
