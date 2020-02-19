@@ -50,7 +50,9 @@ public class MemberInsertServlet extends HttpServlet {
                         + request.getParameter("phone2") + "-"
                         + request.getParameter("phone3");
 		
-		String address = request.getParameter("address");  
+		String address = request.getParameter("zipCode")+", "
+		        +request.getParameter("address1")+ ", "
+		        +request.getParameter("address2");
 		String deptCode = request.getParameter("deptCode"); 
 		String jobCode = request.getParameter("jobCode");
 		String etc = request.getParameter("etc");
