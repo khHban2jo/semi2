@@ -131,4 +131,15 @@ public class NoticeService {
 	}
 
 
+	public ArrayList<Notice> noticeAjax() {
+		Connection con = getConnection();
+
+		ArrayList<Notice> list = new noticeDao().noticeAjax(con);
+
+		close(con);
+
+		return list;
+	}
+
+
 }

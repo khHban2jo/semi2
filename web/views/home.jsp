@@ -17,7 +17,8 @@
     	<%@ include file="common/COO_left.jsp" %>
 
         <div class="right">
-            <div id="notice" style="background:#f8f9fa;"></div>
+             <%@ include file="notice/showFiveNotice.jsp" %>
+            
             <span id="todo"></span>
             <span id="approval"></span>
         </div>

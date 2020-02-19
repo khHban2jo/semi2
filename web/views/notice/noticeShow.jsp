@@ -23,7 +23,7 @@
             	<table class="managerTable">
 		          <form action="<%= request.getContextPath()%>/noticeUpdate" method="POST">
 		              <tr>
-		                  <thead><th>공지 사항</th></thead>
+		                  <thead><th style="font:28pt '궁서체'">공지 사항</th></thead>
 		                  <input type="hidden" name="nno" id="nno" value=<%= n.getNno() %> >
 		              </tr>
 		              <tr>
@@ -44,15 +44,23 @@
 <!-- 자바스크립트의 변수를 JSP에 넘겨주지는 못합니다. 방법은 있지만 코드가 길어지고 복잡해 진다.-->
 						<td style="font-size: 18px;">작성일  : <%= n.getNdate() %> <input type="hidden" id="nowDate" name="nowDate" value=""> </td>
 		              </tr>
-		              <tr>
+<!-- 		              <tr>
 		              	<td style="font-size: 18px;">내용 
 		              	폰트 크기 선택<select id="font_size">
 		              		<option value="10">10</option>
 		              		<option value="15">15</option>
 		              		<option value="20">20</option>
 		              		<option value="25">25</option>
-		              	</select> </td><br>
-		              </tr>
+		              	</select> &nbsp;
+		              	폰트 종류 선택<select id="font_face">
+		              		<option value="궁서체">궁서체</option>
+		              		<option value="굴림">굴림</option>
+		              		<option value="굴림체">굴림체</option>
+		              		<option value="궁서">궁서</option>
+		              		<option value="굴림">궁서체</option>
+		              		</select>
+		              	</td>
+		              </tr> -->
 		              <tr>
 		              	<% if(m.getEmpId().equals("admin")){%>
 							<td style="font-size: 18px;">
@@ -85,8 +93,11 @@
     document.getElementById('font_size').onclick = function(){
  		var fontSize = document.getElementById('font_size').value;
  		document.getElementById('ncontent').style.fontSize = fontSize+"px";
+    };//
+    document.getElementById('font_face').onclick = function(){
+ 		var fontFace = document.getElementById('font_size').value;
+ 		document.getElementById('ncontent').style.font = ''+fontSize;
     };
-    
     (function () { 
     	var day = new Date();
     	var nday = day.getFullYear()+"-"+ day.getMonth() + 1+"-"+day.getDate();
