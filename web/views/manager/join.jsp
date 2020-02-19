@@ -8,6 +8,7 @@
  <meta charset="UTF-8">
   <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
   </head>
   <body>  
   <% if(mem.getEmpId().equals("admin")){ %>
@@ -110,14 +111,24 @@
 		                  ― <input type="text" maxlength="4" id="p2" name="phone2"> ― <input type="text" maxlength="4" id="p3" name="phone3">
 		              </td>
 		              </tr>
-		              <tr>
-		                  <td>주소  </td>
-		                  <td colspan="2">
-		                      <input type="text" name="address" value="서울시">
-		                  </td>
-		                  
-		              </tr>
-		                  <tr>
+		        <tr>
+		        <tr>
+					<td>우편번호&nbsp;&nbsp;&nbsp;<input type="button" id="ckZip" value="검색" onclick="addrSearch();"></td>
+					<td><input type="text" id="zipCode" name="zipCode"></td>			
+					
+				</tr>
+				<tr>
+					<td>주소</td>  
+					<td><input type="text" id="address1" name="address1"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>상세주소</td>  
+					<td><input type="text" id="address2" name="address2"></td>
+					<td></td>
+				</tr>		                     		                  
+		        </tr>
+		               <tr>
 		                  <td> 직 급 </td>
 		                  <td>
 		                       <select name="jobCode" style="width: 150px;">
@@ -166,8 +177,7 @@
 		                       <input type="hidden" value="사번검색" id="crv3">&nbsp;&nbsp;<input type="hidden" name="cr3" id="crv4" value="사번">
 		                  </td>
 		                  <td>연차 보유 수량 : <input type="number" name="l1Value" value="0" min="0" max="30"></td>
-		              </tr>
-		             
+		             </tr>		             
 		             <tr>
 		                  <!-- 사진 등록 스크립트 onchange 이벤트 발생시로 해야 이미지가 불러 와 진다.-->
 		                  <td><input type="file" id="" value="사진 전송" onchange="ShowImage(this);"></td>
@@ -229,6 +239,49 @@
 		   }
 	  });
 	 </script>
+	  <script>
+		             
+		  				function addrSearch() {
+		  			        new daum.Postcode({
+		  			            oncomplete: function(data) {
+		  			               
+		  			                var fullAddr = '';
+		  			                var extraAddr = ''; 
+
+		  			                
+		  			                if (data.userSelectedType === 'R') { 
+		  			                    fullAddr = data.roadAddress;
+
+		  			                } else { 
+		  			                    fullAddr = data.jibunAddress;
+		  			                }
+
+		  			               
+		  			                if(data.userSelectedType === 'R'){
+		  			                    
+		  			                    if(data.bname !== ''){
+		  			                        extraAddr += data.bname;
+		  			                    }
+		  			                    
+		  			                    if(data.buildingName !== ''){
+		  			                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		  			                    }
+		  			                    
+		  			                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+		  			                }
+
+		  			                
+		  			                $('#zipCode').val(data.zonecode); //5자리 새우편번호 사용
+		  			                
+		  			                $('#address1').val(fullAddr);
+
+		  			                
+		  			                $('#address2').focus();
+		  			            }
+		  			        }).open();
+		  			    };
+		  				
+        </script>
 	 <%}%>
   
 </body>		     
