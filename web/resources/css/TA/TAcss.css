@@ -329,3 +329,22 @@ hr{
 	height:25px;
 	width:20%;
 }
+.td4{
+	text-overflow:ellipsis; 
+	overflow:hidden;
+	height:25px;
+	width:18%;
+}
+.td5{
+	text-overflow:ellipsis; 
+	overflow:hidden;
+	white-space:nowrap;
+	height:25px;
+	width:62%;
+}
+.td6{
+	text-overflow:ellipsis; 
+	overflow:hidden;
+	height:25px;
+	width:20%;
+}
