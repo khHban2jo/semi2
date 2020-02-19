@@ -76,7 +76,6 @@
 				<div class="table-line">
 					<table style="width: 100%; border-collapse: collapse;" id="list">
 						<tr class='table-line'>
-							<th><input type="checkbox" id="checkAll"></th>
 							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>
@@ -85,7 +84,6 @@
 						</tr>
 						<% for(Notice n : noticeList){ %>
 						<tr align="center" class='table-line'>
-							<td></td>
 							<td><%= n.getNno() %></td>
 							<td><%= n.getNtitle() %></td>
 							<td><%= n.getNwriter() %></td>
@@ -160,13 +158,17 @@
 $(function(){
 	
 	$("#list tr").mouseenter(function(){
-		$(this).css({"background":"snow", "cursor":"pointer"});
+		if($(this).children().eq(1).text() != '번호'){
+			$(this).css({"background":"snow", "cursor":"pointer"});
+		}
 	}).mouseout(function(){
 		$(this).css({"background":"white"});
 	}).click(function(){
 		var nno = $(this).children().eq(1).text()
-		console.log(nno);
-		location.href="<%=request.getContextPath()%>/noticeSelectOn?nno=" + nno;
+		console.log($(this).children().eq(1).text());
+		if(!nno == '번호'){			
+			location.href="<%=request.getContextPath()%>/noticeSelectOn?nno=" + nno;
+		}	
 	});
 
 });
@@ -183,6 +185,14 @@ $(function(){
 		
 		var date1 = document.getElementById('time1').value;
 		var date2 = document.getElementById('time2').value;
+		
+		if(date1 > date2){
+			alert("날짜가 잘못 입력 되었습니다. 다시 입력 해주세요.");
+			return false;	
+		}else if( (date1.length <= 0 && date2.length > 0) ||  (date1.length > 0 && date2.length <= 0) ){
+			alert("날짜가 잘못 입력 되었습니다. 다시 입력 해주세요.");
+			return false;	
+		}
 		
 		location.href="<%=request.getContextPath()%>/noticeListServlet?"
 													+"search="+document.getElementById('search').value

@@ -89,7 +89,7 @@
 		             	&nbsp; &nbsp; 
 		             <% } %>
 		        	</form>
-		        	<button style="width: 100px; height: 30px;" onclick="location.href = '/semi/noticeListServlet?search=all&date1=all&date2=all'"> 취 소 </button>
+		        	<button style="width: 100px; height: 30px;" onclick="history.back(-1);"> 취 소 </button>
 		        	 &nbsp; &nbsp; 
 		        	<% if(m.getEmpId().equals("admin")){%>
 		            	<button id="deleteNotice" style="width: 100px; height: 30px; margin-bottom: 50px"> 삭 제 </button>

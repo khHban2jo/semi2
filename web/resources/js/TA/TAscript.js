@@ -10,6 +10,34 @@ $(function(){
     }
     
     $('.progressBar').css('width',per+'%');
+    
+    //	휴무 예정일 가져오기
+    $.ajax({
+    	url: "/semi/vdSelect.ta",
+		type:"get",
+		success:function(data){
+			data = data.split("-");
+			
+			for(var i=0; i<data.length; i++){
+				if(data[i]=='예정일 없음'){
+					data[i] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + data[i];
+				}
+			}
+			
+			$('#La2ValuebL1').append(data[0]);
+			$('#La2ValuebL2').append(data[1]);
+			$('#La2ValuebL3').append(data[2]);
+		}
+    });
+    
+    //	휴무 게시판
+    $.ajax({
+    	url : "/semi/apSelect.ta",
+    	type: "get",
+    	success: function(data){
+    		
+    	}
+    });
 
     //  출근버튼 클릭
     $('#startBtn').click(function(){

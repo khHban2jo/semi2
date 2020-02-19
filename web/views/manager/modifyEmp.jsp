@@ -11,6 +11,7 @@
 <meta charset="UTF-8">
 <title>사원수정</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     <link rel="stylesheet" href="/semi/resources/css/manager/manageView.css">
 </head>
 <body>
@@ -106,12 +107,21 @@
 		              </td>
 		              </tr>
 		              <tr>
-		                  <td>주 소  </td>
-		                  <td colspan="2">
-		                      <input type="text" name="address" value="<%=md.getAddress() %>">
-		                  </td>
-		                  
-		              </tr>
+					<td>우편번호&nbsp;&nbsp;&nbsp;<input type="button" id="ckZip" value="검색" onclick="addrSearch();"></td>
+					<td><input type="text" id="zipCode" name="zipCode"></td>		
+					
+				     </tr>
+		             <tr>
+					<td>주소</td>  
+					<td><input type="text" id="address1" name="address1"></td>
+					
+					<td></td>
+				</tr>
+				<tr>
+					<td>상세주소</td>  
+					<td><input type="text" id="address2" name="address2"></td>
+					<td></td>
+				</tr>		
 		              <tr>
 		                  <td> 직 급(이전 직급) &nbsp;&nbsp;<input type="text" class="pr" readonly value="<%=md.getJobCode() %>"></td>
 		                  <td>
@@ -212,6 +222,50 @@
 		  });
 		 
 	</script>
+	<script>
+		             
+		  				function addrSearch() {
+		  			        new daum.Postcode({
+		  			            oncomplete: function(data) {
+		  			               
+		  			                var fullAddr = '';
+		  			                var extraAddr = ''; 
+
+		  			                
+		  			                if (data.userSelectedType === 'R') { 
+		  			                    fullAddr = data.roadAddress;
+
+		  			                } else { 
+		  			                    fullAddr = data.jibunAddress;
+		  			                }
+
+		  			               
+		  			                if(data.userSelectedType === 'R'){
+		  			                    
+		  			                    if(data.bname !== ''){
+		  			                        extraAddr += data.bname;
+		  			                    }
+		  			                    
+		  			                    if(data.buildingName !== ''){
+		  			                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+		  			                    }
+		  			                    
+		  			                    fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+		  			                }
+
+		  			                
+		  			                $('#zipCode').val(data.zonecode); //5자리 새우편번호 사용
+		  			                
+		  			                $('#address1').val(fullAddr);
+
+		  			                
+		  			                $('#address2').focus();
+		  			            }
+		  			        }).open();
+		  			    };
+		  				
+        </script>
+	
 	<script src="resources/js/manager/join.js"></script>
 	
 </body>

@@ -1,4 +1,4 @@
-package com.coo.member.controller;
+package com.coo.check.controller;
 
 import java.io.IOException;
 
@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.coo.member.model.service.MemberService;
+import com.coo.check.model.service.CheckService;
+import com.google.gson.Gson;
 
 /**
- * Servlet implementation class MemberSearchByEmpCodeServlet
+ * Servlet implementation class CheckMasterStatusServlet
  */
-@WebServlet("/searchEmpCode.me")
-public class MemberSearchByEmpCodeServlet extends HttpServlet {
+@WebServlet("/cMStatus.ch")
+public class CheckMasterStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberSearchByEmpCodeServlet() {
+    public CheckMasterStatusServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,9 +30,20 @@ public class MemberSearchByEmpCodeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int empCode = Integer.parseInt(request.getParameter("searchEmpCode"));
+		response.setContentType("application/json charset=UTF-8");
+		int mascode = Integer.valueOf(request.getParameter("masCode"));
 		
-		int result = new MemberService().searchEmpCode(empCode);
+		String status = new CheckService().getMasStauts(mascode);
+		System.out.println(status);
+		 if(status != null) {
+			 status = "Y";
+		 }else {
+			 status = "N";
+		 }
+		new Gson().toJson(status, response.getWriter());
+		
+		
+		
 	}
 
 	/**

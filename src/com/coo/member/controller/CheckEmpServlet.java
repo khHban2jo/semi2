@@ -35,7 +35,6 @@ public class CheckEmpServlet extends HttpServlet {
 		}else {
 			
 		}
-		System.out.println(result);
 	}
 
 	/**
