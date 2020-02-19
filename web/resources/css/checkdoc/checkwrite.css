@@ -169,3 +169,31 @@ label{
 .dayOffType{
     visibility: hidden;
 }
+
+/*결의서 css*/
+text td{
+            text-align: center;
+        }
+.num{
+       text-align: right;
+         
+      }
+        .su{
+            width : 50px;
+        }
+        .money, .pay{
+            width : 90px;
+            
+        }
+        .no{
+            width : 30px;
+        }
+        
+.buttonla{
+	border : 1px solid black;
+	cursor: pointer;
+}
+
+.labu{
+	width : 30px;
+}

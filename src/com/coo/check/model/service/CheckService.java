@@ -260,5 +260,13 @@ public class CheckService {
 		return result;
 	}
 
+	public String getMasStauts(int mascode) {
+		Connection con = getConnection();
+		
+		String masStatus = cDao.getMasStauts(con,  mascode);
+		close(con);
+		return masStatus;
+	}
+
 
 }

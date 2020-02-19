@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.coo.member.model.vo.*"
     errorPage="/views/common/errorPage.jsp" %>
-<% Member mem = (Member)session.getAttribute("member");  
-   Member vv = new Member(); %>    
-
+<% Member mem = (Member)session.getAttribute("member"); %>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -69,7 +67,7 @@
 		              <tr>
 		                  <td> 성 별 </td>
 		                  <td>  	
-		                      <input type="radio" value="M" name="gender" id="male" disabled> 남 &nbsp; <input type="radio" value="F" id="female" name="gender" disabled> 여
+		                      <input type="radio" value="M" name="gender" id="male" readonly> 남 &nbsp; <input type="radio" value="F" id="female" name="gender" readonly> 여
 		                  </td>
 		              </tr>
 		                 <tr>
@@ -79,7 +77,7 @@
 		              <tr>
 		                  <td>연락처(자택)</td>
 		                  <td colspan="2">
-		                  <input type="text" list="t1" name="tel1">
+		                  <input type="text" list="t1" name="tel1" id="tt1">
 		                  <datalist id="t1"> 
 		                  <option value="02">서울 </option>
                           <option value="031">경기 </option>
@@ -165,7 +163,7 @@
 		                          <option value="D4">연구부서</option>
 		                          <option value="D5">미발령</option>
 		                      </select>
-		                       <input type="hidden" value="사번검색" id="crv3">&nbsp;&nbsp;<input type="hidden" name="cr3" id="crv4">
+		                       <input type="hidden" value="사번검색" id="crv3">&nbsp;&nbsp;<input type="hidden" name="cr3" id="crv4" value="사번">
 		                  </td>
 		                  <td>연차 보유 수량 : <input type="number" name="l1Value" value="0" min="0" max="30"></td>
 		              </tr>
@@ -210,7 +208,7 @@
 		    });
 		 });
 	  
-	  $('#crv').change(function(){
+	 $('#crv').change(function(){
 		   var sd = document.getElementById('crv').selectedIndex;
 		   if(sd>0){
 			   $('#crv2').removeAttr('disabled');
@@ -219,15 +217,13 @@
 		   }else if(sd==2){
 			   $('#crv3').attr('type','button').val("검색(정)");
 		   }
-		   $('#crv3').click(function(){
-			   var pre = this.window();
-			   var pop = window.open("about:black","검색","width=500,height=400");
+		   $('#crv4').attr('type','text').attr('readonly','true');
 		   
+		   $('#crv3').click(function(){
+			   var pop = window.open("about:black","검색","width=500,height=400");
 			    $.ajax({
-			    	success:function(){
-			    		pop.location.href="<%=request.getContextPath() %>/pAll.do";
-					
-			    	}
+			    	url:pop.location.href="<%=request.getContextPath() %>/pAll.do",
+			    	type:"post",
 			    	});
 			    });
 		   }

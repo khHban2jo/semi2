@@ -68,6 +68,7 @@ public class SearchEmpNameServlet extends HttpServlet {
 				savePcodes.add(getMassub.get(i).getEmpcode());
 				savePcodes.add(getMassub.get(i).getSubcode());	
 				
+				
 			}
 		
 		
