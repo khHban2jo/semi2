@@ -59,8 +59,8 @@ public class MemberService {
 	
 		result = mDao.insertMember(con,m);
 		
-		System.out.println("result : " + result);
 		if(result>0) commit(con); else rollback(con);
+		
 		close(con);
 		
 		return result;
@@ -76,7 +76,7 @@ public class MemberService {
 		try {
 			result = mDao.updateMember(con,m);
 		} catch (CooException e) {
-
+			 e.getMessage();
 		}
 		
 		if(result>0) commit(con);
@@ -88,13 +88,20 @@ public class MemberService {
 		
 	}
 	
-	public int deleteMember(String empId) throws CooException {
-
+	public int deleteMember(String empId){
 	Connection con = getConnection();
-	int result= mDao.deleteMember(con,empId);
-	if(result>0) commit(con);
-	else rollback(con);
+
+	int result = 0;
+	try {
+		result = mDao.deleteMember(con,empId);
+	} catch (CooException e) {
+		e.getMessage();
+	}
+	
+	if(result>0) commit(con); else rollback(con); 
+	
 	close(con);
+	
 	return result;
 	
 	}
@@ -129,6 +136,8 @@ public class MemberService {
 		} catch (CooException e) {
 			e.getMessage();
 		}
+		
+		close(con);
 		
 		return result;
 	}
