@@ -3,6 +3,10 @@ package com.coo.check.model.vo;
 import java.io.Serializable;
 import java.sql.Date;
 
+/**
+ * @author Rin
+ *
+ */
 public class CheckDoc implements Serializable{
 	private int docNumber; 	//문서번호
 	private String aTitle;	//제목
@@ -11,17 +15,13 @@ public class CheckDoc implements Serializable{
 	private String docType; //문서 종류
 	private int aStatus;	//진행상황  0: 내부진행, 1:합의진행, 2:최종진행 3:결재완료 4:반려  -> 누군가 4를 누르면 결재진행 종료및 코멘트 넣기
 	private String approver; //현재 결재 진행자(반려시 작성자)
-	private	String deptCode; //결재 부서 코드
-	private String deptName; //결재 부서명
+	private String deptName; //기안자 부서명
+	private String indept;
 	private String inPeople; //내부 결재 인원 (?,?,?,?) empno로 정과 부 들어와서  split 할것
 	private String inStatus; //내부결재 상황 (위의 길이의 /2 만큼)'0' 들여놓을 것 -> join(', ')
-	private String colDeptCode; //똑같이 하는데 null가능
-	private String coldeptName;
+	private String coldeptName; //똑같이 하는데 null가능
 	private String colPeople;
 	private String colStatus;
-	private String endDeptCode;
-	private String enddeptName;
-	private String endPerson; //최종결재자가 존재할시 결재후 3 or 4
 	private String viewPeople; //참조자
 	private Date docDate; //문서 작성 날짜
 	private String returnComment; //반려시 코멘트
@@ -32,30 +32,51 @@ public class CheckDoc implements Serializable{
 		
 	}
 
-	public CheckDoc( String aTitle, int aWriter, String docType, String approver,
-			String deptCode, String deptName, String inPeople, String inStatus, String colDeptCode, String coldeptName,String colPeople, String colStatus,
-			String endDeptCode, String enddeptName, String endPerson, String viewPeople) {
+	/**
+	 * 저장용
+	 * @param aTitle
+	 * @param aWriter
+	 * @param awriterName
+	 * @param docType
+	 * @param approver
+	 * @param indept
+	 * @param inPeople
+	 * @param inStatus
+	 * @param coldeptName
+	 * @param colPeople
+	 * @param colStatus
+	 * @param viewPeople
+	 */
+	public CheckDoc( String aTitle, int aWriter,String awriterName, String deptName, String docType, String approver,
+			String indept, String inPeople, String inStatus, String coldeptName,String colPeople, String colStatus,
+			 String viewPeople) {
 		
 		this.aTitle = aTitle;
 		this.aWriter = aWriter;
+		this.awriterName = awriterName;
+		this.deptName= deptName;
 		this.docType = docType;
 		this.approver = approver;
-		this.deptCode = deptCode;
-		this.deptName = deptName;
+		this.indept = indept;
 		this.inPeople = inPeople;
 		this.inStatus = inStatus;
-		this.colDeptCode = colDeptCode;
 		this.coldeptName = coldeptName;
 		this.colPeople = colPeople;
 		this.colStatus = colStatus;
-		this.endDeptCode = endDeptCode;
-		this.enddeptName = enddeptName;
-		this.endPerson = endPerson;
 		this.viewPeople = viewPeople;
 	}
 	
 	
 
+	/**
+	 * 업데이트용
+	 * @param docNumber
+	 * @param aStatus
+	 * @param approver
+	 * @param inStatus
+	 * @param colStatus
+	 * @param returnComment
+	 */
 	public CheckDoc(int docNumber, int aStatus, String approver, String inStatus, String colStatus,
 			String returnComment) {
 		super();
@@ -67,9 +88,9 @@ public class CheckDoc implements Serializable{
 		this.returnComment = returnComment;
 	}
 
-	public CheckDoc(int docNumber, String aTitle, int aWriter, String awriterName, String docType, int aStatus,
-			String approver, String deptCode, String deptName, String inPeople, String inStatus, String colDeptCode,String coldeptName, String colPeople,
-			String colStatus, String endDeptCode, String enddeptName, String endPerson, String viewPeople, Date docDate, String returnComment, String deleteyn) {
+	public CheckDoc(int docNumber, String aTitle, int aWriter, String awriterName,  String deptName,String docType, int aStatus,
+			String approver, String indept,String inPeople, String inStatus,String coldeptName, String colPeople,
+			String colStatus,  String viewPeople, Date docDate, String returnComment, String deleteyn) {
  
 		super();
 		this.docNumber = docNumber;
@@ -79,19 +100,25 @@ public class CheckDoc implements Serializable{
 		this.docType = docType;
 		this.aStatus = aStatus;
 		this.approver = approver;
-		this.deptCode = deptCode;
 		this.deptName = deptName;
+		this.indept = indept;
 		this.inPeople = inPeople;
 		this.inStatus = inStatus;
-		this.colDeptCode = colDeptCode;
 		this.coldeptName = coldeptName;
 		this.colPeople = colPeople;
 		this.colStatus = colStatus;
-		this.endPerson = endPerson;
 		this.viewPeople = viewPeople;
 		this.docDate = docDate;
 		this.returnComment = returnComment;
 		this.deleteyn = deleteyn;
+	}
+
+	public String getIndept() {
+		return indept;
+	}
+
+	public void setIndept(String indept) {
+		this.indept = indept;
 	}
 
 	public int getDocNumber() {
@@ -150,13 +177,6 @@ public class CheckDoc implements Serializable{
 		this.approver = approver;
 	}
 
-	public String getDeptCode() {
-		return deptCode;
-	}
-
-	public void setDeptCode(String deptCode) {
-		this.deptCode = deptCode;
-	}
 
 	public String getDeptName() {
 		return deptName;
@@ -182,13 +202,6 @@ public class CheckDoc implements Serializable{
 		this.inStatus = inStatus;
 	}
 
-	public String getColDeptCode() {
-		return colDeptCode;
-	}
-
-	public void setColDeptCode(String colDeptCode) {
-		this.colDeptCode = colDeptCode;
-	}
 
 	public String getColdeptName() {
 		return coldeptName;
@@ -214,29 +227,6 @@ public class CheckDoc implements Serializable{
 		this.colStatus = colStatus;
 	}
 
-	public String getEndDeptCode() {
-		return endDeptCode;
-	}
-
-	public void setEndDeptCode(String endDeptCode) {
-		this.endDeptCode = endDeptCode;
-	}
-
-	public String getEnddeptName() {
-		return enddeptName;
-	}
-
-	public void setEnddeptName(String enddeptName) {
-		this.enddeptName = enddeptName;
-	}
-
-	public String getEndPerson() {
-		return endPerson;
-	}
-
-	public void setEndPerson(String endPerson) {
-		this.endPerson = endPerson;
-	}
 
 	public String getViewPeople() {
 		return viewPeople;
@@ -274,13 +264,13 @@ public class CheckDoc implements Serializable{
 	public String toString() {
 		return "CheckDoc [docNumber=" + docNumber + ", aTitle=" + aTitle + ", aWriter=" + aWriter + ", awriterName="
 				+ awriterName + ", docType=" + docType + ", aStatus=" + aStatus + ", approver=" + approver
-				+ ", deptCode=" + deptCode + ", deptName=" + deptName + ", inPeople=" + inPeople + ", inStatus="
-				+ inStatus + ", colDeptCode=" + colDeptCode + ", coldeptName=" + coldeptName + ", colPeople="
-				+ colPeople + ", colStatus=" + colStatus + ", endDeptCode=" + endDeptCode + ", enddeptName="
-				+ enddeptName + ", endPerson=" + endPerson + ", viewPeople=" + viewPeople + ", docDate=" + docDate
-				+ ", returnComment=" + returnComment + ", deleteyn=" + deleteyn + "]";
+				+ ", deptName=" + deptName + ", indept=" + indept + ", inPeople=" + inPeople + ", inStatus=" + inStatus
+				+ ", coldeptName=" + coldeptName + ", colPeople=" + colPeople + ", colStatus=" + colStatus
+				+ ", viewPeople=" + viewPeople + ", docDate=" + docDate + ", returnComment=" + returnComment
+				+ ", deleteyn=" + deleteyn + "]";
 	}
 
+	
 	
 	
    

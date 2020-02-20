@@ -54,29 +54,30 @@
                 <script >
                 	$("#all").click(function(){
                 		 
-                		location.href='/semi/clist.ch?status=1' ;
+                		location.href='/semi/clist.ch?status=0' ;
                 	})
                 	$("#flow").click(function(){
                 		
-                		location.href='/semi/clist.ch?status=2';
+                		location.href='/semi/clist.ch?status=1';
                 	})
                 	$("#end").click(function(){
                 		
-                		location.href='/semi/clist.ch?status=3';
+                		location.href='/semi/clist.ch?status=2';
                 	})
                 	$("#return").click(function(){
                 	
-                		location.href='/semi/clist.ch?status=4';
+                		location.href='/semi/clist.ch?status=3';
                 	})
                 	$("#wait").click(function(){
-                		 location.href='/semi/clist.ch?status=5';
+                		 location.href='/semi/clist.ch?status=4';
                 	});
                 	
                 </script>
 
-           
+           		<label><%=listCount %></label>
                  <hr class="table-line" style="margin-left:-0px;">
                  <div class="table-line">
+                 <input type="text" id="pStatus" value ="1">
                     <table style="width:100%; border-collapse:collapse;" id="list">
                         <thead>
                             <tr class='table-line'>
@@ -98,7 +99,7 @@
                            <td><%=b.getaTitle() %></td>
                            <td><%=b.getAwriterName() %></td>
                            <td><%=b.getDeptName() %></td>
-                           <%if(b.getaStatus() ==0 ||b.getaStatus()==1||b.getaStatus()==2 ){%> <td>결재중</td><%}else if(b.getaStatus()==3){%><td>결재완료</td><%}else{ %><td>반려</td> <% }%>
+                           <%if(b.getaStatus() ==0 ||b.getaStatus()==1){%> <td>결재중</td><%}else if(b.getaStatus()==2){%><td>결재완료</td><%}else{ %><td>반려</td> <% }%>
                            
                            <td><%=b.getDocDate() %></td>
                            <tr>
@@ -124,7 +125,8 @@
 			<button disabled><</button>
 			<%  }else{ %>
 			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage - 1 %>&status=<%=pi.getStatus()%>'"><</button>
-			<%  } %>
+			<%  } %> 
+		
 			
 			<% for(int p = startPage; p <= endPage; p++){
 					if(p == currentPage){	
@@ -153,6 +155,8 @@
 </div>
 <script>
 
+
+
 $(function(){
 	
 	$("#list td").mouseenter(function(){
@@ -172,7 +176,13 @@ $(function(){
 
 
 	});
+	
+	
+	
 });
+
+
+   
 </script>
     
     

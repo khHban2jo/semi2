@@ -63,36 +63,24 @@ public class CheckInsertServlet extends HttpServlet {
 		
 		String doctitle = mrequest.getParameter("doctitle");   
 		int docwriter = Integer.valueOf(mrequest.getParameter("empcode")); //int로 바꿀것
+		String docwirteName = mrequest.getParameter("docwriterName");
 		String doctype =mrequest.getParameter("doctype");
-		String deptCode = mrequest.getParameter("checkdeptC");
-		String deptName = mrequest.getParameter("checkdeptN");
+		String deptName = mrequest.getParameter("deptcode");
+		String indept = mrequest.getParameter("chdept");
 		String checkper = mrequest.getParameter("checkper");
-		String coldeptCode= mrequest.getParameter("coldeptC"); 
-		String coldeptName = mrequest.getParameter("coldeptN");
+		String coldeptCode= mrequest.getParameter("codept"); 
 		String colper = mrequest.getParameter("colper");
-		String enddeptC = mrequest.getParameter("enddeptC");
-		String enddeptN = mrequest.getParameter("enddeptN");
-		String endper = mrequest.getParameter("endper");
 		String viewper = mrequest.getParameter("viewper");
 		
-		System.out.println("doctitle" + doctitle);
-//		System.out.println("docwriter" + docwriter);
-//		System.out.println("deptCode" + deptCode);
-//		System.out.println("deptName" + deptName);
-//		System.out.println("checkper" + checkper);
-//		System.out.println("coldeptCode" + coldeptCode);
-//		System.out.println("coldeptName" + coldeptName);
-//		System.out.println("colper" + colper);
-//		System.out.println("enddeptC" + enddeptC);
-//		System.out.println("enddeptN" + enddeptN);
-//		System.out.println("endper" + endper);
-//		System.out.println("viewper" + viewper);
+
+		System.out.println(doctype);
 		
+	
 		
-		
-		System.out.println("확인중" + doctype);
-		
-		
+		if(mrequest.getParameter("checkper")==null) {
+			//에러페이지
+			System.out.println("dd");
+		}
 		String[] arr= checkper.split(",");
 		StringBuffer a = new StringBuffer();
 		String approval = arr[0]+","+ arr[1];
@@ -144,15 +132,15 @@ public class CheckInsertServlet extends HttpServlet {
 					files.add(file);
 				 }
 		}
-
+		
 		
 
 	
-		CheckDoc info= new CheckDoc(doctitle,docwriter,doctype, approval,deptCode,deptName , checkper, inStatus,coldeptCode,coldeptName
-					, colper,colStatus,enddeptC,enddeptN, endper,viewper);
-		//System.out.println(info);
+		CheckDoc info= new CheckDoc(doctitle,docwriter,deptName,docwirteName,doctype, approval, indept, checkper, inStatus,coldeptCode
+					, colper,colStatus,viewper);
+		System.out.println(info);
 		
-
+		String text;
 		RoundDoc doc = null;
 		if(info.getDocType().equals("휴가신청서")) {
 			doc = new Vacation();
@@ -194,17 +182,20 @@ public class CheckInsertServlet extends HttpServlet {
 			((Vacation)doc).setStart_Date(sd);
 			((Vacation)doc).setEnd_Date(ed);
 			((Vacation)doc).setDayOff_MA(dot);
+			text = mrequest.getParameter("text")+"/+/"+mrequest.getParameter("ir1");
 		}else if(info.getDocType().equals("지출결의서")) {
 		
 			int paid = Integer.valueOf(mrequest.getParameter("endpay"));
 			doc = new PayDoc();
 			((PayDoc)doc).setEndPay(paid);
+			text =  mrequest.getParameter("text")+"/+/"+mrequest.getParameter("ir1");
 		}else {
 			doc = new RoundDoc();
+			text = mrequest.getParameter("ir1");
 		}
-
-		doc.setText(mrequest.getParameter("text"));
-		
+		///+/
+		doc.setText(text);
+		System.out.println(text);
 		
 	
 		int result = new CheckService().insertDoc(info, doc, files);

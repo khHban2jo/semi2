@@ -58,6 +58,7 @@ public class MemberInsertServlet extends HttpServlet {
 		String etc = request.getParameter("etc");
 		String subDept = request.getParameter("cr2");
         
+		
 	     Member m = new Member();
 	     m.setEmpId(userId);
 	     m.setEmpPwd(userPwd);
@@ -74,6 +75,7 @@ public class MemberInsertServlet extends HttpServlet {
 	     m.setEtc(etc);
 	     m.setPersonalId(personalId);
 	     m.setSubDept(subDept);
+	     
 	     
 	     System.out.println("회원 정보 확인: "+ m);
 	     

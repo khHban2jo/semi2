@@ -20,9 +20,9 @@
 		              <tbody><tr>
 		                  <td> 사 번  </td>
 		                  <td> <input type="text" id="mEmpCode" name="empCode" readonly>&nbsp; <input type="button" value="확인" id="checkemp">	   
-		                  <!-- 사진 -->
+		                  <td>사진 </td>
 		                  <td rowspan="8" id="pic"> 
-		                      <img src="" width="320px" height="320px" id="Show" alt="프로필사진"> 
+		                      <img src="" width="320px" height="320px" id="pf" alt="프로필사진"> 
 		                  </td>
 		              </tr>
 		              <tr>
@@ -68,7 +68,7 @@
 		                  </td>
 		                 </tr>
 		                 <tr>
-		              	  <td colspan="8" align="right"><input type="file" id="" value="사진 업로드" onchange="ShowImage(this);"></td>
+		              	  <td colspan="8" align="right"><input type="file" id="imgInput" value="사진 업로드" name="file"></td>
 		              	  </tr>
 		              <tr>
 		                  <td> 성 별 </td>
@@ -165,7 +165,7 @@
 		              <tr>
 		              <td>겸직</td>
 		                  <td><select name="cr" id="crv">
-		                  		<option value="">--</option>
+		                  		<option value="0">--</option>
 								<option value="1">정</option>		                  
 		                  		<option value="2">부</option>
 		                  	</select>
@@ -276,8 +276,25 @@
 		  			                $('#address2').focus();
 		  			            }
 		  			        }).open();
-		  			    };
+		  			    }
 		  				
+function readURL(input) {
+	 if (input.files && input.files[0]) {
+	  var reader = new FileReader();
+	  
+	  reader.onload = function (e) {
+	   $('#pf').attr('src', e.target.result);  
+	  }
+	  
+	  reader.readAsDataURL(input.files[0]);
+	  
+	  }
+	}
+	  
+	$("#imgInput").change(function(){
+	   readURL(this);
+	});
+	
         </script>
 	 <%}%>
   
