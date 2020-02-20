@@ -119,7 +119,7 @@
                         </tbody>
                     </table>
                     <%if(m != null){ %>
-                    <button id="write" class="btn btn-light" style="margin-left:-10px;">글쓰기</button> 
+                    	<button id="write" class="btn btn-light" style="margin-left:-10px;">글쓰기</button> 
                     <%} %>
                     <br>
                     <div>

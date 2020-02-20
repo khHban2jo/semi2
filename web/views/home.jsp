@@ -17,7 +17,9 @@
     	<%@ include file="common/COO_left.jsp" %>
 
         <div class="right">
-            <div id="notice" style="background:#f8f9fa;"></div>
+        	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+             <%@ include file="notice/showFiveNotice.jsp" %>
+            
             <span id="todo"></span>
             <span id="approval"></span>
         </div>

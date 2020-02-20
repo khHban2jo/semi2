@@ -260,7 +260,7 @@ public class BoardDao {
 		System.out.println("========================== DAO : 게시판의 전체 갯수 디버깅 ==========================================");
 		
 		// 검색 조건으로 먼저 걸러 낸다.
-		if (parameters.get("etc").equals("관리자")) {
+		if (parameters.get("Id").equals("admin")) {
 			if (title.equals("title")) {
 
 				if (!parameters.get("searchType").equals("1")) {
@@ -400,7 +400,7 @@ public class BoardDao {
 			pstmt = con.prepareStatement(sql);
 
 			// 조건에 따른 검색 구분
-			if (parameters.get("etc").equals("관리자")) {
+			if (parameters.get("Id").equals("admin")) {
 
 				if ( !parameters.get("searchType").equals("1")) { // 전체 검색인지 구분
 																  // 전체 조건아닌 경우, parameters.get("searchType") : o
