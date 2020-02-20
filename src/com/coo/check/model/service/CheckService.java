@@ -37,6 +37,23 @@ public class CheckService {
 		
 		return docs;
 	}
+	
+	
+	
+	/**
+	 * 찾기 
+	 * @param id
+	 * @param search
+	 * @param keyword
+	 * @return
+	 */
+	public int getSearchListCount(int id, int search, String keyword) {
+		Connection con = getConnection();
+		
+		int listCount = cDao.getListSearchCount(con, id, search, keyword);
+		close(con);
+		return listCount;
+	}
 
 	/**
 	 * 문서 1개의 상세 정보 출력
@@ -267,6 +284,8 @@ public class CheckService {
 		close(con);
 		return masStatus;
 	}
+
+
 
 
 }

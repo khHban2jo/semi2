@@ -184,8 +184,8 @@
                     			var dept = data["list1"];
                     			var pcodes = data["list2"];
                     			var pnames = data["list3"];
-                    			console.log(dept)
-                    
+                    			console.log(dept);
+                    			console.log(pcodes);
                     			console.log(pnames);
                     			
                     			for(var i = 0; i< pnames.length; i = i+2){
@@ -347,7 +347,9 @@
 				$("#fulling").val($("#leaveCode").val()+"/+/"+$("#startDate").val()+"/+/"+edate+"/+/"+$("#dayOffType").val());
 			}
 		
-		
+			opener.document.location.reload();
+
+			self.close();
 		
 	  });
 		});

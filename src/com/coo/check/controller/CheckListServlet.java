@@ -56,15 +56,10 @@ public class CheckListServlet extends HttpServlet {
 		if(request.getParameter("status")!=null) {
 			status = Integer.valueOf(request.getParameter("status"));
 		}else {
-			status = 1;
-		}
-		int st = 0;
-		
-		if(request.getParameter("st")!=null) {
-			st = Integer.valueOf(request.getParameter("st"));
+			status = 0;
 		}
 		//System.out.println(status);
-		System.out.println(st);
+		
 		
 		ArrayList<CheckDoc> list = null;
 		//페이징 처리
@@ -129,7 +124,7 @@ public class CheckListServlet extends HttpServlet {
 		String page="";
 		
 		if(list!=null) {
-			if(st == 0) {
+			
 				request.setAttribute("list", list);
 				
 				 //pi = new PageInfo();
@@ -140,7 +135,7 @@ public class CheckListServlet extends HttpServlet {
 				request.setAttribute("pi", pi);
 				page = "views/EP_list.jsp";
 				
-		 	}			 
+		 				 
 		 }else {
 				request.setAttribute("msg", "정보를 가져오지 못했습니다.");
 				page ="views/common/errorPage";
