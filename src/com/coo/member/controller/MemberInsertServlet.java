@@ -50,12 +50,15 @@ public class MemberInsertServlet extends HttpServlet {
                         + request.getParameter("phone2") + "-"
                         + request.getParameter("phone3");
 		
-		String address = request.getParameter("address");  
+		String address = request.getParameter("zipCode")+", "
+		        +request.getParameter("address1")+ ", "
+		        +request.getParameter("address2");
 		String deptCode = request.getParameter("deptCode"); 
 		String jobCode = request.getParameter("jobCode");
 		String etc = request.getParameter("etc");
 		String subDept = request.getParameter("cr2");
         
+		
 	     Member m = new Member();
 	     m.setEmpId(userId);
 	     m.setEmpPwd(userPwd);
@@ -73,6 +76,7 @@ public class MemberInsertServlet extends HttpServlet {
 	     m.setPersonalId(personalId);
 	     m.setSubDept(subDept);
 	     
+	     
 	     System.out.println("회원 정보 확인: "+ m);
 	     
 	     MemberService ms = new MemberService();
@@ -89,20 +93,20 @@ public class MemberInsertServlet extends HttpServlet {
 		String deptCodeA = request.getParameter("cr2");
 		String subcrA = request.getParameter("cr");
 		int subDeptCode = Integer.parseInt(request.getParameter("cr3"));
-		System.out.println(subcrA);
 //		String subDeptA = request.getParameter("subDeptA");
 		
 		StockLine d = new StockLine();
 		int result = 0;
+		
 		if(subcrA.equals("1")) {
 			d.setEmpcode(empCode);
 			d.setDeptCode(deptCodeA);
 			d.setSubcode(subDeptCode);
 			result = new MemberService().insertStockLine(d);
 		}else if(subcrA.equals("2")) {
-			d.setSubcode(empCode);
-			d.setDeptCode(deptCodeA);
 			d.setEmpcode(subDeptCode);
+			d.setDeptCode(deptCodeA);
+			d.setSubcode(empCode);
 			result = new MemberService().insertStockLine(d);
 		}
 		
@@ -124,7 +128,6 @@ public class MemberInsertServlet extends HttpServlet {
 		response.getWriter().print("</body>");
 		response.getWriter().print("</html>");
 		
-		response.sendRedirect("views/home.jsp");
 	}
 
 	/**

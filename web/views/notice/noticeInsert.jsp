@@ -9,16 +9,15 @@
 <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
 
 <style>
-	.button1{
-		border: px solid black;
-	}
+	
 	
 	 th, td {
-    border: 1px solid #444444;
+    border: 1px solid white;
   }
   
   	th{
-  		background-color : #efefef;
+  		background-color : #A9D0F5;
+  		
   	}
   	
   	table{
@@ -39,8 +38,7 @@
 		<%-- <div class="right">
 			<div id="notice" align="center;">
 				<table class="managerTable">
-					<form action="<%= request.getContextPath()%>/noticeServletInsert"
-						method="POST">
+					<form action="<%= request.getContextPath()%>/noticeServletInsert" method="POST">
 						<tr>
 						<thead>
 							<th>공지 사항 작성</th>
@@ -76,7 +74,10 @@
 						</tr>
 						<tfoot>
 							<tr align="center">
-								<td id="foot"> <input type="submit" id="regist" value=" 확 인 " style="width: 100px; height: 30px;">
+								<td id="foot"> 
+								<% if(m.getEtc().equals("관리자")){%>
+									<input type="submit" id="regist" value=" 확 인 " style="width: 100px; height: 30px;">
+								<% } %>
 									&nbsp; &nbsp;
 							</form>
 								<!-- <input type="reset" value=" 취 소 "style="width: 100px; height: 30px;"> --> 
@@ -130,7 +131,7 @@
 							<tr>
 								<th>내용</th>
 							
-								<td  colspan=2>
+								<td colspan=2>
 									<textarea id="ncontent" name="ncontent" style="height: 500px; width: 800px; resize: none; font-size: 20px"></textarea>
 								</td>
 							</tr>
@@ -167,7 +168,8 @@
     })();
 
  	document.getElementById("goNoticeList").onsubmit = function(){
-		return false;
+		//return false;
+ 		history.back(-1);
 	}
     
 	document.getElementById("goNoticeList").onclick = function(){

@@ -38,10 +38,9 @@ public class LoginServlet extends HttpServlet {
 		
 		MemberService ms = new MemberService();
 		
-		
 		try {
 			m = ms.selectMember(m);
-			
+			System.out.println(m);
 			HttpSession session = request.getSession();
 			
 			session.setAttribute("member", m);

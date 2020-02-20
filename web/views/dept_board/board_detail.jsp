@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.coo.board.model.vo.*"%>
 <% Board b = (Board)request.getAttribute("board"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +33,53 @@
     	
     	<!-- 화면 좌측 고정부 include -->
     	<%@ include file="/views/common/COO_left.jsp" %>
+		<%
+			System.out.println("게시판의 부서 코드 : "+b.getBdeptCode());
+			System.out.println("사용자의 부서 코드 : "+m.getDeptCode());
+			
+			String memberDeptCode = m.getDeptCode();
+			String boardDeptCode = b.getBdeptCode();
+			
+			boolean check1 = false;
+			boolean check2 = false;
+			
+			for(int i = 0 ; i < boardDeptCode.length() ; i++){
+		        if(boardDeptCode.charAt(i) == ' '){
+		        	check1 = true;
+		        }
+		    }
 
+			for(int i = 0 ; i < memberDeptCode.length() ; i++){
+		        if(memberDeptCode.charAt(i) == ' ')
+		        	check2 = true;
+		    }
+			
+			System.out.println("check1 : "+ check1);
+			System.out.println("check2 : "+ check2);
+			
+			// 공백 제거
+			memberDeptCode = memberDeptCode.trim();
+			boardDeptCode = boardDeptCode.trim();
+			
+			check1 = false;
+			check2 = false;
+			for(int i = 0 ; i < boardDeptCode.length() ; i++){
+		        if(boardDeptCode.charAt(i) == ' '){
+		        	check1 = true;
+		        }
+		    }
+
+			for(int i = 0 ; i < memberDeptCode.length() ; i++){
+		        if(memberDeptCode.charAt(i) == ' ')
+		        	check2 = true;
+		    }
+						
+			System.out.println("check1 : "+ check1);
+			System.out.println("check2 : "+ check2);
+		
+			System.out.println("사용자 부서와 게시판 부서 가 맞는지 확인 : "+memberDeptCode.equals(boardDeptCode));
+		%>
+		
         <div class="right">
          <div class="margin-list-head">
                 <h1 align="left">부서별 게시판</h1>
@@ -42,7 +89,7 @@
                 <button type="button" class="btn btn-info" id="normalb">일반</button>
                 <button type="button" class="btn btn-success" id="bizb">업무</button>
                 <br><br><br>
-        	<%if(m.getDeptCode().equals(b.getBdeptCode()) || m.getEtc().equals("관리자")){ %> <!-- 관리자는 모두 부서와 상관 없이 모두 볼수 있어야 한다. =>|| m.getEtc().equals("관리자")-->
+        	<%if(memberDeptCode.equals(boardDeptCode) || m.getEtc().equals("관리자")){ %> <!-- 관리자는 모두 부서와 상관 없이 모두 볼수 있어야 한다. =>|| m.getEtc().equals("관리자")-->
         	<table style="width:95%; height:300px;" border="1" class="table-line">
          	<thead><tr>
          		<th>제목</th>
@@ -89,7 +136,8 @@
     
     <script>
     	$('#back').click(function(){
-    		location.href="/semi/searchBoard.bo?title=all";
+    		// location.href="/semi/searchBoard.bo?title=all";
+    		history.back(-1);
     	});
     	
     	$('#allb').click(function(){
