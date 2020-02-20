@@ -168,18 +168,14 @@
   });
   
      function check(){
+     if($('#crv4').val()=="사번"){
+    	$('#crv4').remove(); 
+     }
       var chk = $('input').val();
-     if($('#crv').val()=="0"){
-    	  	
-     }else{
-    	 if(chk=="" || chk==null || chk==undefined){
+   	 if(chk=="" || chk==null || chk==undefined){
     		 alert("빈 칸을 채워주세요");
     		 return false;	 
     	 }else{
     		 return true;
     	 }
      }
-    	 
-  }
-     
-    	  
