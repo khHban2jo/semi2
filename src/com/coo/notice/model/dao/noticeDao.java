@@ -521,5 +521,38 @@ public class noticeDao {
 		return list;
 	}
 
+	public ArrayList<Notice> noticeAjax(Connection con) {
+		
+		ArrayList<Notice> list = new ArrayList<Notice>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = "listFiveNotice";
+		
+		try {
+			sql = prop.getProperty(sql);
+			pstmt = con.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Notice b = new Notice(
+						rset.getInt("NNO"),
+						rset.getString("NTITLE"),
+						rset.getString("NWRITER"),
+						rset.getString("NCONTENT"),
+						rset.getInt("NCOUNT"),
+						rset.getDate("NDATE")
+						);
+				System.out.println(b.toString());
+				list.add(b);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 
 }

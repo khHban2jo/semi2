@@ -104,10 +104,10 @@ public class BoardSearchServlet extends HttpServlet {
 		parameters.put("limit", String.valueOf(limit));
 		
 
-		if(m.getEtc() == null) {
-			m.setEtc("");
-		}
-		parameters.put("etc", m.getEtc()); // dao에서 etc로 관리자 와 유저 구분
+//		if(m.getEtc() == null) {
+//			m.setEtc("");
+//		}
+		parameters.put("Id", m.getEmpId()); // dao에서 etc로 관리자 와 유저 구분
 		
 		System.out.println("==파라미터 값 확인==");
 		Enumeration<String> out = parameters.keys();

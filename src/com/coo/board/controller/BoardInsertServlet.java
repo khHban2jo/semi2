@@ -53,6 +53,7 @@ public class BoardInsertServlet extends HttpServlet {
 			response.getWriter().print("<html>");
 			response.getWriter().print("<body>");
 			response.getWriter().print("<script>");
+			response.getWriter().print("opener.location.href=opener.location.href;");
 			response.getWriter().print("window.setTimeout(function(){"+ 
 					             "window.close();"+ 
 				                 "},500);");

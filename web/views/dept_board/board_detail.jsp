@@ -89,7 +89,7 @@
                 <button type="button" class="btn btn-info" id="normalb">일반</button>
                 <button type="button" class="btn btn-success" id="bizb">업무</button>
                 <br><br><br>
-        	<%if(memberDeptCode.equals(boardDeptCode) || m.getEtc().equals("관리자")){ %> <!-- 관리자는 모두 부서와 상관 없이 모두 볼수 있어야 한다. =>|| m.getEtc().equals("관리자")-->
+        	<%if(memberDeptCode.equals(boardDeptCode) || m.getEmpId().equals("admin")){ %> <!-- 관리자는 모두 부서와 상관 없이 모두 볼수 있어야 한다. =>|| m.getEtc().equals("관리자")-->
         	<table style="width:95%; height:300px;" border="1" class="table-line">
          	<thead><tr>
          		<th>제목</th>
