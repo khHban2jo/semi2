@@ -44,16 +44,22 @@ public class PmapDao {
 		Member p = null;
 		ArrayList<Member> list = null;
 
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("selectList");
 
 		try {
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(sql);
 
-			rset = stmt.executeQuery(sql);
+			int startRow = (currentPage-1)*limit +1; // 1 11
+			int endRow = startRow + limit -1;
+				
+			pstmt.setInt(1, endRow);
+			pstmt.setInt(2, startRow);
+			
+			rset = pstmt.executeQuery();
 
 			list = new ArrayList<Member>();
 
@@ -79,6 +85,7 @@ public class PmapDao {
 				 p.setManagerYn(rset.getString("MANAGER_YN"));
 				 p.setHireDate(rset.getDate("HIRE_DATE"));
 				 p.setSubDept(rset.getString("SUB_DEPT"));
+				 p.setProfileA(rset.getString("PROFILE_FILE"));
 
 				list.add(p);
 			}
@@ -88,7 +95,7 @@ public class PmapDao {
 			e.printStackTrace();
 		}finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 
 		return list;
@@ -193,8 +200,9 @@ public class PmapDao {
 				 m.setManagerYn(rset.getString("MANAGER_YN"));
 				 m.setHireDate(rset.getDate("HIRE_DATE"));
 				 m.setSubDept(rset.getString("SUB_DEPT"));
+				 m.setProfileA(rset.getString("PROFILE_FILE"));
 				
-				list.add(m);
+				 list.add(m);
 			}
 				
 				

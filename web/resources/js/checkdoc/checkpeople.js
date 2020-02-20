@@ -96,34 +96,16 @@ $(function(){
    }
    
    
-   $(".ienter").click(function(){
+   $(".enter").click(function(){
 	   
        //기존 배열과 확인후 삭제
        var tr = $(this).siblings("div").find("tr");
-       $('#selectper tr:not(:contains('+$("#chedept").val()+'))').remove();
        if(tr.length<4){
     	   codeRemove($(this));
     	   tablem($(this));
        }
    });
 
-   $(".center").click(function(){
-       //저장 배열 참고 첫 tr 부서 가지고  제거
-	   var cdept = $("#selectper tr:eq(1)").children("td").eq(1).text();
-	   console.log(cdept);
-	    $('#selectper tr:not(:contains('+cdept+'))').remove(); 
-       //기존 배열과 확인후 삭제
-	   var tr = $(this).siblings("div").find("tr");
-       if(tr.length<4){
-    	   if(tr.length>0){
-    		   var deptcheck = tr.children("td").eq(1).text();
-    		   $('#selectper tr:not(:contains('+deptcheck+'))').remove();
-    		   codeRemove($(this));
-    	   	}
-    	   tablem($(this));
-       }
-   });
-   
    
    $(".venter").click(function(){
        
@@ -137,12 +119,6 @@ $(function(){
        tablem($(this));
    	});
 
-   $(".endenter").click(function(){
-       $(this).siblings("div").find("tbody").html(
-           "<tr>"+$("#selectper>tbody>tr:eq(0)").html()+"<tr>")
-           $("#selectper tbody").html("");
-       $("#map input[type=checkbox]").prop("checked","");
-   });
 
    //위 버튼
    $(".up").click(function(){
@@ -192,10 +168,7 @@ $(".drop").click(function(){
        $(this).siblings(".inindex").val(-1);
 
 });
-//최종 제거
-$(".enddrop").click(function(){
-   $(this).siblings("div").find("tbody").html("");
-});
+
 //초기화
 $("#null1").click(function(){
    $("#selectper tbody").html("");
@@ -236,27 +209,6 @@ $("#saveline").click(function(){
 })
 
 
-//$("#save").click(function(){
-//   //servlet에 sel값과 pushper2값,$("#saveper tbody").html  넘겨주기
-//   $("#close2").trigger("click");
-//});
-
-//결제라인 가져오기
-//$("#push1").click(function(){
-//   $("#backdiv").css("display","block");
-//   $("#seldiv").css("display","block");
-//   $("#sel").css("display","block");
-//   $("#pushper2").css("display","block");
-//
-//   $("#pushper2").trigger("change");
-// 
-//});
-
-/*$("#pushper2").click(function(){
-   //servlet에 sel값과 pushper2값 넘겨준 값 tbody에 담기
-});*/
-
-
 $("#sel").click(function(){
    $("#checkper tbody").html($("#saveper tbody").html());
    $("#close2").trigger("click");
@@ -286,7 +238,8 @@ function end(){
     
     $("#chedept").val($("#checkper tr").find("td:eq(1)").html());
     $("#checkper tr").each(function(index,item){
-       arr.push($(this).find("td:eq(0)").html())
+       arr.push($(this).find("td:eq(0)").html()+" "+$(this).find("td:eq(1)").html());
+       
    })
    if(arr.length >4 ){
         alert("최대 4명까지");
@@ -304,7 +257,7 @@ function end(){
     }
    $("#coladept").val($("#colper").find("td:eq(1)").html());
     $("#colper tr").each(function(index,item){
-       arr.push($(this).find("td:eq(0)").html())
+    	 arr.push($(this).find("td:eq(0)").html()+" "+$(this).find("td:eq(1)").html());
    })
    $("#colaper").val(arr.join());
 
@@ -315,10 +268,6 @@ function end(){
    })
    $("#resper").val(arr.join());
 
-
-   //최종
-    $("#enddept").val($("#endline").find("td:eq(1)").html());
-    $("#endper").val($("#endline").find("td:eq(0)").html())
   
 
   //결제 확인
@@ -329,25 +278,15 @@ function end(){
        tfcheck = false;
    }else{
 	    $(".people",parent.opener.document).html("");
-	    $(".deptC",parent.opener.document).val("");
 	    $(".perend",parent.opener.document).val("");
-	    $("#indept",parent.opener.document).text($("#chedept").val());
-	    $("#chdeptN",parent.opener.document).val($("#chedept").val());
 	    $("#chper",parent.opener.document).val($("#cheper").val());
-	    $("#colladept",parent.opener.document).text($("#coladept").val());
-	    $("#codeptN",parent.opener.document).val($("#coladept").val());
 	    $("#cope",parent.opener.document).val($("#colaper").val());
-	    $("#enddeptN",parent.opener.document).val($("#enddept").val());
-	    $("#endp",parent.opener.document).val($("#endper").val());
 	    $("#viewp",parent.opener.document).val($("#resper").val());
 	 
 	    $("#chper",parent.opener.document).click();
 	   
 	    $("#cope",parent.opener.document).click();
 	   
-    	
-        $("#endp",parent.opener.document).click();
-    	
         $("#viewp",parent.opener.document).click();
     	
    }
@@ -356,7 +295,7 @@ function end(){
    if(tfcheck){
 	  
 	
-       window.close();
+       //window.close();
    }
 }
 

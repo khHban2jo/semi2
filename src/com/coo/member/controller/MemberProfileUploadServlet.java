@@ -6,19 +6,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class MemberProfileUploadServlet
  */
-@WebServlet("/logout.me")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/mUploadPic.me")
+public class MemberProfileUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public MemberProfileUploadServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,14 +31,20 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	   HttpSession session = request.getSession(false);
-	   
-	   if(session !=null) {
-		   System.out.println("로그아웃이 실행됩니다.");
-		   session.invalidate();
-	   }
-	   response.sendRedirect("signin.html");
-	
+		int maxSize = 1024 * 1024 * 10;
+		
+		if(!ServletFileUpload.isMultipartContent(request)) {
+			request.setAttribute("msg","multipart를 통한 전송이 아닙니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+		}
+		
+		String root = request.getServletContext().getRealPath("/");
+		String savePath = root + "resources/empProfiles";
+		
+		MultipartRequest mrequest = new MultipartRequest(request,savePath,maxSize, "UTF-8",new DefaultFileRenamePolicy());
+		String fileName = mrequest.getFilesystemName("file");
+		
+//		 m.setProfileA(fileName);
 	}
 
 	/**

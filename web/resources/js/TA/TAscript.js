@@ -10,6 +10,62 @@ $(function(){
     }
     
     $('.progressBar').css('width',per+'%');
+    
+    //	휴무 예정일 가져오기
+    $.ajax({
+    	url: "/semi/vdSelect.ta",
+		type:"get",
+		success:function(data){
+			data = data.split("-");
+			
+			for(var i=0; i<data.length; i++){
+				if(data[i]=='예정일 없음'){
+					data[i] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + data[i];
+				}
+			}
+			
+			$('#La2ValuebL1').append(data[0]);
+			$('#La2ValuebL2').append(data[1]);
+			$('#La2ValuebL3').append(data[2]);
+		}
+    });
+    
+    //	휴무 게시판
+    $.ajax({
+    	url : "/semi/apSelect.ta",
+    	type: "get",
+    	success: function(data){
+    		var $vtable = $('#vacDT>tbody');
+    		console.log($vtable);
+    		console.log(data);
+    		
+    		if (data.length == 0){
+    			$('#vacDT').remove();
+    		}else {
+    			$('#vacDTnone').remove();
+    			for (var i = 0 ; i < data.length; i++){
+    				var sta = "미승인";
+    				if(data[i].aStatus == 2){
+    					sta = "승인";
+    				}
+    				$vtable.append("<tr><td class='td1'>"+data[i].docNumber
+    						+"</td><td class='td2' title='"+data[i].aTitle+"'>"+data[i].aTitle
+    						+"</td><td class='td3'>"+sta+"</td></tr>");
+    			}
+    		}
+    		
+    	},
+    	complete:function(){
+    		//	클릭 시 상세 보기 popup
+    		$('.td2').css('cursor','pointer').click(function(){
+    			var url = "/semi/cread.ch?docNumber="+$(this).prev().html();
+                var name = "휴가신청서 상세보기";
+                var option = 'top=150px, left=350px width=1230px,height=700px, resizable=no, location=no, toolbars=no,scrollbars=no';
+                window.open(url, name, option);
+    		});
+    	}
+    });
+    
 
     //  출근버튼 클릭
     $('#startBtn').click(function(){

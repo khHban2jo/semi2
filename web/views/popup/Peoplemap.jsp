@@ -85,9 +85,10 @@
 
 			<tr id="po">
 			<input type="hidden" name="eSearch" value="<%=m.getEmpId() %>">
+			<input type="hidden" name="eSearch1" value="<%=m.getEmpCode() %>" id="ev">
 				<th><%=m.getEmpCode()%></th>
-				<th><%=m.getDeptCode()%></th>
-				<th><%=m.getJobCode()%></th>
+				<th><%=m.getDeptTitle()%></th>
+				<th><%=m.getJobName()%></th>
 				<th><%=m.getEmpName()%></th>
 				<th><%=m.getEmail()%></th>
 			</tr>
@@ -166,8 +167,15 @@
 			$('#po th').mouseenter(function(){
 					$(this).parent().css({"cursor":"pointer"});
 			}).click(function(){
+				    
+					var eSearch1 = $(this).parent().find('#ev').val();
 					var eSearch = $(this).parent().find('input').val();
+					if(document.referrer.includes("btnDen=1")){
+							opener.document.getElementById('crv4').value = eSearch1;
+							window.close();
+					}else{
 					location.href="<%=request.getContextPath() %>/empSearch.me?eSearch="+eSearch;
+					}
 			});
 		</script>
 </body>

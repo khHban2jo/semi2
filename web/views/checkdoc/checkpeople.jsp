@@ -120,7 +120,7 @@
 
         <input type="text" class="inindex">
         <input type="text" class="inhtml">
-        <input type="button" value ="넣기" class ="ebtn ienter">
+        <input type="button" value ="넣기" class ="ebtn enter">
         <input type="button" value ="제거" class ="drop">
         <input type="button" value ="라인저장"  id="saveline">
         <div class ="line" >
@@ -143,7 +143,7 @@
 
         <input type="text" class="inindex">
         <input type="text" class="inhtml">
-        <input type="button" value ="넣기" class ="ebtn center">
+        <input type="button" value ="넣기" class ="ebtn enter">
         <input type="button" value ="제거" class ="drop">
         <div class ="line">
 
@@ -182,34 +182,16 @@
     </fieldset>
 
 
-
-     <input type="checkbox" class="endlineset" id ="endlineset"><label id="endlabel" for ="endlineset">최종결제자</label>
-     <div id ="right4" class ="inright">
-        <input type="text" class="inindex">
-        <input type="text" class="inhtml">
-        <input type="button" value ="결제자" class ="endenter">
-        
-        <div class ="line end">
-            <table id = "endline">
-             <tbody>
-
-            </tbody>
-            </table>
-        </div>
-        <input type="button" value ="제거" class ="enddrop">
-
-     </div>
   
 
      <input type = "button" value ="결제선가져오기" id="push1"> 
     <div id="sub" style="border :0px;">
  
-         <input type ="hidden" name ="chedept" id="chedept" value="">
-         <input type ="hidden" name= "cheper" id="cheper" value="">
-         <input type ="hidden" name= "coladept" id ="coladept" value="">
-         <input type ="hidden" name= "colaper" id = "colaper" value="">
-         <input type ="hidden" name= "enddept" id ="enddept" value="">
-         <input type ="hidden" name= "endper" id = "endper" value="">
+        
+         <input type ="text" name= "cheper" id="cheper" value="">
+   
+         <input type ="text" name= "colaper" id = "colaper" value="">
+    
          <input type ="hidden" name= "resper" id = "resper" value="">
          <input type="submit" onclick ="return end()" value="전송">
 
@@ -277,9 +259,6 @@
 					var code= data["list1"][i];
 					var deptsearch = data["list2"][code];
 					dept[i].innerHTML = code; //라벨 박기
-					if(deptsearch[0].deptCode == "<%=myde%>"){ 
-						$("#chedept").val(deptsearch[0].deptName); //자신 부서명 찾기
-					}
 					for(var j in deptsearch){ // 
 						var people = deptsearch[j];
 						var text;

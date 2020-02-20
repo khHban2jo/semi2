@@ -2,7 +2,7 @@
 <%@page import="javafx.scene.DepthTest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList , com.coo.check.model.vo.*, com.coo.member.model.vo.Member"%>
+<%@page import="java.util.ArrayList , com.coo.check.model.vo.*, com.coo.member.model.vo.Member,java.sql.Date"%>
  <%
     //게시판
     //문서 
@@ -16,13 +16,18 @@
  	String sid = Integer.valueOf(id).toString();
     CheckDoc check = (CheckDoc)request.getAttribute("info");
     //사람이름 찾아와야됨.
- 	String doctext = (String)request.getAttribute("doc");
+    RoundDoc doc = (RoundDoc)request.getAttribute("doc");
+    String text =doc.getText();
+    int endPay = 0;
+	
+
+ 	//String doctext = (String)request.getAttribute("doc");
     ArrayList<String> files = (ArrayList<String>)request.getAttribute("files");
     String approver = check.getApprover();
+    String doctype = check.getDocType();
    	int docStatus = check.getaStatus();
 	String inPe = (check.getInPeople() ==null)?"":check.getInPeople();
 	String colPe = (check.getColPeople()==null)?"":check.getColPeople();
-	String endPe = (check.getEndPerson()==null)?"":check.getEndPerson();
 	String viewPe = (check.getViewPeople()==null)?"":check.getViewPeople();
 	String getIn = check.getInStatus();
 	
@@ -51,7 +56,6 @@
 if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 		||inPe.contains(sid)||
 		colPe.contains(sid)||
-		endPe.contains(sid)||
 		viewPe.contains(sid)||
 	check.getViewPeople().contains(sid))){  %>
 <body>  
@@ -68,7 +72,6 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 					type:"get",
 					async: false,
 					data:{
-						a: '안녕하세요',
 						peArr:code
 					},
 					success:function(data){
@@ -116,7 +119,6 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				var myCode= '<%=id%>'; //내코드
 	    		var inpe = '<%=inPe%>'; //내부인원코드,
 				var colpe= '<%=colPe%>'; //합의인원코드
-				var endpe= '<%=endPe%>'; // 최종 결재 코드
 				var viewpe = '<%=viewPe%>'; //참조자 코드
 
 	    
@@ -140,14 +142,6 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				/*  mycolindex =innames.indexOf(myCode);
 				 mycolindex2=innames.lastindexOf(myCode); */
 				 }
-			//최종	 
-			 	 if(!endpe ==""){
-					 var endnames = getNames(endpe);
-					 var endl = $("#endline tr");
-					 makeNametd(endnames,endl,1);
-				
-		
-				 } 
 			//뷰
 				 if(!viewpe ==""){
 					 $.ajax({
@@ -180,13 +174,14 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 			//데이터 베이스에 값 넘어간느 ajax
 			function fulling(docNo, approin, docStatus, insertcode, colcode,comment){
 				console.log(docNo);
+				console.log(approin);
 				var type ='<%=check.getDocType()%>'
 				
-				<%-- window.location.href='<%= request.getContextPath() %>/uDFlow.ch?docNumber='+docNo+'&next='+approin
+				/*window.location.href='<%= request.getContextPath() %>/uDFlow.ch?docNumber='+docNo+'&next='+approin
 																			+'&docSt='+docStatus+'&inCode='+insertcode
 																			+'&colcodes='+colcode+'&rcomment='+comment
-																			+'&doctype='+type; --%>
-				/$.ajax({
+																			+'&doctype='+type;*/
+				$.ajax({
 					url:"/semi/uDFlow.ch",
 					type:'get',
 					data:{
@@ -198,12 +193,13 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 						rcomment : comment,
 						doctype: type
 					},
-					success:function(result){
-						console.log(result);
+					success:function(data){
+						window.location.href='<%= request.getContextPath()%>/cread.ch?docNumber='+docNo
+						
 					},
 					error:function(){
 						alert("넘기는대 에러");
-					}
+					} 
 				}); 
 				
 				
@@ -214,8 +210,10 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				//넘어가야되는 값 총합  1. 다음 결재자, 2.독넘버, 3, 독스텟, 4.변경 결재 코드 5.합의변경코드, 6. 리스트코멘트
 			  var flowok =  function(docNo, table, approin, docStatus, insertcode, colcode,comment ){
 				$("#oksign").click(function(){
+					result = "승인";
 					var result = "";
 				         if(confirm("결재 하시겠습니까?")){	
+				        	 console.log("ddd");
 				            $("#checkpop").css("display","none");
 				             $("#popback").css("display","none");
 				               result = "승인";
@@ -262,26 +260,29 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				if(approver.indexOf(myCode) == 0){ //정일때
 					mystatus = true;
 				}else if(approver.indexOf(myCode)==1){ //부일때
-				/* 	mytstaus = $.ajax({
-										url:"",
-										post:"get",
+				  	 $.ajax({
+										url:"/semi/cMStatus.ch",
+										type:"get",
 										async: false,
 										data:{
 											masCode:approver[0]
 										},
 										success:function(data){
+											console.log(data);
 											var result;
 											if(data == 'Y'){
-												 result= false;
+												mystatus = false;
 											}else{
-												 result = true;
+												mystatus = true;
 											}
+											return result;
 										},error:function(){
 											alert("마스터 상태체크");
 										}
-										return result;
-								}); */
+									
+								});  
 				}
+				
 				//내가 결재 가능할 때  결재문서 진행 상태에 따른 것 찾기
 				
 					var flow;
@@ -309,11 +310,8 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 									flow = cStatus.indexOf("5");
 									cStatus[flow] = 2;
 									insertcode = cStatus.join();
-								}else {
-									console.log("반려 조건==2 떨어지는지 확인");
-									insertcode ="2";
-									console.log(insertcode)
 								}
+							
 								
 								
 							}else if(docStatus ==1){
@@ -323,23 +321,18 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 									flow = cStatus.indexOf("5");
 									cStatus[flow] = 2;
 									colcode = cStatus.join();
-								}else {
-									console.log("반려 조건==1 떨어지는지 확인");
-									colcode ="2";
 								}
 							}
 							 approin =<%=id%>;
-						     docStatus = 4;
+						     docStatus = 3;
 						     
 						     $("#popback").css("display","none");
 						     $("#returnCopop").css("display","none");
-						     console.log(insertcode);
-						     console.log(colcode);
 						     fulling(docNo, approin, docStatus, insertcode, colcode,comment);
 							 
 						
 						}else{
-							alert("반려 코멘트는 300자를 넘길 수 없습니다.")
+							alert("반려 코멘트는 300자를 넘길 수 없습니다. 현재" + comment.length );
 						}
 					
 					
@@ -363,82 +356,99 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 							if(myColin1 != -1 && myColin2 != -1){
 							  colstat = colcode.split(",");
 						 	   if(myColin1%2== 0 ){
-						 	    	colstat[myColin1] ="7"; //내가 정인 인덱스 찾기;	    	 
-						 	   }else if(myColin2%2== 0){
-						 	   		colstat[myColin2] ="7";
+						 		    var ab =myColin1/2;
+						 	    	colstat[ab] ="7"; //내가 정인 인덱스 찾기;	    	 
+						 	   }
+								if(myColin2%2== 0){
+						 	   		colstat[myColin2/2] ="7";
 						 	 	}
 						 	   colcode = colstat.join();
+						 	   console.log(colcode);
 							}
 						}
   					
 						   if(flow+1 == cStatus.length){ //마지막 결재자였을 경우							  
-							 if(!colpe == ""){ //합의 결제자가 있을 경우
-								 
-							     
+							 if(!colpe == ""){ //합의 결제자가 있을 경우 
+								 //console.log(colcode);
 								 docStatus = 1;
 								 colstat = colcode.split(",");
+/* 								 console.log(colstat[0]);
+								 console.log(typeof(colstat[0]));
+								 console.log(colstat[0]=="7") */
 								 if(colstat[0] == "7"){
-									colstat[0]== "1";
+									colstat[0]= "1";
 									flow = colstat.indexOf("0");
-									for(var i = 1 ; i<flow;i++){
-								     colstat[i]== "1";
+									if(flow == -1){
+										for(var i = 1; i<colstat.length; i++){
+											colstat[i]= "1";
+										}
+											approin = 0;
+											 docStatus = 2;
+										
+									}else {
+										for(var i = 1 ; i<flow;i++){
+								    	 	colstat[i]== "1";
+										}
+										colstat[flow]="5";			
+										approin = colpe.split(",").slice(flow*2,flow*2+2).join(); 
 									}
-									colstat[flow]="5";			
-									approin = colpe.split(",").slice(flow*2,flow*2+2);
-						
 								 }else{
 							     approin = colpe.split(",").slice(0,2).join();
 							     colstat[0] = "5";
 								 }
 						
 							     colcode = colstat.join();
-							    
-								 
-							 }else if(!endpe ==""){
-							    
-								 docStatus =2;
-								 approin = endpe;
-								 
 							 }else{
-								 docStatus = 3;
+							console.log("");
+								 docStatus =2;
+								approin = 0;
+								 	
 							 }
+								
 						 }else{
 							 cStatus[flow+1] ="5";
 							 insertcode= cStatus.join();
 							 approin = inpe.split(",").slice((flow+1)*2, (flow+1)*2+2).join();						
-						 } 
-						
+						  
+							 }
+						   
 					}else if(docStatus == 1){//합의결재중 
 						cStatus = '<%=check.getColStatus()%>'.split(",");
 						flow = cStatus.indexOf("5");
-						console.log(flow);
-						cStatus[flow] ="1";
 						
 						if(flow != -1){
 						table = $("#top3 tr:eq(1)").find("td").eq(flow);
 						table.html(okcheck1);
+						cStatus[flow] ="1";
 						}
-						 if(flow+1 == cStatus.length){//최종 합의자일때 
+						if(flow+1 == cStatus.length){
 							 colcode = cStatus.join();
-							if(!endpe ==""){
-									docStatus =2;
-								 	approin = endpe;
-								 	
-							}else{
-								docStatus = 3;
-							}
+							docStatus =2;
+							approin = 0;
+								 
 						}else{//마지막 합의자가 아닐때
+							console.log(flow+1);
+							console.log(cStatus[flow+1]);
 							if(cStatus[flow+1] =="7"){ //겸직처리용
 								var aa = cStatus.indexOf("0");
-							    for(var i =flow+1; i<aa;i++ ){
-							    	cStatus[i] ="1"
-							    }
-							    
-								
-								if(aa+1 ==cStatus.length ){
-									docStatus =2;
-									approin = endpe;
+								if(aa!=-1){
+									for(var i =flow+1; i<aa-1;i++ ){
+								    	cStatus[i] ="1";
+								    }	
+									cStatus[aa] = "5";
+									approin = colpe.split(",").slice(aa*2, aa*2+2).join();
+
+								}else{
+									for(var i =flow+1; i<cStatus.length;i++ ){
+								    	cStatus[i] ="1";
+									}
+									
+										docStatus =2;
+										approin = 0;
+									 	
 								}
+								
+							    
 							
 							}else{
 								cStatus[flow+1] ="5";
@@ -446,22 +456,15 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 							}
 							
 							colcode = cStatus.join();
-							
 						}
-					
-						
-					}else if(docStatus ==  2){//최종결재중
-						table = $("#endline tr:eq(1)").find("td").eq(0);	
-						table.html(okcheck1);
-						docStatus = 3;
 						
 					}
 				
 				flowok(docNo,table,approin,docStatus,insertcode,colcode,comment);
 				flowreturn();
-				}
 				
-								
+				
+				}				
 				
 			});
 		
@@ -605,7 +608,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
         <div id="docinfo">
         <span> 제목 :</span>
         <div style ="display: inline-block; background :white; border :1px solid black; width: 400px;" ><%=check.getaTitle() %></div>
-        <div style ="display: inline-block; border :1px solid black;"><%=check.getDocType() %></div>
+        <div style ="display: inline-block; border :1px solid black;"><%=doctype%></div>
         <%if(check.getReturnComment() != null){ %>
         <button id="returncbtn">반려코멘트 보기</button> 
         <%} %>
@@ -616,7 +619,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
   
     <br>
     <div id="docwrite">
- 		<%=doctext %>
+ 		
  	
         </div>
     </div> 
@@ -631,16 +634,126 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
       <%}} %>
         </div>
     </div>
+    
     <div id="retruncomment">
+      <button id="close3">닫기</button><span>최대 300자</span>
         <div id= comment style="white-space :pre;">
         <%=check.getReturnComment() %>
 
         </div>
-        <button id="close3">닫기</button>
+      
     </div>
 
     <script>
     
+		$(function(){
+			var text1  = '<%=text%>';
+		    var arr = text1.split("/+/");
+			
+			var type = '<%=doctype%>';
+			if(type=="휴가신청서"){
+				var vtype;
+				if(arr[0]=='L1'){
+					vtype = "연차";
+				}else if(arr[0]=='L2'){
+					vtype = "월차";
+				}else{
+					vtype = "반차";
+				}
+				var sDate = arr[1];
+				var eDate = arr[2];
+				
+				var dot ="전일";
+				if(arr[3]=='A'){
+					dot = "오전";
+				}else if(arr[3]=='P'){
+					dot = "오후";
+				}
+				var text = arr[4];
+				
+				
+				var $span1 = $("<span>");
+				var $span2 = $("<span>");
+				$span1.text("휴가종류 : ");
+				$span2.text(vtype);
+				
+				$spanday =$("<span>");
+				$spanday.text("기간 : ");
+				var $inDate1 = $("<input type='date' readonly id='sday'>");
+				var $inDate2 = $("<input type='date' readonly id='eday'>");
+				$inDate1.val(sDate);
+				$inDate2.val(eDate);
+				
+				var $span3 = $("<span>");
+				$span3.text("시간 :" +dot);
+				
+				var $div =$("<div style ='white-spae:pre-wrap; border:1px solid black; width:500px; height:500px;'>");
+				$div.html(text);
+				$("#docwrite").append($span1);
+				$("#docwrite").append($span2);
+				$("#docwrite").append("<br><br>");
+				$("#docwrite").append($spanday);
+				$("#docwrite").append($inDate1);
+				$("#docwrite").append("-")
+				$("#docwrite").append($inDate2);
+				$("#docwrite").append("<br><br>")
+				$("#docwrite").append($span3);
+				$("#docwrite").append("<br><br>");
+				$("#docwrite").append($div);
+				
+			}else if(type=="지출결의서"){
+				console.log(arr);
+				var length = arr.length;
+				console.log(length);
+				var paid = arr[length-2];
+				var text = arr[length-1];
+				console.log(paid);
+				console.log(text);
+				$("#docwrite").html('<table id="ttt" style="border:1px solid black;"">'+
+				           ' <thead><tr><td width = "40px">번호</td><td width = "150px">물품명</td><td width = "90px">단가</td><td width = "50px";>수량</td><td>단위</td><td width = "90px">금액</td><td width = "150px">비고</td></tr></thead>'+
+				            '<tbody id="textm">' +'</tbody>'+'</table>');
+				for( var i = 0; i<length-2;i++){
+					var textsp = arr[i].split(",");
+					$tr = $("<tr>");
+					$td1 =$("<td>");
+					$td2 =$("<td>");
+					$td3 =$("<td class='num'>");
+					$td4 =$("<td class='num'>");
+					$td5 =$("<td class='num'>");
+					$td6 =$("<td class='num'>");
+					$td7 =$("<td>");
+					$td1.text(textsp[0]);
+					$td2.text(textsp[1]);
+					$td3.text(textsp[2]);
+					$td4.text(textsp[3]);
+					$td5.text(textsp[4]);
+					$td6.text(textsp[5]);
+					$td7.text(textsp[6]);
+					
+					$tr.append($td1);
+					$tr.append($td2);
+					$tr.append($td3);
+					$tr.append($td4);
+					$tr.append($td5);
+					$tr.append($td6);
+					$tr.append($td7);
+					
+					$("#textm").append($tr);
+				}
+				
+				$("#ttt td").css("border","1px solid black");
+				$(".num").css("text-align","right")
+				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:645px; height:200px;'>");
+				$div.html(text);
+		        $("#docwrite").append($div);
+			}else{
+				
+				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:645px; height:700px;'>");
+				$div.html(arr[0]);
+				$("#docwrite").append($div);
+			}
+		});
+   
     </script>
 
    

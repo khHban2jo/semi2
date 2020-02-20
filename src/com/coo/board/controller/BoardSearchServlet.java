@@ -72,15 +72,28 @@ public class BoardSearchServlet extends HttpServlet {
 
 		// Hashtable parameters 에 값을 넣준다.
 		parameters.put("title", title);
+		
 		if(keyword != null) {
 			parameters.put("keyword", keyword);			
+		}else {
+			keyword = "";
+			parameters.put("keyword", keyword);	
 		}
+		
 		if(date1 != null) {
 			parameters.put("date1", date1);		
+		}else {
+			date1 = "";
+			parameters.put("date1", date1);
 		}
+		
 		if(date2 != null) {
 			parameters.put("date2", date2);		
+		}else {
+			date2 = "";
+			parameters.put("date2", date2);	
 		}
+		
 		if(searchType != null) {
 			parameters.put("searchType", searchType);		
 		}else {
@@ -91,10 +104,10 @@ public class BoardSearchServlet extends HttpServlet {
 		parameters.put("limit", String.valueOf(limit));
 		
 
-		if(m.getEtc() == null) {
-			m.setEtc("");
-		}
-		parameters.put("etc", m.getEtc()); // dao에서 etc로 관리자 와 유저 구분
+//		if(m.getEtc() == null) {
+//			m.setEtc("");
+//		}
+		parameters.put("Id", m.getEmpId()); // dao에서 etc로 관리자 와 유저 구분
 		
 		System.out.println("==파라미터 값 확인==");
 		Enumeration<String> out = parameters.keys();
@@ -153,11 +166,6 @@ public class BoardSearchServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		// 페이징 처리 하기 전 까지 테스트용
-//		if(title.equals("")) {
-//			list = bs.selectList(currentPage, limit, deptView);
-//		}
-
 		System.out.println("======================================================================");
 		if (list != null) {
 			PageInfo pi = new PageInfo(currentPage, startPage, endPage, listCount, limit, maxPage);

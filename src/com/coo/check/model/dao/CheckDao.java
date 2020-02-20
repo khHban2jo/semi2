@@ -45,25 +45,28 @@ public class CheckDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql="";
-		if(status == 4) {
-		 sql= prop.getProperty("checkCount");
-		}else if(status == 3 || status ==2) {
-		 sql =prop.getProperty("checkendCount");
-		}else {
+		if(status == 0) {
+			sql= prop.getProperty("checkCount");
+		}else if(status == 1){
 			sql =prop.getProperty("checkflowCount");
+		}else if(status == 4){
+			sql = prop.getProperty("mydocCount");
+			
+		}else {
+			sql =prop.getProperty("checkendCount");
 		}
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			pstmt.setInt(2, id);
-			pstmt.setInt(3, id);
-			pstmt.setInt(4, id);
-			pstmt.setInt(5, id);
+			if(status != 4) {
+				pstmt.setInt(2, id);
+				pstmt.setInt(3, id);
+				pstmt.setInt(4, id);
 			
-			if(status == 3 || status ==2) {
-				pstmt.setInt(6, status);
+				if(status == 2 || status ==3) {
+					pstmt.setInt(5, status);
+				}
 			}
-			
 			
 			
 			rset= pstmt.executeQuery();
@@ -99,12 +102,15 @@ public class CheckDao {
 		ResultSet rset = null;
 		
 		String sql ="";
-		if(status == 4) {
+		if(status == 0) {
 		sql = prop.getProperty("selectDocList");
-		}else if(status == 3 || status ==2){
-			sql = prop.getProperty("selectSelectEndList");
-		}else {
+		}else if(status == 1){
 			sql = prop.getProperty("selectSelectFlowList");
+		}else if(status==4){
+			sql = prop.getProperty("selectMydoc");
+			
+		}else {
+			sql = prop.getProperty("selectSelectEndList");
 		}
 		try {
 			
@@ -118,18 +124,21 @@ public class CheckDao {
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			pstmt.setInt(2, id);
-			pstmt.setInt(3, id);
-			pstmt.setInt(4, id);
-			pstmt.setInt(5, id);
-			int i = 6;
-			if(status ==2 || status ==3) {
-			pstmt.setInt(i, status);
-			i++;
+			if(status != 4) {
+				pstmt.setInt(2, id);
+				pstmt.setInt(3, id);
+				pstmt.setInt(4, id);
+				int i = 5;
+					if(status == 2|| status ==3) {
+						pstmt.setInt(i, status);
+						i++;
 			}
-			pstmt.setInt(i, endRow);
-			pstmt.setInt(i+1, startRow);
-				
+				pstmt.setInt(i, endRow);
+				pstmt.setInt(i+1, startRow);
+			}else {
+				pstmt.setInt(2, endRow);
+				pstmt.setInt(3, startRow);
+			}
 			
 			rset=pstmt.executeQuery();
 			
@@ -141,21 +150,17 @@ public class CheckDao {
 				cd.setDocNumber(rset.getInt("DOC_NUMBER"));
 				cd.setaTitle(rset.getString("ATITLE"));
 				cd.setaWriter(rset.getInt("AWRITER"));
-				//cd.setAwriterName("EMPNAME");
+				cd.setAwriterName(rset.getString("AWRITERNAME"));
 				cd.setDocType(rset.getString("DOC_TYPE"));
 				cd.setaStatus(rset.getInt("ASTATUS"));
 				cd.setApprover(rset.getString("APPROVER"));
-				cd.setDeptCode(rset.getString("DEPT_CODE"));
 				cd.setDeptName(rset.getString("DEPT_TITLE"));
+				cd.setIndept(rset.getString("IN_DEPTNAME"));
 				cd.setInPeople(rset.getString("INPEOPLE"));
 				cd.setInStatus(rset.getString("INSTATUS"));
-				cd.setColDeptCode(rset.getString("COL_DEPT"));
 				cd.setColdeptName(rset.getString("COL_DEPTNAME"));
 				cd.setColPeople(rset.getString("COL_PEOPLE"));
 				cd.setColStatus(rset.getString("COL_STATUS"));
-				cd.setEndDeptCode(rset.getString("END_DEPTC"));
-				cd.setEnddeptName(rset.getString("END_DEPTN"));
-				cd.setEndPerson(rset.getString("END_PERSON"));
 				cd.setViewPeople(rset.getString("VIEW_PEOPLE"));
 				cd.setDocDate(rset.getDate("DOC_DATE"));
 				cd.setReturnComment(rset.getString("RETURNCOMMENT"));
@@ -173,6 +178,45 @@ public class CheckDao {
 		}
 		
 		return docs;
+	}
+	
+	
+
+	/**
+	 * 찾기 줄수 
+	 * @param con
+	 * @param id
+	 * @param search
+	 * @param keyword
+	 * @return
+	 */
+	public int getListSearchCount(Connection con, int id, int search, String keyword) {
+		int result = 0;
+		PreparedStatement pstmt  = null;
+		ResultSet rset = null;
+		
+		String sql = null;
+		if(search ==1) {// 타이틀
+			sql= prop.getProperty("");
+		}else {//기안자
+			sql= prop.getProperty("");
+		}
+				
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,id);
+			pstmt.setInt(2,id);
+			pstmt.setInt(3,id);
+			pstmt.setInt(4,id);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	/**
@@ -196,19 +240,17 @@ public class CheckDao {
 				info.setDocNumber(rset.getInt("DOC_NUMBER"));
 				info.setaTitle(rset.getString("ATITLE"));
 				info.setaWriter(rset.getInt("AWRITER"));
-				//info.setAwriterName("EMPNAME");
+				info.setAwriterName(rset.getString("AWRITERNAME"));
 				info.setDocType(rset.getString("DOC_TYPE"));
 				info.setaStatus(rset.getInt("ASTATUS"));
 				info.setApprover(rset.getString("APPROVER"));
-				info.setDeptCode(rset.getString("DEPT_CODE"));
 				info.setDeptName(rset.getString("DEPT_TITLE"));
+				info.setIndept(rset.getString("IN_DEPTNAME"));
 				info.setInPeople(rset.getString("INPEOPLE"));
 				info.setInStatus(rset.getString("INSTATUS"));
-				info.setColDeptCode(rset.getString("COL_DEPT"));
 				info.setColdeptName(rset.getString("COL_DEPTNAME"));
 				info.setColPeople(rset.getString("COL_PEOPLE"));
 				info.setColStatus(rset.getString("COL_STATUS"));
-				info.setEndPerson(rset.getString("END_PERSON"));
 				info.setViewPeople(rset.getString("VIEW_PEOPLE"));
 				info.setDocDate(rset.getDate("DOC_DATE"));
 				info.setDeleteyn(rset.getString("DELETE_YN"));
@@ -363,48 +405,40 @@ public class CheckDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertDoc");
-
+		System.out.println(sql);
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,info.getaTitle() );
 			pstmt.setInt(2,info.getaWriter());
-			pstmt.setString(3,info.getDocType());
-		
-			pstmt.setString(4,info.getApprover());
+			pstmt.setString(3,info.getAwriterName());
+			pstmt.setString(4, info.getDeptName());
+			pstmt.setString(5,info.getDocType());
+			pstmt.setString(6,info.getApprover());
 			
-			pstmt.setString(5,info.getDeptCode());
-			pstmt.setString(6, info.getDeptName());
-			pstmt.setString(7,info.getInPeople());
-			pstmt.setString(8,info.getInStatus());
-			if(info.getColDeptCode()!= null ){ 
-				pstmt.setString(9,info.getColDeptCode());
-				pstmt.setString(10, info.getColdeptName());
+			
+			pstmt.setString(7, info.getIndept());
+			pstmt.setString(8,info.getInPeople());
+			pstmt.setString(9,info.getInStatus());
+			if(info.getColdeptName()!= null ){ 
+				pstmt.setString(10,info.getColdeptName());
 				pstmt.setString(11,info.getColPeople());
 				pstmt.setString(12,info.getColStatus());
-				System.out.println(info.getColStatus());
+				
 			}else {
-			pstmt.setNull(9,java.sql.Types.NULL); //sql의 null 설정
-			pstmt.setNull(10,java.sql.Types.NULL);
+			pstmt.setNull(10,java.sql.Types.NULL); //sql의 null 설정
 			pstmt.setNull(11,java.sql.Types.NULL);
 			pstmt.setNull(12,java.sql.Types.NULL);
 			}
 			
-		
-			if(info.getEndPerson()!=null) {
-			 pstmt.setString(13, info.getEndDeptCode());
-			 pstmt.setString(14, info.getEndDeptCode());
-			 pstmt.setString(15,info.getEndPerson());
-			}else {
-				pstmt.setNull(15,java.sql.Types.NULL);
-			}
 		 
-			if(info.getDeptCode()!=null) {
-				pstmt.setString(16,info.getViewPeople());
+			if(info.getViewPeople()!=null) {
+				pstmt.setString(13,info.getViewPeople());
 			
 			}else {
-				pstmt.setNull(16,java.sql.Types.NULL);
+				pstmt.setNull(13,java.sql.Types.NULL);
 			}
 			result =pstmt.executeUpdate();
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -428,20 +462,21 @@ public class CheckDao {
 		RoundDoc docText= null;
 		PreparedStatement pstmt = null;
 		String sql= "";
+		System.out.println(docType);
 		if(docType.equals("품의서")) {
 			sql = prop.getProperty("insertRoundDoc");
-			docText = doc;
 		}else if(docType.equals("지출결의서")) {
 			sql = prop.getProperty("insertPayDoc");
-			docText = (PayDoc)doc;
+			
 		}else {
 			sql=prop.getProperty("insertVacDoc");
 		}
 		try {
 			//System.out.println(sql);
+			docText = doc;
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,doc.getText());
-			if(docType.equals("지출결의서")) {
+		if(docType.equals("지출결의서")) {
 			pstmt.setInt(2, ((PayDoc)doc).getEndPay());
 			 
 			}else if(docType.equals("휴가신청서")) {
@@ -681,11 +716,11 @@ public class CheckDao {
 	/**
 	 * 정부 부서코드 가져오기
 	 * @param con
-	 * @param arr
+	 * @param pcode
 	 * @param dename
 	 * @return
 	 */
-	public ArrayList<StockLine> getMassub(Connection con, String[] arr, String dename) {
+	public ArrayList<StockLine> getMassub(Connection con, ArrayList<Integer> pcode, ArrayList<String> dename) {
 		ArrayList<StockLine> masub = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -695,17 +730,18 @@ public class CheckDao {
 			
 			masub = new ArrayList<StockLine>();
 			pstmt = con.prepareStatement(sql);
-			for(int i = 0; i<arr.length; i++) {
-
-				int j = Integer.valueOf(arr[i]);
+			for(int i = 0; i<pcode.size(); i++) {
+				
+				int j = Integer.valueOf(pcode.get(i));
 			 pstmt.setInt(1, j);
-			 pstmt.setString(2,dename);
+			 pstmt.setString(2,dename.get(i));
 			 rset = pstmt.executeQuery();
 			 if(rset.next()) {
 				 StockLine save = new StockLine();
 				 save.setEmpcode(rset.getInt("EMP_CODE"));
 				 save.setSubcode(rset.getInt("SUB_CODE"));
 				 save.setDeptCode(rset.getString("DEPT_CODE"));
+				 save.setDeptName(dename.get(i));
 				 masub.add(save);
 				 
 			 	}	
@@ -739,13 +775,16 @@ public class CheckDao {
 			names = new ArrayList<String>();
 			pstmt = con.prepareStatement(sql);
 			for(int i = 0; i<savePcodes.size(); i++) {
-				
 				int j = savePcodes.get(i);
-			 pstmt.setInt(1, j);
-			 rset = pstmt.executeQuery();
+				 pstmt.setInt(1, j);
+				 rset = pstmt.executeQuery();
+				if(savePcodes.get(i)==0) {
+					names.add("없음");
+				}
+			
 			 if(rset.next()) {
 				 names.add(rset.getString("EMP_NAME"));
-				 
+				
 			 	}	
 				
 			}
@@ -801,13 +840,18 @@ public class CheckDao {
 		return tn;
 	}
 
+	/**
+	 * 진행상황 업데이트
+	 * @param con
+	 * @param info
+	 * @return
+	 */
 	public int updateInfo(Connection con, CheckDoc info) {
 		int result =0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateInfo");
 		
 		try {
-			//ASTATUS =?, APPROVER =?, INSTATUS=?, COL_STATUS=?,RETURNCOMMENT =? WHERE DOC_NUMBER =?
 			pstmt = con.prepareStatement(sql);
 			
 				 
@@ -831,10 +875,43 @@ public class CheckDao {
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		
 		return result;
 	}
+
+	/**
+	 * 결재자 정 상태 가져오기
+	 * @param con
+	 * @param mascode
+	 * @return
+	 */
+	public String getMasStauts(Connection con, int mascode) {
+		String status = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkmaster");
+		//쿼리문 부터 작성필요
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mascode);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				status= rset.getString(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return status;
+	}
+
 
 	
 

@@ -2,6 +2,8 @@ package com.coo.check.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +16,7 @@ import com.coo.check.model.service.CheckService;
 import com.coo.check.model.vo.CheckDoc;
 import com.coo.check.model.vo.PageInfo;
 import com.coo.member.model.vo.Member;
+import com.google.gson.Gson;
 
 /**
  * 
@@ -37,14 +40,13 @@ public class CheckListServlet extends HttpServlet {
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=UTF-8");
 		//세션 들고오기 
 		HttpSession session = request.getSession(false);
 		if(session == null) {
 		 request.setAttribute("msg", "로그인인 해주세요");
 		 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
 		
 		 //세션에서 empno 가져오기
 		Member m = (Member) session.getAttribute("member");
@@ -54,10 +56,9 @@ public class CheckListServlet extends HttpServlet {
 		if(request.getParameter("status")!=null) {
 			status = Integer.valueOf(request.getParameter("status"));
 		}else {
-			status = 4;
+			status = 0;
 		}
-		
-		
+		//System.out.println(status);
 		
 		
 		ArrayList<CheckDoc> list = null;
@@ -111,34 +112,39 @@ public class CheckListServlet extends HttpServlet {
 		if(maxPaging< endPaging) {
 			endPaging = maxPaging;
 		}
-	;
+		
 		
 		list = cs.getList(currentPage,limitPage, id, status);
+		//PageInfo pi;
+		//System.out.println(list);
+	
+		PageInfo pi = new PageInfo(checkListCount,startPaging,endPaging,maxPaging,limitPaging,limitPage,currentPage);
 		
-		
+		pi.setStatus(status);
 		String page="";
 		
 		if(list!=null) {
-			request.setAttribute("list", list);
 			
-			PageInfo pi = new PageInfo();
+				request.setAttribute("list", list);
+				
+				 //pi = new PageInfo();
+			
+				
+				//pi = new PageInfo(checkListCount,startPaging,endPaging,maxPaging,limitPaging,limitPage,currentPage);
+				
+				request.setAttribute("pi", pi);
+				page = "views/EP_list.jsp";
+				
+		 				 
+		 }else {
+				request.setAttribute("msg", "정보를 가져오지 못했습니다.");
+				page ="views/common/errorPage";
+						
+			}
+			
+			request.getRequestDispatcher(page).forward(request, response);
 		
 			
-			pi = new PageInfo(checkListCount,startPaging,endPaging,maxPaging,limitPaging,limitPage,currentPage);
-			pi.setStatus(status);
-			request.setAttribute("pi", pi);
-			
-			page = "views/EP_list.jsp";
-		
-		}
-//		else {
-//			request.setAttribute("msg", "정보를 가져오지 못했습니다.");
-//			page ="views/common/errorPage";
-					
-//		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
-		
 		
 		
 		

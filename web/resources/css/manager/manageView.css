@@ -8,7 +8,7 @@
 	}
 	
 	.managerTable{
-	     margin-left:70px;      
+	     /* margin-left:40px;      */ 
 	     border-style:none;
 	     background:whitesmoke;
 	     color: #7e848f;
@@ -35,5 +35,3 @@
 	#t2,#t3,#p2,#p3{
 		width:40px;
 	}
-	
-	

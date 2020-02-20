@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.coo.member.model.vo.Member;
 import com.coo.pmap.model.service.PmapService;
-import com.coo.pmap.model.vo.*;
+import com.coo.pmap.model.vo.PmapInfo;
 
 /**
  * Servlet implementation class PmapAllServlet
@@ -91,8 +91,6 @@ public class PmapAllServlet extends HttpServlet {
 			request.setAttribute("msg", "전체 조직도 오류");
 		}
 		request.getRequestDispatcher(page).forward(request,response);
-		
-		
 	}
 
 	/**
@@ -102,5 +100,4 @@ public class PmapAllServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

@@ -46,23 +46,22 @@ public class CheckReadServlet extends HttpServlet {
 		
 		String page="";
 	
-		
-		
+		RoundDoc doc = null;
 		if(docInfo != null ) {
 			request.setAttribute("info", docInfo);
 
 			int dn = docInfo.getDocNumber();
-			String doc="";
+			
 			if(docInfo.getDocType().equals("품의서")) {
-				RoundDoc doc1 = cs.getRoundD(docnumber);
-				doc = doc1.getText();
+				doc = cs.getRoundD(docnumber);
+				
 			}else if(docInfo.getDocType().equals("지출결의서")) {
-				PayDoc doc2 = cs.getPayD(dn);
-				doc = doc2.getText();
+				doc = cs.getPayD(dn);
+				
 				
 			}else {
-				Vacation doc3 = cs.getVacD(dn);
-				doc = doc3.getText();
+				doc = cs.getVacD(dn);
+			
 			}
 			request.setAttribute("doc",doc);
 			ArrayList<String> files = new ArrayList<String>();

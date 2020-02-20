@@ -32,19 +32,24 @@ public class MemberDeleteServlet extends HttpServlet {
 	 * @param EmpId 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response, String EmpId) throws ServletException, IOException, CooException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 
 		
-		String empId = request.getParameter("userId");
-		
-	   
- 
+    	String empId = request.getParameter("userId");
 		
 	   MemberService ms = new MemberService();
 	
-	   ms.deleteMember(EmpId);
-	   System.out.println("회원 탈퇴 성공!");
-	   response.sendRedirect("views/home.jsp");
+	   ms.deleteMember(empId);
+	  
+	   response.getWriter().print("<html>");
+		response.getWriter().print("<body>");
+		response.getWriter().print("<script>");
+		response.getWriter().print("window.setTimeout(function(){"+ 
+				             "window.close();"+ 
+			                 "},2000);");
+		response.getWriter().print("</script>");
+		response.getWriter().print("</body>");
+		response.getWriter().print("</html>");
 	}
 
 	/**

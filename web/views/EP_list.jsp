@@ -40,52 +40,194 @@
             <div class="margin-list-head">
                 <h1 align="left">결재 게시판</h1>
                 <hr color="lightgray">
-                <button type="button" class="btn btn-light" id="all">전체</button>
-                <button type="button" class="btn btn-primary">제안</button>
-                <button type="button" class="btn btn-wait ">결재대기</button>
-                <button type="button" class="btn btn-info"  id="flow">진행중</button>
-                <button type="button" class="btn btn-success" id="end" >결재완료</button>
-                <button type="button" class="btn btn-warning" id="return">반려</button>
-                <input type ="hidden" id="status">
+                <button type="button" class="btn btn-light" id="all"><input type="hidden" value="1">전체</button>
+                <button type="button" class="btn btn-primary"><input type="hidden" value="1">제안</button>
+                <button type="button" class="btn btn-wait " id="wait"><input type="hidden" value="1">결재대기</button>
+                <button type="button" class="btn btn-info"  id="flow"><input type="hidden" value="1">진행중</button>
+                <button type="button" class="btn btn-success" id="end" ><input type="hidden" value="1">결재완료</button>
+                <button type="button" class="btn btn-warning" id="return"><input type="hidden" value="1">반려</button>
+             
                 <br><br><br>
                 <!-- 홍석코드 -->
                 &nbsp; 
                 
                 <script >
+
+                function pagemove(item){
+                	var status = $("#pStatus").val();
+                	var getCP =  $(item).find("input").val();
+                	var search =$("#search").val(); 
+                	var keyword =$("#keyword").val();
+                	$.ajax({
+                		
+                		url:"/semi/calist.ch",
+                		type:"get",
+                		data:{
+                			currentPage: getCP,
+                			status : status,
+                			search : search,
+                			keyword :keyword
+                		},
+                		success:function(data){
+                            $("#listbody").children().remove();
+                			var list = data["list"];
+                			var pi = data["pi"];
+                			var listCount = parseInt(pi["checkListCount"]) - ((parseInt(pi["currentPage"])-1)* parseInt(pi["limitPage"]));
+                			console.log(listCount);
+                			for(var i = 0; i<list.length; i++){
+                				var count = listCount- i;
+                				console.log(listCount);
+                				var $tr = $("<tr>");
+                				var $td1 = $("<td>");
+                				var $td2 = $("<td>");
+                				var $td3 = $("<td>");
+                				var $td4 = $("<td>");
+                				var $td5 = $("<td>");
+                				var $td6 = $("<td>");
+                				var $input = $("<input type=hidden>");
+                				var $span = $("<span>");
+                				$span.text(count);
+                				$input.val(list[i]["docNumber"]);
+                				$td1.append($span);
+                				$td1.append($input)
+               					$td2.text(list[i]["aTitle"])
+               					$td3.text(list[i]["awriterName"])
+               					$td4.text(list[i]["deptName"])
+               					var flow;
+                				if(list[i]["aStatus"]==0 || list[i]["aStatus"]==1){
+                					flow="진행중"
+                				}else if(list[i]["aStatus"]==2){
+                					flow="결재완료"
+                				}else{
+                					flow="반려"
+                				}
+               					$td5.text(flow);
+               					var date = list[i]["docDate"].split(",");
+               					var date2 =date[0].split("월");
+               					if(date2[0].length=1){
+               						date2[0]= "0"+date2[0];
+               					}
+               					date2[1]=date2[1].substring(1,3);
+               					date = date[1]+"-"+date2[0]+"-"+date2[1]
+               					$td6.text(date);
+               					$tr.append($td1);
+               					$tr.append($td2);
+               					$tr.append($td3);
+               					$tr.append($td4);
+               					$tr.append($td5);
+               					$tr.append($td6);
+               					$("#listbody").append($tr);
+                			} 
+                			//button disabled
+               
+                			//pagingArea
+                			$("#pagingArea").empty();
+                			var pcp =parseInt(pi["currentPage"]);
+                			//<<
+                			var $buttonf =  $('<button onclick="pagemove(this);">');
+                			$buttonf.append('<input type="hidden" value="1">' + "<<");
+                				
+                			//<
+                			var $buttonp=$("<button>");
+                			$buttonp.append('<input type="hidden" value="'+(pcp - 1)+'">' + "<");
+                			if(pcp == 1){
+                				$buttonp.attr("disabled","true");
+                			}else{
+                				$buttonp.attr("onclick","pagemove(this)");
+                			}
+                			$("#pagingArea").append($buttonf);
+                			$("#pagingArea").append("&nbsp;");
+                			$("#pagingArea").append($buttonp);
+                			$("#pagingArea").append("&nbsp;");
+                			var pis = parseInt(pi["startPaging"]);
+                			var pie = parseInt(pi["endPaging"]);
+                			for(var i = pis; i<=pie; i++ ){
+                				var $button = $("<button>");
+                				$button.append("<input type=hidden value='"+i+"'>" + i);
+                				
+                				if( i ==pcp){
+                					$button.attr("disabled","true");
+                				}else{
+                					$button.attr("onclick","pagemove(this)");
+                				}
+                				
+                				$("#pagingArea").append($button);
+                				$("#pagingArea").append("&nbsp;");
+                				
+                			}
+                			
+                			if(pie == 0){
+                				$("#pagingArea").append("<button disabled>1</button>");
+                				$("#pagingArea").append("&nbsp;");
+                			}
+                			
+                			
+                		
+                			//>
+                			var pmp = parseInt(pi["maxPaging"]);
+                			$buttonN = $("<button>");
+                			$buttonN.append("<input type=hidden value='"+(pcp+1)+"'>" + ">");
+                			if(pcp == pmp){
+                				$buttonN.attr("disabled","true");
+                			}else{
+                				$buttonN.attr("onclick","pagemove(this)");
+                			}
+                			//>>
+                			var $buttonM =  $('<button onclick="pagemove(this);">');
+                			$buttonM.append('<input type="hidden" value="'+pmp+'">'+">>");
+                			$("#pagingArea").append($buttonN);
+                			$("#pagingArea").append("&nbsp;");
+                			$("#pagingArea").append($buttonM);
+                			$("#pagingArea").append("&nbsp;");
+                			
+                		},
+                		error:function(){
+                			alert("페이징 에러")
+                		}
+                	}) 
+                }
+                
+                
                 	$("#all").click(function(){
-                		 
-                		location.href='/semi/clist.ch?status=4' ;
+                		$("#pStatus").val(0)
+                		$("#search").val("0");
+                		$("#keyword").val("");
+                		pagemove($(this));
                 	})
                 	$("#flow").click(function(){
-                		
-                		location.href='/semi/clist.ch?status=0';
+                		$("#search").val("0");
+                		$("#pStatus").val(1);
+                		$("#keyword").val("");
+                		pagemove($(this));
                 	})
                 	$("#end").click(function(){
-                		
-                		location.href='/semi/clist.ch?status=2';
+                		$("#search").val("0");
+                		$("#pStatus").val(2);
+                		$("#keyword").val("");
+                		pagemove($(this));
                 	})
                 	$("#return").click(function(){
-                	
-                		location.href='/semi/clist.ch?status=3';
+                		$("#search").val("0");
+                		$("#pStatus").val(3);
+                		$("#keyword").val("");
+                		pagemove($(this));
                 	})
-                	
-                	
+                	$("#wait").click(function(){
+                		$("#search").val("0");
+                		$("#pStatus").val(4);
+                		$("#keyword").val("");
+                		pagemove($(this));
+                	});
                 </script>
 
-                <!-- 부서, 관리자의 전체 공지등 알아야 하는 필요한 만 띄운다.  -->
-                <!--<input type="checkbox" name="name1">  -->
-                 <!-- 안 될것 같으면 변경 및 삭제 -->
-                 <label>기 간 설 정</label>
-                 <input type="month" id="time1"> ~ <input type="month" id="time2">&nbsp;
-                 <!-- <select id="showNumber" style="float: right;">
-                     <option></option>
-                 </select> -->
+           		<label><%=listCount %></label>
                  <hr class="table-line" style="margin-left:-0px;">
                  <div class="table-line">
+                 <input type="hidden" id="pStatus" value ="0">
                     <table style="width:100%; border-collapse:collapse;" id="list">
                         <thead>
                             <tr class='table-line'>
-                                <th><input type="checkbox" id="checkAll"></th>
+                                <!--  <th><input type="checkbox" id="checkAll"></th>-->
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>기안자</th>
@@ -94,62 +236,57 @@
                                 <th>날짜</th>
                             </tr>
                         </thead>
-                        <tbody style="text-align:cente;">
+                        <tbody id="listbody" style="text-align:cente;">
                         	<%int i = listCount -((currentPage-1)*limitpage); %>
                            <% for(CheckDoc b : list){  %>
                            <tr>
-                           <td><input type="checkbox">  <input type="hidden" class="docno"value="<%=b.getDocNumber() %>"></td>
-                           <td><%=i%></td>
+                           <!--  <td><input type="checkbox">  </td>-->
+                           <td><input type="hidden" class="docno"value="<%=b.getDocNumber() %>"><%=i%></td>
                            <td><%=b.getaTitle() %></td>
-                           <td><%=b.getaWriter() %></td>
+                           <td><%=b.getAwriterName() %></td>
                            <td><%=b.getDeptName() %></td>
-                           <%if(b.getaStatus() ==0 ||b.getaStatus()==1||b.getaStatus()==2 ){%> <td>결재중</td><%}else if(b.getaStatus()==3){%><td>결재완료</td><%}else{ %><td>반려</td> <% }%>
+                           <%if(b.getaStatus() ==0 ||b.getaStatus()==1){%> <td>결재중</td><%}else if(b.getaStatus()==2){%><td>결재완료</td><%}else{ %><td>반려</td> <% }%>
                            
                            <td><%=b.getDocDate() %></td>
                            <tr>
                            <%i--; } %>
                         </tbody>
                     </table>
-                    <button id="write" class="btn btn-light" style="margin-left:30px;" onclick="window.open('views/checkdoc/writedoc.jsp','' ,'target:_blank;');">글쓰기</button> 
+                    <button id="write" class="btn btn-light" style="margin-left:30px;" onclick="window.open('views/checkdoc/writedoc.jsp','COO-전자결재' ,'target:_blank;');">글쓰기</button> 
                     <br>
                     <div>
                    <select id="search" name="search" style="height: 30px; margin-left: 220px;"> 
-                         <option value="">검색조건</option>
-                         <option value="">제목</option> 
-                         <option value="">내용</option>
-                         <option value="">직급</option>
-         <!-- 분류에 따른 게시판을 직급별로 쓴 것을 보는 것 단 권한이 없으면 접근 불가 -->
-                         <option value="">제목+내용</option>
-                         <option value="">전체조건</option>
+                         <option value="0">-----</option>
+                         <option value="1">제목</option> 
+                         <option value="2">기안자</option> 
                      </select>&nbsp;
                      <input class="form-control" type="text" id="keyword" 
                          name="keyword"  placeholder="검색어를 입력하세요"
                          style="width:200px;"/>
  
-                     <button id="btn">검색</button>
-                    <div class="pagingArea" align="center">
-			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=1&status=<%=pi.getStatus()%>'"><<</button>
-			<%  if(currentPage <= 1){  %>
+                     <button id="btn"  onclick="pagemove(this);"><input type="hidden" value="1">검색</button>
+                    <div class="pagingArea" id="pagingArea" align="center">
+			  <button onclick="pagemove(this);"><input type="hidden" value="1"><<</button>
+			
 			<button disabled><</button>
-			<%  }else{ %>
-			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage - 1 %>&status=<%=pi.getStatus()%>'"><</button>
-			<%  } %>
+		
 			
 			<% for(int p = startPage; p <= endPage; p++){
 					if(p == currentPage){	
 			%>
 				<button disabled><%= p %></button>
 			<%      }else{ %>
-				<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= p %>&status=<%=pi.getStatus()%>'"><%= p %></button>
+				<button onclick="pagemove(this);"><input type="hidden" value="<%=p%>"><%= p %></button>
 			<%      } %>
 			<% } %>
 				
 			<%  if(currentPage >= maxPage){  %>
 			<button disabled>></button>
 			<%  }else{ %>
-			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage + 1 %>&status=<%=pi.getStatus()%>'">></button>
+			<button onclick="pagemove(this);"><input type="hidden" value="<%=currentPage + 1 %>">></button>
 			<%  } %>
-			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= maxPage %>&status=<%=pi.getStatus()%>'">>></button>
+			<button onclick="pagemove(this);"><input type="hidden" value="<%=pi.getStatus()%>">>></button>  
+			
 			
 		</div>
                 </div>
@@ -162,25 +299,34 @@
 </div>
 <script>
 
+
+
 $(function(){
-	
-	$("#list td").mouseenter(function(){
+	$("#list").mouseenter("click",function(){
+		$("#list td").mouseenter(function(){
 		
-		$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
-	}).mouseout(function(){
-		$(this).parent().css({"background":"white"});
-	}).click(function(){
-		//console.log($(this).parent().find("input[type=hidden]").val());
-		var docNumber = $(this).parent().find("input[type=hidden]").val();
-		location.href="<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber;
+			$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+		}).mouseout(function(){
+			$(this).parent().css({"background":"white"});
+		}).click(function(){
+			//console.log($(this).parent().find("input[type=hidden]").val());
+			var docNumber = $(this).parent().find("input[type=hidden]").val();
+			<%--location.href="<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber;--%>
+		window.open("<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber,'','target=_blank');
 		//window.open('www.naver.com','','target:_blank;');
-		//'<%=request.getContextPath()%>/cread.ch?docNumber=' + docNumber;'
 		
 	
 
 
 	});
+	
+	});
+	
 });
+
+
+
+   
 </script>
     
     

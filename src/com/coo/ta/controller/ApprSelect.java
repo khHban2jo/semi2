@@ -1,28 +1,32 @@
-package com.coo.member.controller;
+package com.coo.ta.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.coo.exception.CooException;
-import com.coo.member.model.service.MemberService;
-import com.coo.member.model.vo.Member;
 
+import com.coo.check.model.vo.CheckDoc;
+import com.coo.exception.CooException;
+import com.coo.member.model.vo.Member;
+import com.coo.ta.model.service.VacDocService;
+import com.google.gson.Gson;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class ApprSelect
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/apSelect.ta")
+public class ApprSelect extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public ApprSelect() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,27 +35,26 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+
+		response.setContentType("application/json; charset=UTF-8");
 		
-		Member m = new Member(userId, userPwd);
+		HttpSession session = request.getSession();
+		Member emp = (Member)session.getAttribute("member");
+		int empCode = emp.getEmpCode();
 		
-		MemberService ms = new MemberService();
-		
+		//	ATITLE , DOC_NUMBER, ASTATUS 필요
+		ArrayList<CheckDoc> cdList = new ArrayList<CheckDoc>();
 		try {
-			m = ms.selectMember(m);
-			System.out.println(m);
-			HttpSession session = request.getSession();
-			
-			session.setAttribute("member", m);
-				
-			response.sendRedirect("views/home.jsp");
-			System.out.println("로그인 성공!");
-			
+			cdList = new VacDocService().selectApprovalList(empCode);
 		} catch (CooException e) {
-			request.setAttribute("msg","회원로그인 실패");
+			//	에러 발생 시
+			request.setAttribute("msg", "결재 목록를 불러 오는 중 에러 발생!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
+		
+		
+		
+		new Gson().toJson(cdList, response.getWriter());
 	}
 
 	/**
@@ -63,3 +66,8 @@ public class LoginServlet extends HttpServlet {
 	}
 
 }
+
+
+
+
+

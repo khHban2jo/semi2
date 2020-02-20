@@ -1,8 +1,8 @@
 package com.coo.check.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.coo.check.model.service.CheckService;
-import com.coo.check.model.vo.*;
+import com.coo.check.model.vo.CheckDoc;
+import com.coo.check.model.vo.PayDoc;
+import com.coo.check.model.vo.RoundDoc;
+import com.coo.check.model.vo.Vacation;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.sun.xml.internal.bind.v2.model.util.ArrayInfoUtil;
 
 
 /**
@@ -61,36 +63,24 @@ public class CheckInsertServlet extends HttpServlet {
 		
 		String doctitle = mrequest.getParameter("doctitle");   
 		int docwriter = Integer.valueOf(mrequest.getParameter("empcode")); //int로 바꿀것
+		String docwirteName = mrequest.getParameter("docwriterName");
 		String doctype =mrequest.getParameter("doctype");
-		String deptCode = mrequest.getParameter("checkdeptC");
-		String deptName = mrequest.getParameter("checkdeptN");
+		String deptName = mrequest.getParameter("deptcode");
+		String indept = mrequest.getParameter("chdept");
 		String checkper = mrequest.getParameter("checkper");
-		String coldeptCode= mrequest.getParameter("coldeptC"); 
-		String coldeptName = mrequest.getParameter("coldeptN");
+		String coldeptCode= mrequest.getParameter("codept"); 
 		String colper = mrequest.getParameter("colper");
-		String enddeptC = mrequest.getParameter("enddeptC");
-		String enddeptN = mrequest.getParameter("enddeptN");
-		String endper = mrequest.getParameter("endper");
 		String viewper = mrequest.getParameter("viewper");
 		
-		System.out.println("doctitle" + doctitle);
-//		System.out.println("docwriter" + docwriter);
-//		System.out.println("deptCode" + deptCode);
-//		System.out.println("deptName" + deptName);
-//		System.out.println("checkper" + checkper);
-//		System.out.println("coldeptCode" + coldeptCode);
-//		System.out.println("coldeptName" + coldeptName);
-//		System.out.println("colper" + colper);
-//		System.out.println("enddeptC" + enddeptC);
-//		System.out.println("enddeptN" + enddeptN);
-//		System.out.println("endper" + endper);
-//		System.out.println("viewper" + viewper);
+
+		System.out.println(doctype);
 		
+	
 		
-		
-		System.out.println("확인중" + colper);
-		
-		
+		if(mrequest.getParameter("checkper")==null) {
+			//에러페이지
+			System.out.println("dd");
+		}
 		String[] arr= checkper.split(",");
 		StringBuffer a = new StringBuffer();
 		String approval = arr[0]+","+ arr[1];
@@ -142,29 +132,70 @@ public class CheckInsertServlet extends HttpServlet {
 					files.add(file);
 				 }
 		}
-
+		
 		
 
 	
-		CheckDoc info= new CheckDoc(doctitle,docwriter,doctype, approval,deptCode,deptName , checkper, inStatus,coldeptCode,coldeptName
-					, colper,colStatus,enddeptC,enddeptN, endper,viewper);
+		CheckDoc info= new CheckDoc(doctitle,docwriter,docwirteName,deptName,doctype, approval, indept, checkper, inStatus,coldeptCode
+					, colper,colStatus,viewper);
 		System.out.println(info);
 		
-
+		String text;
 		RoundDoc doc = null;
-		if(info.getDocType() == "휴가신청서") {
+		if(info.getDocType().equals("휴가신청서")) {
 			doc = new Vacation();
-			//((Vacation)doc).setStart();
-			//((Vacation)doc).setEnd();
-		//((Vacation)doc).setType();
-		}else if(info.getDocType()=="지출결의서") {
+			//leave_code,endDate,startDate,dayOffType
+			String leaveCode = mrequest.getParameter("leaveCode");
+			String startDate = mrequest.getParameter("startDate");
+			String endDate = null;
+			System.out.println(mrequest.getParameter("endDate"));
+			if(mrequest.getParameter("endDate")!= null) {
+				endDate =mrequest.getParameter("startDate");
+			}else {
+				endDate = mrequest.getParameter("endDate");
+			}
+			String dot= null;
+			if(mrequest.getParameter("dayOffType")== null) {
+				dot="N";
+			}else {
+				dot = mrequest.getParameter("dayOffType");//값보고 N으로 넘어가게
+			}
+			
+			Date sd = null;
+			Date ed = null;
+			
+			String[] sdArr = startDate.split("-");
+			String[] edArr = endDate.split("-");
+			int year = Integer.valueOf(sdArr[0]);
+			int month = Integer.valueOf(sdArr[1]);
+			int day = Integer.valueOf(sdArr[2]);
+			
+			sd = new Date(year,month-1,day);
+			
+			year = Integer.valueOf(edArr[0]);
+			month = Integer.valueOf(edArr[1]);
+			day =  Integer.valueOf(edArr[2]);
+			
+			ed = new Date(year,month-1,day);
+			 
+			((Vacation)doc).setLeave_code(leaveCode);
+			((Vacation)doc).setStart_Date(sd);
+			((Vacation)doc).setEnd_Date(ed);
+			((Vacation)doc).setDayOff_MA(dot);
+			text = mrequest.getParameter("text")+"/+/"+mrequest.getParameter("ir1");
+		}else if(info.getDocType().equals("지출결의서")) {
+		
+			int paid = Integer.valueOf(mrequest.getParameter("endpay"));
 			doc = new PayDoc();
-			((PayDoc)doc).setEndPay(200241);//Integer.valueOf(request.getParameter(""));
+			((PayDoc)doc).setEndPay(paid);
+			text =  mrequest.getParameter("text")+"/+/"+mrequest.getParameter("ir1");
 		}else {
 			doc = new RoundDoc();
+			text = mrequest.getParameter("ir1");
 		}
-		doc.setText(mrequest.getParameter("text"));
-		
+		///+/
+		doc.setText(text);
+		System.out.println(text);
 		
 	
 		int result = new CheckService().insertDoc(info, doc, files);

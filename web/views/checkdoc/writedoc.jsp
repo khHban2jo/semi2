@@ -12,6 +12,7 @@
     <meta charset="UTF-8">
     <title>COO - 전자결재</title>
     <link rel="stylesheet" href="/semi/resources/css/checkdoc/checkwrite.css">
+    <script type="text/javascript" src="/semi/views/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
     <script
     src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -34,13 +35,13 @@
         <hr>
         
         <div id="area1" class="area">
-            <form action="<%= request.getContextPath() %>/cInsert.ch" method="post" enctype="multipart/form-data">
+            <form id="docs"action="<%= request.getContextPath() %>/cInsert.ch" method="post" enctype="multipart/form-data">
                 
                 <div class="areaLeft">
                     <h2 id ='doctype1'>품의서</h2>
                     <h2 id ='doctype2'>결의서</h2>
                     <h2 id ='doctype3'>휴가신청서</h2>
-                    <input type="hidden" name="doctype" id="type1">
+                    <input type="text" name="doctype" id="type1">
 
 
                     <fieldset class="writerField">
@@ -53,7 +54,7 @@
                         <label>보존기한 : </label><input type="text" class="inputRight" value="영구보존" readonly>
                     </fieldset>
                     <br>
-                    <label id = "setLine">결재선 지정</label>
+                    <label id = "setLine" onclick="setline()">결재선 지정</label>
                     <fieldset class="toField" style ="height:300px;" >
                         <legend>2. 결재선</legend>
                       <div id="lineList" >
@@ -67,20 +68,15 @@
                                     <td></td>
                             </tr>
                             <tr>
-                                <td width ="80px">결재부서</td>
-                                <td class ="deptview" id="indept"></td>
-                            </tr>
-                            <tr>
-                                <td style="height: 40px;">결재자</td>
+                                <td style="height: 70px;">결재자</td>
                                 <td colspan= 3 class="people"></td>
                             </tr>
                         </tbody>
 
                         
                     </table>
-                   <input type="text" name ="checkdeptC" class ="deptC" >
-                   <input type="text" name ="checkdeptN" class ="deptN" id="chdeptN">
                    <input type="text" class ="hiddenper"  id="chper">
+                   <input type="text" class ="dept" name = "chdept" id="chdept">
                    <input type="text" name ="checkper"  class="perend">
 					</div>
                  
@@ -93,46 +89,17 @@
                                    <td></td>
                                    <td></td>
                                 </tr>
-                                <tr >
-                                        <td width ="80px" >합의/수신</td>
-                                        <td class ="deptview" colspan="3" id="colladept"></td>
-                                        
-                                    </tr>
+
                                     <tr>
-                                        <td style="height: 40px;">결재자</td>
+                                        <td style="height: 70px;">결재자</td>
                                         <td colspan="3" class="people"></td>
                                     </tr>
                                 </tbody>
                             </table>
-                             <input type="text" name ="coldeptC" class ="deptC">
-                             <input type="text" name ="coldeptN" class ="deptN" id="codeptN">
+                               <input type="text" class ="dept" name = "codept" id="codept">
                              <input type="text" class ="hiddenper" id="cope">
-                             <input type="text" name ="colper" class ="perend" >
+                             <input type="hidden" name ="colper" class ="perend" >
                              </div>
-                             <div>
-                            <table> 
-                                <tbody>
-                                    <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                    </tr>
-                                    <tr>
-                                     <td width ="80px" >부서</td>
-                                        <td class ="deptview" colspan="3" id="endladept"></td>
-                                        </tr>
-                                    <tr>
-                                        <td style="height: 40px;">최종결재자</td>
-                                        <td class="people" colspan="3"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <input type="hidden" name ="enddeptC" class ="deptC">
-                                <input type="hidden" name ="enddeptN" class ="deptN" id="enddeptN">
-                                <input type="hidden" class ="hiddenper" id="endp">
-                                <input type="hidden" name ="endper" class ="perend" >
-                    </div>
                      <div>
                         <table>
                             <tbody>
@@ -177,30 +144,19 @@
                                 	 $("#filenames").append($input);
                                 	  $("#filenames").append(input);
                                 	  flength++;
-                                	  console.log(flength);
+                                	 
                           }else{
                               alert("파일은 5개 까지 가능합니다.");
                              $(this).val("");    
                           }         
                   	});
                     
-                   /*  $(".delfile").click(function (){
-                   	 flength = flength-1;
-                    	$(this).prev("input[type=file]").remove();
-                    	 console.log(flength);
-                    	$(this).siblings("input[type=file]");
-                    	for(var i =0; i<flength; i++){
-                    		$(this).siblings("input[type=file]").eq(i).attr("name","file" +i);
-                    	}
-                   	
-                    	$(this).remove();
-                   	 
-                    }); */
+  
                      	 
                     function delfile(item){
                   	 flength = flength-1;
                    	$(item).prev("input[type=file]").remove();
-                   	 console.log(flength);
+                 
                    	$(item).siblings("input[type=file]");
                    	for(var i =0; i<flength; i++){
                    		$(item).siblings("input[type=file]").eq(i).attr("name","file" +i);
@@ -211,15 +167,9 @@
                    };
 
                    
-                    	
-                	   //if(fileset.files.size <=10*1024*1024){ 
-                    /*    }else{
-                           alert(fileset.files.name +" 의 크기가 너무 큽니다. 파일1개의 최대 크기는 10mb입니다." );
-                           $(this).val("");
-                       }  */           
-                
+     
                     
-                    //결재자, 합의자, 최종결재자 이름 가져오기
+                    //결재자, 합의자  이름 가져오기
                     $(".hiddenper").on("click",function(){
                     	var imhidden = $(this);
                       
@@ -228,25 +178,26 @@
                     		type:"get",
                     		data:{
                     			pcodes : imhidden.val(),
-                    			deptname : imhidden.siblings(".deptN").val()
                     		},
                     		success: function(data){
- 
+                    		
                     			var dept = data["list1"];
                     			var pcodes = data["list2"];
                     			var pnames = data["list3"];
-                    
-                    		
-                    			imhidden.siblings(".deptC").val(dept);
-                    			var a = imhidden.siblings(".table").find(".people").html("")
+                    			console.log(dept);
+                    			console.log(pcodes);
+                    			console.log(pnames);
+                    			
                     			for(var i = 0; i< pnames.length; i = i+2){
-                    				var a = imhidden.siblings("table").find(".people").html()
+                    				var a = imhidden.siblings("table").find(".people").html();
                     				
-                    				var label = "<div onclick='delperson(this);' class ='person'><input type='hidden' value="+i+"> 정 : " + pnames[i] +"<br> 부 : " +pnames[i+1]+"</div>";
+                    				
+                    				var label = "<div onclick='delperson(this);' class ='person'><input type='hidden' value="+i+">부서:"+dept[i/2] + "<br>정 : " + pnames[i] +"<br> 부 : " +pnames[i+1]+"</div>";
+                    				
                     				imhidden.siblings("table").find(".people").html( a + "&nbsp"+ label);
                     			}
-                    			imhidden.next().val(pcodes.join());
-                    			
+                    			imhidden.siblings(".perend").val(pcodes.join());
+                    			imhidden.siblings(".dept").val(dept.join());
                     		},
                     		erorr :function(){
                     			alert("에러")
@@ -272,7 +223,6 @@
                     			console.log(data);
                     			var list= data;
                     			for(var i = 0; i< list.length; i ++){
-                    				console.log("확인")
                     				var a = imhidden.prev().find(".people").html()
                     				var label = "<div onclick='delvperson(this);' class ='person'><input type='hidden' value="+i+"> 부서 : " + data[i].deptName +"<br> 부 : " +data[i].empName+"</div>";
                     				imhidden.prev().find(".people").html( a + "&nbsp"+ label);
@@ -290,9 +240,15 @@
                     if(confirm( i.innerText +" 결제선을 삭제하시겠습니까?")){
                         var indext = parseInt($(i).find("input").val());
                         var cut = $(i).parents("table").siblings(".perend").val().split(",");
-                        console.log(indext);
+                        var cut2= $(i).parents("table").siblings(".dept").val().split(",");
+                       // console.log(cut2);
+                        //console.log(indext);
                         cut.splice(indext,2);
+                        cut2.splice(indext/2,1);
+                        //console.log(cut2);
+                        //console.log(cut2.splice(indext,1));
                         $(i).parents("table").siblings(".perend").val(cut);
+                        $(i).parents("table").siblings(".dept").val(cut2);
                         var child =$(i).parent().children("div");
                        
                         
@@ -301,10 +257,8 @@
                     	   console.log($(child[k]).children("input").val());
                     	  
                        }
-                       console.log(child.length);
                        if(child.length==1){
-                		  $(i).parents("table").siblings(".deptC").val("");
-                		  $(i).parents("table").siblings(".deptN").val("");
+                		  $(i).parents("table").siblings(".dept").val("");
                 		  $(i).parents("table").find(".deptview").html("");
                 	   }
                        i.remove();
@@ -340,20 +294,68 @@
 
                     <fieldset>
                     <div id="docbody">
-                         <textArea cols="20" rows="20" name="text"></textArea>
+                  
 						
                     </div>
                 </fieldset>
 
                 </div>
-				<input type = "submit">
+                <input type="text" name="text" id="fulling">
+				 <input type = "submit" id="gsubmit" value="전송" >
             </form>
+           
+            <button onclick = "gsubmit();">asdads</button>
         </div>
-
+			
     </div> 
 		<script>
+		$(function(){
+			
+		   	
+		  $("#gsubmit").click(function() {	
+			if($("#type1").val() =="지출결의서"){
+				var a =$("#textm tr");
+				 var pay = 0;
+				for(var i = 0; i<a.length; i++){
+					var b = $("#fulling").val();
+				/* 	console.log(a.eq(i).find("label").text());
+					console.log(a.eq(i).find("input:eq(0)").val());
+					console.log(a.eq(i).find("input:eq(1)").val());
+					console.log(a.eq(i).find("input:eq(2)").val());
+					console.log(a.eq(i).find("input:eq(3)").val());
+					console.log(a.eq(i).find("input:eq(4)").val());
+					console.log(a.eq(i).find("input:eq(5)").val()); */
+					 pay += parseInt(a.eq(i).find(".pay").val());
+					$("#fulling").val(b+a.eq(i).find("label").text()+","
+							+a.eq(i).find("input:eq(0)").val()+","+a.eq(i).find("input:eq(1)").val()+","
+							+a.eq(i).find("input:eq(2)").val()+","+a.eq(i).find("input:eq(3)").val()+","
+							+a.eq(i).find("input:eq(4)").val()+","+a.eq(i).find("input:eq(5)").val()+"/+/");
+				}
+				var c = $("#fulling").val();
+				$("#paide").val(pay);		
+				$("#fulling").val(c+pay);
+			
+			}else if($("#type1").val() =="휴가신청서"){
+				var edate = $("#endDate").val();
+				var b = $("#dot").val();
+			
+				console.log();
+				if($("#endDate").val()== ""){
+					edate = $("#startDate").val();
+				}
+				
+				$("#fulling").val($("#leaveCode").val()+"/+/"+$("#startDate").val()+"/+/"+edate+"/+/"+$("#dayOffType").val());
+			}
+		
+			opener.document.location.reload();
 
+			self.close();
+		
+	  });
+		});
 		</script>
+		
+
 
 </body>
 </html>
