@@ -135,8 +135,8 @@
 		              <!--  작성자 아이디 불러오는 부분 -->
 		              <tr>
 		              	<% if(m.getEmpId().equals("admin")){%>
-		              		<th style="font-size: 18px;">작성자 </th> <%-- <%= n.getNwriter() %> --%> 
-		              		 <td colspan=2><input type="hidden" name="nwriter" value="<%= n.getNwriter() %>"></td>
+		              		<th style="font-size: 18px;">작성자 </th><%-- <%= n.getNwriter() %>  --%>
+		              		 <td colspan=2><input type="text" name="nwriter" value="<%= n.getNwriter() %>"></td>
 		              	<% }else{ %>
 		              		<th style="font-size: 18px;">작성자 ID</th> 
 		              		<td colspan=2> <%= n.getNwriter() %> </td>
@@ -144,19 +144,8 @@
 		              </tr>
 						<!-- 작성일 불러오는 부분  -->
 		              <tr>
-						
-						
 						<th style="font-size: 18px;">작성일 </th> 
 						<td width="600px"> <%= n.getNdate() %> <input type="hidden" id="nowDate" name="nowDate" value=""> </td>
-		              
-		              
-		              	<td align="right">내용  폰트 크기 선택
-		              	<select id="font_size">
-		              		<option value="10">10</option>
-		              		<option value="15">15</option>
-		              		<option value="20">20</option>
-		              		<option value="25">25</option>
-		            	</select> </td>
 		              </tr>
 		              </thead>
 		              
@@ -180,7 +169,7 @@
 		             	&nbsp; &nbsp; 
 		             <% } %>
 		        	</form>
-		        	<button style="width: 100px; height: 30px;" onclick="location.href = '/semi/noticeListServlet?search=all&date1=all&date2=all'"> 취 소 </button>
+		        	<button style="width: 100px; height: 30px;" id="back" onclick="location.href = '/semi/noticeListServlet?search=all&date1=all&date2=all'"> 취 소 </button>
 		        	 &nbsp; &nbsp; 
 		        	<% if(m.getEmpId().equals("admin")){%>
 		            	<button id="deleteNotice" style="width: 100px; height: 30px; margin-bottom: 50px"> 삭 제 </button>
@@ -193,14 +182,14 @@
         <%@ include file="../common/COO_footer.jsp" %>
     </div>
     <script>
-    document.getElementById('font_size').onclick = function(){
+/*     document.getElementById('font_size').onclick = function(){
  		var fontSize = document.getElementById('font_size').value;
  		document.getElementById('ncontent').style.fontSize = fontSize+"px";
-    };//
-    document.getElementById('font_face').onclick = function(){
+    }; */
+/*     document.getElementById('font_face').onclick = function(){
  		var fontFace = document.getElementById('font_size').value;
  		document.getElementById('ncontent').style.font = ''+fontSize;
-    };
+    }; */
     (function () { 
     	var day = new Date();
     	var nday = day.getFullYear()+"-"+ day.getMonth() + 1+"-"+day.getDate();
@@ -212,6 +201,16 @@
     		alert("삭제 합니다.");
     		location.href = "/semi/deleteNotice?nno="+nno;
     	}
+    	
+    	if(document.referrer == "http://localhost:8885/semi/views/home.jsp"){
+    		document.getElementById('updateNotice').style.visibility = "hidden";
+    		document.getElementById('deleteNotice').style.visibility = "hidden";
+    		//document.getElementById('back').location.href;
+    	}else{
+    		
+    	}
+    
+    	
     })();
     
 // 	document.getElementById("goNoticeList").onsubmit = function(){

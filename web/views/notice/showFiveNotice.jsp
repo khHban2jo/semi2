@@ -13,7 +13,7 @@
 			}) -->
 <div id="notice" style="background: #f8f9fa;">
 	<div class="table-line">
-		<table style="width: 100%; border-collapse: collapse;" id="list">
+		<table style="width: 50%; border-collapse: collapse;" id="fiveList">
 			<thead>
 				<tr class='table-line'>
 					<th>번호</th>
@@ -25,35 +25,65 @@
 			</thead>
 		</table>
 		<script>
+		
+		ajaxStart();
 			function ajaxStart() {
 				$.ajax({
-					url : "/semi/noticeAjax.no",
-					type : "get",
-					success:function(data) {
-						$.each(data, function(index, value) {
+					url: "/semi/noticeAjax.no",
+					type: "get",
+					success:function(data){
+						console.log(data);
+						$.each(data, function(index,value){
+							
+							var date = value.ndate;
+							var dates = date.split(',');							
+							
 							var $tr = $('<tr>');
-							var $noticeNo = $('<td>').text(value.Nno);
-							var $noticeTitle = $('<td>').text(value.Ntitle);
-							var $noticeWriter = $('<td>').text(value.Nwriter);
-							var $noticeDate = $('<td>').text(value.Ndate);
-							var $noticeCount = $('<td>').text(value.Ncount);
-
-							$tr.append($noticeNo);
-							$tr.append($noticeTitle);
-							$tr.append($noticeWriter);
-							$tr.append($noticeDate);
-							$tr.append($noticeCount);
-
-							$('#list').append($tr);
+							var $Nno = $('<td>').text( value.nno); 
+							var $Ntitle= $('<td>').text( value.ntitle);
+							var $Nwriter = $('<td>').text( value.nwriter);
+							var $Ndate=$('<td>').text(dates[1]+" "+dates[0]);
+							var $Ncount=$('<td>').text( value.ncount);
+							
+							$tr.append($Nno);
+							$tr.append($Ntitle);
+							$tr.append($Nwriter);
+							$tr.append($Ndate);
+							$tr.append($Ncount);
+							
+							$('#fiveList').append($tr);
 						});
-					},error:function() {
-						alert("에러가 발생 했습니다.");
+						
+						$('#fiveList tr').mouseenter(function(){
+							if($(this).children().eq(0).text() != '번호'){
+								$(this).css({"background":"yellow", "cursor":"pointer"});
+							}
+						}).mouseout(function(){
+							$(this).css({"background":"snow"});
+						}).click(function(){
+							var nno = $(this).children().eq(0).text();
+							
+							if($(this).children().eq(0).text() != '번호'){
+								window.open("/semi/noticeSelectOn?nno="+nno, "", "width=1200, height=900");
+							}
+							
+						})
+						
+					},error:function(){
+						console.log("에러입니다.");
 					}
 				});
 			}// end ajaxStart
 			
-			setInterval("ajaxStart()", 1000 * 60 * 60);
-
 		</script>
+	<script>	
+/* 		$('#fiveList tr').mouseenter(function(){
+			if($(this).children().eq(0).text() != '번호'){
+				$(this).css({"background":"yellow", "cursor":"pointer"});
+			}
+		}).mouseout(function(){
+			$(this).css({"background":"snow"});
+		}) */
+	</script>
 	</div>
 </div>

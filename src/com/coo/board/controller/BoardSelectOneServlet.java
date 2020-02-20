@@ -36,6 +36,7 @@ public class BoardSelectOneServlet extends HttpServlet {
 		BoardService bs = new BoardService();
 		try {
 			b = bs.selectOne(bno);
+			System.out.println(b.toString());
 		} catch (CooException e) {
 		   request.setAttribute("msg","게시판 글 조회 실패");
 		   request.getRequestDispatcher(page).forward(request, response);

@@ -17,6 +17,7 @@
     	<%@ include file="common/COO_left.jsp" %>
 
         <div class="right">
+        	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
              <%@ include file="notice/showFiveNotice.jsp" %>
             
             <span id="todo"></span>
