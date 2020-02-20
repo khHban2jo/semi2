@@ -161,6 +161,10 @@
         		<tbody>
         		</tbody>
         	</table>
+        	
+        	<div id="vacDTnone">
+        		데이터가 없습니다.
+        	</div>
         </div>
 
     </div>

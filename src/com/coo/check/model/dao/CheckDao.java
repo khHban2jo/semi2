@@ -179,6 +179,45 @@ public class CheckDao {
 		
 		return docs;
 	}
+	
+	
+
+	/**
+	 * 찾기 줄수 
+	 * @param con
+	 * @param id
+	 * @param search
+	 * @param keyword
+	 * @return
+	 */
+	public int getListSearchCount(Connection con, int id, int search, String keyword) {
+		int result = 0;
+		PreparedStatement pstmt  = null;
+		ResultSet rset = null;
+		
+		String sql = null;
+		if(search ==1) {// 타이틀
+			sql= prop.getProperty("");
+		}else {//기안자
+			sql= prop.getProperty("");
+		}
+				
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,id);
+			pstmt.setInt(2,id);
+			pstmt.setInt(3,id);
+			pstmt.setInt(4,id);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	/**
 	 * 해당 문서의 결재자 등 정보 가져오기
@@ -872,6 +911,7 @@ public class CheckDao {
 		
 		return status;
 	}
+
 
 	
 

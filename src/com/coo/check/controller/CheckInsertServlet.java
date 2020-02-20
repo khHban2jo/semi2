@@ -136,7 +136,7 @@ public class CheckInsertServlet extends HttpServlet {
 		
 
 	
-		CheckDoc info= new CheckDoc(doctitle,docwriter,deptName,docwirteName,doctype, approval, indept, checkper, inStatus,coldeptCode
+		CheckDoc info= new CheckDoc(doctitle,docwriter,docwirteName,deptName,doctype, approval, indept, checkper, inStatus,coldeptCode
 					, colper,colStatus,viewper);
 		System.out.println(info);
 		

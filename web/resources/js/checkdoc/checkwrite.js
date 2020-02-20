@@ -42,6 +42,26 @@ $(function(){
       	        '</table>'+
       	    	 '<textarea name="ir1" id="txtav" rows="6" cols="70" style=" width:640px; height:200px;"></textarea>'+'<div>'
  );
+      	 
+      	$("td").click(function(){
+      	  $(".su").on({
+      	       "click":function(){
+      	           $(this).val("");
+      	       },
+      	      "blur":function(){ 
+      	        
+      	          var aa =$(this).val();
+      	          if(isNaN( Number(aa))){
+      	              alert("숫자만");
+      	              $(this).val(0);
+      	              $(this).select();
+      	          }
+      	          var a = parseInt($(this).val());
+      	          var b = parseInt($(this).parent().prev("td").children(".money").val());
+      	          $(this).parent().siblings("td").eq(4).children(".pay").val(a*b); 
+      	      }
+      	  });
+      	});
    
    
   

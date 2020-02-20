@@ -7,12 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.coo.check.model.vo.StockLine;
 import com.coo.exception.CooException;
 import com.coo.member.model.service.MemberService;
 import com.coo.member.model.vo.Member;
 import com.coo.ta.model.service.MemberTAService;
+
 
 /**
  * Servlet implementation class MemberInsertServlet
@@ -34,7 +34,8 @@ public class MemberInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	 
+		
+		
 	    String userId = request.getParameter("userId");	
 	    String personalId = request.getParameter("personalId");
 		String userPwd = request.getParameter("userPwd");
@@ -57,9 +58,9 @@ public class MemberInsertServlet extends HttpServlet {
 		String jobCode = request.getParameter("jobCode");
 		String etc = request.getParameter("etc");
 		String subDept = request.getParameter("cr2");
-        
 		
-	     Member m = new Member();
+
+		Member m = new Member();
 	     m.setEmpId(userId);
 	     m.setEmpPwd(userPwd);
 	     m.seteName(eName);
@@ -75,7 +76,6 @@ public class MemberInsertServlet extends HttpServlet {
 	     m.setEtc(etc);
 	     m.setPersonalId(personalId);
 	     m.setSubDept(subDept);
-	     
 	     
 	     System.out.println("회원 정보 확인: "+ m);
 	     
