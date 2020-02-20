@@ -135,8 +135,8 @@
 		              <!--  작성자 아이디 불러오는 부분 -->
 		              <tr>
 		              	<% if(m.getEmpId().equals("admin")){%>
-		              		<th style="font-size: 18px;">작성자 </th><%-- <%= n.getNwriter() %>  --%>
-		              		 <td colspan=2><input type="text" name="nwriter" value="<%= n.getNwriter() %>"></td>
+		              		<th style="font-size: 18px;">작성자 : </th>
+		              		 <td colspan=2><input type="hidden" name="nwriter" value="<%= n.getNwriter() %>"><%= n.getNwriter() %></td>
 		              	<% }else{ %>
 		              		<th style="font-size: 18px;">작성자 ID</th> 
 		              		<td colspan=2> <%= n.getNwriter() %> </td>
@@ -169,7 +169,7 @@
 		             	&nbsp; &nbsp; 
 		             <% } %>
 		        	</form>
-		        	<button style="width: 100px; height: 30px;" id="back" onclick="location.href = '/semi/noticeListServlet?search=all&date1=all&date2=all'"> 취 소 </button>
+		        	<button style="width: 100px; height: 30px;" id="back"> 취 소 </button>
 		        	 &nbsp; &nbsp; 
 		        	<% if(m.getEmpId().equals("admin")){%>
 		            	<button id="deleteNotice" style="width: 100px; height: 30px; margin-bottom: 50px"> 삭 제 </button>
@@ -201,13 +201,31 @@
     		alert("삭제 합니다.");
     		location.href = "/semi/deleteNotice?nno="+nno;
     	}
+		
+    	var str = document.referrer.split('/');
+    	var str1 = "";
+    	for(var i = 3; i <=str.length-1; i++){
+    		str1 += str[i];
+    	}
+    	console.log(str1);
     	
-    	if(document.referrer == "http://localhost:8885/semi/views/home.jsp"){
+    	document.getElementById('back').onclick = function(){
+    		if(str1 == "semiviewshome.jsp"){
+    			opener.document.location.reload();
+    			self.close();
+    		}else{
+    			location.href = "/semi/noticeListServlet?search=all&date1=all&date2=all";
+    		}
+    		
+    	}
+    	    	
+    	if(str1 == "semiviewshome.jsp"){
     		document.getElementById('updateNotice').style.visibility = "hidden";
     		document.getElementById('deleteNotice').style.visibility = "hidden";
     		//document.getElementById('back').location.href;
     	}else{
-    		
+       		document.getElementById('updateNotice').style.visibility = "visible";
+    		document.getElementById('deleteNotice').style.visibility = "visible";
     	}
     
     	
