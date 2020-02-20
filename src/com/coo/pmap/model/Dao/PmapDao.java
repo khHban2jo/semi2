@@ -44,16 +44,22 @@ public class PmapDao {
 		Member p = null;
 		ArrayList<Member> list = null;
 
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("selectList");
 
 		try {
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(sql);
 
-			rset = stmt.executeQuery(sql);
+			int startRow = (currentPage-1)*limit +1; // 1 11
+			int endRow = startRow + limit -1;
+				
+			pstmt.setInt(1, endRow);
+			pstmt.setInt(2, startRow);
+			
+			rset = pstmt.executeQuery();
 
 			list = new ArrayList<Member>();
 
@@ -89,7 +95,7 @@ public class PmapDao {
 			e.printStackTrace();
 		}finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 
 		return list;
