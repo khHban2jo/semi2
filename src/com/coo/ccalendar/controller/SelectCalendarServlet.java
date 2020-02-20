@@ -73,14 +73,7 @@ public class SelectCalendarServlet extends HttpServlet {
 		list = new CCalendarService().selectToday(sqlDate);	
 		System.out.println(list);
 		
-		/*if( list != null ) {
-			request.setAttribute("calendar", list);
-			request.getRequestDispatcher("/views/Calendar.jsp").forward(request, response);
-		}else {
-			request.setAttribute("msg", "등록실패");
-			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
-		}
-	*/
+		
 		new Gson().toJson(list,response.getWriter());
 	}
 

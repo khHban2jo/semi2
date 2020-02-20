@@ -116,13 +116,28 @@ h3 {
 }
 
 ul{
+	text-align:center;
 	padding-inline-start: 10px;
+	/* line-style-align:center;
+	style-text-align:center; */
+	padding-top:5px; 
+	padding-right:5px; 
+	padding-bottom:5px; 
+	padding-left:5px;
+	margin-top:0px; 
+	margin-right:0px; 
+	margin-bottom:0px; 
+	margin-left:0px; 
+	
 }
 
 li{
+	dispaly:inline-block;
+	/* style-text-align:center; */
 	list-style:none;
 	padding-inline-start: 00px;
 	width: 270px;
+
 }
 
 /* #cal_edit{
@@ -134,7 +149,16 @@ li{
 	left:200px;
 }
  */
-
+#todo_list_range{
+	position: relative;
+	width: 290px;
+	height: 314px;
+	top:5px;
+	cursor:pointer;
+	
+	
+	
+}
 #todo_list {
 	/*    margin-left:45px;
    margin-top:10px; */

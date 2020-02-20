@@ -14,7 +14,7 @@ public class CCalendar implements Serializable{
 	private String toDo;
 	private Date startDate;
 	private Date endDate;
-	
+	private String cno;
 	
 	
 	public CCalendar() {
@@ -36,21 +36,24 @@ public class CCalendar implements Serializable{
 		this.toDo = toDo;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		
 	}
+	
+	
 
 	
 	
-	// Getter & Setter
-	public String getTitle() {
-		return title;
-	}
-
-
-	public void setTitle(String title) {
+	public CCalendar(int empCode, String title, String toDo, Date startDate, Date endDate, String cno) {
+		super();
+		this.empCode = empCode;
 		this.title = title;
+		this.toDo = toDo;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.cno = cno;
 	}
 
-
+	// Getter & Setter
 	public int getEmpCode() {
 		return empCode;
 	}
@@ -58,6 +61,16 @@ public class CCalendar implements Serializable{
 
 	public void setEmpCode(int empCode) {
 		this.empCode = empCode;
+	}
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 
@@ -91,11 +104,25 @@ public class CCalendar implements Serializable{
 	}
 
 
+	public String getCno() {
+		return cno;
+	}
+
+
+	public void setCno(String cno) {
+		this.cno = cno;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Calendarr [title=" + title + ", empCode=" + empCode + ", toDo=" + toDo + ", startDate=" + startDate
-				+ ", endDate=" + endDate + "]";
+		return "CCalendar [empCode=" + empCode + ", title=" + title + ", toDo=" + toDo + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", cno=" + cno + "]";
 	}
+
+
+	
+	
 
 	
 	

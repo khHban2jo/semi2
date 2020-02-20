@@ -28,20 +28,6 @@ public class CCalendarService {
 		
 		return result;
 	}
-/*
-	*//** 등록된 일정 조회용
-	 * @return
-	 *//*
-	public ArrayList<Calendar> selectList() {
-		Connection con = getConnection();
-		
-		ArrayList<Calendar> list = cDao.selectList(con);
-		
-		close(con);
-		
-		return list;
-	}
-*/
 	
 	
 	/**
@@ -63,4 +49,69 @@ public class CCalendarService {
 		
 	}
 
+
+	/**
+	 * 일정 수정용 메소드
+	 * @param c
+	 * @return
+	 */
+	public int updateCalendar(CCalendar c) {
+		//DB와 연결합니다
+		Connection con = getConnection();
+		
+		int result = cDao.updateCalendar(con, c);
+		//---------------------------------------
+		
+		//커밋, 롤백
+		if(result > 0) commit(con);
+		else rollback(con);
+		
+		
+		//닫아주기
+		close(con);
+		
+		
+		return result;
+	}
+
+
+	/**
+	 * 일정 삭제용 메소드
+	 * @param title
+	 * @return
+	 */
+	public int deleteCalendar(String cno) {
+		Connection con = getConnection();
+		int result = cDao.deleteCalendar(con, cno);
+		//---------------------------------------------
+		//커밋, 롤백
+		if(result > 0) commit(con);
+		else rollback(con);
+		
+		//닫기
+		close(con);
+		
+		return result;
+	}
+
+
+	/**
+	 * 상세일정 팝업페이지 보기
+	 * @param cno
+	 * @return
+	 */
+	public CCalendar selectOne(String cno) {
+
+		Connection con = getConnection();
+		
+		CCalendar c = cDao.selectOne(con,cno);
+		
+		//----------------
+		
+		close(con);
+		return c;
+	}
+
+	
+	
 }

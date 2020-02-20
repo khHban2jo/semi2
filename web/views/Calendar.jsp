@@ -44,23 +44,20 @@
 
         <div class="right">
 
-            <div id="calendar"></div>
-
-            <div id="todolistArea">
-                <h3 id="todo_date">2020년 01월 21일 </h3>
-                <div id="todo_list">
-                    <ul>
-                        <li>January 01 All Day Event </li>
-                        <li>January 07 ~ 09 Long Event</li>
-                        <li>January 11 ~ 12 Conference </li>
-                    </ul>
-                </div>
-            </div>
+             
         </div>
 
+         
         <!-- 풋터 부분 include -->
         <%@ include file="common/COO_footer.jsp" %>
 </div>
+
+<script>
+        $(function(){
+            buildCalendar();//
+
+        });
+</script>
 </body>
 
 </html>

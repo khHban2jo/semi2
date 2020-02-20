@@ -2,7 +2,6 @@ package com.coo.ccalendar.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-
 import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
@@ -10,23 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.coo.ccalendar.model.vo.CCalendar;
 import com.coo.ccalendar.model.service.CCalendarService;
-import com.coo.member.model.vo.Member;
+import com.coo.ccalendar.model.vo.CCalendar;
 
 /**
- * Servlet implementation class CreateCalendarServlet
+ * Servlet implementation class updateCalendarServlet
  */
-@WebServlet("/InsertSchedule.do") //Insert라고 바꿔주기
-public class InsertCalendarServlet extends HttpServlet {
+@WebServlet("/updateCalendar.do")
+public class UpdateCalendarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public InsertCalendarServlet() {
+	public UpdateCalendarServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,32 +32,21 @@ public class InsertCalendarServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		HttpSession session = request.getSession();
-		Member m = (Member)session.getAttribute("member");
-		
-		//달력의 제목 내용 시작일 종료일
-		int empCode = m.getEmpCode(); //member.medel.vo.Member
-		String title = request.getParameter("addtitle");		
-		String toDo = request.getParameter("calendarContent");		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		System.out.println("넘어왔나요");
+		//수정할 때 필요한 거 일정 제목, 시작일, 종료일, 일정 내용
+		String title = request.getParameter("addtitle");
+		String toDo = request.getParameter("calendarContent");
 		String startDate = request.getParameter("calendarStart");		
-		String endDate = request.getParameter("calendarEnd");		
+		String endDate = request.getParameter("calendarEnd");
+		String cno = request.getParameter("cno");
 		
-		//request.getParameter()는 사용자가 요청, 전달한 값들을 문자열 형태로 받아오는 메소드이다.
-		
-
-		//확인용
-		System.out.println(empCode);
-		System.out.println(title);
-		System.out.println(startDate);
-		System.out.println(endDate);
-		System.out.println(toDo);
-
-		
-
+		//변환? =>//Cannot instantiate the type Calendar
 		//스트링자료형을 데이트자료형으로 변환작업 split
 		Date WriteStartDate = null;
-
+		System.out.println(title);
+		
 		if(startDate != "" && startDate != null) {
 			String[] dateArr = startDate.split("-"); //잘라주기
 			int[] intArr = new int[dateArr.length];	//스트링형을 배열의 길이만큼 인트형으로 생성
@@ -100,45 +86,38 @@ public class InsertCalendarServlet extends HttpServlet {
 			WriteEndDate = new Date(new GregorianCalendar().getTimeInMillis());
 		}
 		//여기까지가 변환작업
+		System.out.println(WriteStartDate);
+		System.out.println(WriteEndDate);
 
 
-		
-		
-		
-		
-		//서비스에 전달을 위한 매개변수가 있는 생성자 이용
 		CCalendar c = new CCalendar();
-		c.setEmpCode(empCode);
+		//Cannot instantiate the type Calendar
+
 		c.setTitle(title);
 		c.setToDo(toDo);
 		c.setStartDate(WriteStartDate);
 		c.setEndDate(WriteEndDate);
+		c.setCno(cno);
+		//행의 갯수의 변화니까 int
 		
-		System.out.println("empCode : " + empCode);
-		System.out.println("title : " + title);
-		System.out.println("toDo : " + toDo);
-		System.out.println("WriteStartDate : " + WriteStartDate);
-		System.out.println("WriteEndDate : " + WriteEndDate);
+		int result = new CCalendarService().updateCalendar(c);
 		
-		CCalendarService cs = new CCalendarService();
-
+		System.out.println(result);
+//-----------------------------------------
 		
-		
-		//DB에 입력되는 행이니까
-		int result = cs.insertCalendar(c);
-	
-
-
-		//결과에 따른 경로 지정
-		if(result > 0){
-			System.out.println("근무 일정을 DB에 추가완료 했습니다.");
-			response.sendRedirect("/views/home.jsp");
-
-
+		//1 : 수정완료
+		//-1,0 :오류
+		//경로설정
+		if(result >0) {
+			System.out.println("DB 수정 완료되었습니다.");
+			response.sendRedirect("/semi/selectOne.do?cno="+cno); //TODO
 		}else {
-			request.setAttribute("msg", "등록실패");
-			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
+			request.setAttribute("msg","공지사항 수정 실패!!");
+			request.getRequestDispatcher("views/common/errorPage.jsp");
 		}
+
+
+
 
 
 	}
