@@ -52,18 +52,26 @@ public class SearchEmpNameServlet extends HttpServlet {
 		if(!request.getParameter("pcodes").equals("")) {
 			String deptcode ="";
 			String[] arr = request.getParameter("pcodes").split(",");
-			String dename = request.getParameter("deptname");
+			System.out.println(arr.length);
+
+			ArrayList<String> dename = new ArrayList<>();
+			ArrayList<Integer> pcode = new ArrayList<>();
+			
+			for(int i = 0; i<arr.length; i++) {
+				String[] ar2 = arr[i].split(" ");
+				 pcode.add(Integer.valueOf(ar2[0]));
+				dename.add(ar2[1]);
+			}
+			
+			
 			
 			CheckService cs = new CheckService();
-			ArrayList<StockLine> getMassub = cs.getMassub(arr, dename);// 정부부서코드 가져오기
+			ArrayList<StockLine> getMassub = cs.getMassub(pcode, dename);// 정부부서코드 가져오기
 			
 			
 			
 			ArrayList<Integer> savePcodes = new ArrayList<>();
 			for(int i = 0; i<getMassub.size();i++) {
-				if(deptcode.equals("")) {
-					deptcode = getMassub.get(0).getDeptCode(); //부서코드 설정
-				}
 			
 				savePcodes.add(getMassub.get(i).getEmpcode());
 				savePcodes.add(getMassub.get(i).getSubcode());	
@@ -73,9 +81,11 @@ public class SearchEmpNameServlet extends HttpServlet {
 		
 		
 			ArrayList<String> getMSName = cs.getMSName(savePcodes);		
-			
-			
-			fulling.put("list1",deptcode);
+			//정부 정부 정부 정부
+			for(int i = 0; i<getMSName.size();i++) {
+				System.out.println(getMSName.get(i));
+			}
+			fulling.put("list1",dename);
 			fulling.put("list2",savePcodes);
 			fulling.put("list3", getMSName);
 			

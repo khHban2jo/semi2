@@ -111,7 +111,7 @@ public class CheckService {
 		
 		result = cDao.insertInfo(con, info);
 		if(result >0) {
-			//System.out.println(info.getDocType());
+			System.out.println(info.getDocType());
 				result = cDao.insertText(con, doc, info.getDocType());
 				if(result>0) {
 					if(!files.isEmpty() ) {
@@ -215,14 +215,14 @@ public class CheckService {
 
 	/**
 	 * 정/부,부서코드 
-	 * @param arr
+	 * @param pcode
 	 * @param dename
 	 * @return
 	 */
-	public ArrayList<StockLine> getMassub(String[] arr, String dename) {
+	public ArrayList<StockLine> getMassub(ArrayList<Integer> pcode, ArrayList<String> dename) {
 		Connection con = getConnection();
 		
-		ArrayList<StockLine> masub = cDao.getMassub(con, arr, dename);
+		ArrayList<StockLine> masub = cDao.getMassub(con, pcode, dename);
 
 		close(con);
 		return masub;
