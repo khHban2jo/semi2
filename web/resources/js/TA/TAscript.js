@@ -38,15 +38,22 @@ $(function(){
     		var $vtable = $('#vacDT>tbody');
     		console.log($vtable);
     		console.log(data);
-    		for (var i = 0 ; i < data.length; i++){
-    			var sta = "미승인";
-    			if(data[i].aStatus == 3){
-    				sta = "승인";
+    		
+    		if (data.length == 0){
+    			$('#vacDT').remove();
+    		}else {
+    			$('#vacDTnone').remove();
+    			for (var i = 0 ; i < data.length; i++){
+    				var sta = "미승인";
+    				if(data[i].aStatus == 2){
+    					sta = "승인";
+    				}
+    				$vtable.append("<tr><td class='td1'>"+data[i].docNumber
+    						+"</td><td class='td2' title='"+data[i].aTitle+"'>"+data[i].aTitle
+    						+"</td><td class='td3'>"+sta+"</td></tr>");
     			}
-    			$vtable.append("<tr><td class='td1'>"+data[i].docNumber
-    							+"</td><td class='td2' title='"+data[i].aTitle+"'>"+data[i].aTitle
-    							+"</td><td class='td3'>"+sta+"</td></tr>");
     		}
+    		
     	},
     	complete:function(){
     		//	클릭 시 상세 보기 popup

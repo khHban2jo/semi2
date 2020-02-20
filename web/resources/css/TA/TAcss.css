@@ -348,3 +348,18 @@ hr{
 	height:25px;
 	width:20%;
 }
+
+#vacDTnone{
+	position: relative;
+	border-radius: 10px;
+	border: 1px solid darkgray;
+	width: 400px;
+	height: 300px;
+	left:40px;
+	top: 20px;
+	color: red;
+	font-size:20px;
+	font-weight:bold;
+	text-align: center;
+	padding-top: 150px;
+}
