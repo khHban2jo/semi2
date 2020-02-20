@@ -141,4 +141,22 @@ public class MemberService {
 		
 		return result;
 	}
+
+	public int uploadPic(Member m) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		try {
+			result = mDao.uploadPic(con,m);
+		}catch(CooException e) {
+			e.getMessage();
+		}
+		
+		if(result > 0) commit(con); else rollback(con);
+		
+		close(con);
+		
+		return result;
+	}
 }

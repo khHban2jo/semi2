@@ -27,13 +27,14 @@
 		  <button id="uEmp" value="2" style="width:100px; height:40px;">사원정보수정</button>
 		  <button id="dEmp" value="3" style="width:100px; height:40px;">사원삭제</button>
 		  <button id="sEmp" value="4" style="width:100px; height:40px;">연봉수정</button>
+		  <button id="upEmp" value="5" style="width:100px; height:40px;">사진업로드</button>
 		
 
    
 <script>
     
 	var option ="top=20px,left=700px,width=1280px,height=1000px,location=no,resizable=no,toolbars=no,scrollbars=yes";
-	$('#iEmp,#uEmp,#dEmp,#sEmp').click(function(){
+	$('#iEmp,#uEmp,#dEmp,#sEmp,#upEmp').click(function(){
 	var btnDen = $(this).val();
 	var name = $(this).text();
     var url ="<%=request.getContextPath() %>/checkAdmin.me?btnDen="+btnDen;

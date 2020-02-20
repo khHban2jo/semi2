@@ -103,7 +103,7 @@ CREATE TABLE EMPLOYEE(
 			       
 -- EMPLOYEE 시퀀스
  CREATE SEQUENCE SEQ_EMP
- START WITH 206
+ START WITH 241
  INCREMENT BY 1
  MAXVALUE 300
  NOCYCLE
@@ -395,253 +395,253 @@ INSERT INTO WT_TYPE VALUES ('T5', '특근퇴근');
 INSERT INTO EMPLOYEE VALUES('admin',100,
         'x61Ey612Kl2gpFL56FT9weDnpSo4AV8j8+qx2AuTHdRyY036xxzTTrw10Wq3+4qQyB+XURPWx1ONxp3Y3pB37A==','관리자',
         'admin','000000-0000000','admin@coo.com','M',1,null,'00-000-0000','000-0000-0000','COO'
-        ,'D5','J9','Y','20/02/01',null,null,null);
+        ,'D5','J9','Y','20/02/01',null,null);
 --  사장        
 INSERT INTO EMPLOYEE VALUES('Hong_gildong',200,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '홍길동','Honggildong','620205-1004567',
         'Hong_gildong@coo.com','M',58,null,'02-812-4685','010-8712-4685','서울시 강남구'
-        ,'D0','J9','N','20/02/01',NULL,NULL,null);
+        ,'D0','J9','N','20/02/01',NULL,NULL);
 --  부사장        
 INSERT INTO EMPLOYEE VALUES('Hong_gilsoon',201,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '홍길순','Honggilsoon','690903-2001675',
         'Hong_gilsoon@coo.com','F',51,65000000,'02-812-1951','010-5822-1951','서울시 동작구'
-        ,'D0','J2','N','20/02/01',NULL,NULL,null);
+        ,'D0','J2','N','20/02/01',NULL,NULL);
 --  상무 1        
 INSERT INTO EMPLOYEE VALUES('Kim_juhee',202,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김주희','Kimjuhee','730803-2006722',
         'Kim_juhee@coo.com','F',47,55000000,'02-864-3752','010-2854-3752','서울시 용산구'
-        ,'D0','J3','N','20/02/01',NULL,NULL,null);
+        ,'D0','J3','N','20/02/01',NULL,NULL);
 --  상무 2        
 INSERT INTO EMPLOYEE VALUES('Park_deadong',203,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '박대동','Parkdeadong','750319-1008673',
         'Park_deadong@coo.com','M',45,55000000,'02-385-3852','010-3852-4475','서울시 구로구'
-        ,'D0','J3','N','20/02/01',NULL,NULL,null);
+        ,'D0','J3','N','20/02/01',NULL,NULL);
 --  인사과 부장        
 INSERT INTO EMPLOYEE VALUES('Kim_suksu',204,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김석수','Kimsuksu','760827-1002758',
         'Kim_suksu@coo.com','M',44,50000000,'02-691-6935','010-3478-6935','서울시 강남구'
-        ,'D1','J4','N','20/02/01',NULL,NULL,null);
+        ,'D1','J4','N','20/02/01',NULL,NULL);
 --  인사과 차장 1
 INSERT INTO EMPLOYEE VALUES('Kang_dongha',205,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '강동하','Kangdongha','791122-1004648',
         'Kang_dongha@coo.com','M',41,47000000,'02-1670-8534','010-2854-8534','서울시 동작구'
-        ,'D1','J5','N','20/02/01',NULL,NULL,null);
+        ,'D1','J5','N','20/02/01',NULL,NULL);
 --  인사과 차장 2
 INSERT INTO EMPLOYEE VALUES('Kim_juli',206,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김주리','Kimjuli','801202-2002724',
         'Kim_juli@coo.com','F',40,47000000,'02-0820-3341','010-0946-3341','서울시 용산구'
-        ,'D1','J5','N','20/02/01',NULL,NULL,null);
+        ,'D1','J5','N','20/02/01',NULL,NULL);
 --  인사과 과장 1
 INSERT INTO EMPLOYEE VALUES('Na_jinsu',207,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '나진수','Najinsu','820630-1000630',
         'Na_jinsu@coo.com','M',38,44000000,'02-2726-8822','010-2726-2264','서울시 구로구'
-        ,'D1','J6','N','20/02/01',NULL,NULL,null);
+        ,'D1','J6','N','20/02/01',NULL,NULL);
 --  인사과 과장 2
 INSERT INTO EMPLOYEE VALUES('Lee_jeamin',208,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '이제민','Leejeamin','820420-1006493',
         'Lee_jeamin@coo.com','M',38,44000000,'02-2726-8822','010-2726-2264','서울시 구로구'
-        ,'D1','J6','N','20/02/01',NULL,NULL,null);
+        ,'D1','J6','N','20/02/01',NULL,NULL);
 --  인사과 대리 1
 INSERT INTO EMPLOYEE VALUES('Lym_jungsu',209,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '임정수','Lymjungsu','850627-1005572',
         'Lym_jungsu@coo.com','M',35,42000000,'02-8123-7234','010-0547-7234','서울시 강남구'
-        ,'D1','J7','N','20/02/01',NULL,NULL,null);
+        ,'D1','J7','N','20/02/01',NULL,NULL);
 --  인사과 대리 2
 INSERT INTO EMPLOYEE VALUES('Kim_gundo',240,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김건도','Kimgundo','840927-1002271',
         'Kim_gundo@coo.com','M',36,42000000,'02-7164-2702','010-0846-2702','서울시 용산구'
-        ,'D1','J7','N','20/02/01',NULL,NULL,null);
+        ,'D1','J7','N','20/02/01',NULL,NULL);
 --  인사과 사원 1
 INSERT INTO EMPLOYEE VALUES('Park_hayoung',210,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '박하영','Parkhayoung','900927-2001675',
         'Park_hayoung@coo.com','F',30,34000000,'02-3751-6241','010-0841-6241','서울시 구로구'
-        ,'D1','J8','N','20/02/01',NULL,NULL,null);
+        ,'D1','J8','N','20/02/01',NULL,NULL);
 --  인사과 사원 2
 INSERT INTO EMPLOYEE VALUES('Go_gilsu',211,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '고길수','Gogilsu','930907-1001162',
         'Go_gilsu@coo.com','M',27,30000000,'02-6823-0014','010-2743-0014','서울시 동작구'
-        ,'D1','J8','N','20/02/01',NULL,NULL,null);
+        ,'D1','J8','N','20/02/01',NULL,NULL);
 --  영업부 부장 
 INSERT INTO EMPLOYEE VALUES('Kang_sujin',212,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '강수진','Kangsujin','760907-2002268',
         'Kang_sujin@coo.com','F',44,60000000,'02-1134-9682','010-0047-9682','서울시 강남구'
-        ,'D2','J4','N','20/02/01',NULL,NULL,null);
+        ,'D2','J4','N','20/02/01',NULL,NULL);
 --  영업부 차장
 INSERT INTO EMPLOYEE VALUES('Cha_goil',213,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '차고일','Chagoil','790117-1003374',
         'Cha_goil@coo.com','M',41,52000000,'02-1199-9964','010-0842-9964','서울시 동작구'
-        ,'D2','J5','N','20/02/01',NULL,NULL,null);
+        ,'D2','J5','N','20/02/01',NULL,NULL);
 --  영업부 차장 2
 INSERT INTO EMPLOYEE VALUES('Ju_jungmin',214,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '주정민','Jujungmin','800827-1007648',
         'Ju_jungmin@coo.com','M',40,50000000,'02-6671-0304','010-4862-0304','서울시 용산구'
-        ,'D2','J5','N','20/02/01',NULL,NULL,null);
+        ,'D2','J5','N','20/02/01',NULL,NULL);
 --  영업부 과장 1
 INSERT INTO EMPLOYEE VALUES('Jung_hugook',215,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '정후국','Junghugook','820827-1001612',
         'Jung_hugook@coo.com','M',38,46000000,'02-246-0725','010-1613-0725','서울시 구로구'
-        ,'D2','J6','N','20/02/01',NULL,NULL,null);
+        ,'D2','J6','N','20/02/01',NULL,NULL);
 --  영업부 과장 2
 INSERT INTO EMPLOYEE VALUES('Jung_juga',216,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '정주하','Jungjuga','850827-1006425',
         'Jung_juga@coo.com','F',35,43000000,'02-9611-0033','010-5642-0033','서울시 용산구'
-        ,'D2','J6','N','20/02/01',NULL,NULL,null);
+        ,'D2','J6','N','20/02/01',NULL,NULL);
 --  영업부 대리 1
 INSERT INTO EMPLOYEE VALUES('Jang_jinho',217,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '장진호','Jangjinho','870822-1062721',
         'Jang_jinho@coo.com','M',32,37000000,'02-6623-8761','010-0024-8761','서울시 강남구'
-        ,'D2','J7','N','20/02/01',NULL,NULL,null);
+        ,'D2','J7','N','20/02/01',NULL,NULL);
 --  영업부 대리 2
 INSERT INTO EMPLOYEE VALUES('Kim_mudo',218,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김무도','Kimmudo','880430-1062291',
         'Kim_mudo@coo.com','M',31,35000000,'02-672-9901','010-6721-9901','서울시 서초구'
-        ,'D2','J7','N','20/02/01',NULL,NULL,null);
+        ,'D2','J7','N','20/02/01',NULL,NULL);
 --  영업부 사원 1
 INSERT INTO EMPLOYEE VALUES('Park_dongju',219,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '박동주','Parkdongju','910121-2063312',
         'Park_dongju@coo.com','F',28,30000000,'02-772-1219','010-2671-1219','서울시 강남구'
-        ,'D2','J8','N','20/02/01',NULL,NULL,null);
+        ,'D2','J8','N','20/02/01',NULL,NULL);
 --  영업부 사원 2
 INSERT INTO EMPLOYEE VALUES('Bae_jione',220,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '배지원','Baejione','940608-1063372',
         'Bae_jione@coo.com','M',25,27000000,'02-976-0614','010-1237-0614','서울시 서초구'
-        ,'D2','J8','N','20/02/01',NULL,NULL,null);
+        ,'D2','J8','N','20/02/01',NULL,NULL);
 --  기획부 부장
 INSERT INTO EMPLOYEE VALUES('Park_jojung',221,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '박조정','Parkjojung','760321-2001182',
         'Park_jojung@coo.com','F',44,55000000,'02-0605-3245','010-8564-3245','서울시 강남구'
-        ,'D3','J4','N','20/02/01',NULL,NULL,null);
+        ,'D3','J4','N','20/02/01',NULL,NULL);
 --  기획부 차장 1
 INSERT INTO EMPLOYEE VALUES('Sung_jungsu',222,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '성정수','Sungjungsu','800911-1006925',
         'Sung_jungsu@coo.com','M',40,50000000,'02-0605-3345','010-8564-3645','서울시 동작구'
-        ,'D3','J5','N','20/02/01',NULL,NULL,null);
+        ,'D3','J5','N','20/02/01',NULL,NULL);
 --  기획부 차장 2
 INSERT INTO EMPLOYEE VALUES('Su_sujin',223,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '서수진','Susujin','821215-2001002',
         'Su_sujin@coo.com','F',38,48000000,'02-0622-3345','010-8224-3645','서울시 서초구'
-        ,'D3','J5','N','20/02/01',NULL,NULL,null);
+        ,'D3','J5','N','20/02/01',NULL,NULL);
 --  기획부 과장 1
 INSERT INTO EMPLOYEE VALUES('Juk_minsu',224,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '적민수','Jukminsu','840628-1009642',
         'Juk_minsu@coo.com','M',36,45000000,'02-8812-9671','010-0347-3645','서울시 구로구'
-        ,'D3','J6','N','20/02/01',NULL,NULL,null);
+        ,'D3','J6','N','20/02/01',NULL,NULL);
 --  기획부 과장 2
 INSERT INTO EMPLOYEE VALUES('Jang_woojin',225,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '장우진','Jangwoojin','860312-1006672',
         'Jang_woojin@coo.com','M',34,42000000,'02-712-9671','010-0347-8800','서울시 동작구'
-        ,'D3','J6','N','20/02/01',NULL,NULL,null);
+        ,'D3','J6','N','20/02/01',NULL,NULL);
 --  기획부 대리 1
 INSERT INTO EMPLOYEE VALUES('Kim_gosu',226,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김고수','Kimgosu','870808-1003372',
         'Kim_gosu@coo.com','M',33,38000000,'02-627-1825','010-3396-3370','서울시 강남구'
-        ,'D3','J7','N','20/02/01',NULL,NULL,null);
+        ,'D3','J7','N','20/02/01',NULL,NULL);
 --  기획부 대리 2
 INSERT INTO EMPLOYEE VALUES('Kim_mujung',227,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김무정','Kimmujung','870828-2006372',
         'Kim_mujung@coo.com','F',33,38000000,'02-633-1995','010-4856-1995','서울시 서초구'
-        ,'D3','J7','N','20/02/01',NULL,NULL,null);
+        ,'D3','J7','N','20/02/01',NULL,NULL);
 --  기획부 대리 3
 INSERT INTO EMPLOYEE VALUES('Park_hadong',228,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '박하동','Parkhadong','890527-1003396',
         'Park_hadong@coo.com','M',31,34000000,'02-633-9630','010-4856-9630','서울시 동작구'
-        ,'D3','J7','N','20/02/01',NULL,NULL,null);
+        ,'D3','J7','N','20/02/01',NULL,NULL);
 --  기획부 사원 1
 INSERT INTO EMPLOYEE VALUES('Kim_suman',229,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김수만','Kimsuman','910227-1006915',
         'Kim_suman@coo.com','M',29,30000000,'02-8575-9630','010-2584-9630','서울시 구로구'
-        ,'D3','J8','N','20/02/01',NULL,NULL,null);
+        ,'D3','J8','N','20/02/01',NULL,NULL);
 --  기획부 사원 2
 INSERT INTO EMPLOYEE VALUES('Gil_radong',230,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '길라동','Gilradong','930725-1003372',
         'Gil_radong@coo.com','M',27,27000000,'02-3327-9220','010-3548-9220','서울시 구로구'
-        ,'D3','J8','N','20/02/01',NULL,NULL,null);
+        ,'D3','J8','N','20/02/01',NULL,NULL);
 --  연구부서 부장
 INSERT INTO EMPLOYEE VALUES('Park_soda',231,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '박소다','Parksoda','750725-2002172',
         'Park_soda@coo.com','F',45,60000000,'02-117-2020','010-3396-2020','서울시 서초구'
-        ,'D4','J4','N','20/02/01',NULL,NULL,null);
+        ,'D4','J4','N','20/02/01',NULL,NULL);
 --  연구부서 차장 1
 INSERT INTO EMPLOYEE VALUES('Kim_dongwoo',232,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김동우','Kimdongwoo','790227-1006661',
         'Kim_dongwoo@coo.com','M',41,54000000,'02-336-9613','010-1237-9613','서울시 강남구'
-        ,'D4','J5','N','20/02/01',NULL,NULL,null);
+        ,'D4','J5','N','20/02/01',NULL,NULL);
 --  연구부서 차장 2
 INSERT INTO EMPLOYEE VALUES('Park_gudong',233,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '박구동','Parkgudong','800313-1005722',
         'Park_gudong@coo.com','M',40,52000000,'02-007-3824','010-0022-3824','서울시 동작구'
-        ,'D4','J5','N','20/02/01',NULL,NULL,null);
+        ,'D4','J5','N','20/02/01',NULL,NULL);
 --  연구부서 과장 1
 INSERT INTO EMPLOYEE VALUES('Mung_mahoon',234,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '명마훈','Mungmahoon','830113-1006672',
         'Mung_mahoon@coo.com','M',37,48000000,'02-672-9991','010-6725-9991','서울시 동작구'
-        ,'D4','J6','N','20/02/01',NULL,NULL,null);
+        ,'D4','J6','N','20/02/01',NULL,NULL);
 --  연구부서 과장 2
 INSERT INTO EMPLOYEE VALUES('Ma_dongsu',235,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '마동수','Madongsu','841120-1001514',
         'Ma_dongsu@coo.com','M',36,46000000,'02-227-3465','010-8852-9124','서울시 강남구'
-        ,'D4','J6','N','20/02/01',NULL,NULL,null);
+        ,'D4','J6','N','20/02/01',NULL,NULL);
 --  연구부서 대리 1
 INSERT INTO EMPLOYEE VALUES('Su_jungmi',236,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '수정미','Sujungmi','861110-2002457',
         'Su_jungmi@coo.com','F',34,42000000,'02-227-3115','010-1152-9129','서울시 서초구'
-        ,'D4','J7','N','20/02/01',NULL,NULL,null);
+        ,'D4','J7','N','20/02/01',NULL,NULL);
 --  연구부서 대리 2
 INSERT INTO EMPLOYEE VALUES('Kim_mijung',237,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김미정','Kimmijung','880808-2009765',
         'Kim_mijung@coo.com','F',32,39000000,'02-227-1115','010-1962-3529','서울시 구로구'
-        ,'D4','J7','N','20/02/01',NULL,NULL,null);
+        ,'D4','J7','N','20/02/01',NULL,NULL);
 --  연구부서 사원 1
 INSERT INTO EMPLOYEE VALUES('Kang_gomung',238,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '강고명','Kanggomung','910718-1002287',
         'Kang_gomung@coo.com','M',29,31000000,'02-211-1645','010-1262-4629','서울시 강남구'
-        ,'D4','J8','N','20/02/01',NULL,NULL,null);
+        ,'D4','J8','N','20/02/01',NULL,NULL);
 --  연구부서 사원 2
 INSERT INTO EMPLOYEE VALUES('Kim_sangu',239,
         '1ARVn2Auq2/WAqx2gNrL+q3RNjAzXpUfCXrzkA6d4Xa22yhRLy4AC50E+6UTPoscbo31nbOoq51gvkuXzJ6B2w==',
         '김산구','Kimsangu','950128-1003324',
         'Kim_sangu@coo.com','M',25,28000000,'02-2114-1615','010-1992-4999','서울시 서초구'
-        ,'D4','J8','N','20/02/01',NULL,NULL,null);
+        ,'D4','J8','N','20/02/01',NULL,NULL);
         
 --- 부서별 검색을 위한 코드
 INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 1, '전체 공지', '연습용 전체 공지 입니다.', 'Hong_gildong', DEFAULT, sysdate, DEFAULT, 1, 'D0');
@@ -1108,5 +1108,7 @@ BEGIN
 END;
 /
 
+--프로필 사진 테스트
+INSERT INTO PROFILE_FILES VALUES(100,'images.jpg');
 
 COMMIT;

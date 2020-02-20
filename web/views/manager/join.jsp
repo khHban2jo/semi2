@@ -52,9 +52,6 @@
 					<td class="hleft" style="width:5;" ><h5><span style="color:red;">* </span> 사 번</h5></td>
 					<td><input type="text" id="mEmpCode" name="empCode" readonly>&nbsp;
 						<input type="button" value="확인" id="checkemp" > 
-					<td rowspan="5" id="pic" style="width:200px; border:1px solid black;" ><img src="" width="200px" height="260px" id="pf" alt="프로필사진" ></td>
-					
-					
 				</tr>
 				
 				<tr>
@@ -233,13 +230,6 @@
 					</select> <input type="hidden" value="사번검색" id="crv3">&nbsp;&nbsp;<input type="hidden" name="cr3" id="crv4" value="사번"></td>
 					<td id="yearmoney">연차 보유 수량 : <input type="number" name="l1Value"
 						value="0" min="0" max="30"></td>
-				</tr>
-				<tr>
-					
-					<td class="hleft">프로필 사진
-					</td>
-					<td><input type="file" id="imgInput" value="사진 업로드" name="file"></td>
-						<td></td>
 				</tr>
 				
 				<tr>
