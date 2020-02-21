@@ -1,43 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.coo.notice.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.coo.notice.model.vo.*"%>
 <%
-	Notice n = (Notice)request.getAttribute("notice");
+	Notice n = (Notice) request.getAttribute("notice");
 %>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>COO - 홈</title>
+<meta charset="UTF-8">
+<title>COO - 홈</title>
 
-    <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
-    
-    <style>
-	
-	
-	 th, td {
-    border: 1px solid black;
-  }
-  
-  	th{
-  		background-color : #A9D0F5;
-  		border: 1px solid black; 
-  	}
-  	
-  	table{
-  		border:"0";
-  	}
-  	
-  	
+<link rel="stylesheet" href="/semi/resources/css/common/basic.css">
+
+<style>
+th, td {
+	border: 1px solid black;
+}
+
+th {
+	background-color: #A9D0F5;
+	border: 1px solid black;
+}
+
+table {
+	border: "0";
+}
 </style>
 </head>
 <body>
-    <div class="total">
-    	<!-- 헤더부분 include -->
-    	<%@ include file="../common/COO_header.jsp" %>
-    	
-    	<!-- 화면 좌측 고정부 include -->
-    	<%@ include file="../common/COO_left.jsp" %>
+	<div class="total">
+		<!-- 헤더부분 include -->
+		<%@ include file="../common/COO_header.jsp"%>
 
-       <%--  <div class="right">
+		<!-- 화면 좌측 고정부 include -->
+		<%@ include file="../common/COO_left.jsp"%>
+
+		<%--  <div class="right">
             <div id="notice" align="center;">
             	<table class="managerTable">
 		          <form action="<%= request.getContextPath()%>/noticeUpdate" method="POST">
@@ -105,89 +101,121 @@
             </div>
                     
         </div> --%>
-        
-        <!-- ======================내용 수정한 부분 입니다 .........==================== -->
-        
-        <div class="right">
-            <div id="notice" align="center;">
-            	<h1>공지사항 수정</h1>
-            	<table class="managerTable">
-		          <form action="<%= request.getContextPath()%>/noticeUpdate" method="POST">
-		          
-		             
-		                  <thead>
-		                  <input type="hidden" name="nno" id="nno" value=<%= n.getNno() %> >
-		             	<!-- 제목 작성 부분 -->
-		             	
-		             	
-		              <tr>
-		              	<% if(m.getEmpId().equals("admin")){%>
-		              		<th style="font-size: 18px; width:100px; height:20px;">제목 작성 :</th>
-		              		<td colspan=2> <input type="text" name="title" style="border:0; outline: none;width: 800px; height: 30px" value=' <%= n.getNtitle() %>'> </td>
-		              		
-		              	<% }else{ %>
-		              		<th  style="font-size: 18px;">제목 작성</th>
-		              		<td colspan=2> <%= n.getNtitle() %> </td>
-		              	<% } %>
-		              </tr>
-		              
-		              
-		              <!--  작성자 아이디 불러오는 부분 -->
-		              <tr>
-		              	<% if(m.getEmpId().equals("admin")){%>
-		              		<th style="font-size: 18px;">작성자 : </th>
-		              		 <td colspan=2><input type="hidden" name="nwriter" value="<%= n.getNwriter() %>"><%= n.getNwriter() %></td>
-		              	<% }else{ %>
-		              		<th style="font-size: 18px;">작성자 ID</th> 
-		              		<td colspan=2> <%= n.getNwriter() %> </td>
-		              	<% } %>
-		              </tr>
-						<!-- 작성일 불러오는 부분  -->
-		              <tr>
-						<th style="font-size: 18px;">작성일 </th> 
-						<td width="600px"> <%= n.getNdate() %> <input type="hidden" id="nowDate" name="nowDate" value=""> </td>
-						<td  align="right">내용 폰트 크기 선택
-								<select id="font_size" height="40px">
-									<option value="10">10</option>
-									<option value="15">15</option>
-									<option value="20">20</option>
-									<option value="25">25</option></td>
-		              </tr>
-		              </thead>
-		              
-		              <tbody>
-		            	  <tr>
-		              		<th>내용</th>
-		              		<td colspan=2>
-		              		<% if(m.getEmpId().equals("admin")){%>
-								<textarea id="ncontent" name="ncontent" style="outline: none; border:0; height:500px; width:800px; resize:none; text-align:left; font-size: 20px"><%= n.getNcontent() %></textarea>
-							</td>
-							<% }else{ %>
-							<td colspan=2>
-								<textarea style="outline: none; border:0; height:500px; width:800px; resize:none; text-align:left; font-size: 20px"  readonly><%= n.getNcontent() %></textarea>
-							</td>
-						<% } %>
-		              </tr>
-		              </tbody>
-		      		</table>
-		      		<% if(m.getEmpId().equals("admin")){%>
-		      			<input type="submit" id="updateNotice" value = " 수 정  " style="width: 100px; height: 30px; margin-left: 300px"> 
-		             	&nbsp; &nbsp; 
-		             <% } %>
-		        	</form>
-		        	<button style="width: 100px; height: 30px;" id="back"> 취 소 </button>
-		        	 &nbsp; &nbsp; 
-		        	<% if(m.getEmpId().equals("admin")){%>
-		            	<button id="deleteNotice" style="width: 100px; height: 30px; margin-bottom: 50px"> 삭 제 </button>
-		            <% } %>
-            </div>
-                    
-        </div>
-        
+
+		<!-- ======================내용 수정한 부분 입니다 .........==================== -->
+
+		<div class="right">
+			<div id="notice" align="center;">
+				<h1>공지사항 수정</h1>
+				<table class="managerTable">
+					<form action="<%=request.getContextPath()%>/noticeUpdate"
+						method="POST">
+
+						<thead>
+							<input type="hidden" name="nno" id="nno" value=<%=n.getNno()%>>
+							<input type="hidden" name="id" id="id" value=<%=m.getEmpId()%>>
+							<!-- 제목 작성 부분 -->
+							<tr>
+								<%
+									if (m.getEmpId().equals("admin")) {
+								%>
+								<th style="font-size: 18px; width: 100px; height: 20px;">제목
+									작성 :</th>
+								<td colspan=2><input type="text" name="title"
+									style="border: 0; outline: none; width: 800px; height: 30px"
+									value=' <%=n.getNtitle()%>'></td>
+
+								<%
+									} else {
+								%>
+								<th style="font-size: 18px; width: 100px; height: 20px;">제목
+									작성</th>
+								<td colspan=2><%=n.getNtitle()%></td>
+								<%
+									}
+								%>
+							</tr>
+
+
+							<!--  작성자 아이디 불러오는 부분 -->
+							<tr>
+								<%
+									if (m.getEmpId().equals("admin")) {
+								%>
+								<th style="font-size: 18px;">작성자 :</th>
+								<td colspan=2><input type="hidden" name="nwriter"
+									value="<%=n.getNwriter()%>"><%=n.getNwriter()%></td>
+								<%
+									} else {
+								%>
+								<th style="font-size: 18px;">작성자 ID</th>
+								<td colspan=2><%=n.getNwriter()%></td>
+								<%
+									}
+								%>
+							</tr>
+							<!-- 작성일 불러오는 부분  -->
+							<tr>
+								<th style="font-size: 18px;">작성일</th>
+								<td width="600px"><%=n.getNdate()%> <input type="hidden"
+									id="nowDate" name="nowDate" value=""></td>
+								<td align="right">내용 폰트 크기 선택 <select id="font_size"
+									height="40px">
+										<option value="10">10</option>
+										<option value="15">15</option>
+										<option value="20">20</option>
+										<option value="25">25</option></td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>내용</th>
+								<td colspan=2>
+									<%
+										if (m.getEmpId().equals("admin")) {
+									%> <textarea id="ncontent"
+										name="ncontent"
+										style="height: 500px; width: 800px; resize: none; text-align: left; font-size: 20px"><%=n.getNcontent()%></textarea>
+									<%
+										} else {
+									%> <textarea
+										style="height: 500px; width: 800px; resize: none; text-align: left; font-size: 20px"
+										readonly><%=n.getNcontent()%></textarea> <%
+ 	}
+ %>
+								
+							</tr>
+						</tbody>
+				</table>
+				<%
+					if (m.getEmpId().equals("admin")) {
+				%>
+				<input type="submit" id="updateNotice" value=" 수 정  "
+					style="width: 100px; height: 30px; margin-left: 300px">
+				&nbsp; &nbsp;
+				<%
+					}
+				%>
+				</form>
+				<button style="width: 100px; height: 30px;" id="back">취 소</button>
+				&nbsp; &nbsp;
+				<%
+					if (m.getEmpId().equals("admin")) {
+				%>
+				<button id="deleteNotice"
+					style="width: 100px; height: 30px; margin-bottom: 50px">삭
+					제</button>
+				<%
+					}
+				%>
+			</div>
+
+		</div>
+
 		<!-- 풋터 부분 include -->
-        <%@ include file="../common/COO_footer.jsp" %>
-    </div>
-    <script>
+		<%@ include file="../common/COO_footer.jsp"%>
+	</div>
+	<script>
 /*     document.getElementById('font_size').onclick = function(){
  		var fontSize = document.getElementById('font_size').value;
  		document.getElementById('ncontent').style.fontSize = fontSize+"px";
@@ -200,40 +228,42 @@
     	var day = new Date();
     	var nday = day.getFullYear()+"-"+ day.getMonth() + 1+"-"+day.getDate();
     	var nno = document.getElementById("nno").value;
-    	
-    	document.getElementById("nowDate").innerHTML = nday;
-    	
-    	document.getElementById("deleteNotice").onclick = function(){
-    		alert("삭제 합니다.");
-    		location.href = "/semi/deleteNotice?nno="+nno;
-    	}
 		
-    	var str = document.referrer.split('/');
+/*     	var str = document.referrer.split('/');
     	var str1 = "";
     	for(var i = 3; i <=str.length-1; i++){
     		str1 += str[i];
     	}
-    	console.log(str1);
+    	console.log(str1); */
     	
     	document.getElementById('back').onclick = function(){
-    		if(str1 == "semiviewshome.jsp"){
+/*     		if(str1 == "semiviewshome.jsp"){
     			opener.document.location.reload();
     			self.close();
+        		//window.location = document.referrer;
     		}else{
     			location.href = "/semi/noticeListServlet?search=all&date1=all&date2=all";
-    		}
-    		
+    		} */
+    		location.href = "/semi/noticeListServlet?search=all&date1=all&date2=all";
     	}
     	    	
-    	if(str1 == "semiviewshome.jsp"){
+/*     	if(str1 == "semiviewshome.jsp"){
     		document.getElementById('updateNotice').style.visibility = "hidden";
     		document.getElementById('deleteNotice').style.visibility = "hidden";
     		//document.getElementById('back').location.href;
     	}else{
        		document.getElementById('updateNotice').style.visibility = "visible";
     		document.getElementById('deleteNotice').style.visibility = "visible";
-    	}
+    	} */
     
+    	document.getElementById("nowDate").innerHTML = nday;
+    	var id = document.getElementById("id").value;
+    	if(id == "admin"){	//id
+    			document.getElementById("deleteNotice").onclick = function(){
+    				alert("삭제 합니다.");
+    				location.href = "/semi/deleteNotice?nno="+nno;
+    		}
+    	}
     	
     })();
     

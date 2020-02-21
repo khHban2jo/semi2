@@ -708,8 +708,8 @@ INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 4, '부서 게시판', '연습�
 
 -- 추가 더미 데이터
 INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 1, '전체 공지', '더미 데이터 찾기 용 이것이 삶인가 그렇다면 다시 한번더 : 니체', 'admin', DEFAULT, TO_DATE('02/02/11','yy/mm/dd'), DEFAULT, 1, 'D5');
-INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 1, '전체 공지', '더미 데이터 찾기 용 오늘날 프로그래밍은 바보도 문제없이 쓸 수 있는 프로그램을 더 거대하고 더 낫게 구축하려 애쓰는  소프트웨어 기술자와 더 거대한 하고 더 나은 바보를 만들려는 우주의 경쟁이다. 지금까지는 우주가 이기고 있다.', 'admin', DEFAULT, TO_DATE('2020-02-12','YYYY-MM-DD', DEFAULT, 1, 'D5');
-INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 1, '전체 공지', '더미 데이터 찾기 용 물 위를 걷는 것과 명세서로 소프트웨어를 개발하는 것은 쉽다. 둘다  동결되었다면…… ', 'Hong_gildong', DEFAULT, TO_DATE('2020-02-11','YYYY-MM-DD', DEFAULT, 1, 'D0 ');
+INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 1, '전체 공지', '더미 데이터 찾기 용 오늘날 프로그래밍은 바보도 문제없이 쓸 수 있는 프로그램을 더 거대하고 더 낫게 구축하려 애쓰는  소프트웨어 기술자와 더 거대한 하고 더 나은 바보를 만들려는 우주의 경쟁이다. 지금까지는 우주가 이기고 있다.', 'admin', DEFAULT, TO_DATE('2020-02-12','YYYY-MM-DD'), DEFAULT, 1, 'D5');
+INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 1, '전체 공지', '더미 데이터 찾기 용 물 위를 걷는 것과 명세서로 소프트웨어를 개발하는 것은 쉽다. 둘다  동결되었다면…… ', 'Hong_gildong', DEFAULT, TO_DATE('2020-02-11','YYYY-MM-DD'), DEFAULT, 1, 'D0 ');
 INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 1, '전체 공지', '더미 데이터 찾기 용 코드 실행 "위 코드의 버그를 조심하라. 나는 코드가 올바르다는 것만 증명했을 뿐, 실행해보지는 않았다." -도널드크누스- ', 'Hong_gilsoon', DEFAULT, TO_DATE('2020-02-11','YYYY-MM-DD'), DEFAULT, 1, 'D0 ');
 INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 2, '전체 공지', '컴퓨터 시스템 분석은 아이를 키우는 것과 같다. 극심한 상처를 줄 수는 있지만 성공을 보장해줄 수는 없다.', 'Park_soda', DEFAULT, TO_DATE('2020-02-11','YYYY-MM-DD'), DEFAULT, 1, 'D4 ');
 INSERT INTO BOARD_NORMAL VALUES(SEQ_BNO.NEXTVAL, 2, '전체 공지', '프로그램-프로그래밍 : PHP가 무능한 아마추어들이 구상하고 만든 소소한 악이라면, 펄은 유능하지만 변태적인 프로들이 구상하고 만든 거대하고 교활한 악이다.', 'Kim_suksu', DEFAULT, TO_DATE('2020-02-13','YYYY-MM-DD'), DEFAULT, 2, 'D1');

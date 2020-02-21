@@ -15,8 +15,8 @@ public class NoticeService {
 
 		Connection con = getConnection();
 
-		System.out.println("1-2");
-		System.out.println("arraylist : "+ Datelist.toString());
+//		System.out.println("1-2");
+//		System.out.println("arraylist : "+ Datelist.toString());
 		int listCount = new noticeDao().getListCount(con, Datelist);
 
 		close(con);
@@ -30,7 +30,7 @@ public class NoticeService {
 
 		Connection con = getConnection();
 
-		System.out.println("2-2");
+//		System.out.println("2-2");
 		ArrayList<Notice> list = new noticeDao().selectList(con, currentPage, limit, Datelist);
 
 		close(con);
@@ -60,7 +60,7 @@ public class NoticeService {
 
 		Notice n = new noticeDao().selectOne(con, nno);
 
-		System.out.println("Notice : " + n.toString());
+//		System.out.println("Notice : " + n.toString());
 
 		if (n != null)
 			commit(con);
