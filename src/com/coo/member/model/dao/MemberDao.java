@@ -68,7 +68,7 @@ public class MemberDao {
 				 result.setManagerYn(rset.getString("MANAGER_YN"));
 				 result.setHireDate(rset.getDate("HIRE_DATE"));
 				 result.setSubDept(rset.getString("SUB_DEPT"));
-				 result.setProfileA(rset.getString("PROFILE_FILE"));
+				 result.setProfileA(rset.getString("PIC"));
 			 }
 			
 		}catch(SQLException e) {
@@ -152,7 +152,6 @@ public int insertMember(Connection con, Member m) throws CooException {
 			pstmt.setString(13, m.getJobCode());
 			pstmt.setString(14, m.getEtc());
 			pstmt.setString(15, m.getSubDept());
-			pstmt.setString(16, m.getProfileA());
 				
 			result = pstmt.executeUpdate();
 							   
@@ -187,8 +186,7 @@ public int updateMember(Connection con, Member m) throws CooException {
 		pstmt.setString(10, m.getContact());
 		pstmt.setString(11, m.getPersonalId());
 		pstmt.setString(12, m.geteName());
-		pstmt.setString(13, m.getProfileA());
-		pstmt.setInt(14, m.getEmpCode());
+		pstmt.setInt(13, m.getEmpCode());
 		result = pstmt.executeUpdate();
 		
 	}catch(SQLException e) {
@@ -220,9 +218,6 @@ public int deleteMember(Connection con, String empId) throws CooException {
 		close(pstmt);
 	}
 	return result;
-	
-	// TODO Auto-generated method stub
-	
 }
 
 public Member searchMember(String empId, Connection con) throws CooException {
@@ -258,7 +253,7 @@ public Member searchMember(String empId, Connection con) throws CooException {
 			 result.setManagerYn(rset.getString("MANAGER_YN"));
 			 result.setHireDate(rset.getDate("HIRE_DATE"));
 			 result.setSubDept(rset.getString("SUB_DEPT"));
-			 result.setProfileA(rset.getString("PROFILE_FILE"));
+			 result.setProfileA(rset.getString("PIC"));
 		 }
 	}catch(SQLException e) {
 		throw new CooException(e.getMessage());
@@ -287,6 +282,28 @@ public int insertStockLine(StockLine d, Connection con) throws CooException {
 	}finally {
 		close(pstmt);
 	}
+	return result;
+}
+
+public int uploadPic(Connection con, Member m) throws CooException {
+	int result = 0;
+	PreparedStatement pstmt = null;
+	String sql = prop.getProperty("uploadPic");
+	
+	try {
+		pstmt = con.prepareStatement(sql);
+		
+		pstmt.setInt(1, m.getEmpCode());
+		pstmt.setString(2, m.getProfileA());
+		
+		result = pstmt.executeUpdate();
+		
+	}catch(SQLException e) {
+		throw new CooException("사진 업로드 실패");
+	}finally {
+		close(pstmt);
+	}
+	
 	return result;
 }
 

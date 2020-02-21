@@ -151,5 +151,20 @@ public class BoardService {
 		
 		return result;
 	}
+
+	public ArrayList<Board> selectListFive(String deptCode) {
+		Connection con = getConnection();
+		ArrayList<Board> list = null;
+		try {
+			
+			list = bDao.selectListFive(con,deptCode);
+		}catch(CooException e) {
+			e.getMessage();
+		}
+		
+		close(con);
+		
+		return list;
+	}
 	
 }

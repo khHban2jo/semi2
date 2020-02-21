@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>COO - 홈</title>
-
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
 </head>
 <body>
@@ -17,10 +17,9 @@
     	<%@ include file="common/COO_left.jsp" %>
 
         <div class="right">
-        	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
              <%@ include file="notice/showFiveNotice.jsp" %>
             
-            <span id="todo"></span>
+            <span id="board"></span>
             <span id="approval"></span>
         </div>
  <!--메인메뉴쿼리  -->
@@ -50,5 +49,8 @@
 		<!-- 풋터 부분 include -->
         <%@ include file="common/COO_footer.jsp" %>
     </div>
+    <script>
+    	$('#board').load("/semi/bselectFive.bo");
+    </script>
 </body>
 </html>

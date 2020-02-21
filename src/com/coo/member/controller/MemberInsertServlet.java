@@ -89,29 +89,31 @@ public class MemberInsertServlet extends HttpServlet {
 		}
 		
 		// 결제 정 / 부 관련 추가
-		int empCode = Integer.parseInt(request.getParameter("empCode"));
-		String deptCodeA = request.getParameter("cr2");
 		String subcrA = request.getParameter("cr");
-		int subDeptCode = Integer.parseInt(request.getParameter("cr3"));
-//		String subDeptA = request.getParameter("subDeptA");
-		
-		StockLine d = new StockLine();
-		int result = 0;
-		
-		if(subcrA.equals("1")) {
-			d.setEmpcode(empCode);
-			d.setDeptCode(deptCodeA);
-			d.setSubcode(subDeptCode);
-			result = new MemberService().insertStockLine(d);
-		}else if(subcrA.equals("2")) {
-			d.setEmpcode(subDeptCode);
-			d.setDeptCode(deptCodeA);
-			d.setSubcode(empCode);
-			result = new MemberService().insertStockLine(d);
-		}
-		
-		if(result > 0) {
-			System.out.println("성공");
+		if(!subcrA.equals("0")) {
+			int empCode = Integer.parseInt(request.getParameter("empCode"));
+			String deptCodeA = request.getParameter("cr2");
+			int subDeptCode = Integer.parseInt(request.getParameter("cr3"));
+//			String subDeptA = request.getParameter("subDeptA");
+			
+			StockLine d = new StockLine();
+			int result = 0;
+			
+			if(subcrA.equals("1")) {
+				d.setEmpcode(empCode);
+				d.setDeptCode(deptCodeA);
+				d.setSubcode(subDeptCode);
+				result = new MemberService().insertStockLine(d);
+			}else if(subcrA.equals("2")) {
+				d.setEmpcode(subDeptCode);
+				d.setDeptCode(deptCodeA);
+				d.setSubcode(empCode);
+				result = new MemberService().insertStockLine(d);
+			}
+			
+			if(result > 0) {
+				System.out.println("성공");
+			}
 		}
 		
 		//	근태관련 코드 추가
@@ -127,7 +129,6 @@ public class MemberInsertServlet extends HttpServlet {
 		response.getWriter().print("</script>");
 		response.getWriter().print("</body>");
 		response.getWriter().print("</html>");
-		
 	}
 
 	/**

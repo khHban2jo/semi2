@@ -1,27 +1,30 @@
 package com.coo.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.coo.board.model.service.BoardService;
 import com.coo.board.model.vo.Board;
-import com.coo.exception.CooException;
+import com.coo.member.model.vo.Member;
 
 /**
- * Servlet implementation class BoardInsertServlet
+ * Servlet implementation class BoardFiveServlet
  */
-@WebServlet("/bInsert.bo")
-public class BoardInsertServlet extends HttpServlet {
+@WebServlet("/bselectFive.bo")
+public class BoardFiveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertServlet() {
+    public BoardFiveServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +33,17 @@ public class BoardInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String title = request.getParameter("title");
-		String category = request.getParameter("category");
-		int type = Integer.parseInt(request.getParameter("category"));
-		String writer = request.getParameter("writer");
-		String content = request.getParameter("ir1");
-		String deptview = request.getParameter("deptview");
+		ArrayList<Board> list = new ArrayList<Board>();
 		
-		int result = 0;
+		HttpSession session = request.getSession(); 
 		
-		Board b = new Board();
-		b.setBtype(type);
-		b.setBtitle(title);
-		b.setCategory(category);
-		b.setBwriter(writer);
-		b.setBcontent(content);
-		b.setBdeptCode(deptview);
 		
-		result = new BoardService().insertBoard(b);
+		String deptCode = (((Member)session.getAttribute("member")).getDeptCode());
 		
-		if(result > 0) {
-			response.sendRedirect("close.do");
-		}else {
-			request.setAttribute("msg","게시글 작성 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		list = new BoardService().selectListFive(deptCode);
+		
+		request.setAttribute("list",list);
+		request.getRequestDispatcher("views/dept_board/board_home.jsp").forward(request, response);
 	}
 
 	/**

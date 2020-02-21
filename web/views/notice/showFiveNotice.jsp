@@ -12,8 +12,8 @@
 				complete:function(){...} // 무조건 실행하는 함수
 			}) -->
 <div id="notice" style="background: #f8f9fa;">
-	<div class="table-line">
-		<table style="width: 50%; border-collapse: collapse;" id="fiveList">
+	<div class="table-line" style="width: 100%; height: 100%;">
+		<table style="width: 100%; height: 100%; border-collapse: collapse; border: 1px solid #444444;" id="fiveList">
 			<thead>
 				<tr class='table-line'>
 					<th>번호</th>
@@ -38,7 +38,7 @@
 							var date = value.ndate;
 							var dates = date.split(',');							
 							
-							var $tr = $('<tr>');
+							var $tr = $('<tr style="font-size: 20px; text-align: center;">');
 							var $Nno = $('<td>').text( value.nno); 
 							var $Ntitle= $('<td>').text( value.ntitle);
 							var $Nwriter = $('<td>').text( value.nwriter);

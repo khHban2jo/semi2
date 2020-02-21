@@ -794,4 +794,40 @@ public class BoardDao {
 
 		return copy;
 	}
+
+	public ArrayList<Board> selectListFive(Connection con, String deptCode) throws CooException {
+		ArrayList<Board> list = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListFive");
+		try {
+			list = new ArrayList<Board>();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, deptCode);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board();
+				b.setBno(rset.getInt("bno"));
+				b.setBtype(rset.getInt("btype"));
+				b.setBtitle(rset.getString("btitle"));
+				b.setBcontent(rset.getString("bcontent"));
+				b.setBwriter(rset.getString("bwriter"));
+				b.setBcount(rset.getInt("bcount"));
+				b.setBdate(rset.getDate("bdate"));
+				b.setStatus(rset.getString("status"));
+				b.setBdeptCode(rset.getString("BDEPT_CODE"));
+				
+				list.add(b);
+			}
+			
+		}catch(SQLException e) {
+			throw new CooException("게시판 조회 실패");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }

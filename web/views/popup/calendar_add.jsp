@@ -9,11 +9,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/semi/resources/css/ccalendar/calendar_add.css">
     
-
-
-
-    
-    
     <script>
 		$(function(){ // 팝업창 닫히고 이전 페이지로 이동완료
 			$('#createBtn').click(function(){
@@ -24,11 +19,14 @@
     </script>
     
 </head>
-<body onresize="parent.resizeTo(480,580)" onload="parent.resizeTo(480,580)">
+<body onresize="parent.resizeTo(530,650)" onload="parent.resizeTo(530,650)">
 <div id="totalSize">
-    <form action="/semi/InsertSchedule.do" method="post"> 
+    <form action="/semi/InsertSchedule.do" method="post"> <!--TEA -->
     <div id="total">
+    
         <div id="addArea">
+         <span class="span2"><h1 align="left">일정 생성하기</h1></span>
+		<hr color="lightgray">
             <input type="text" id="addtitle" name="addtitle" placeholder="일정 제목을 입력하십시오">
 
             <br><br><br><br>
@@ -42,7 +40,7 @@
             <textarea cols="41" name="calendarContent" rows="6"></textarea>
 
             <!-- 생성된 일정을 다시 누르면 추가 버튼이 수정 버튼으로/ 취소버튼이 삭제버튼으로 if()-->
-            <button onclick="add();" id="createBtn" class="btn">생성</button>
+            <input type="button" id="createBtn" class="btn" value="생성">
          	<button onclick="window.close();" class="btn">취소</button>
             
            
