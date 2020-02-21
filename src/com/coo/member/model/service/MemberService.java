@@ -175,7 +175,6 @@ public class MemberService {
 		}catch(CooException e) {
 			e.getMessage();
 		}
-		
 		close(con);
 		
 		return result;
