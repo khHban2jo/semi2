@@ -126,7 +126,7 @@
 		              		<td colspan=2> <input type="text" name="title" style="width: 800px; height: 30px" value=' <%= n.getNtitle() %>'> </td>
 		              		
 		              	<% }else{ %>
-		              		<th  style="font-size: 18px;">제목 작성</th>
+		              		<th style="font-size: 18px; width:100px; height:20px;">제목 작성</th>
 		              		<td colspan=2> <%= n.getNtitle() %> </td>
 		              	<% } %>
 		              </tr>
@@ -153,14 +153,12 @@
 		            	  <tr>
 		              		<th>내용</th>
 		              		<td colspan=2>
-		              		<% if(m.getEmpId().equals("admin")){%>
-								<textarea id="ncontent" name="ncontent" style=" height:500px; width:800px; resize:none; text-align:left; font-size: 20px"><%= n.getNcontent() %></textarea>
+		              			<% if(m.getEmpId().equals("admin")){%>
+									<textarea id="ncontent" name="ncontent" style=" height:500px; width:800px; resize:none; text-align:left; font-size: 20px"><%= n.getNcontent() %></textarea>
+								<% }else{ %>
+									<textarea style=" height:500px; width:800px; resize:none; text-align:left; font-size: 20px"  readonly><%= n.getNcontent() %></textarea>
+								<% } %>
 							</td>
-							<% }else{ %>
-							<td colspan=2>
-								<textarea style=" height:500px; width:800px; resize:none; text-align:left; font-size: 20px"  readonly><%= n.getNcontent() %></textarea>
-							</td>
-						<% } %>
 		              </tr>
 		              </tbody>
 		      		</table>
@@ -169,7 +167,7 @@
 		             	&nbsp; &nbsp; 
 		             <% } %>
 		        	</form>
-		        	<button style="width: 100px; height: 30px;" id="back"> 취 소 </button>
+		        		<button style="width: 100px; height: 30px;" id="back"> 취 소 </button>
 		        	 &nbsp; &nbsp; 
 		        	<% if(m.getEmpId().equals("admin")){%>
 		            	<button id="deleteNotice" style="width: 100px; height: 30px; margin-bottom: 50px"> 삭 제 </button>
@@ -194,13 +192,6 @@
     	var day = new Date();
     	var nday = day.getFullYear()+"-"+ day.getMonth() + 1+"-"+day.getDate();
     	var nno = document.getElementById("nno").value;
-    	
-    	document.getElementById("nowDate").innerHTML = nday;
-    	
-    	document.getElementById("deleteNotice").onclick = function(){
-    		alert("삭제 합니다.");
-    		location.href = "/semi/deleteNotice?nno="+nno;
-    	}
 		
     	var str = document.referrer.split('/');
     	var str1 = "";
@@ -213,6 +204,7 @@
     		if(str1 == "semiviewshome.jsp"){
     			opener.document.location.reload();
     			self.close();
+        		//window.location = document.referrer;
     		}else{
     			location.href = "/semi/noticeListServlet?search=all&date1=all&date2=all";
     		}
@@ -228,6 +220,12 @@
     		document.getElementById('deleteNotice').style.visibility = "visible";
     	}
     
+    	document.getElementById("nowDate").innerHTML = nday;
+    	
+    	document.getElementById("deleteNotice").onclick = function(){
+    		alert("삭제 합니다.");
+    		location.href = "/semi/deleteNotice?nno="+nno;
+    	}
     	
     })();
     

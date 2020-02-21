@@ -192,7 +192,7 @@ $(function(){
 		if(date1 > date2){
 			alert("날짜가 잘못 입력 되었습니다. 다시 입력 해주세요.");
 			return false;	
-		}else if( (date1.length <= 0 && date2.length > 0) ||  (date1.length > 0 && date2.length <= 0) ){
+		}else if( ( (date1.length <= 0) && (date2.length > 0 )) ||  (date1.length > 0 && date2.length <= 0) ){
 			alert("날짜가 잘못 입력 되었습니다. 다시 입력 해주세요.");
 			return false;	
 		}
