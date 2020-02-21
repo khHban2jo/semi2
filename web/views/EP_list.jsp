@@ -306,15 +306,16 @@
 
 
 $(function(){
-	$("#list").mouseenter("click",function(){
+	$("#list").mouseenter(function(){
 		$("#list td").mouseenter(function(){
-		
 			$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+			console.log($(this).parent().find("input[type=hidden]").val());
 		}).mouseout(function(){
 			$(this).parent().css({"background":"white"});
 		}).click(function(){
 			//console.log($(this).parent().find("input[type=hidden]").val());
 			var docNumber = $(this).parent().find("input[type=hidden]").val();
+			
 			<%--location.href="<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber;--%>
 		window.open("<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber,'','target=_blank');
 		//window.open('www.naver.com','','target:_blank;');
