@@ -12,7 +12,7 @@
 	
 	
 	 th, td {
-    border: 1px solid white;
+    border: 1px solid black;
   }
   
   	th{
@@ -23,6 +23,13 @@
   	table{
   		border:"0";
   	}
+  	
+  	
+
+
+
+
+
   	
   	
 </style>
@@ -101,19 +108,19 @@
 						<thead>
 							<tr>
 								<th style="font-size: 18px; width:100px; height:20px;">제목 작성</th> 
-								<td colspan=2> <input type="text" name="title" style="width: 802px; height: 30px"> </td>
+								<td colspan=2>&nbsp; <input type="text" name="title" style="border:0; outline: none; width: 802px; height: 30px"> </td>
 							</tr>
 							
 							<tr>
 								<th style="font-size: 18px;">작성자 </th>
-								<td colspan=2> <input type="hidden" name="nwriter" value="admin"><%= m.getEmpId() %></td>
+								<td colspan=2>&nbsp; <input type="hidden" name="nwriter" value="admin"><%= m.getEmpId() %></td>
 								<!-- 로그인 시에 구현 해야 된다. -->
 							</tr>
 							
 							<tr>
 							<!-- 자바스크립트의 변수를 JSP에 넘겨주지는 못합니다. 방법은 있지만 코드가 길어지고 복잡해 진다.-->
 								<th style="font-size: 18px;">작성일  
-								<td width="600px"> <input type="hidden" 
+								<td width="600px">&nbsp; <input type="hidden" 
 								id="nowDate" name="nowDate" value="" style=""><label id="now"></label>
 								</td>
 								<td  align="right">내용 폰트 크기 선택
@@ -131,8 +138,8 @@
 							<tr>
 								<th>내용</th>
 							
-								<td colspan=2>
-									<textarea id="ncontent" name="ncontent" style="height: 500px; width: 800px; resize: none; font-size: 20px"></textarea>
+								<td colspan=2 >
+									<textarea id="ncontent" name="ncontent" style="outline: none; border:0; height: 500px; width: 800px; resize: none; font-size: 20px"></textarea>
 								</td>
 							</tr>
 							

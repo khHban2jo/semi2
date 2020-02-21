@@ -14,7 +14,7 @@
 	
 	
 	 th, td {
-    border: 1px solid white;
+    border: 1px solid black;
   }
   
   	th{
@@ -123,7 +123,7 @@
 		              <tr>
 		              	<% if(m.getEmpId().equals("admin")){%>
 		              		<th style="font-size: 18px; width:100px; height:20px;">제목 작성 :</th>
-		              		<td colspan=2> <input type="text" name="title" style="width: 800px; height: 30px" value=' <%= n.getNtitle() %>'> </td>
+		              		<td colspan=2> <input type="text" name="title" style="border:0; outline: none;width: 800px; height: 30px" value=' <%= n.getNtitle() %>'> </td>
 		              		
 		              	<% }else{ %>
 		              		<th  style="font-size: 18px;">제목 작성</th>
@@ -146,6 +146,12 @@
 		              <tr>
 						<th style="font-size: 18px;">작성일 </th> 
 						<td width="600px"> <%= n.getNdate() %> <input type="hidden" id="nowDate" name="nowDate" value=""> </td>
+						<td  align="right">내용 폰트 크기 선택
+								<select id="font_size" height="40px">
+									<option value="10">10</option>
+									<option value="15">15</option>
+									<option value="20">20</option>
+									<option value="25">25</option></td>
 		              </tr>
 		              </thead>
 		              
@@ -154,11 +160,11 @@
 		              		<th>내용</th>
 		              		<td colspan=2>
 		              		<% if(m.getEmpId().equals("admin")){%>
-								<textarea id="ncontent" name="ncontent" style=" height:500px; width:800px; resize:none; text-align:left; font-size: 20px"><%= n.getNcontent() %></textarea>
+								<textarea id="ncontent" name="ncontent" style="outline: none; border:0; height:500px; width:800px; resize:none; text-align:left; font-size: 20px"><%= n.getNcontent() %></textarea>
 							</td>
 							<% }else{ %>
 							<td colspan=2>
-								<textarea style=" height:500px; width:800px; resize:none; text-align:left; font-size: 20px"  readonly><%= n.getNcontent() %></textarea>
+								<textarea style="outline: none; border:0; height:500px; width:800px; resize:none; text-align:left; font-size: 20px"  readonly><%= n.getNcontent() %></textarea>
 							</td>
 						<% } %>
 		              </tr>
