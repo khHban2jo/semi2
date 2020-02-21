@@ -32,8 +32,8 @@ public class MemberUpdateSalary extends HttpServlet {
 		int salary = Integer.parseInt(request.getParameter("salary"));
 		
 		String empId = request.getParameter("userId");
-		
-		int result = new MemberService().updateSalary(salary,empId);
+		new MemberService().updateSalary(salary,empId);
+
 	}
 
 	/**

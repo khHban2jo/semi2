@@ -22,7 +22,6 @@
 		</tr></thead>
 		<tbody>
 		<tr>
-		<input type="hidden" value="<%=md.getEmpId() %>" name="userId">
 		<td><%=md.getEmpId() %></td>
 		<td><%=md.getEmpCode() %></td>
 		<td><%=md.getEmpName() %></td>
@@ -34,6 +33,7 @@
 		</tbody>
 	</table>
 	<form action="<%=request.getContextPath() %>/updateSalary.me" method="post">
+		<input type="hidden" value="<%=md.getEmpId() %>" name="userId">
 		연봉 변경 : <input id="sel" type="number" name="salary" value="<%=md.getSalary() %>" step="1000000"><br><br>
 		<input type="submit" value="작성">&nbsp;&nbsp;<input type="button" value="돌아가기" id="goback">
 	</form>
@@ -44,7 +44,13 @@
 		onsubmit=function(){
 			var sel = $('#sel').val();
 			
-			var chk = window.prompt("연봉 : " + $('#sel').val()+"맞습니까?");
+			var chk = window.confirm("연봉 : " + $('#sel').val()+"맞습니까?");
+			
+			if(chk.toUpperCase()=='Y'){
+				return true;
+			}else{
+				return false;
+			}
 			
 		}
 	</script>
