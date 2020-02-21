@@ -28,7 +28,7 @@
          
  <!--메인메뉴쿼리  -->
  
-		<!-- <script> 여기 있으면 홈버튼을 눌렀을 경우에만 내용이 나옵니다. COO_left.jsp로 옮겼습니다.
+<!-- 		<script> /* 여기 있으면 홈버튼을 눌렀을 경우에만 내용이 나옵니다. COO_left.jsp로 옮겼습니다. */
 			$(function(){
 				//$('#notice').load('./notice/notice.jsp','#notice');
 				$.ajax({
@@ -41,7 +41,7 @@
 							var $ctitle = $('<li>').text(value.title);
 							
 							$cUl.append($ctitle);
-							$('#todo_list').append($cUl);
+							$('#todo_list_range').append($cUl);
 						});
 					},error:function(){
 						console.log("에러");

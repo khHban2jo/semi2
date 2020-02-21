@@ -16,11 +16,17 @@ $(function(){
     	url: "/semi/vdSelect.ta",
 		type:"get",
 		success:function(data){
-			data = data.split("-");
+			data = data.split("/");
 			
 			for(var i=0; i<data.length; i++){
 				if(data[i]=='예정일 없음'){
 					data[i] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + data[i];
+				}else if (i==0 && data[i] != '예정일 없음'){
+					data[i] = '&nbsp;&nbsp;&nbsp;&nbsp;'+data[i];
+				}else if (i==1 && data[i] != '예정일 없음'){
+					data[i] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[i];
+				}else if (i==2 && data[i] != '예정일 없음'){
+					data[i] = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+data[i];
 				}
 			}
 			
