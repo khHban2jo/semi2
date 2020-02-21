@@ -138,6 +138,7 @@
     	$('#back').click(function(){
     		// location.href="/semi/searchBoard.bo?title=all";
     		history.back(-1);
+    		window.location = document.referrer;
     	});
     	
     	$('#allb').click(function(){
