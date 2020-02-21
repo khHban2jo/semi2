@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
 		Member m = new Member(userId, userPwd);
 		
 		MemberService ms = new MemberService();
-		
+
 		try {
 			m = ms.selectMember(m);
 			HttpSession session = request.getSession();

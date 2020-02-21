@@ -30,10 +30,13 @@ public class MemberChk extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		
 		Member mem = (Member)session.getAttribute("member");
+		
 		String btn = request.getParameter("btnDen");
-	    session.setAttribute("works",btn);
 	    
+		session.setAttribute("works",btn);
+		
 		switch(btn) {
 		case "1":request.getRequestDispatcher("views/manager/join.jsp").forward(request, response); break;
 		case "2":request.getRequestDispatcher("pAll.do").forward(request, response); break;

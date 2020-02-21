@@ -15,7 +15,10 @@ public class MemberService {
 		
 		Connection con = getConnection();
 		
-		Member result = mDao.selectMember(m,con);
+		boolean chk = mDao.checkPic(m,con);
+		
+		Member result = null;
+		if(chk) result = mDao.selectMember(m,con); else result = mDao.selectMemberWPic(m,con);
 		
 		close(con);
 
@@ -109,7 +112,6 @@ public class MemberService {
 	public Member searchMember(String empId) {
 		
 		Connection con = getConnection();
-		
 		Member m = null;
 		try {
 			m = mDao.searchMember(empId, con);
