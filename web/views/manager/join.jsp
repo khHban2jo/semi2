@@ -35,6 +35,10 @@
   		
   	}
   	
+  	input{
+  		border:10;
+  	}
+  	
   	
   </style>
   </head>
