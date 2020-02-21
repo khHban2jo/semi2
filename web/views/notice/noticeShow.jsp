@@ -244,7 +244,7 @@ table {
     		}else{
     			location.href = "/semi/noticeListServlet?search=all&date1=all&date2=all";
     		} */
-    		location.href = "/semi/noticeListServlet?search=all&date1=all&date2=all";
+    		location.href = document.referrer;
     	}
     	    	
 /*     	if(str1 == "semiviewshome.jsp"){
