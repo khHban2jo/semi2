@@ -187,17 +187,15 @@ public class CheckInsertServlet extends HttpServlet {
 			((Vacation)doc).setStart_Date(sd);
 			((Vacation)doc).setEnd_Date(ed);
 			((Vacation)doc).setDayOff_MA(dot);
-			text = mrequest.getParameter("text")+"/+/"+mrequest.getParameter("ir1");
 		}else if(info.getDocType().equals("지출결의서")) {
 		
 			int paid = Integer.valueOf(mrequest.getParameter("endpay"));
 			doc = new PayDoc();
 			((PayDoc)doc).setEndPay(paid);
-			text =  mrequest.getParameter("text")+"/+/"+mrequest.getParameter("ir1");
 		}else {
 			doc = new RoundDoc();
-			text = mrequest.getParameter("ir1");
 		}
+		text = mrequest.getParameter("text");
 		///+/
 		doc.setText(text);
 		System.out.println(text);
@@ -210,7 +208,7 @@ public class CheckInsertServlet extends HttpServlet {
 		}else {
 			System.out.println("오류");
 		//오류페이지
-		}
+			}
 	}
 	
 		

@@ -3,7 +3,7 @@
 
 <body>
 <div id="docs" style=" dispaly:inline-block; width: 550px; height : 150px;background: #f8f9fa;">
-	<span>결재대기  : <span id="count"></span></span>  <button onclick="location.href=<%=request.getContextPath()%>/chlist.ch"></button>
+	<span>결재대기  : <span id="count"></span></span>  <button onclick="location.href='<%=request.getContextPath()%>/clist.ch?status=4'">결재목록보기</button>
 	<div class="table-line" style="width: 100%; height: 100%;">
 		<table style="width: 100%; height: 100%; border-collapse: collapse; border: 1px solid #444444;" id="">
 				<thead>                  
@@ -157,7 +157,7 @@
 					}).click(function(){
 						//console.log($(this).parent().find("input[type=hidden]").val());
 						var docNumber = $(this).parent().find("input[type=hidden]").val();
-					window.open("<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber,'','target=_blank');
+					window.open("<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber,'','top=80px, left=250px width=1220px,height=710px, resizable=no, location=no, toolbars=no,scrollbars=no');
 				
 					
 				

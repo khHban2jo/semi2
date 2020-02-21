@@ -668,7 +668,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				}else if(arr[3]=='P'){
 					dot = "오후";
 				}
-				var text = arr[4];
+				var text = arr[4].split(",");
 				
 				
 				var $span1 = $("<span>");
@@ -686,8 +686,10 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				var $span3 = $("<span>");
 				$span3.text("시간 :" +dot);
 				
-				var $div =$("<div style ='white-spae:pre-wrap; border:1px solid black; width:500px; height:500px;'>");
+				console.log(text);
+				var $div =$("<div id ='text' style =' border:1px solid black; width:500px; height:500px;'>");
 				$div.html(text);
+				//$div.html(text);
 				$("#docwrite").append($span1);
 				$("#docwrite").append($span2);
 				$("#docwrite").append("<br><br>");
@@ -700,12 +702,14 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				$("#docwrite").append("<br><br>");
 				$("#docwrite").append($div);
 				
+				
+				
 			}else if(type=="지출결의서"){
 				console.log(arr);
 				var length = arr.length;
 				console.log(length);
 				var paid = arr[length-2];
-				var text = arr[length-1];
+				var text = arr[length-1].split(",");
 				console.log(paid);
 				console.log(text);
 				$("#docwrite").html('<table id="ttt" style="border:1px solid black;"">'+
@@ -742,13 +746,13 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				
 				$("#ttt td").css("border","1px solid black");
 				$(".num").css("text-align","right")
-				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:747px; height:200px;'>");
+				var $div = $("<div style ='border:1px solid black; width:747px; height:200px;'>");
 				$div.html(text);
 		        $("#docwrite").append($div);
 			}else{
 				
-				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:747px; height:657px;'>");
-				$div.html(arr[0]);
+				var $div = $("<div style =' border:1px solid black; width:747px; height:657px;'>");
+				$div.html(arr[0].split(","));
 				$("#docwrite").append($div);
 			}
 		});

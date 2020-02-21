@@ -197,3 +197,9 @@ text td{
 .labu{
 	width : 30px;
 }
+
+#gsubmit{
+	position:absolute;
+	top:0px;
+	left:700px;
+}

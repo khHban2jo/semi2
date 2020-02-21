@@ -43,12 +43,9 @@ $(function(){
       	    	 '<textarea name="ir1" id="txtav" rows="6" cols="70" style=" width:640px; height:200px;"></textarea>'+'<div>'
  );
       	 
-      	$("td").click(function(){
-      	  $(".su").on({
-      	       "click":function(){
-      	           $(this).val("");
-      	       },
-      	      "blur":function(){ 
+      	$("#docbody table").mouseenter(function(){
+      	  $(".su").click(function(){
+      	  }),blur(function(){ 
       	        
       	          var aa =$(this).val();
       	          if(isNaN( Number(aa))){
@@ -59,8 +56,26 @@ $(function(){
       	          var a = parseInt($(this).val());
       	          var b = parseInt($(this).parent().prev("td").children(".money").val());
       	          $(this).parent().siblings("td").eq(4).children(".pay").val(a*b); 
-      	      }
-      	  });
+      	      });
+      	
+     	  
+      	});
+      	
+      	$("#docbody table").mouseenter(function(){
+      		  $(".money").click(function(){
+     	           $(this).val("");
+     	       }),blur(function(){ 
+     	    	  console.log(aa);
+     	          var aa =$(this).val();
+     	          if(isNaN( Number(aa))){
+     	              alert("숫자만");
+     	              $(this).val(0);
+     	              $(this).select();
+     	          }
+     	          var a = parseInt($(this).val());
+     	          var b = parseInt($(this).parent().next("td").children(".su").val());
+     	          $(this).parent().siblings("td").eq(4).children(".pay").val(a*b); 
+     	      });
       	});
    
    
@@ -175,14 +190,6 @@ $(function(){
 
    		});
     
-    
-  
-    });
-    
-   
-    
-    
-    
     //작성일자
     var month;
     if((date.getMonth()+1).length =1){
@@ -191,38 +198,21 @@ $(function(){
         (date.getMonth()+1)
     }
     $("#docdate").val(date.getFullYear()+"-"+month+"-"+date.getDate());
+  
+    });
+    
+   
+    
+    
+    
+
 
 
 
     //결재자체크 버튼
 function setline(){
-    window.open("checkpeople.jsp","childform","target : _blank");
+    window.open("checkpeople.jsp","childform",'top=80px, left=250px width=840px,height=725px, resizable=no, location=no, toolbars=no,scrollbars=no');
 
 }
 		
-
-
-
-	//	휴가 신청서 include용 script
-function leaveCode(item){
-	$(item).change(function(){
-	    if( $('#leaveCode').val()=="L1" ){
-	        $('.dayOffType').css('visibility','hidden');
-	        $('.endDate').css('visibility','visible');
-	        $('.startDate').css('visibility','visible');
-	    }else if( $('#leaveCode').val()=="L2" ){
-	        $('.dayOffType').css('visibility','hidden');
-	        $('.endDate').css('visibility','hidden');
-	        $('.startDate').css('visibility','visible');
-	    }else if( $('#leaveCode').val()=="L3" ){
-	        $('.endDate').css('visibility','hidden');
-	        $('.dayOffType').css('visibility','visible');
-	        $('.startDate').css('visibility','visible');
-	    }else{
-	        $('.dayOffType').css('visibility','visible');
-	        $('.endDate').css('visibility','visible');
-	        $('.startDate').css('visibility','visible');
-	    }
-	});
-}	
 

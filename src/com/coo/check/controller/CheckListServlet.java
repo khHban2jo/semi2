@@ -115,6 +115,7 @@ public class CheckListServlet extends HttpServlet {
 		
 		
 		list = cs.getList(currentPage,limitPage, id, status);
+		System.out.println(status);
 		//PageInfo pi;
 		//System.out.println(list);
 	
@@ -126,7 +127,7 @@ public class CheckListServlet extends HttpServlet {
 		if(list!=null) {
 			
 				request.setAttribute("list", list);
-				
+				request.setAttribute("st", status);
 				 //pi = new PageInfo();
 			
 				

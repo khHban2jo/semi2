@@ -30,8 +30,7 @@
         <button id="btn_1" class="btn">품의서</button>
         <button id="btn_2" class="btn" >결의서</button>
         <button id="btn_3" class="btn">휴가신청서</button>
-        
-        
+        <input type = "submit" id="gsubmit" value="전송" class ="btn" >
         <hr>
         
         <div id="area1" class="area">
@@ -41,7 +40,7 @@
                     <h2 id ='doctype1'>품의서</h2>
                     <h2 id ='doctype2'>결의서</h2>
                     <h2 id ='doctype3'>휴가신청서</h2>
-                    <input type="text" name="doctype" id="type1">
+                    <input type="hidden" name="doctype" id="type1">
 
 
                     <fieldset class="writerField">
@@ -77,7 +76,7 @@
                     </table>
                    <input type="hidden" class ="hiddenper"  id="chper">
                    <input type="hidden" class ="dept" name = "chdept" id="chdept">
-                   <input type="hidden" name ="checkper"  class="perend">
+                   <input type="hidden" name ="checkper"  class="perend" required>
 					</div>
                  
                    <div>
@@ -236,7 +235,7 @@
                     	})
                     });
                     function delperson(i){
-                    	
+               
                     if(confirm( i.innerText +" 결제선을 삭제하시겠습니까?")){
                         var indext = parseInt($(i).find("input").val());
                         var cut = $(i).parents("table").siblings(".perend").val().split(",");
@@ -288,7 +287,7 @@
                 <div class="areaRight">
                     <fieldset>
                         <legend>제목</legend>
-                        <input type ="text" size="80" align = "center" name="doctitle">
+                        <input type ="text" size="80" align = "center" name="doctitle" required>
                   
                     </fieldset>
 
@@ -301,30 +300,44 @@
 
                 </div>
                 <input type="hidden" name="text" id="fulling">
-				 
+				  
             </form>
-           <input type = "submit" id="gsubmit" value="전송" >
+          
             <!--  <button onclick = "gsubmit();">asdads</button>-->
+            
         </div>
 			
     </div> 
 		<script>
 		$(function(){
-			
-		   	
 		  $("#gsubmit").click(function() {	
+			  var ir1= $("#txtav").val().split("\n");
+			  var arr =[];
+			  for(var i in ir1){
+				  ir1[i] = +ir1[i]+'<br>';
+				  arr.push(ir1[i]);
+				 
+			  }
+			 $("#txtav").val(arr.join());
+			  
 			if($("#type1").val() =="지출결의서"){
 				var a =$("#textm tr");
 				 var pay = 0;
+				 /*for(var i =0; i<a.length; i++){
+		    	   var c = Number(a.eq(i).find(".su").val());
+		    	   var d = Number(a.eq(i).find(".money").val());
+		    	   
+		    	   if(isNaN(c)||isNaN(d)){
+		    		   alert("숫자가 아닌 값이 있습니다, 확인해주세요");
+		    	   };
+		    	   a.eq(i).find(".pay").val(c*d);
+		         b += parseInt(a.eq(i).find(".pay").val());
+		       }*/
 				for(var i = 0; i<a.length; i++){
 					var b = $("#fulling").val();
-				/* 	console.log(a.eq(i).find("label").text());
-					console.log(a.eq(i).find("input:eq(0)").val());
-					console.log(a.eq(i).find("input:eq(1)").val());
-					console.log(a.eq(i).find("input:eq(2)").val());
-					console.log(a.eq(i).find("input:eq(3)").val());
-					console.log(a.eq(i).find("input:eq(4)").val());
-					console.log(a.eq(i).find("input:eq(5)").val()); */
+					var c = Number(a.eq(i).find(".su").val());
+			    	var d = Number(a.eq(i).find(".money").val());
+			    	 a.eq(i).find(".pay").val(c*d);
 					 pay += parseInt(a.eq(i).find(".pay").val());
 					$("#fulling").val(b+a.eq(i).find("label").text()+","
 							+a.eq(i).find("input:eq(0)").val()+","+a.eq(i).find("input:eq(1)").val()+","
@@ -333,7 +346,7 @@
 				}
 				var c = $("#fulling").val();
 				$("#paide").val(pay);		
-				$("#fulling").val(c+pay);
+				$("#fulling").val(c+pay+"/+/"+$("#txtav").val());
 			
 			}else if($("#type1").val() =="휴가신청서"){
 				var edate = $("#endDate").val();
@@ -344,12 +357,14 @@
 					edate = $("#startDate").val();
 				}
 				
-				$("#fulling").val($("#leaveCode").val()+"/+/"+$("#startDate").val()+"/+/"+edate+"/+/"+$("#dayOffType").val());
+				$("#fulling").val($("#leaveCode").val()+"/+/"+$("#startDate").val()+"/+/"+edate+"/+/"+$("#dayOffType").val()+"/+/"+$("#txtav").val());
+			}else{
+				$("#fulling").val($("#txtav").val());
 			}
 			
 			$("#docs").submit();
 		
-			opener.document.location.reload();
+			window.opener.document.location.reload();
 
 			self.close();
 		
