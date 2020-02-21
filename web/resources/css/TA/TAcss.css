@@ -304,12 +304,16 @@ hr{
 	text-align: center;
 	left: 5%;
 	width:90%;
-	border: 1px solid darkgray;
+	border-radius: 10px;
 	table-layout:fixed;
+	border-collapse: separate;
+  	border-spacing: 3px 5px;
 }
 .td1{
 	border: 1px solid darkgray;
 	text-overflow:ellipsis; 
+	font-weight: bolder;
+	border-radius:5px;
 	overflow:hidden;
 	height:25px;
 	width:18%;
@@ -317,6 +321,8 @@ hr{
 .td2{
 	border: 1px solid darkgray;
 	text-overflow:ellipsis; 
+	font-weight: bolder;
+	border-radius:5px;
 	overflow:hidden;
 	white-space:nowrap;
 	height:25px;
@@ -325,27 +331,38 @@ hr{
 .td3{
 	border: 1px solid darkgray;
 	text-overflow:ellipsis; 
+	font-weight: bolder;
+	border-radius:5px;
 	overflow:hidden;
 	height:25px;
 	width:20%;
 }
 .td4{
 	text-overflow:ellipsis; 
+	background-color: #b5b5b5;
+	border-radius:5px;
+	font-weight: bolder;
 	overflow:hidden;
-	height:25px;
+	height:35px;
 	width:18%;
 }
 .td5{
 	text-overflow:ellipsis; 
+	background-color: #b5b5b5;
+	font-weight: bolder;
+	border-radius:5px;
 	overflow:hidden;
 	white-space:nowrap;
-	height:25px;
+	height:35px;
 	width:62%;
 }
 .td6{
 	text-overflow:ellipsis; 
+	background-color: #b5b5b5;
+	font-weight: bolder;
+	border-radius:5px;
 	overflow:hidden;
-	height:25px;
+	height:35px;
 	width:20%;
 }
 
@@ -363,3 +380,4 @@ hr{
 	text-align: center;
 	padding-top: 150px;
 }
+

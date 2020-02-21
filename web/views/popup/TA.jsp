@@ -151,13 +151,12 @@
         <div id="area3" class="area3">
         	<table id="vacDT" class="vacDT">
         		<thead>
-        			<tr>
+        			<tr class="trH">
         				<td class="td4">문서번호</td>
         				<td class="td5">문서제목</td>
         				<td class="td6">문서상태</td>
         			</tr>
         		</thead>
-        		
         		<tbody>
         		</tbody>
         	</table>

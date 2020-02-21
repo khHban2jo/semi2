@@ -69,23 +69,20 @@ private Properties prop;
 
 	public ArrayList<Vacation> selectVac(Connection con, ArrayList<CheckDoc> cdList) throws CooException {
 
-		ArrayList<Vacation> vList = null;
+		ArrayList<Vacation> vList = new ArrayList<Vacation>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectVacOne");
+		String sql = prop.getProperty("selectVacMy");
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			for(CheckDoc cd : cdList) {
 				pstmt.setInt(1, cd.getDocNumber());
-				
 				rset = pstmt.executeQuery();
 				
 				if(rset.next()) {
-					vList = new ArrayList<Vacation>();
 					Vacation v = new Vacation();
 					v.setDocNumber(rset.getInt("DOC_NUMBER"));
-					v.setText(rset.getString("VCONTENT"));
 					v.setLeave_code(rset.getString("LEAVE_CODE"));
 					v.setStart_Date(rset.getDate("START_DATE"));
 					v.setEnd_Date(rset.getDate("END_DATE"));
