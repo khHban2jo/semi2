@@ -64,8 +64,11 @@
 							var nno = $(this).children().eq(0).text();
 							
 							if($(this).children().eq(0).text() != '번호'){
-								window.open("/semi/noticeSelectOn?nno="+nno, "", "width=1200, height=900");
+								location.href="<%=request.getContextPath()%>/noticeSelectOn?nno=" + nno;
 							}
+/* 							if($(this).children().eq(0).text() != '번호'){
+								window.open("/semi/noticeSelectOn?nno="+nno, "", "width=1200, height=900");
+							} */
 							
 						})
 						
