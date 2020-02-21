@@ -53,7 +53,7 @@
 }
 
 
-#start{
+#calendarStart{
     position: relative;
     left: 160px;
     font-size: 20px;
@@ -61,7 +61,7 @@
     border-radius: 10px;
 }
 
-#end{
+#calendarEnd{
     position: relative;
     left: 160px;
     font-size: 20px;
@@ -87,14 +87,49 @@ textarea{
     
 }
 
-#editBtn1{
-	color:#1E90FF;
+.calCreateBtn{
+    position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 260px;
+    width: 80px;
+    height: 30px;
+    top: 15px;
+}
+
+.CalCancelBtn{
+	position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 369px;
+    width: 80px;
+    height: 30px;
+    top: 503px;
+}
+
+.editBtn2{
+	position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 176px;
+    width: 80px;
+    height: 30px;
+    top: 15px;
+    color:#1E90FF;
 	font-weight: bolder;
 }
 
-
-.btn{
-    position: relative;
+.calDeleteBtn2{
+	position: relative;
     font-weight: 1000;
     border-color: #ccc;
     cursor: pointer;
@@ -105,3 +140,18 @@ textarea{
     height: 30px;
     top: 15px;
 }
+
+.calCloseBtn2{
+	position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 174px;
+    width: 80px;
+    height: 30px;
+    top: 15px;
+}
+
+

@@ -46,6 +46,7 @@ public class InsertCalendarServlet extends HttpServlet {
 		String startDate = request.getParameter("calendarStart");		
 		String endDate = request.getParameter("calendarEnd");		
 		
+		System.out.println("넘어오냐");
 		//request.getParameter()는 사용자가 요청, 전달한 값들을 문자열 형태로 받아오는 메소드이다.
 		
 
@@ -123,16 +124,16 @@ public class InsertCalendarServlet extends HttpServlet {
 		CCalendarService cs = new CCalendarService();
 
 		
-		
 		//DB에 입력되는 행이니까
 		int result = cs.insertCalendar(c);
 	
+		System.out.println(toString());
 
 
 		//결과에 따른 경로 지정
 		if(result > 0){
 			System.out.println("근무 일정을 DB에 추가완료 했습니다.");
-			response.sendRedirect("/views/home.jsp");
+			response.sendRedirect("views/home.jsp");
 
 
 		}else {
