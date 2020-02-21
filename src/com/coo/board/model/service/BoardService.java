@@ -136,10 +136,8 @@ public class BoardService {
 // ========================== 검색을 위한 코드 ==================================
 	
 	public ArrayList<Board> getListCount(Hashtable<String, String> parameters, ArrayList<Board> list) {
-		System.out.println("getListCount(Hashtable<String, String> parameters 실행");
 		Connection con = getConnection();
 		
-		//int result = 0;
 		ArrayList<Board> result = new ArrayList<Board>();
 		try {
 			result = bDao.getListCount(con, parameters, list);

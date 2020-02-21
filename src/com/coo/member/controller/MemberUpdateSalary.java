@@ -1,28 +1,26 @@
 package com.coo.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import com.coo.exception.CooException;
-import com.coo.member.model.service.MemberService;
-import com.coo.member.model.vo.Member;
 
+import com.coo.member.model.service.MemberService;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class MemberUpdateSalary
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/updateSalary.me")
+public class MemberUpdateSalary extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public MemberUpdateSalary() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,25 +29,11 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		int salary = Integer.parseInt(request.getParameter("salary"));
 		
-		Member m = new Member(userId, userPwd);
+		String empId = request.getParameter("userId");
 		
-		MemberService ms = new MemberService();
-
-		try {
-			m = ms.selectMember(m);
-			HttpSession session = request.getSession();
-			
-			session.setAttribute("member", m);
-				
-			response.sendRedirect("views/home.jsp");
-			
-		} catch (CooException e) {
-			request.setAttribute("msg","회원로그인 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-		}
+		int result = new MemberService().updateSalary(salary,empId);
 	}
 
 	/**

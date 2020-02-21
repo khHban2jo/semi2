@@ -15,7 +15,10 @@ public class MemberService {
 		
 		Connection con = getConnection();
 		
-		Member result = mDao.selectMember(m,con);
+		boolean chk = mDao.checkPic(m,con);
+		
+		Member result = null;
+		if(chk) result = mDao.selectMember(m,con); else result = mDao.selectMemberWPic(m,con);
 		
 		close(con);
 
@@ -109,7 +112,6 @@ public class MemberService {
 	public Member searchMember(String empId) {
 		
 		Connection con = getConnection();
-		
 		Member m = null;
 		try {
 			m = mDao.searchMember(empId, con);
@@ -154,6 +156,25 @@ public class MemberService {
 		}
 		
 		if(result > 0) commit(con); else rollback(con);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public int updateSalary(int salary, String empId) {
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		try {
+			result = mDao.updateSalary(salary,empId,con);
+			
+			if(result >0) commit(con); else rollback(con);
+			
+		}catch(CooException e) {
+			e.getMessage();
+		}
 		
 		close(con);
 		

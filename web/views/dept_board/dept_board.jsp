@@ -40,6 +40,9 @@
     <link rel="stylesheet" href="/semi/resources/css/notice/table.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    
+   
+   
+   </style>
 </head>
 <body>
     <div class="total">

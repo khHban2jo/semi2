@@ -24,6 +24,26 @@
    			float:right;
    			margin-right:20px;
    		}	
+   		
+   		
+   		th, td {
+  			  border: 1px solid black;
+ 		 }
+  
+ 	 	th{
+  			background-color : #A9D0F5;
+  			border: 1px solid black; 
+  			height:50px; 
+  			width:150px;
+  			}
+  	
+  		table{
+  			border:"0";
+  		}
+  		
+  		
+
+
    	</style>
 </head>
 <body>
@@ -82,15 +102,15 @@
 		
         <div class="right">
          <div class="margin-list-head">
-                <h1 align="left">부서별 게시판</h1>
-                <hr class="table-line" color="lightgray">
+                <h1 align="left">부서 게시판</h1>
+               <!--  <hr class="table-line" color="lightgray">
                  <button type="button" class="btn btn-light" id="allb">전체</button>
                 <button type="button" class="btn btn-primary" id="deptb">부서별</button>
                 <button type="button" class="btn btn-info" id="normalb">일반</button>
                 <button type="button" class="btn btn-success" id="bizb">업무</button>
-                <br><br><br>
+                <br><br><br> -->
         	<%if(memberDeptCode.equals(boardDeptCode) || m.getEmpId().equals("admin")){ %> <!-- 관리자는 모두 부서와 상관 없이 모두 볼수 있어야 한다. =>|| m.getEtc().equals("관리자")-->
-        	<table style="width:95%; height:300px;" border="1" class="table-line">
+        	<%-- <table style="width:95%; height:300px;" border="1" class="table-line">
          	<thead><tr>
          		<th>제목</th>
          		<th colspan="3"><%=b.getBtitle() %></th>
@@ -122,6 +142,42 @@
         		<td colspan="4"></td>
         		</tr>
         	</tbody>
+         </table> --%>
+         <table>
+         	<tr>
+         		<th>제목</th>
+         		<td colspan="3">&nbsp;&nbsp;&nbsp;<%=b.getBtitle() %></td>
+         		
+         	</tr>
+         	
+         	<tr>
+         		<th>작성자</th>
+         		<td align="center" ><%=b.getBwriter() %></td>
+         		<th>분류</th>
+         		<td align="center"><%=b.getCategory() %></td>
+         	</tr>
+         	
+         	<tr>
+         		<th>작성일</th>
+         		<td align="center"><%=b.getBdate() %></td>
+         		<th>조회수</th>
+         		<td align="center"><%=b.getBcount() %></td>
+         	
+         	</tr>
+         	
+         	<tr>
+         		<th style="height:300px;">내용</th>
+         		<td colspan="3" style="width:900px;"><p id="content"><%=b.getBcontent() %></p></td>
+         	
+         	</tr>
+         	
+         	<tr>
+         		<td class="tra" style="height:20px;">댓글</td>
+         		<td colspan="2">&nbsp;<input type="text" style="width:400px; border: 0; outline: none;" ></td>
+         		<td class="tra">작성자</td>
+         	
+         	</tr>
+         
          </table>
         	<%} %>
          <button id="back" class="btn btn-light">뒤로가기</button>
@@ -138,6 +194,7 @@
     	$('#back').click(function(){
     		// location.href="/semi/searchBoard.bo?title=all";
     		history.back(-1);
+    		window.location = document.referrer;
     	});
     	
     	$('#allb').click(function(){

@@ -244,7 +244,7 @@ public class BoardDao {
 
 		String title = parameters.get("title"); // 검색 조건
 
-		System.out.println("title : " + title);
+//		System.out.println("title : " + title);
 
 		String date1 = parameters.get("date1");
 		String date2 = parameters.get("date2");
@@ -257,7 +257,7 @@ public class BoardDao {
 		int limit = Integer.parseInt(parameters.get("limit"));
 		int currentPage = Integer.parseInt(parameters.get("currentPage"));;
 		
-		System.out.println("========================== DAO : 게시판의 전체 갯수 디버깅 ==========================================");
+//		System.out.println("========================== DAO : 게시판의 전체 갯수 디버깅 ==========================================");
 		
 		// 검색 조건으로 먼저 걸러 낸다.
 		if (parameters.get("Id").equals("admin")) {
@@ -272,12 +272,9 @@ public class BoardDao {
 			} else if (title.equals("content")) {
 
 				if (!parameters.get("searchType").equals("1")) {
-					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminListBContentCount"
-							: (date1.equals(date2)) ? "adminListBContentOneDateCount" : "adminListBContentTwoDateCount";
+					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminListBContentCount" : (date1.equals(date2)) ? "adminListBContentOneDateCount" : "adminListBContentTwoDateCount";
 				} else {
-					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminListBContentCount1"
-							: (date1.equals(date2)) ? "adminListBContentOneDateCount1"
-									: "adminListBContentTwoDateCount1";
+					inputSql = (date1.isEmpty() && date2.isEmpty()) ? "adminListBContentCount1" : (date1.equals(date2)) ? "adminListBContentOneDateCount1" : "adminListBContentTwoDateCount1";
 				}
 
 			} else if (title.equals("dept")) {
@@ -381,19 +378,19 @@ public class BoardDao {
 //			}
 //		}
 
-		System.out.println("inputSql : " + inputSql);
+//		System.out.println("inputSql : " + inputSql);
 
 		String sql = prop.getProperty(inputSql);
 
-		System.out.println("==파라미터 값 확인==");
-		Enumeration<String> out = parameters.keys();
-		while (out.hasMoreElements()) {
-			String keys = out.nextElement();
-			System.out.println(keys + " : " + parameters.get(keys));
-		}
-		System.out.println("==============================");
-
-		System.out.println("sql : " + sql);
+//		System.out.println("==파라미터 값 확인==");
+//		Enumeration<String> out = parameters.keys();
+//		while (out.hasMoreElements()) {
+//			String keys = out.nextElement();
+//			System.out.println(keys + " : " + parameters.get(keys));
+//		}
+//		System.out.println("==============================");
+//
+//		System.out.println("sql : " + sql);
 
 		ArrayList<Board> copy = null;
 		try {
@@ -425,10 +422,10 @@ public class BoardDao {
 							pstmt.setString(3, parameters.get("date1")); // 날짜 1
 							pstmt.setString(4, parameters.get("date2")); // 날짜 2
 
-							System.out.println("1 : " + parameters.get("searchType"));
-							System.out.println("2 : " + parameters.get("keyword"));
-							System.out.println("3 : " + parameters.get("date1"));
-							System.out.println("4 : " + parameters.get("date2"));
+//							System.out.println("1 : " + parameters.get("searchType"));
+//							System.out.println("2 : " + parameters.get("keyword"));
+//							System.out.println("3 : " + parameters.get("date1"));
+//							System.out.println("4 : " + parameters.get("date2"));
 						}
 
 					} else if (title.equals("content")) { // 내용
@@ -451,10 +448,10 @@ public class BoardDao {
 							pstmt.setString(3, parameters.get("date1")); // 날짜 1
 							pstmt.setString(4, parameters.get("date2")); // 날짜 2
 
-							System.out.println("1 : " + parameters.get("searchType"));
-							System.out.println("2 : " + parameters.get("keyword"));
-							System.out.println("3 : " + parameters.get("date1"));
-							System.out.println("4 : " + parameters.get("date2"));
+//							System.out.println("1 : " + parameters.get("searchType"));
+//							System.out.println("2 : " + parameters.get("keyword"));
+//							System.out.println("3 : " + parameters.get("date1"));
+//							System.out.println("4 : " + parameters.get("date2"));
 						}
 					} else if (title.equals("dept")) { // 직급
 
@@ -555,7 +552,7 @@ public class BoardDao {
 				
 				if ( !parameters.get("searchType").equals("1")) { // 전체 검색인지 구분
 																 // 전체 조건 아닌 경우, parameters.get("searchType") : o
-					System.out.println("관리자가 아닌 유저 검색 시작");
+//					System.out.println("관리자가 아닌 유저 검색 시작");
 					
 					if (title.equals("title")) { // 제목
 
@@ -579,11 +576,11 @@ public class BoardDao {
 							pstmt.setString(4, parameters.get("date1")); // 날짜 1
 							pstmt.setString(5, parameters.get("date2")); // 날짜 2
 
-							System.out.println("1 : " + parameters.get("deptView"));
-							System.out.println("2 : " + parameters.get("searchType"));
-							System.out.println("3 : " + parameters.get("keyword"));
-							System.out.println("4 : " + parameters.get("date1"));
-							System.out.println("5 : " + parameters.get("date2"));
+//							System.out.println("1 : " + parameters.get("deptView"));
+//							System.out.println("2 : " + parameters.get("searchType"));
+//							System.out.println("3 : " + parameters.get("keyword"));
+//							System.out.println("4 : " + parameters.get("date1"));
+//							System.out.println("5 : " + parameters.get("date2"));
 
 						}
 
@@ -733,18 +730,18 @@ public class BoardDao {
 			
 			// 리스트로 받아온 값을 bno을 기준으로 정렬 하여 ROWNUM을 대체 하고 (empid를 기준으로 자료를 다시 걸러 내고 => sql에서 한번 해보자)
 			// int startRow = (currentPage - 1) * limit + 1; ,, int endRow = startRow + limit - 1; 을 계산 
-			System.out.println("-------- 가져오는 리스트 확인 -------");
-			for(Board show : list) {
-				System.out.println(show.toString());
-			}
-			
-			Collections.sort(list, new Decending());
-			
-			System.out.println();
-			System.out.println("내림 차순 정렬 확인용");
-			for(Board show : list) {
-				System.out.println(show.toString());
-			}			
+//			System.out.println("-------- 가져오는 리스트 확인 -------");
+//			for(Board show : list) {
+//				System.out.println(show.toString());
+//			}
+//			
+//			Collections.sort(list, new Decending());
+//			
+//			System.out.println();
+//			System.out.println("내림 차순 정렬 확인용");
+//			for(Board show : list) {
+//				System.out.println(show.toString());
+//			}			
 			
 			// list에 저장된 데이터의 갯수를 지정하여 가져 갈수 있도 록 하기 위한 것
 			copy = new ArrayList<Board>();
@@ -752,36 +749,36 @@ public class BoardDao {
 			int startRow = (currentPage - 1) * limit + 1;
 			int endRow = startRow + limit - 1;
 
-			System.out.println("list.size() : "+list.size());
+//			System.out.println("list.size() : "+list.size());
 			
 			// 8개 데이터를 가져 오는 경우 : 1 ~ 8 => 0 ~ 7
 			for(int i = startRow-1; i<endRow && i < list.size(); i++) {
 				copy.add(list.get(i));
 			}
 			
-			System.out.println();
-			System.out.println("================== 제대로 입력 되었는지 확인 ==================");
-			for(Board show : copy) {
-				System.out.println(show.toString());
-			}	
+//			System.out.println();
+//			System.out.println("================== 제대로 입력 되었는지 확인 ==================");
+//			for(Board show : copy) {
+//				System.out.println(show.toString());
+//			}	
 			
 			listCount = list.size();
 			maxPage = (int) ((double) listCount / limit + 0.9);
 			startPage = ((int) ((double) currentPage / limit + 0.9) - 1) * limit + 1;
 			endPage = startPage + limit - 1;
 			
-			System.out.println("listCount : " +listCount);
+//			System.out.println("listCount : " +listCount);
 			parameters.put("maxPage", String.valueOf(maxPage));
 			parameters.put("startPage", String.valueOf(startPage));
 			parameters.put("endPage", String.valueOf(endPage));
 			
-			System.out.println("=================== 페이징 처리를 위한 계산이 제대로 되었는지 확인 ========================");
-			System.out.println("currentPage : "+ currentPage);
-			System.out.println("startPage : "+ startPage);
-			System.out.println("endPage : "+ endPage);
-			System.out.println("maxPage : "+ maxPage);
-			System.out.println("list.size() : " + list.size());
-			System.out.println("copy.size() : " + copy.size());
+//			System.out.println("=================== 페이징 처리를 위한 계산이 제대로 되었는지 확인 ========================");
+//			System.out.println("currentPage : "+ currentPage);
+//			System.out.println("startPage : "+ startPage);
+//			System.out.println("endPage : "+ endPage);
+//			System.out.println("maxPage : "+ maxPage);
+//			System.out.println("list.size() : " + list.size());
+//			System.out.println("copy.size() : " + copy.size());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -790,7 +787,7 @@ public class BoardDao {
 			close(pstmt);
 		}
 
-		System.out.println("======================================================================================");
+//		System.out.println("======================================================================================");
 
 		return copy;
 	}
