@@ -60,8 +60,7 @@ public class CheckReadServlet extends HttpServlet {
 				
 				
 			}else {
-				doc = cs.getVacD(dn);
-			
+				doc = cs.getVacD(dn);			
 			}
 			request.setAttribute("doc",doc);
 			ArrayList<String> files = new ArrayList<String>();

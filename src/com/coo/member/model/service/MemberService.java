@@ -161,4 +161,22 @@ public class MemberService {
 		
 		return result;
 	}
+
+	public int updateSalary(int salary, String empId) {
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		try {
+			result = mDao.updateSalary(salary,empId,con);
+			
+			if(result >0) commit(con); else rollback(con);
+			
+		}catch(CooException e) {
+			e.getMessage();
+		}
+		close(con);
+		
+		return result;
+	}
 }

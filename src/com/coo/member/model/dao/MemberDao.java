@@ -371,4 +371,24 @@ public Member selectMemberWPic(Member m, Connection con) throws CooException {
 	return result;
 }
 
+public int updateSalary(int salary, String empId, Connection con) throws CooException {
+	int result = 0;
+	String sql = prop.getProperty("updateSalary");
+	PreparedStatement pstmt = null;
+	
+	try {
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, salary);
+		pstmt.setString(2, empId);
+		
+		result = pstmt.executeUpdate();
+		
+	}catch(SQLException e) {
+		throw new CooException("연봉 수정 실패");
+	}finally {
+		close(pstmt);
+	}
+	return result;
+}
+
 }

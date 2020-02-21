@@ -194,23 +194,8 @@
     	$('#back').click(function(){
     		// location.href="/semi/searchBoard.bo?title=all";
     		history.back(-1);
+    		window.location = document.referrer;
     	});
-    	
-    	$('#allb').click(function(){
- 		   location.href="<%=request.getContextPath() %>/selectBoardAll.bo";
-	 	});
-	   	
-	 	$('#deptb').click(function(){
-	 	  location.href="<%=request.getContextPath() %>/selectBoardDept.bo";
-	 	});
-	 	
-	 	$('#normalb').click(function(){
-	 	  location.href="<%=request.getContextPath() %>/selectBoardNormal.bo";
-	 	});
-	 	
-	 	$('#bizb').click(function(){
-	 	  location.href="<%=request.getContextPath() %>/selectBoardBiz.bo";
-	 	});
 	 	
 	   	$('#modify').click(function(){
 	   	  location.href="<%=request.getContextPath() %>/bUpView.bo?bno="+<%=b.getBno() %>;	

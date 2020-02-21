@@ -56,19 +56,6 @@ public class BoardSearchServlet extends HttpServlet {
 
 		// 검색을 위한 여러 조건의 값을 넘겨 주기 위해 생성
 		Hashtable<String, String> parameters = new Hashtable<String, String>();
-		
-		// 검색 버튼을 눌렀는지 아닌지 확인
-		System.out.println("====================== BoardListServlet 테스트 ================================");
-//		System.out.println("검색버튼을 눌렀는지 확인 : " + check);
-
-		System.out.println(m.toString());
-		
-		// 페이징 처리를 위한 check 값 처리
-		System.out.println("title : " + title);
-		System.out.println("keyword : " + keyword);
-		System.out.println("date1 : " + date1);
-		System.out.println("date2 : " + date2);
-		System.out.println("searchType : " + searchType);
 
 		// Hashtable parameters 에 값을 넣준다.
 		parameters.put("title", title);
@@ -104,20 +91,20 @@ public class BoardSearchServlet extends HttpServlet {
 		parameters.put("limit", String.valueOf(limit));
 		
 
-//		if(m.getEtc() == null) {
-//			m.setEtc("");
-//		}
-		parameters.put("Id", m.getEmpId()); // dao에서 etc로 관리자 와 유저 구분
-		
-		System.out.println("==파라미터 값 확인==");
-		Enumeration<String> out = parameters.keys();
-		while (out.hasMoreElements()) {
-			String keys = out.nextElement();
-			System.out.println(keys + " : " + parameters.get(keys));
+		if(m.getEtc() == null) {
+			m.setEtc("");
 		}
-		System.out.println("==============================");
-
-		System.out.println("로그인 한 상대 확인 : " + m.getEmpId());
+		parameters.put("Id", m.getEmpId()); // dao에서 etc로 관리자 와 유저 구분
+//		
+//		System.out.println("==파라미터 값 확인==");
+//		Enumeration<String> out = parameters.keys();
+//		while (out.hasMoreElements()) {
+//			String keys = out.nextElement();
+//			System.out.println(keys + " : " + parameters.get(keys));
+//		}
+//		System.out.println("==============================");
+//
+//		System.out.println("로그인 한 상대 확인 : " + m.getEmpId());
 
 		String deptView = m.getDeptCode();
 
@@ -158,15 +145,15 @@ public class BoardSearchServlet extends HttpServlet {
 //		startPage = ((int) ((double) currentPage / limit + 0.9) - 1) * limit + 1;
 //		endPage = startPage + limit - 1;
 
-		System.out.println("maxPage : " + maxPage);
-		System.out.println("startPage : " + startPage);
-		System.out.println("endPage : " + endPage);
+//		System.out.println("maxPage : " + maxPage);
+//		System.out.println("startPage : " + startPage);
+//		System.out.println("endPage : " + endPage);
 
 		if (endPage > maxPage) {
 			endPage = maxPage;
 		}
 		
-		System.out.println("======================================================================");
+//		System.out.println("======================================================================");
 		if (list != null) {
 			PageInfo pi = new PageInfo(currentPage, startPage, endPage, listCount, limit, maxPage);
 			request.setAttribute("list", list);

@@ -3,6 +3,7 @@ package com.coo.check.controller;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -112,7 +113,7 @@ public class CheckInsertServlet extends HttpServlet {
 						a.append(",");
 					}
 				}else if(i<arr.length/2-1) {
-					a.append("0");
+					a.append("0,");
 					
 				}else {
 					a.append("0");
@@ -149,8 +150,8 @@ public class CheckInsertServlet extends HttpServlet {
 			String startDate = mrequest.getParameter("startDate");
 			String endDate = null;
 			System.out.println(mrequest.getParameter("endDate"));
-			if(mrequest.getParameter("endDate")!= null) {
-				endDate =mrequest.getParameter("startDate");
+			if(mrequest.getParameter("endDate")== null || mrequest.getParameter("endDate").equals("")) {
+				endDate = mrequest.getParameter("startDate");
 			}else {
 				endDate = mrequest.getParameter("endDate");
 			}
@@ -170,13 +171,17 @@ public class CheckInsertServlet extends HttpServlet {
 			int month = Integer.valueOf(sdArr[1]);
 			int day = Integer.valueOf(sdArr[2]);
 			
-			sd = new Date(year,month-1,day);
+			sd = new Date(new GregorianCalendar(
+					year,month-1,day 
+					).getTimeInMillis());
 			
 			year = Integer.valueOf(edArr[0]);
 			month = Integer.valueOf(edArr[1]);
 			day =  Integer.valueOf(edArr[2]);
 			
-			ed = new Date(year,month-1,day);
+			ed = new Date(new GregorianCalendar(
+					year,month-1,day 
+					).getTimeInMillis());
 			 
 			((Vacation)doc).setLeave_code(leaveCode);
 			((Vacation)doc).setStart_Date(sd);

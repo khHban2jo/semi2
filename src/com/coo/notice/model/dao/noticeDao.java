@@ -40,17 +40,17 @@ public class noticeDao {
 		
 		try {
 			
-			System.out.println("Datelist.get(0) : "+Datelist.get(0));
-			System.out.println("Datelist.get(1) : "+Datelist.get(1));
+//			System.out.println("Datelist.get(0) : "+Datelist.get(0));
+//			System.out.println("Datelist.get(1) : "+Datelist.get(1));
 			
 			if(Datelist.get(0).equals("") || Datelist.get(1).equals("")) {
-				System.out.println("date 가 ''인 상태 ");
+//				System.out.println("date 가 ''인 상태 ");
 				 sql = prop.getProperty("listCount");
 				 pstmt = con.prepareStatement(sql);
 			}else if( !Datelist.get(0).equals(Datelist.get(1))){
 				sql = prop.getProperty("lisDatetCount");
 				
-				System.out.println("sql : "+sql);
+//				System.out.println("sql : "+sql);
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, Datelist.get(0));
@@ -59,7 +59,7 @@ public class noticeDao {
 			}else if(Datelist.get(0).equals(Datelist.get(1))) {
 				sql = prop.getProperty("lisDatetCount2");
 				
-				System.out.println("sql : "+sql);
+//				System.out.println("sql : "+sql);
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, Datelist.get(0));
@@ -71,7 +71,7 @@ public class noticeDao {
 				listCount = rset.getInt(1);
 			}
 
-			System.out.println("총 db에 있는 행의 수 : "+listCount);
+//			System.out.println("총 db에 있는 행의 수 : "+listCount);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -99,7 +99,7 @@ public class noticeDao {
 			if(Datelist.get(0).equals("") && Datelist.get(1).equals("") ) {
 				//selectList
 				sql = prop.getProperty("selectList");
-				System.out.println("sql : " + sql);
+//				System.out.println("sql : " + sql);
 				pstmt = con.prepareStatement(sql);
 				
 				int startRow = (currentPage-1)*limit+1;	// 1 11
@@ -110,7 +110,7 @@ public class noticeDao {
 			}else if( !Datelist.get(0).equals(Datelist.get(1))){
 				// 두개의 날짜가 서로 다를때
 				sql = prop.getProperty("selecDatetList");
-				System.out.println("sql : " + sql);
+				//System.out.println("sql : " + sql);
 				pstmt = con.prepareStatement(sql);
 				
 				int startRow = (currentPage-1)*limit+1;	// 1 11
@@ -186,7 +186,7 @@ public class noticeDao {
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println("pstmt.executeUpdate() : " + result);
+//			System.out.println("pstmt.executeUpdate() : " + result);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -210,7 +210,7 @@ public class noticeDao {
 		Notice n = null;
 		try {
 			
-			System.out.println("StringBuffer : " +sql.toString());
+//			System.out.println("StringBuffer : " +sql.toString());
 			
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, nno);
@@ -219,15 +219,15 @@ public class noticeDao {
 			
 			if(rset.next()) {
 				n = new Notice(nno, rset.getString("NTITLE"), rset.getString("NWRITER"), rset.getString("NCONTENT"), rset.getInt("NCOUNT"), rset.getDate("NDATE"));
-				System.out.println("Notice : "+n.toString());
+//				System.out.println("Notice : "+n.toString());
 				
 				// 조회수 1증가
 				if(n != null) {
 					sql.replace(0, sql.length(), prop.getProperty("updateReadCount"));
 					
 					// 에러 확인을 위한 출력문
-					System.out.println("sql.replace : " + sql.toString());
-					System.out.println("sql.length() : "+ sql.length());
+//					System.out.println("sql.replace : " + sql.toString());
+//					System.out.println("sql.length() : "+ sql.length());
 					
 					pstmt = con.prepareStatement(sql.toString());
 					
@@ -249,7 +249,7 @@ public class noticeDao {
 		return n;
 	}
 
-	// 정보 변셩 작업
+	// 정보 변경 작업
 	public int updateNotice(Connection con, Notice n) {
 		
 		PreparedStatement pstmt = null;
@@ -257,7 +257,7 @@ public class noticeDao {
 		Notice m = null;
 		int result = 0;
 		
-		System.out.println(n.getNno());
+//		System.out.println(n.getNno());
 				
 		try {
 			pstmt = con.prepareStatement( prop.getProperty("selectOne"));
@@ -275,8 +275,8 @@ public class noticeDao {
 						);
 			}
 			
-			System.out.println("어떤 값을 수정 하는지 확인 : " +m);
-			System.out.println("수정할 값 확인 : " +n);
+//			System.out.println("어떤 값을 수정 하는지 확인 : " +m);
+//			System.out.println("수정할 값 확인 : " +n);
 			
 			pstmt = con.prepareStatement( prop.getProperty("updateData"));
 			
@@ -287,7 +287,7 @@ public class noticeDao {
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println("result : " +result);
+//			System.out.println("result : " +result);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -305,19 +305,19 @@ public class noticeDao {
 		int result = 0;
 		
 		String sql = prop.getProperty("delete");
-		System.out.println("DeleteUpdate Dao 1-1");
+//		System.out.println("DeleteUpdate Dao 1-1");
 		
 		try {
-			System.out.println("DeleteUpdate Dao 1-2");
+//			System.out.println("DeleteUpdate Dao 1-2");
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, nno);
 			
-			System.out.println("DeleteUpdate Dao 1-3");
+//			System.out.println("DeleteUpdate Dao 1-3");
 			
 			
 			result = pstmt.executeUpdate();
 			
-			System.out.println("DeleteUpdate Dao 1-4");
+//			System.out.println("DeleteUpdate Dao 1-4");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -338,11 +338,11 @@ public class noticeDao {
 		ResultSet rset = null;
 		String sql = "";
 		
-		System.out.println("====================================");
-		System.out.println("search : "+ search);
-		System.out.println("date1 : "+Datelist.get(0));
-		System.out.println("date2 : "+Datelist.get(1));
-		System.out.println("====================================");
+//		System.out.println("====================================");
+//		System.out.println("search : "+ search);
+//		System.out.println("date1 : "+Datelist.get(0));
+//		System.out.println("date2 : "+Datelist.get(1));
+//		System.out.println("====================================");
 		
 //		switch(search) {
 //		case "title":
@@ -374,7 +374,7 @@ public class noticeDao {
 		}
 		
 		try {
-			System.out.println("sql : "+ sql);
+//			System.out.println("sql : "+ sql);
 			pstmt = con.prepareStatement(sql);
 
 			if(Datelist.get(0).equals("") || Datelist.get(1).equals("") ) {
@@ -391,7 +391,7 @@ public class noticeDao {
 			
 			rset = pstmt.executeQuery();
 			
-			System.out.println("조건이 있는 상태에서 날짜를 적용 하여 전체 행의 갯수 출력");
+//			System.out.println("조건이 있는 상태에서 날짜를 적용 하여 전체 행의 갯수 출력");
 			while(rset.next()) {
 				n = new Notice();
 				n.setNno(rset.getInt("NNO"));
@@ -415,8 +415,8 @@ public class noticeDao {
 				}
 				
 			}
-			System.out.println(temp.size());
-			System.out.println("총 db에 있는 행의 수 : " + listCount);
+//			System.out.println(temp.size());
+//			System.out.println("총 db에 있는 행의 수 : " + listCount);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -472,9 +472,9 @@ public class noticeDao {
 			int startRow = (currentPage-1)*limit+1;	
 			int endRow = startRow + limit - 1; 		
 			
-			System.out.println("startRow : "+ startRow);
-			System.out.println("endRow : "+ endRow);
-			System.out.println("sql : "+ sql);
+//			System.out.println("startRow : "+ startRow);
+//			System.out.println("endRow : "+ endRow);
+//			System.out.println("sql : "+ sql);
 			
 			if(Datelist.get(0).equals("") && Datelist.get(1).equals("") ) {
 				pstmt.setString(1, keyword);
@@ -488,8 +488,8 @@ public class noticeDao {
 				pstmt.setInt(5, startRow);
 			}
 			
-			System.out.println(sql);
-			System.out.println("rset 까지 실행");
+//			System.out.println(sql);
+//			System.out.println("rset 까지 실행");
 			
 			rset = pstmt.executeQuery();
 			
@@ -506,7 +506,7 @@ public class noticeDao {
 						);
 				list.add(b);
 			}
-		System.out.println("list 정보 확인");
+//		System.out.println("list 정보 확인");
 		for(Notice show : list) {
 			System.out.println(show.toString());
 		}
@@ -542,7 +542,7 @@ public class noticeDao {
 						rset.getInt("NCOUNT"),
 						rset.getDate("NDATE")
 						);
-				System.out.println(b.toString());
+//				System.out.println(b.toString());
 				list.add(b);
 			}
 		}catch(SQLException e) {
