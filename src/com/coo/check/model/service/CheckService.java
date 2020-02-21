@@ -19,6 +19,12 @@ import com.coo.check.model.vo.Vacation;
 public class CheckService {
 	private CheckDao cDao = new CheckDao();
 
+	/**
+	 * 버튼 찾기 카운트
+	 * @param id
+	 * @param status
+	 * @return
+	 */
 	public int getListCount(int id,int status) {
 		Connection con = getConnection();
 		
@@ -27,6 +33,14 @@ public class CheckService {
 		return listCount;
 	}
 
+	/**
+	 * 버튼찾기 게시글
+	 * @param currentPage
+	 * @param limitPage
+	 * @param id
+	 * @param status
+	 * @return
+	 */
 	public ArrayList<CheckDoc> getList(int currentPage, int limitPage,int id, int status) {
 		Connection con = getConnection();
 
@@ -41,7 +55,7 @@ public class CheckService {
 	
 	
 	/**
-	 * 찾기 
+	 * 키워드 찾기 카운트
 	 * @param id
 	 * @param search
 	 * @param keyword
@@ -54,6 +68,28 @@ public class CheckService {
 		close(con);
 		return listCount;
 	}
+	
+	/**
+	 * 키워드 찾기 게시글
+	 * @param id
+	 * @param search
+	 * @param keyword
+	 * @param limitPage 
+	 * @param currentPage 
+	 * @return
+	 */
+	public ArrayList<CheckDoc> getSearchList(
+			int id, int search, String keyword, int currentPage, int limitPage){
+		
+		Connection con = getConnection();
+		ArrayList<CheckDoc> docs = cDao.getSearchList(
+				con,id,search,keyword, currentPage, limitPage);
+			
+		close(con);
+		return docs;
+	}
+
+
 
 	/**
 	 * 문서 1개의 상세 정보 출력
@@ -277,6 +313,11 @@ public class CheckService {
 		return result;
 	}
 
+	/**
+	 * 정 결재자 상태 확인
+	 * @param mascode
+	 * @return
+	 */
 	public String getMasStauts(int mascode) {
 		Connection con = getConnection();
 		

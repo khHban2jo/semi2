@@ -52,13 +52,15 @@ public class CheckDao {
 		}else if(status == 4){
 			sql = prop.getProperty("mydocCount");
 			
-		}else {
+		}else if(status == 2||status==3){
 			sql =prop.getProperty("checkendCount");
+		}else {
+			sql =prop.getProperty("checkwriterCount");
 		}
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			if(status != 4) {
+			if(status <4) {
 				pstmt.setInt(2, id);
 				pstmt.setInt(3, id);
 				pstmt.setInt(4, id);
@@ -109,10 +111,13 @@ public class CheckDao {
 		}else if(status==4){
 			sql = prop.getProperty("selectMydoc");
 			
-		}else {
+		}else if(status==2||status==3){
 			sql = prop.getProperty("selectSelectEndList");
+		}else {
+			sql = prop.getProperty("checkwriterList");
 		}
 		try {
+			
 			
 			//페이징 눌렀을 때 시작 로우넘  계산 
 			int startRow = (currentPage -1)*limitPage+1; //1,11,21
@@ -120,11 +125,10 @@ public class CheckDao {
 			//마지막 로우넘 번호 계산
 			int endRow = startRow + limitPage -1; //10,20,30
 			
-		
 			
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			if(status != 4) {
+			if(status <4) {
 				pstmt.setInt(2, id);
 				pstmt.setInt(3, id);
 				pstmt.setInt(4, id);
@@ -197,27 +201,110 @@ public class CheckDao {
 		
 		String sql = null;
 		if(search ==1) {// 타이틀
-			sql= prop.getProperty("");
+			sql= prop.getProperty("selectTtileCount");
 		}else {//기안자
-			sql= prop.getProperty("");
+			sql= prop.getProperty("selectWriterCount");
 		}
-				
+			
 		try {
+		
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1,id);
 			pstmt.setInt(2,id);
 			pstmt.setInt(3,id);
-			pstmt.setInt(4,id);
+			if(search ==1) {
+				pstmt.setInt(4,id);
+				pstmt.setString(5, keyword);
+			}else {
+				pstmt.setString(4,keyword);
+			}
+			
+			
 			
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				result = rset.getInt(1);
 			}
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
 		}
 		return result;
 	}
+	
+	public ArrayList<CheckDoc> getSearchList(Connection con, int id, int search, String keyword, int currentPage, int limitPage) {
+		ArrayList<CheckDoc> docs = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		String sql= null;
+				if(search ==1) {// 타이틀
+					sql= prop.getProperty("selectTitle");
+				}else {//기안자
+					sql= prop.getProperty("selectWriter");
+				}
+				
+				
+		try {
+			//페이징 눌렀을 때 시작 로우넘  계산 
+			int startRow = (currentPage -1)*limitPage+1; //1,11,21
+			
+			//마지막 로우넘 번호 계산
+			int endRow = startRow + limitPage -1; //10,20,30
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,id);
+			pstmt.setInt(2,id);
+			pstmt.setInt(3,id);
+			
+			int i;
+			if(search ==1) {
+				pstmt.setInt(4,id);
+				pstmt.setString(5, keyword);
+				i = 6;
+			}else {
+				pstmt.setString(4,keyword);
+				i=5;
+			}
+				
+				pstmt.setInt(i,endRow);
+				pstmt.setInt(i+1, startRow);
+		
+			
+			rset = pstmt.executeQuery();
+			docs = new ArrayList<CheckDoc>();
+			while(rset.next()) {
+				CheckDoc cd = new CheckDoc();
+				cd.setDocNumber(rset.getInt("DOC_NUMBER"));
+				cd.setaTitle(rset.getString("ATITLE"));
+				cd.setaWriter(rset.getInt("AWRITER"));
+				cd.setAwriterName(rset.getString("AWRITERNAME"));
+				cd.setDocType(rset.getString("DOC_TYPE"));
+				cd.setaStatus(rset.getInt("ASTATUS"));
+				cd.setApprover(rset.getString("APPROVER"));
+				cd.setDeptName(rset.getString("DEPT_TITLE"));
+				cd.setIndept(rset.getString("IN_DEPTNAME"));
+				cd.setInPeople(rset.getString("INPEOPLE"));
+				cd.setInStatus(rset.getString("INSTATUS"));
+				cd.setColdeptName(rset.getString("COL_DEPTNAME"));
+				cd.setColPeople(rset.getString("COL_PEOPLE"));
+				cd.setColStatus(rset.getString("COL_STATUS"));
+				cd.setViewPeople(rset.getString("VIEW_PEOPLE"));
+				cd.setDocDate(rset.getDate("DOC_DATE"));
+				cd.setReturnComment(rset.getString("RETURNCOMMENT"));
+
+				
+				docs.add(cd);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return docs;
+	}
+
 
 	/**
 	 * 해당 문서의 결재자 등 정보 가져오기
@@ -912,6 +999,7 @@ public class CheckDao {
 		return status;
 	}
 
+	
 
 	
 

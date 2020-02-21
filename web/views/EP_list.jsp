@@ -41,18 +41,17 @@
                 <h1 align="left">결재 게시판</h1>
                 <hr color="lightgray">
                 <button type="button" class="btn btn-light" id="all"><input type="hidden" value="1">전체</button>
-                <button type="button" class="btn btn-primary"><input type="hidden" value="1">제안</button>
+                <button type="button" class="btn btn-primary" id="writed"><input type="hidden" value="1">제안</button>
                 <button type="button" class="btn btn-wait " id="wait"><input type="hidden" value="1">결재대기</button>
                 <button type="button" class="btn btn-info"  id="flow"><input type="hidden" value="1">진행중</button>
                 <button type="button" class="btn btn-success" id="end" ><input type="hidden" value="1">결재완료</button>
                 <button type="button" class="btn btn-warning" id="return"><input type="hidden" value="1">반려</button>
              
                 <br><br><br>
-                <!-- 홍석코드 -->
+               
                 &nbsp; 
                 
                 <script >
-
                 function pagemove(item){
                 	var status = $("#pStatus").val();
                 	var getCP =  $(item).find("input").val();
@@ -73,10 +72,10 @@
                 			var list = data["list"];
                 			var pi = data["pi"];
                 			var listCount = parseInt(pi["checkListCount"]) - ((parseInt(pi["currentPage"])-1)* parseInt(pi["limitPage"]));
-                			console.log(listCount);
+ 
                 			for(var i = 0; i<list.length; i++){
                 				var count = listCount- i;
-                				console.log(listCount);
+                	
                 				var $tr = $("<tr>");
                 				var $td1 = $("<td>");
                 				var $td2 = $("<td>");
@@ -218,16 +217,21 @@
                 		$("#keyword").val("");
                 		pagemove($(this));
                 	});
+                	$("#writed").click(function(){
+                		$("#search").val("0");
+                		$("#pStatus").val(5);
+                		$("#keyword").val("");
+                		pagemove($(this));
+                	})
+               
                 </script>
 
-           		<label><%=listCount %></label>
                  <hr class="table-line" style="margin-left:-0px;">
                  <div class="table-line">
                  <input type="hidden" id="pStatus" value ="0">
                     <table style="width:100%; border-collapse:collapse;" id="list">
                         <thead>
-                            <tr class='table-line'>
-                                <!--  <th><input type="checkbox" id="checkAll"></th>-->
+                            <tr class='table-line'>                         
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>기안자</th>
