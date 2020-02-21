@@ -85,7 +85,6 @@ public class PmapDao {
 				 p.setManagerYn(rset.getString("MANAGER_YN"));
 				 p.setHireDate(rset.getDate("HIRE_DATE"));
 				 p.setSubDept(rset.getString("SUB_DEPT"));
-				 p.setProfileA(rset.getString("PROFILE_FILE"));
 
 				list.add(p);
 			}
@@ -200,7 +199,6 @@ public class PmapDao {
 				 m.setManagerYn(rset.getString("MANAGER_YN"));
 				 m.setHireDate(rset.getDate("HIRE_DATE"));
 				 m.setSubDept(rset.getString("SUB_DEPT"));
-				 m.setProfileA(rset.getString("PROFILE_FILE"));
 				
 				 list.add(m);
 			}

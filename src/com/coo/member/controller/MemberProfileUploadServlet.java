@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.coo.member.model.service.MemberService;
+import com.coo.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -42,9 +44,21 @@ public class MemberProfileUploadServlet extends HttpServlet {
 		String savePath = root + "resources/empProfiles";
 		
 		MultipartRequest mrequest = new MultipartRequest(request,savePath,maxSize, "UTF-8",new DefaultFileRenamePolicy());
+		
 		String fileName = mrequest.getFilesystemName("file");
 		
-//		 m.setProfileA(fileName);
+		int empCode = Integer.parseInt(mrequest.getParameter("empCode"));
+		Member m = new Member();
+		
+		m.setProfileA(fileName);
+		m.setEmpCode(empCode);
+		
+		int result = 0;
+		
+		if(m != null) {
+			result = new MemberService().uploadPic(m);
+			if(result>0) response.sendRedirect("close.do");
+		}
 	}
 
 	/**

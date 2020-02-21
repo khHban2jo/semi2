@@ -188,9 +188,9 @@
     <div id="sub" style="border :0px;">
  
         
-         <input type ="text" name= "cheper" id="cheper" value="">
+         <input type ="hidden" name= "cheper" id="cheper" value="">
    
-         <input type ="text" name= "colaper" id = "colaper" value="">
+         <input type ="hidden" name= "colaper" id = "colaper" value="">
     
          <input type ="hidden" name= "resper" id = "resper" value="">
          <input type="submit" onclick ="return end()" value="전송">

@@ -75,9 +75,9 @@
 
                         
                     </table>
-                   <input type="text" class ="hiddenper"  id="chper">
-                   <input type="text" class ="dept" name = "chdept" id="chdept">
-                   <input type="text" name ="checkper"  class="perend">
+                   <input type="hidden" class ="hiddenper"  id="chper">
+                   <input type="hidden" class ="dept" name = "chdept" id="chdept">
+                   <input type="hidden" name ="checkper"  class="perend">
 					</div>
                  
                    <div>
@@ -96,8 +96,8 @@
                                     </tr>
                                 </tbody>
                             </table>
-                               <input type="text" class ="dept" name = "codept" id="codept">
-                             <input type="text" class ="hiddenper" id="cope">
+                               <input type="hidden" class ="dept" name = "codept" id="codept">
+                             <input type="hidden" class ="hiddenper" id="cope">
                              <input type="hidden" name ="colper" class ="perend" >
                              </div>
                      <div>
@@ -300,11 +300,11 @@
                 </fieldset>
 
                 </div>
-                <input type="text" name="text" id="fulling">
-				 <input type = "submit" id="gsubmit" value="전송" >
+                <input type="hidden" name="text" id="fulling">
+				 
             </form>
-           
-            <button onclick = "gsubmit();">asdads</button>
+           <input type = "submit" id="gsubmit" value="전송" >
+            <!--  <button onclick = "gsubmit();">asdads</button>-->
         </div>
 			
     </div> 
@@ -346,6 +346,8 @@
 				
 				$("#fulling").val($("#leaveCode").val()+"/+/"+$("#startDate").val()+"/+/"+edate+"/+/"+$("#dayOffType").val());
 			}
+			
+			$("#docs").submit();
 		
 			opener.document.location.reload();
 

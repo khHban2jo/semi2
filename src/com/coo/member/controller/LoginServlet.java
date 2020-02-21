@@ -40,13 +40,11 @@ public class LoginServlet extends HttpServlet {
 		
 		try {
 			m = ms.selectMember(m);
-			System.out.println(m);
 			HttpSession session = request.getSession();
 			
 			session.setAttribute("member", m);
 				
 			response.sendRedirect("views/home.jsp");
-			System.out.println("로그인 성공!");
 			
 		} catch (CooException e) {
 			request.setAttribute("msg","회원로그인 실패");

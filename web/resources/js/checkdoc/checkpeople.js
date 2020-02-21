@@ -295,7 +295,7 @@ function end(){
    if(tfcheck){
 	  
 	
-       //window.close();
+       window.close();
    }
 }
 

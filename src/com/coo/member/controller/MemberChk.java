@@ -39,6 +39,7 @@ public class MemberChk extends HttpServlet {
 		case "2":request.getRequestDispatcher("pAll.do").forward(request, response); break;
 		case "3":request.getRequestDispatcher("pAll.do").forward(request, response); break;
 		case "4":request.getRequestDispatcher("pAll.do").forward(request, response); break;
+		case "5":request.getRequestDispatcher("pAll.do").forward(request, response); break;		
 		}
 		
 	}
