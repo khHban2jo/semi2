@@ -45,8 +45,13 @@
 				});
 			});
 		</script> -->
-
+		 <div>
+		
+		  <%@ include file="checkdoc/showHomeDocs.jsp" %>
+		</div> 
 		<!-- 풋터 부분 include -->
+		
+		
         <%@ include file="common/COO_footer.jsp" %>
     </div>
     <script>
