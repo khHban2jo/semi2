@@ -30,29 +30,22 @@ public class MemberSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String empId = request.getParameter("eSearch");
-		
-		Member m = new MemberService().searchMember(empId);
 		HttpSession session = request.getSession();
-		String btn = (String) session.getAttribute("works");
 		
+		String empId = request.getParameter("eSearch");
+		Member m = new MemberService().searchMember(empId);
+		String btn = (String) session.getAttribute("works");
 		request.setAttribute("searchResult", m);
 		
-		if(((Member) session.getAttribute("member")).getEmpId().equals("admin")){
-			String page = "views/manager/";
-			switch(btn) {
-			case "1":request.getRequestDispatcher(page + "join.jsp").forward(request, response); break;
-			case "2":request.getRequestDispatcher(page + "modifyEmp.jsp").forward(request, response); break;
-			case "3":request.getRequestDispatcher(page + "deleteEmp.jsp").forward(request, response); break;
-			case "4":request.getRequestDispatcher(page + "updateSalary.jsp").forward(request, response); break;
-			case "5":request.getRequestDispatcher(page + "imgUpload.jsp").forward(request, response); break;
-			}      
-		}else {
-			
-		}
+		switch(btn) {
 		
-			
-	}
+		case "1":request.getRequestDispatcher("views/manager/join.jsp").forward(request, response); break;
+		case "2":request.getRequestDispatcher("views/manager/modifyEmp.jsp").forward(request, response); break;
+		case "3":request.getRequestDispatcher("views/manager/deleteEmp.jsp").forward(request, response); break;
+		case "4":request.getRequestDispatcher("views/manager/updateSalary.jsp").forward(request, response); break;
+		case "5":request.getRequestDispatcher("views/manager/imgUpload.jsp").forward(request, response); break;
+			}      
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

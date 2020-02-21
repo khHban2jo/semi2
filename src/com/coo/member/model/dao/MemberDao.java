@@ -38,39 +38,37 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectMember");
-	
-		try {
-			 pstmt = con.prepareStatement(sql);
-			
-			 pstmt.setString(1, m.getEmpId());
-			 pstmt.setString(2, m.getEmpPwd());
-			 
-			 rset = pstmt.executeQuery();
-			 
-			 if(rset.next()) {
-				 result = new Member();
-				 result.setEmpId(rset.getString("EMP_ID"));
-				 result.setEmpCode(rset.getInt("EMP_CODE"));
-				 result.setEmpPwd(rset.getString("PWD"));
-				 result.setEmpName(rset.getString("EMP_NAME"));
-				 result.setPersonalId(rset.getString("PERSONAL_ID"));
-				 result.setEmail(rset.getString("EMAIL"));
-				 result.setGender(rset.getString("GENDER"));
-				 result.setAge(rset.getInt("AGE"));
-				 result.setSalary(rset.getInt("SALARY"));
-				 result.setPhone(rset.getString("PHONE")); 
-				 result.setAddress(rset.getString("ADDRESS"));
-				 result.setDeptCode(rset.getString("DEPT_CODE"));
-				 result.setJobCode(rset.getString("JOB_CODE"));
-				 result.setDeptTitle(rset.getString("DEPT_TITLE"));
-				 result.setJobName(rset.getString("JOB_NAME")); 
-				 result.setEtc(rset.getString("ETC"));
-				 result.setManagerYn(rset.getString("MANAGER_YN"));
-				 result.setHireDate(rset.getDate("HIRE_DATE"));
-				 result.setSubDept(rset.getString("SUB_DEPT"));
-				 result.setProfileA(rset.getString("PIC"));
-			 }
-			
+
+			try {
+				 pstmt = con.prepareStatement(sql);
+				 pstmt.setString(1, m.getEmpId());
+				 pstmt.setString(2, m.getEmpPwd());
+				 
+				 rset = pstmt.executeQuery();
+				 
+				 if(rset.next()) {
+					 result = new Member();
+					 result.setEmpId(rset.getString("EMP_ID"));
+					 result.setEmpCode(rset.getInt("EMP_CODE"));
+					 result.setEmpPwd(rset.getString("PWD"));
+					 result.setEmpName(rset.getString("EMP_NAME"));
+					 result.setPersonalId(rset.getString("PERSONAL_ID"));
+					 result.setEmail(rset.getString("EMAIL"));
+					 result.setGender(rset.getString("GENDER"));
+					 result.setAge(rset.getInt("AGE"));
+					 result.setSalary(rset.getInt("SALARY"));
+					 result.setPhone(rset.getString("PHONE")); 
+					 result.setAddress(rset.getString("ADDRESS"));
+					 result.setDeptCode(rset.getString("DEPT_CODE"));
+					 result.setJobCode(rset.getString("JOB_CODE"));
+					 result.setDeptTitle(rset.getString("DEPT_TITLE"));
+					 result.setJobName(rset.getString("JOB_NAME")); 
+					 result.setEtc(rset.getString("ETC"));
+					 result.setManagerYn(rset.getString("MANAGER_YN"));
+					 result.setHireDate(rset.getDate("HIRE_DATE"));
+					 result.setSubDept(rset.getString("SUB_DEPT"));
+					 result.setProfileA(rset.getString("PIC"));
+				 }
 		}catch(SQLException e) {
 			throw new CooException(e.getMessage());
 		}finally {
@@ -253,7 +251,6 @@ public Member searchMember(String empId, Connection con) throws CooException {
 			 result.setManagerYn(rset.getString("MANAGER_YN"));
 			 result.setHireDate(rset.getDate("HIRE_DATE"));
 			 result.setSubDept(rset.getString("SUB_DEPT"));
-			 result.setProfileA(rset.getString("PIC"));
 		 }
 	}catch(SQLException e) {
 		throw new CooException(e.getMessage());
@@ -304,6 +301,73 @@ public int uploadPic(Connection con, Member m) throws CooException {
 		close(pstmt);
 	}
 	
+	return result;
+}
+
+public boolean checkPic(Member m, Connection con) throws CooException {
+	boolean result = false;
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String chkpic = prop.getProperty("chkpic");
+
+	try {
+		pstmt = con.prepareStatement(chkpic);
+		pstmt.setString(1, m.getEmpId());
+		 pstmt.setString(2, m.getEmpPwd());
+		 rset = pstmt.executeQuery();
+		 
+		 if(rset.next()) result = true;
+		 
+	}catch(SQLException e){
+		throw new CooException("사진조회 실패");
+	}finally {
+		close(rset);
+		close(pstmt);
+	}
+	return result;
+}
+
+public Member selectMemberWPic(Member m, Connection con) throws CooException {
+	Member result = null;
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("selectMemberWPic");
+
+		try {
+			 pstmt = con.prepareStatement(sql);
+			 pstmt.setString(1, m.getEmpId());
+			 pstmt.setString(2, m.getEmpPwd());
+			 
+			 rset = pstmt.executeQuery();
+			 
+			 if(rset.next()) {
+				 result = new Member();
+				 result.setEmpId(rset.getString("EMP_ID"));
+				 result.setEmpCode(rset.getInt("EMP_CODE"));
+				 result.setEmpPwd(rset.getString("PWD"));
+				 result.setEmpName(rset.getString("EMP_NAME"));
+				 result.setPersonalId(rset.getString("PERSONAL_ID"));
+				 result.setEmail(rset.getString("EMAIL"));
+				 result.setGender(rset.getString("GENDER"));
+				 result.setAge(rset.getInt("AGE"));
+				 result.setSalary(rset.getInt("SALARY"));
+				 result.setPhone(rset.getString("PHONE")); 
+				 result.setAddress(rset.getString("ADDRESS"));
+				 result.setDeptCode(rset.getString("DEPT_CODE"));
+				 result.setJobCode(rset.getString("JOB_CODE"));
+				 result.setDeptTitle(rset.getString("DEPT_TITLE"));
+				 result.setJobName(rset.getString("JOB_NAME")); 
+				 result.setEtc(rset.getString("ETC"));
+				 result.setManagerYn(rset.getString("MANAGER_YN"));
+				 result.setHireDate(rset.getDate("HIRE_DATE"));
+				 result.setSubDept(rset.getString("SUB_DEPT"));
+			 }
+	}catch(SQLException e) {
+		throw new CooException(e.getMessage());
+	}finally {
+		close(rset);
+		close(pstmt);
+	}
 	return result;
 }
 
