@@ -3,16 +3,21 @@ package com.coo.member.model.dao;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Base64;
 import java.util.Properties;
 import static com.coo.common.JDBCTemplate.*;
 
 import com.coo.check.model.vo.StockLine;
 import com.coo.exception.CooException;
+import com.coo.member.encrypt.EncryptWrapper;
 import com.coo.member.model.vo.Member;
 
 public class MemberDao {
@@ -390,5 +395,63 @@ public int updateSalary(int salary, String empId, Connection con) throws CooExce
 	}
 	return result;
 }
+
+public int MemberPwdChange(Connection con, String userId, String userPwd, String changePwd1) throws CooException {
+	  int result = 0;
+	   String sql = prop.getProperty("MemberPwdChnage");
+	   PreparedStatement pstmt = null;
+	   String changePwd2 = "";
+	    try {
+	      pstmt = con.prepareStatement(sql);
+	      
+	      // 변경된 비밀번호의 암호화 처리 위해서 암호화 코드
+			try {
+				MessageDigest md = MessageDigest.getInstance("SHA-512");
+				byte[] bytes = changePwd1.getBytes(Charset.forName("UTF-8"));
+				md.update(bytes);
+				
+				changePwd2 = Base64.getEncoder().encodeToString(md.digest());
+				
+			} catch (NoSuchAlgorithmException e) {
+				
+				System.out.println("암호화 에러 발생!");
+				e.printStackTrace();
+			}
+			
+			//userPwd2 기존에 비밀번호 변경할 값
+/*		    String userPwd2="";  
+			try {
+				MessageDigest md = MessageDigest.getInstance("SHA-512");
+				byte[] bytes = userPwd.getBytes(Charset.forName("UTF-8"));
+				md.update(bytes);
+				
+				userPwd2 = Base64.getEncoder().encodeToString(md.digest());
+				
+			} catch (NoSuchAlgorithmException e) {
+				
+				System.out.println("암호화 에러 발생!");
+				e.printStackTrace();
+			}*/
+			
+	      System.out.println("changePwd2 : "+changePwd2);
+	      System.out.println("userPwd : "+userPwd);
+	      
+	      pstmt.setString(1, changePwd2);
+	      pstmt.setString(2,  userId);
+	      
+	      result = pstmt.executeUpdate();    
+	      
+	    }catch(SQLException e) {
+	    	throw new CooException("비밀번호 변경 실패");
+	    		  
+	    }finally {
+	    	close(pstmt);
+	    	
+	    }
+	    return result;
+}
+	 
+	
+
 
 }

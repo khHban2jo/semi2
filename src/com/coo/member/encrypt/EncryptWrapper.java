@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 public class EncryptWrapper extends HttpServletRequestWrapper {
-
+	
 	public EncryptWrapper(HttpServletRequest request) {
 		super(request);
 	}
@@ -45,6 +45,8 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 			
 			return null;
 		}
+		
+		
 	}
 }
 
