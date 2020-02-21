@@ -39,6 +39,7 @@ public class PmapAllServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member m = (Member)session.getAttribute("member");
 		
+		
 		PmapService ps = new PmapService();
 		//------페이지 표시 -------------------------------------------------------------
 		

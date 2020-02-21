@@ -28,7 +28,11 @@
 <div class="left">
 
 	<div class="user">
+	     <% if(m.getProfileA() != null){ %>
 		<img src="/semi/resources/empProfiles/<%=m.getProfileA() %>" class="user_icon">
+		<%}else{ %>
+		<img src="/semi/resources/image/user_icon.png" class="user_icon">
+		<%} %>
 		<span id="user_name"><b><%=m.getEmpName() %></b></span> <br> <b
 			id="user_dept"><%=m.getDeptTitle() %></b> <b id="user_job"><%=m.getJobName() %></b>
 		<br> <br> <br> <br>
