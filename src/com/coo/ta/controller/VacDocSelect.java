@@ -56,6 +56,7 @@ public class VacDocSelect extends HttpServlet {
 			System.out.println("근태관리 open [APPROVAL SELECT]");
 		} catch (CooException e) {
 			//	에러 발생 시
+			e.printStackTrace();
 			request.setAttribute("msg", "결재 문서를 불러 오는 중 에러 발생!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
@@ -71,26 +72,30 @@ public class VacDocSelect extends HttpServlet {
 				ArrayList<Vacation> vList = new VacDocService().selectVac(cdList);
 				for(Vacation v : vList) {
 					if(v.getLeave_code().equals("L1")) {
-						DateL1 = v.getStart_Date() + "~" + v.getEnd_Date();
+						DateL1 = v.getStart_Date() + " ~ " + v.getEnd_Date();
 					}else if(v.getLeave_code().equals("L2")) {
 						DateL2 = "" + v.getStart_Date();
 					}else {
-						DateL3 = v.getStart_Date() + " " + ((v.getDayOff_MA()=="M")?"오전":"오후");
+						DateL3 = v.getStart_Date() + " " + ( (v.getDayOff_MA().equals("A"))? "오전" : "오후" );
 					}
 				}
 				System.out.println("[VACTABLE SELECT]");
 			} catch (CooException e) {
 				//	에러 발생 시
+				e.printStackTrace();
 				request.setAttribute("msg", "결재 문서를 불러 오는 중 에러 발생!");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}
 		
 		PrintWriter out = response.getWriter();
+		System.out.println(DateL1);
+		System.out.println(DateL2);
+		System.out.println(DateL3);
 		out.write(DateL1);
-		out.write("-");
+		out.write("/");
 		out.write(DateL2);
-		out.write("-");
+		out.write("/");
 		out.write(DateL3);
 		
 		out.flush();

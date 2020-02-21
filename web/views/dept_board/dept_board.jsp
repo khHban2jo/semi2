@@ -35,7 +35,7 @@
     <title>COO - 게시판</title>
    
     <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
-    <link rel="stylesheet" href="/semi/resources/css/notice/button.css">
+    <!-- <link rel="stylesheet" href="/semi/resources/css/notice/button.css"> -->
     <link rel="stylesheet" href="/semi/resources/css/notice/margin.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/table.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -58,7 +58,7 @@
 			
             <!-- 게시판 시작 -->
             <div class="margin-list-head">
-                <h1 align="left" id="board-Title">게시판</h1>
+                <h2 style="color: #767676;" align="left">게시판</h2>
             	<hr class="table-line" color="lightgray">
                 <!-- <button type="button" class="btn btn-light" id="allb">전체</button>
                 <button type="button" class="btn btn-primary" id="deptb">부서별</button>
@@ -72,8 +72,8 @@
 				<input type="hidden" id = "pagingMoveDate1" value = <%= pagingDate1 %>>
 				<input type="hidden" id = "pagingMoveDate2" value = <%= pagingDate2 %>>
                 &nbsp; 
-                <label>분류</label> 
-                <select id="searchType" name="searchType"> 
+                <label style="font-weight:bold;">분류</label> 
+                <select id="searchType" name="searchType" style="height:22px;"> 
                     <!-- 로그인한 사용자에 대한 권한과 부서등에 따라서 alert등으로 접근 금지를 설정 한다. --->
                 <option value="1">전체</option>
                 <option value="2">일반</option>
@@ -83,24 +83,43 @@
                 <!-- 부서, 관리자의 전체 공지등 알아야 하는 필요한 만 띄운다.  -->
                 <!--<input type="checkbox" name="name1">  -->
                  <!-- 공 지 <input type="checkbox" name="name1"> -->
-                 &nbsp;&nbsp;&nbsp;
+                 &nbsp;
                  <!-- 안 될것 같으면 변경 및 삭제 -->
-                 <label>기 간 설 정</label>
+                 <label style="font-weight:bold;">기 간 설 정</label>
                  <input type="date" id="time1"> ~ <input type="date" id="time2">&nbsp;
                  <!-- <select id="showNumber" style="float: right;">
                      <option></option>
                  </select> -->
-                 <hr class="table-line" style="margin-left:-0px;">
+                 <br>
+                 <select id="searchCondition" name="searchCondition" style="height: 24px; margin-left: 300px; position: relative; left: 450px"> 
+                         <option value="all">전체조건</option>
+                         <option value="title">제목</option> 
+                         <option value="content">내용</option>
+                         <option value="dept">직급</option>
+         <!-- 분류에 따른 게시판을 직급별로 쓴 것을 보는 것 단 권한이 없으면 접근 불가 -->
+         <!--                 <option value="titlencontent">제목+내용</option> -->
+         
+                     </select>&nbsp;
+                     <input class="form-control" type="text" id="keyword" 
+                         name="keyword"  placeholder="검색어를 입력하세요"
+                         style="width: 200px; height: 18px; position: relative; left: 440px;"/>
+ 
+                     <button id="btn" style="position: relative; left: 440px; height: 24px; background-color:#017DD6; color:white; border:0;">검색</button>
+                     
+                     <br><br>
+                     
+                     
+                
                 <div class="table-line">
                     <table style="width:100%; border-collapse:collapse;" id="list">
                         <thead>
                             <tr class='table-line'>
-                                <th>번호</th>
-                                <th>분류</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>날짜</th>
-                                <th>조회수</th>
+                                <th style="background-color: #EEEEED">번호</th>
+                                <th style="background-color: #EEEEED">분류</th>
+                                <th style="background-color: #EEEEED">제목</th>
+                                <th style="background-color: #EEEEED">작성자</th>
+                                <th style="background-color: #EEEEED">날짜</th>
+                                <th style="background-color: #EEEEED">조회수</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -122,48 +141,36 @@
                         </tbody>
                     </table>
                     <%if(m != null){ %>
-                    	<button id="write" class="btn btn-light" style="margin-left:-10px;">글쓰기</button> 
+                    	<button id="write" class="btn btn-light" style="margin-left: 980px; position: relative; background-color:#017DD6; color:white; border:0;">글쓰기</button> 
                     <%} %>
                     <br>
                     <div>
                         
-                   <select id="searchCondition" name="searchCondition" style="height: 30px; margin-left:300px;"> 
-                         <option value="all">전체조건</option>
-                         <option value="title">제목</option> 
-                         <option value="content">내용</option>
-                         <option value="dept">직급</option>
-         <!-- 분류에 따른 게시판을 직급별로 쓴 것을 보는 것 단 권한이 없으면 접근 불가 -->
-         <!--                 <option value="titlencontent">제목+내용</option> -->
-                     </select>&nbsp;
-                     <input class="form-control" type="text" id="keyword" 
-                         name="keyword"  placeholder="검색어를 입력하세요"
-                         style="width:200px;"/>
- 
-                     <button id="btn">검색</button>
+                   
                     <ul id="pagenation" align="center" style="margin-left:-90px;">
                     
-                        <li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=1'+movingFage()">&lt;&lt;</button></li>
+                        <button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=1'+movingFage()">&lt;&lt;</button></li>
                         <% if(currentPage <= 1){ %>
-                        <li><button disabled>&lt;</button></li>
+                        <button disabled>&lt;</button></li>
                         <% }else{ %>
-                        <li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=<%=currentPage -1 %>'+movingFage()">&lt;</button></li>
+                        <button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=<%=currentPage -1 %>'+movingFage()">&lt;</button></li>
                         <% } %>
                        
                         <% for(int p = startPage; p <= endPage; p++){
                         	if(p == currentPage){
                        	%>
-							<li><button disabled><%= p %></button></li>
+							<button disabled><%= p %></button></li>
 							<% }else{ %>
-							<li><button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=<%=p %>'+movingFage()"> <%=p %> </button></li>
+							<button class="listbtn" onclick="location.href='<%=request.getContextPath() %>/searchBoard.bo?currentPage=<%=p %>'+movingFage()"> <%=p %> </button></li>
 							<%} %>        
 						  <%} %>	            
 						  
 						  <%  if(currentPage >= maxPage){  %>
-							<li><button disabled>&gt;</button></li>
+							<button disabled>&gt;</button></li>
 							<%  }else{ %>
-							<li><button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/searchBoard.bo?currentPage=<%=currentPage + 1 %>'+movingFage()">&gt;</button></li>
+							<button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/searchBoard.bo?currentPage=<%=currentPage + 1 %>'+movingFage()">&gt;</button></li>
 							<%  } %>
-							<li><button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/searchBoard.bo?currentPage=<%= maxPage %>'+movingFage()">&gt;&gt;</button></li> 
+							<button class="listbtn" onclick="location.href='<%= request.getContextPath() %>/searchBoard.bo?currentPage=<%= maxPage %>'+movingFage()">&gt;&gt;</button></li> 
                     </ul>
                 </div>
             </div>
