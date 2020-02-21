@@ -93,7 +93,7 @@ public class CheckHomeInServlet extends HttpServlet {
 		pafull.put("wc", checkwaitListCount);
 		pafull.put("wl", waitlist);
 		pafull.put("wrl", writelist);
-		System.out.println(waitlist.get(0));
+
 
    
 				

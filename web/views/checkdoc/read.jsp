@@ -525,7 +525,6 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
         	<input type ="hidden" value ="" id="okresult">
             <table width ="170px">
                 <tr>
-                    <td rowspan="3" align="center"><!--<img src=<%//ajax에서 가져오기 %> width ="100px" height="140">  --></td>
                     <td align="center" width="90px"><%=check.getDeptName() %></td>
                     
                 </tr>
@@ -743,12 +742,12 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				
 				$("#ttt td").css("border","1px solid black");
 				$(".num").css("text-align","right")
-				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:645px; height:200px;'>");
+				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:747px; height:200px;'>");
 				$div.html(text);
 		        $("#docwrite").append($div);
 			}else{
 				
-				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:645px; height:700px;'>");
+				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:747px; height:657px;'>");
 				$div.html(arr[0]);
 				$("#docwrite").append($div);
 			}

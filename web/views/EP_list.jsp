@@ -256,7 +256,7 @@
                            <%i--; } %>
                         </tbody>
                     </table>
-                    <button id="write" class="btn btn-light" style="margin-left:30px;" onclick="window.open('views/checkdoc/writedoc.jsp','COO-전자결재' ,'target:_blank;');">글쓰기</button> 
+                    <button id="write" class="btn btn-light" style="margin-left:30px;" onclick="window.open('views/checkdoc/writedoc.jsp','COO-전자결재' ,'top=80px, left=250px width=1250px,height=850px, resizable=no, location=no, toolbars=no,scrollbars=no');">글쓰기</button> 
                     <br>
                     <div>
                    <select id="search" name="search" style="height: 30px; margin-left: 220px;"> 
@@ -309,17 +309,15 @@ $(function(){
 	$("#list").mouseenter(function(){
 		$("#list td").mouseenter(function(){
 			$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
-			console.log($(this).parent().find("input[type=hidden]").val());
+	
 		}).mouseout(function(){
 			$(this).parent().css({"background":"white"});
 		}).click(function(){
-			//console.log($(this).parent().find("input[type=hidden]").val());
+			
 			var docNumber = $(this).parent().find("input[type=hidden]").val();
 			
 			<%--location.href="<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber;--%>
-		window.open("<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber,'','target=_blank');
-		//window.open('www.naver.com','','target:_blank;');
-		
+		window.open("<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber,'','top=80px, left=250px width=1220px,height=710px, resizable=no, location=no, toolbars=no,scrollbars=no');
 	
 
 
