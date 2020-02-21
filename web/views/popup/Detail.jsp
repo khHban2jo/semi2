@@ -15,44 +15,6 @@
     	
     %>
 
-
-
-    
-    
-    <script> //버튼
-    	<%-- //수정완료
-		$(function(){ // 팝업창 닫히고 이전 페이지로 이동완료
-			$('#editBtn2').click(function(){
-
-				
-				$("form").attr("action",'<%=request.getContextPath()%>/updateCalendar.do?&cno='+<%=c.getCno()%>+'&addtitle='+$('#addtitle').val());
-				/* window.close(); 일정 수정 및 삭제 후 닫기 버튼 눌러서 팝업창 닫기 */
-				
-				window.close();
-				
-			});
-		
-		});
-    
-    
-    	$(function(){
-    		$('#calDeleteBtn2').click(function(){
-    			var checkCal = window.prompt("일정을 삭제하시겠습니까?(Y / N)");
-    			
-    			if(checkCal.toUpperCase()==="Y"){
- 
-    				location.href="<%=request.getContextPath()%>/deleteCalendar.do?cno="+<%=c.getCno()%>;
-    				alert("일정삭제 완료하였습니다.");
-    	   		}else{
-    	   			alert("일정삭제 취소하였습니다.");
-    	   		}
-    			
-    		});
-    	}); --%>
-    
-	</script>
-	
-
     
 </head>
 
@@ -91,9 +53,58 @@
 	</form>
 </div>
 
+<script> //버튼
+
+
+
+    	<%-- //수정완료
+		$(function(){ // 팝업창 닫히고 이전 페이지로 이동완료
+			$('#editBtn2').click(function(){
+
+				
+				$("form").attr("action",'<%=request.getContextPath()%>/updateCalendar.do?&cno='+<%=c.getCno()%>+'&addtitle='+$('#addtitle').val());
+				/* window.close(); 일정 수정 및 삭제 후 닫기 버튼 눌러서 팝업창 닫기 */
+				
+				window.close();
+				
+			});
+		
+		});
+    
+    
+    	$(function(){
+    		$('#calDeleteBtn2').click(function(){
+    			var checkCal = window.prompt("일정을 삭제하시겠습니까?(Y / N)");
+    			
+    			if(checkCal.toUpperCase()==="Y"){
+ 
+    				location.href="<%=request.getContextPath()%>/deleteCalendar.do?cno="+<%=c.getCno()%>;
+    				alert("일정삭제 완료하였습니다.");
+    	   		}else{
+    	   			alert("일정삭제 취소하였습니다.");
+    	   		}
+    			
+    		});
+    	}); --%>
+    
+	</script>
+
+
+
 	<script>
-		function change(){
-			
+/* 	$.ajax({
+		url : "요청 주소",
+		type: "get/post",
+		data: "전달할 값" / {name : "홍길동",age:20},
+		async: true /false,(비동기 / 동기 : 사용 여부)
+		dataType:"text/html", // 서버에서 응답하는 데이터의 유형
+		success:function(data){...},
+		error:function(error,code,msg){...},
+		complete:function(){...} // 무조건 실행하는 함수
+	}); */
+	
+		function change(){ //일정수정 : alert 닫으면 팝업창 닫히면서 부모창 리로드
+		alert('일정을 수정 완료하였습니다.');
 			$.ajax({
 		    	url: "/semi/updateCalendar.do",
 				type:"get",
@@ -103,11 +114,15 @@
 					calendarContent:$("#calendarContent").val(),
 					calendarStart:$("#calendarStart").val(),
 					calendarEnd:$("#calendarEnd").val()
-				},
-				success:function(){
+					},
+				async:true,
+				
+				success:function (){
 					window.close();
 				}
 		    });
+			
+			
 			<%-- $("form").attr("action","<%=request.getContextPath()%>/updateCalendar.do?&cno="+$('#cno').val()+"&addtitle="+$('#addtitle').val()+
 								'&calendarContent='+$("#calendarContent").val()+
 								'&calendarStart='+$("#start").val()+

@@ -133,7 +133,7 @@ public class InsertCalendarServlet extends HttpServlet {
 		//결과에 따른 경로 지정
 		if(result > 0){
 			System.out.println("근무 일정을 DB에 추가완료 했습니다.");
-			response.sendRedirect("/views/home.jsp");
+			response.sendRedirect("views/home.jsp");
 
 
 		}else {

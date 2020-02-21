@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="/semi/resources/css/ccalendar/calendar_add.css">
     
     <script>
-	 	$(function(){ // 팝업창 닫히고 이전 페이지로 이동완료
-			$('#createBtn').click(function(){
+	 	$(function(){ // 일정생성 : 팝업창 닫히고 이전 페이지로 이동완료
+			$('#calCreateBtn').click(function(){
 				window.opener.location.reload();
 				window.close();
 			});
@@ -33,6 +33,7 @@
 
             <span class="span1">시작일</span>
             <input id="calendarStart" name="calendarStart" type="date"> <br><br>  
+            
             <span class="span1">종료일</span>
             <input id="calendarEnd" name="calendarEnd" type="date"> <br><br>
 

@@ -120,18 +120,11 @@ textarea{
     cursor: pointer;
     font-size: 14px;
     border-radius: 6px;
-    left: 260px;
+    left: 176px;
     width: 80px;
     height: 30px;
     top: 15px;
-}
-
-#editBtn2{
-    left: 260px;
-    width: 80px;
-    height: 30px;
-    top: 15px;
-	color:#1E90FF;
+    color:#1E90FF;
 	font-weight: bolder;
 }
 
