@@ -92,10 +92,25 @@
 
 	<script>
 		function change(){
-			$("form").attr("action","<%=request.getContextPath()%>/updateCalendar.do?&cno="+$('#cno').val()+"&addtitle="+$('#addtitle').val()+
+			
+			$.ajax({
+		    	url: "/semi/updateCalendar.do",
+				type:"get",
+				data:{
+					cno:$('#cno').val(),
+					addtitle:$('#addtitle').val(),
+					calendarContent:$("#calendarContent").val(),
+					calendarStart:$("#start").val(),
+					calendarEnd:$("#end").val()
+				},
+				success:function(){
+					window.close();
+				}
+		    });
+			<%-- $("form").attr("action","<%=request.getContextPath()%>/updateCalendar.do?&cno="+$('#cno').val()+"&addtitle="+$('#addtitle').val()+
 								'&calendarContent='+$("#calendarContent").val()+
 								'&calendarStart='+$("#start").val()+
-								'&calendarEnd'+$("#end").val());
+								'&calendarEnd'+$("#end").val()); --%>
 			
 			
 		};
