@@ -11,7 +11,7 @@
 				error:function(error,code,msg){...},
 				complete:function(){...} // 무조건 실행하는 함수
 			}) -->
-<div id="notice" style="background: #f8f9fa;">
+<div id="notice" style= "height:250px;"style="background: #f8f9fa;">
 	<div class="table-line" style="width: 100%; height: 100%;">
 		<table style="width: 100%; height: 100%; border-collapse: collapse; border: 1px solid #444444;" id="fiveList">
 			<thead>

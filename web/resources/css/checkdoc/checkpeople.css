@@ -84,9 +84,10 @@
         background: white;
         position : absolute;
         top : 2em;
-        left : 10px;
-        width : 320px;
+        left : 0px;
+        width : 360px;
         height : 220px;
+        /*border : 1px solid black;*/
     }
 
     #select table{
@@ -112,7 +113,17 @@
         width : 90px;
 
     }
+    
+    #select th:nth-child(3){
+        width : 90px;
 
+    }
+    
+    #select td:nth-child(3){
+        width : 90px;
+
+    }
+  
     #right{
         left : 410px;
     }

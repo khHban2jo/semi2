@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <html>
- <head><title>확인</title>
- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
- </head>
+
 <body>
-<div id="docs" style=" dispaly:inline-block; width: 700px; height : 200px;background: #f8f9fa;">
-	<span>결재대기  : <span id="count"></span></span>
+<div id="docs" style=" dispaly:inline-block; width: 550px; height : 150px;background: #f8f9fa;">
+	<span>결재대기  : <span id="count"></span></span>  <button onclick="location.href='<%=request.getContextPath()%>/clist.ch?status=4'">결재목록보기</button>
 	<div class="table-line" style="width: 100%; height: 100%;">
-		<table style="width: 100%; height: 100%; border-collapse: collapse; border: 1px solid #444444;" id="">
+		<table style="width: 100%; height: 50%; border-collapse: collapse; border: 1px solid #444444;" id="">
 				<thead>                  
-                    <tr class='table-line'>                         
-                      <th>번호</th>
+                    <tr class='table-line1' style="border-bottom:1px solid lightgray;">                         
+                     <th>번호</th>
                      <th>제목</th>
                      <th>기안자</th>
                      <th>기안부서</th>
@@ -23,10 +20,10 @@
 			</thead>
 			<tbody id = "waitl"></tbody>
 		</table>
-	<span>기안문서</span>
-	<table style="width: 100%; height: 100%; border-collapse: collapse; border: 1px solid #444444;" id="">
+	<span>기안문서(최신5개)</span>
+	<table style="width: 100%; height: 50%; border-collapse: collapse; border: 1px solid #444444;" id="">
 			<thead>
-				<tr class='table-line1'>
+				<tr class='table-line1' style="border-bottom:1px solid lightgray; ">
 					 <th>번호</th>
                                 <th>제목</th>
                                 <th>기안자</th>
@@ -46,15 +43,15 @@
 					type: "get",
 					success:function(data){
 						$("#count").text(data["wc"]);
-						var count = data["wl"].length;
+						var count = data["wc"];
 						$.each(data["wl"],function(index,item){
-							 var $tr = $("<tr style='text-align:center;'>");
+							 var $tr = $("<tr style='text-align:center; border-bottom:1px solid lightgray;'>");
             				var $td1 = $("<td style='width:40px;'>");
             				var $td2 = $("<td style='width:200px;'>");
             				var $td3 = $("<td style='width:60px;'>");
             				var $td4 = $("<td style='width:70px;'>");
-            				var $td5 = $("<td>");
-            				var $td6 = $("<td>");
+            				var $td5 = $("<td style='width:70px;'>");
+            				var $td6 = $("<td style='width:80px;'>");
             				var $input = $("<input type=hidden>");
             				var $span = $("<span>");
             				$span.text(count-index);
@@ -96,18 +93,18 @@
 						});
 						
 						
-						var count1 = data["wrl"].length;
+						
 						$.each(data["wrl"],function(index,item){
-							 var $tr = $("<tr style='text-align:center;'>");
+							 var $tr = $("<tr style='text-align:center; border-bottom:1px solid lightgray;'>");
             				var $td1 = $("<td style='width:40px;'>");
             				var $td2 = $("<td style='width:200px;'>");
-            				var $td3 = $("<td style='width:70px;'>");
+            				var $td3 = $("<td style='width:60px;'>");
             				var $td4 = $("<td style='width:70px;'>");
-            				var $td5 = $("<td style=''>");
-            				var $td6 = $("<td style=''>");
+            				var $td5 = $("<td style='width:70px;'>");
+            				var $td6 = $("<td style='width:80px;'>");
             				var $input = $("<input type='hidden'>");
             				var $span = $("<span>");
-            				$span.text(count1-index);
+            				$span.text(index+1);
             				$input.val(item.docNumber);
             				$td1.append($span);
             				$td1.append($input)
@@ -160,7 +157,7 @@
 					}).click(function(){
 						//console.log($(this).parent().find("input[type=hidden]").val());
 						var docNumber = $(this).parent().find("input[type=hidden]").val();
-					window.open("<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber,'','target=_blank');
+					window.open("<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber,'','top=80px, left=250px width=1220px,height=710px, resizable=no, location=no, toolbars=no,scrollbars=no');
 				
 					
 				
@@ -175,5 +172,3 @@
 	</script>
 	</div>
 </div>
-</body>
- </html>

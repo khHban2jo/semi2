@@ -19,9 +19,13 @@
         <div class="right">
              <%@ include file="notice/showFiveNotice.jsp" %>
             
-            <span id="board"></span>
-            <span id="approval"></span>
+            <div id="board" style="display:inline-block;"></div>
+           <!--  <span id="approval"></span> -->
+            
+             <%@ include file="checkdoc/showHomeDocs.jsp" %>
         </div>
+        
+         
  <!--메인메뉴쿼리  -->
  
 <!-- 		<script> /* 여기 있으면 홈버튼을 눌렀을 경우에만 내용이 나옵니다. COO_left.jsp로 옮겼습니다. */
@@ -45,10 +49,6 @@
 				});
 			});
 		</script> -->
-		 <div>
-		
-		  <%@ include file="checkdoc/showHomeDocs.jsp" %>
-		</div> 
 		<!-- 풋터 부분 include -->
 		
 		

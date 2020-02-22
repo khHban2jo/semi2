@@ -99,7 +99,7 @@
                 <th>
                     직책
                 </th>
-                <th>
+                <th style="width:85px;">
                     이름
                 </th>
             </tr>

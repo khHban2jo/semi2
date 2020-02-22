@@ -12,6 +12,7 @@ public class CheckDoc implements Serializable{
 	private String aTitle;	//제목
 	private int aWriter;	//작성자 no
 	private String awriterName; //작성자 이름
+	private String jobName;
 	private String docType; //문서 종류
 	private int aStatus;	//진행상황  0: 내부진행, 1:합의진행, 2:최종진행 3:결재완료 4:반려  -> 누군가 4를 누르면 결재진행 종료및 코멘트 넣기
 	private String approver; //현재 결재 진행자(반려시 작성자)
@@ -259,6 +260,15 @@ public class CheckDoc implements Serializable{
 	public void setDeleteyn(String deleteyn) {
 		this.deleteyn = deleteyn;
 	}
+	
+	public String getJobName() {
+		return jobName;
+	}
+
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
+
 
 	@Override
 	public String toString() {

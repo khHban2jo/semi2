@@ -221,19 +221,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				           $("#okresult").val(result);
 				           if($("#okresult").val()=="승인"){
 				        	   table.html("승인");
-				        	   
-				        	 /*  console.log("문서번호");
-				        	   console.log(docNo);
-				        	   console.log("다음결재자");
-				        	   console.log(approin);
-				        	   console.log("문서진행상황");
-				        	   console.log(docStatus);
-				        	   console.log("내부 결재 상태");
-				        	   console.log(insertcode);
-				        	   console.log("합의코드 결재상태");
-				        	   console.log(colcode);
-				        	   console.log("반려 코멘트");
-				        	   console.log(comment); */
+
 				        	   
 				        	   fulling(docNo, approin, docStatus, insertcode, colcode,comment);
 				           }
@@ -303,25 +291,28 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 						console.log(docStatus);
 						comment = $("#comment1").val();
 						if(comment.length <= 300){
+							var com = comment.split("\n");
+							var arr=[];
+							for(var i in com){
+								arr.push(com[i]+"<br>");
+							}
+							comment = arr.join("");
+							console.log(comment);
 							if(docStatus == 0){
 								cStatus=insertcode.split(",");
 								console.log(cStatus.length);
-								if(cStatus.length > 1){
 									flow = cStatus.indexOf("5");
 									cStatus[flow] = 2;
-									insertcode = cStatus.join();
-								}
-							
-								
+									insertcode = cStatus.join();							
 								
 							}else if(docStatus ==1){
 								cStatus = colcode.split(",");
 								console.log(cStatus.length);
-								if(cStatus.length >1 ){
+								
 									flow = cStatus.indexOf("5");
 									cStatus[flow] = 2;
 									colcode = cStatus.join();
-								}
+								
 							}
 							 approin =<%=id%>;
 						     docStatus = 3;
@@ -516,7 +507,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
     </div>
     <div id="returnCopop">
     	<textarea id = "comment1" cols="38" rows="15" sytle ="resize:none"></textarea>
-    <button id= "saveComment">전송</button>
+    <button id= "saveComment">전송</button><span>최대 300자</span>
     </div>
    
     <div id ="top">
@@ -525,13 +516,12 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
         	<input type ="hidden" value ="" id="okresult">
             <table width ="170px">
                 <tr>
-                    <td rowspan="3" align="center"><!--<img src=<%//ajax에서 가져오기 %> width ="100px" height="140">  --></td>
-                    <td align="center" width="90px"><%=check.getDeptName() %></td>
+                    <td align="center" width="30px"><%=check.getDeptName() %></td>
                     
                 </tr>
                 <tr>
                     
-                    <td align="center"> 부장</td>
+                    <td align="center"> <%=check.getJobName() %></td>
                 </tr>
                 <tr>
                     
@@ -549,22 +539,26 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
                 </table>
             </div>
         
-
-        <div id="colaboDept">
+         <div id="colaboDept">
                 <table width ="80px">
                             <tr>
-                            <td  align="center">합의부서</td>
+                            <td  align="center">상태</td>
                             
                         </tr>
                         <tr>
-                            <td align="center"><%if(check.getColdeptName()!=null) {%>
-                            					<%=check.getDeptName() %>
+                            <td align="center"><%if(check.getaStatus()==2) {%>
+                            						결재완료
+														
+                            		<%}else if(check.getaStatus()==3){ %>
+                            				반려
+                            		<%}else{%>
+                            				진행중
                             		<%} %>
                             					</td>
                            
                         </tr>
                         </table>
-        </div>
+        </div> 
 
         <div id="top3" style="float: right;">
         <table width ="260px"  align="center">
@@ -580,7 +574,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
         
         </script>
         </div>
-        <div id="endline">
+        <!-- <div id="endline">
             <table width ="80px">
                 <tr>
                 <td align="center">최종결재</td>
@@ -591,7 +585,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
                
             </tr>
             </table>
-        </div>
+        </div> -->
          <fieldset id="viewline">
              <legend><label id="view1">&nbsp;참조자&nbsp;</label></legend>
 
@@ -630,14 +624,14 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
         <%for(int i = 0; i<files.size(); i++){
         	%>
         <a href="/semi/cfDown.ch?path=<%=files.get(i) %>"> <%=files.get(i) %>
-							</a>
+							</a><br>
       <%}} %>
         </div>
     </div>
     
     <div id="retruncomment">
-      <button id="close3">닫기</button><span>최대 300자</span>
-        <div id= comment style="white-space :pre;">
+      <button id="close3">닫기</button>
+        <div id= "comment">
         <%=check.getReturnComment() %>
 
         </div>
@@ -669,7 +663,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				}else if(arr[3]=='P'){
 					dot = "오후";
 				}
-				var text = arr[4];
+				var text = arr[4].split(",");
 				
 				
 				var $span1 = $("<span>");
@@ -687,8 +681,10 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				var $span3 = $("<span>");
 				$span3.text("시간 :" +dot);
 				
-				var $div =$("<div style ='white-spae:pre-wrap; border:1px solid black; width:500px; height:500px;'>");
+				console.log(text);
+				var $div =$("<div id ='text' style =' border:1px solid black; width:500px; height:500px; overflow:auto;'>");
 				$div.html(text);
+				//$div.html(text);
 				$("#docwrite").append($span1);
 				$("#docwrite").append($span2);
 				$("#docwrite").append("<br><br>");
@@ -701,15 +697,28 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				$("#docwrite").append("<br><br>");
 				$("#docwrite").append($div);
 				
+				
+				
 			}else if(type=="지출결의서"){
 				console.log(arr);
 				var length = arr.length;
 				console.log(length);
 				var paid = arr[length-2];
-				var text = arr[length-1];
-				console.log(paid);
-				console.log(text);
-				$("#docwrite").html('<table id="ttt" style="border:1px solid black;"">'+
+				var parr= [];
+				/* console.log(paid.substring(paid.length-3,paid.length));
+				console.log(paid.substring(0,paid.length%3)); */
+				for(var i=paid.length; i>0; i=i-3){
+					if(i-3>0){
+						parr.unshift(','+paid.substring(i-3,i));
+					}else{
+						parr.unshift(paid.substring(0,paid.length%3));
+					}
+					
+				}
+				var text = arr[length-1].split(",");
+				//console.log(paid);
+				//console.log(text);
+				$("#docwrite").html('<span>최종금액 : '+parr.join("")+'</span><br><table id="ttt" style="border:1px solid black;"">'+
 				           ' <thead><tr><td width = "40px">번호</td><td width = "150px">물품명</td><td width = "90px">단가</td><td width = "50px";>수량</td><td>단위</td><td width = "90px">금액</td><td width = "150px">비고</td></tr></thead>'+
 				            '<tbody id="textm">' +'</tbody>'+'</table>');
 				for( var i = 0; i<length-2;i++){
@@ -743,13 +752,13 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				
 				$("#ttt td").css("border","1px solid black");
 				$(".num").css("text-align","right")
-				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:645px; height:200px;'>");
+				var $div = $("<div style ='border:1px solid black; width:747px; height:200px; overflow:auto;'>");
 				$div.html(text);
 		        $("#docwrite").append($div);
 			}else{
 				
-				var $div = $("<div style ='white-spae:pre-wrap; border:1px solid black; width:645px; height:700px;'>");
-				$div.html(arr[0]);
+				var $div = $("<div style =' border:1px solid black; width:747px; height:657px; overflow:auto;' >");
+				$div.html(arr[0].split(","));
 				$("#docwrite").append($div);
 			}
 		});
@@ -759,5 +768,5 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
    
     
 </body>
-<%} else{%><body>1111</body><%} %>
+<%} else{%><body>권한이 없습니다.</body><%} %>
 </html>

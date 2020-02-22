@@ -328,6 +328,7 @@ public class CheckDao {
 				info.setaTitle(rset.getString("ATITLE"));
 				info.setaWriter(rset.getInt("AWRITER"));
 				info.setAwriterName(rset.getString("AWRITERNAME"));
+				info.setJobName(rset.getString("JOB_NAME"));
 				info.setDocType(rset.getString("DOC_TYPE"));
 				info.setaStatus(rset.getInt("ASTATUS"));
 				info.setApprover(rset.getString("APPROVER"));
@@ -492,7 +493,7 @@ public class CheckDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertDoc");
-		System.out.println(sql);
+		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1,info.getaTitle() );
@@ -549,7 +550,7 @@ public class CheckDao {
 		RoundDoc docText= null;
 		PreparedStatement pstmt = null;
 		String sql= "";
-		System.out.println(docType);
+		
 		if(docType.equals("품의서")) {
 			sql = prop.getProperty("insertRoundDoc");
 		}else if(docType.equals("지출결의서")) {
@@ -600,7 +601,6 @@ public class CheckDao {
 		try {
 			pstmt = con.prepareStatement(sql);
 			for(int i = 0; i<files.size(); i++) {
-				System.out.println(files.get(i));
 			pstmt.setString(1, files.get(i));
 			
 			
@@ -713,6 +713,7 @@ public class CheckDao {
 				pm.setJob(rset.getString("JOB_NAME"));
 				
 				pmaplist.add(pm);
+				
 			}
 			
 			
