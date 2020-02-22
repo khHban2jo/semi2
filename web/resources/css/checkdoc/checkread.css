@@ -128,6 +128,8 @@
             background: white;
             border : 1px solid black;
             border-top :0px;
+            white-space:pre-warp;
+            overflow:auto;
 
         }
        
@@ -236,24 +238,26 @@
 	
 	 #retruncomment{
          position: absolute;
-           top :170px;
-           left : 300px;
-           height: 270px;
-           width: 300px;
+           top :120px;
+           left : 250px;
+           height: 500px;
+           width: 600px;
            border: 1px solid black;
            z-index: 9999;
            background: lightgray;
            display: none;
        }
         
-		comment{
+		#comment{
         position: absolute;
         top :25px;
         left : 5px;
         border: 1px solid black;
-        height: 270px;
-        width: 300px;
+        height: 450px;
+        width: 590px;
         background: white;
+        white-space:pre-warp;
+         overflow:auto;
        }
 
 #textm td{

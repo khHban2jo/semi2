@@ -155,8 +155,6 @@ label{
 }
 #docbody>textarea{
     position: relative;
-    width: 600px;
-    height: 420px;
     resize: none;
     font-size: 15px;
 }
@@ -203,3 +201,4 @@ text td{
 	top:0px;
 	left:700px;
 }
+

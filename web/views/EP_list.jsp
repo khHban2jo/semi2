@@ -89,7 +89,7 @@
                 			for(var i = 0; i<list.length; i++){
                 				var count = listCount- i;
                 	
-                				var $tr = $("<tr>");
+                				var $tr = $("<tr style='text-align:center; border-bottom:1px solid lightgray; height:40px;'>");
                 				var $td1 = $("<td>");
                 				var $td2 = $("<td>");
                 				var $td3 = $("<td>");
@@ -256,12 +256,12 @@
 						<br><br>
 							<thead>
 								<tr class='table-line'>
-									<th style="background-color: #EEEEED">번호</th>
-									<th style="background-color: #EEEEED">제목</th>
-									<th style="background-color: #EEEEED">기안자</th>
-									<th style="background-color: #EEEEED">기안부서</th>
-									<th style="background-color: #EEEEED">상태</th>
-									<th style="background-color: #EEEEED">날짜</th>
+									<th style="background-color: #EEEEED; width:40px;">번호</th>
+									<th style="background-color: #EEEEED; width:200px;">제목</th>
+									<th style="background-color: #EEEEED; width:40px;">기안자</th>
+									<th style="background-color: #EEEEED; width:40px;">기안부서</th>
+									<th style="background-color: #EEEEED; width:40px;">상태</th>
+									<th style="background-color: #EEEEED; width:40px;">날짜</th>
 								</tr>
 							</thead>
 							<tbody id="listbody" style="text-align: cente;">
@@ -271,7 +271,7 @@
 								<%
 									for (CheckDoc b : list) {
 								%>
-								<tr>
+								<tr style="text-align:center;  border-bottom:1px solid lightgray; height:40px;">
 									<!--  <td><input type="checkbox">  </td>-->
 									<td><input type="hidden" class="docno"
 										value="<%=b.getDocNumber()%>"><%=i%></td>

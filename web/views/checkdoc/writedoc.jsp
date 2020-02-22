@@ -30,7 +30,7 @@
         <button id="btn_1" class="btn">품의서</button>
         <button id="btn_2" class="btn" >결의서</button>
         <button id="btn_3" class="btn">휴가신청서</button>
-        <input type = "submit" id="gsubmit" value="전송" class ="btn" >
+    
         <hr>
         
         <div id="area1" class="area">
@@ -90,7 +90,7 @@
                                 </tr>
 
                                     <tr>
-                                        <td style="height: 70px;">결재자</td>
+                                        <td style="height: 70px;">합의자</td>
                                         <td colspan="3" class="people"></td>
                                     </tr>
                                 </tbody>
@@ -109,7 +109,7 @@
                                    <td></td>
                                 </tr>
                                 <tr >
-                                        <td style="height: 40px;">참조자</td>
+                                        <td style="height: 40px;">수신자</td>
                                         <td class="people" colspan="3"></td>
                                  </tr>
                                 </tbody>
@@ -121,7 +121,7 @@
                     <br>
                     <fieldset style= "height :140px;">
                         <legend>첨부파일 </legend>
-                        <label id="fileplus">파일추가</label>
+                        <label id="fileplus" style="float:right; border:1px solid black; cursor:pointer; border-radius:10px;">파일추가</label>
                                <div id = "filenames" style ="height : 130px; font-size:14px;">
                  </div>
                         
@@ -300,7 +300,7 @@
 
                 </div>
                 <input type="hidden" name="text" id="fulling">
-				  
+				      <input type = "submit" id="gsubmit" value="전송" class ="btn" >
             </form>
           
             <!--  <button onclick = "gsubmit();">asdads</button>-->
@@ -323,16 +323,6 @@
 			if($("#type1").val() =="지출결의서"){
 				var a =$("#textm tr");
 				 var pay = 0;
-				 /*for(var i =0; i<a.length; i++){
-		    	   var c = Number(a.eq(i).find(".su").val());
-		    	   var d = Number(a.eq(i).find(".money").val());
-		    	   
-		    	   if(isNaN(c)||isNaN(d)){
-		    		   alert("숫자가 아닌 값이 있습니다, 확인해주세요");
-		    	   };
-		    	   a.eq(i).find(".pay").val(c*d);
-		         b += parseInt(a.eq(i).find(".pay").val());
-		       }*/
 				for(var i = 0; i<a.length; i++){
 					var b = $("#fulling").val();
 					var c = Number(a.eq(i).find(".su").val());
@@ -364,9 +354,8 @@
 			
 			$("#docs").submit();
 		
-			window.opener.document.location.reload();
 
-			self.close();
+			//self.close();
 		
 	  });
 		});

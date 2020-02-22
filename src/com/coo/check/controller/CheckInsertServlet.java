@@ -52,7 +52,6 @@ public class CheckInsertServlet extends HttpServlet {
 		}
 		
 		int maxSize = 1024*1024*10;
-		
 		String root = request.getServletContext().getRealPath("/");
 		String savePath = root+"resources/approvalFiles";
 		
@@ -74,7 +73,7 @@ public class CheckInsertServlet extends HttpServlet {
 		String viewper = mrequest.getParameter("viewper");
 		
 
-		System.out.println(doctype);
+		//System.out.println(doctype);
 		
 	
 		
@@ -128,7 +127,7 @@ public class CheckInsertServlet extends HttpServlet {
 		//
 		ArrayList<String> files = new ArrayList<String>();
 		for(int i = 0; i<5; i++) {
-			 if(mrequest.getFilesystemName("file"+i) != null) {
+			 if(mrequest.getFilesystemName("file"+i) != null &&!mrequest.getFilesystemName("file"+i).equals("")) {
 					file = mrequest.getFilesystemName("file"+i);
 					files.add(file);
 				 }
@@ -139,7 +138,7 @@ public class CheckInsertServlet extends HttpServlet {
 	
 		CheckDoc info= new CheckDoc(doctitle,docwriter,docwirteName,deptName,doctype, approval, indept, checkper, inStatus,coldeptCode
 					, colper,colStatus,viewper);
-		System.out.println(info);
+		//System.out.println(info);
 		
 		String text;
 		RoundDoc doc = null;
@@ -206,8 +205,8 @@ public class CheckInsertServlet extends HttpServlet {
 		if(result>0) {
 			response.sendRedirect("clist.ch");
 		}else {
-			System.out.println("오류");
-		//오류페이지
+			request.setAttribute("msg", "문서작성 오류입니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 	}
 	
