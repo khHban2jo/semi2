@@ -9,7 +9,7 @@ $(function(){
         $("#doctype2").css("display","none");
         $("#doctype3").css("display","none");
         $("#type1").val("품의서");
-        $("#docbody").html( '<textarea name="ir1" id="txtav" rows="6" cols="100" style="width:642px; height:600px;"></textarea>'
+        $("#docbody").html( '<textarea id="txtav1" rows="6" cols="100" style="width:642px; height:600px;"></textarea>'
         );
         
 
@@ -40,7 +40,7 @@ $(function(){
       	                '</tr>'+
       	            '</tbody>'+
       	        '</table>'+
-      	    	 '<textarea name="ir1" id="txtav" rows="6" cols="70" style=" width:640px; height:200px; resize:none;"></textarea>'+'<div>'
+      	    	 '<textarea id="txtav1" rows="6" cols="70" style=" width:640px; height:200px; resize:none;"></textarea>'+'<div>'
  );
       	 
       	$("#docbody table").mouseenter(function(){
@@ -160,7 +160,7 @@ $(function(){
    		'</select>'+
    		'<br><br>'+
    		'<span>휴가 사유</span> <br><br>'+
-   	 '<textarea name="ir1" id="txtav" rows="6" cols="85" style="width : 642px; height:300px;">\n\n위와 같은 사유로 휴가서 제출하오니, 승인하여 주시길 바랍니다.</textarea>'
+   	 '<textarea id="txtav1" rows="6" cols="85" style="width : 642px; height:300px;">\n\n위와 같은 사유로 휴가서 제출하오니, 승인하여 주시길 바랍니다.</textarea>'
    		
    		
    	

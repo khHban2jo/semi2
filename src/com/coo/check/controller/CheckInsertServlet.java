@@ -72,8 +72,8 @@ public class CheckInsertServlet extends HttpServlet {
 		String colper = mrequest.getParameter("colper");
 		String viewper = mrequest.getParameter("viewper");
 		
-
-		//System.out.println(doctype);
+		System.out.println("넘어가냐");
+		System.out.println(doctype);
 		
 	
 		
@@ -130,6 +130,7 @@ public class CheckInsertServlet extends HttpServlet {
 			 if(mrequest.getFilesystemName("file"+i) != null &&!mrequest.getFilesystemName("file"+i).equals("")) {
 					file = mrequest.getFilesystemName("file"+i);
 					files.add(file);
+					System.out.println(file);
 				 }
 		}
 		
@@ -201,9 +202,9 @@ public class CheckInsertServlet extends HttpServlet {
 		
 	
 		int result = new CheckService().insertDoc(info, doc, files);
-		
+		//System.out.println(result);
 		if(result>0) {
-			response.sendRedirect("clist.ch");
+			response.sendRedirect("close.do");
 		}else {
 			request.setAttribute("msg", "문서작성 오류입니다.");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

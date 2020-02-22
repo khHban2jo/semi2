@@ -30,8 +30,9 @@
         <button id="btn_1" class="btn">품의서</button>
         <button id="btn_2" class="btn" >결의서</button>
         <button id="btn_3" class="btn">휴가신청서</button>
-    	<input type = "submit" id="gsubmit" value="전송" class ="btn" >
-    	<button onclick = "window.close();"  class ="btn" id ="closewin">닫기</button>
+          <input type = "submit" id="gsubmit" value="전송" class ="btn" >
+          <button id="closewin" onclick="window.close();" class ="btn">닫기</button>
+    
         <hr>
         
         <div id="area1" class="area">
@@ -69,7 +70,7 @@
                             </tr>
                             <tr>
                                 <td style="height: 70px;">결재자</td>
-                                <td colspan= 3 class="people" id="chkpe"></td>
+                                <td colspan= 3 class="people" id="checkdivs"></td>
                             </tr>
                         </tbody>
 
@@ -77,7 +78,7 @@
                     </table>
                    <input type="hidden" class ="hiddenper"  id="chper">
                    <input type="hidden" class ="dept" name = "chdept" id="chdept">
-                   <input type="hidden" name ="checkper"  class="perend">
+                   <input type="hidden" name ="checkper"  class="perend" required>
 					</div>
                  
                    <div>
@@ -122,7 +123,7 @@
                     <br>
                     <fieldset style= "height :140px;">
                         <legend>첨부파일 </legend>
-                        <label id="fileplus" >파일추가</label>
+                        <label id="fileplus" style="float:right; border:1px solid black; cursor:pointer; border-radius:10px;">파일추가</label>
                                <div id = "filenames" style ="height : 130px; font-size:14px;">
                  </div>
                         
@@ -170,7 +171,7 @@
      
                     
                     //결재자, 합의자  이름 가져오기
-                    $(".hiddenper").on("click",function(){
+                      $(".hiddenper").on("click",function(){
                     	var imhidden = $(this);
                       
                     	$.ajax({
@@ -288,7 +289,7 @@
                 <div class="areaRight">
                     <fieldset>
                         <legend>제목</legend>
-                        <input type ="text" size="80" align = "center" name="doctitle" id="title">
+                        <input type ="text" size="80" align = "center" name="doctitle" id="atitle">
                   
                     </fieldset>
 
@@ -304,7 +305,7 @@
 				    
             </form>
           
-            <!--  -->
+            <!--  <button onclick = "gsubmit();">asdads</button>-->
             
         </div>
 			
@@ -312,62 +313,60 @@
 		<script>
 		$(function(){
 		  $("#gsubmit").click(function() {	
-			  if($("#chkpe").html()!=""){
-					if($("#title").val()!=""){
-			  			var ir1= $("#txtav").val().split("\n");
-			 			 var arr =[];
-			  			for(var i in ir1){
-				 			 ir1[i] = +ir1[i]+'<br>';
-				  				arr.push(ir1[i]);
+			 if($("#checkdivs").html()!=""){
+				if($("#atitle").val()!=""){
+			
+			 		var ir1= $("#txtav1").val().split("\n");
+			  		var arr =[];
+			 		 for(var i in ir1){
+				 		 ir1[i] = ir1[i]+'<br>';
+				 		 arr.push(ir1[i]);
 				 
-			 				 }
-			 			$("#txtav").val(arr.join());
+			  			}
+					 $("#txtav1").val(arr.join());
 			  
-						if($("#type1").val() =="지출결의서"){
-							var a =$("#textm tr");
-							 var pay = 0;
-							for(var i = 0; i<a.length; i++){
-								var b = $("#fulling").val();
-								var c = Number(a.eq(i).find(".su").val());
-			    				var d = Number(a.eq(i).find(".money").val());
-			    				 a.eq(i).find(".pay").val(c*d);
-								 pay += parseInt(a.eq(i).find(".pay").val());
-								$("#fulling").val(b+a.eq(i).find("label").text()+","
-									+a.eq(i).find("input:eq(0)").val()+","+a.eq(i).find("input:eq(1)").val()+","
-									+a.eq(i).find("input:eq(2)").val()+","+a.eq(i).find("input:eq(3)").val()+","
-									+a.eq(i).find("input:eq(4)").val()+","+a.eq(i).find("input:eq(5)").val()+"/+/");
-								}
-								var c = $("#fulling").val();
+					if($("#type1").val() =="지출결의서"){
+						var a =$("#textm tr");
+						 var pay = 0;
+						for(var i = 0; i<a.length; i++){
+							var b = $("#fulling").val();
+							var c = Number(a.eq(i).find(".su").val());
+			    			var d = Number(a.eq(i).find(".money").val());
+			    		 a.eq(i).find(".pay").val(c*d);
+						 pay += parseInt(a.eq(i).find(".pay").val());
+						$("#fulling").val(b+a.eq(i).find("label").text()+","
+							+a.eq(i).find("input:eq(0)").val()+","+a.eq(i).find("input:eq(1)").val()+","
+							+a.eq(i).find("input:eq(2)").val()+","+a.eq(i).find("input:eq(3)").val()+","
+							+a.eq(i).find("input:eq(4)").val()+","+a.eq(i).find("input:eq(5)").val()+"/+/");
+						}
+						var c = $("#fulling").val();
 							$("#paide").val(pay);		
 							$("#fulling").val(c+pay+"/+/"+$("#txtav").val());
 			
-							}else if($("#type1").val() =="휴가신청서"){
-								var edate = $("#endDate").val();
-								var b = $("#dot").val();
+						}else if($("#type1").val() =="휴가신청서"){
+							var edate = $("#endDate").val();
+							var b = $("#dot").val();
 			
-						
-								if($("#endDate").val()== ""){
-									edate = $("#startDate").val();
-								}	
 				
-								$("#fulling").val($("#leaveCode").val()+"/+/"+$("#startDate").val()+"/+/"+edate+"/+/"+$("#dayOffType").val()+"/+/"+$("#txtav").val());
-							}else{
-								$("#fulling").val($("#txtav").val());
-							}
-		
+						if($("#endDate").val()== ""){
+							edate = $("#startDate").val();
+						}
+				
+						$("#fulling").val($("#leaveCode").val()+"/+/"+$("#startDate").val()+"/+/"+edate+"/+/"+$("#dayOffType").val()+"/+/"+$("#txtav1").val());
+					}else{
+						$("#fulling").val($("#txtav1").val());
+					}
 			
-							$("#docs").submit();
-							self.close();
+					$("#docs").submit();
+	
 				}else{
 					alert("제목이 비어있습니다.");
 				}
-			}else{
-				alert("결제자가 비어있습니다.");
-			}
-			
-			
-	 	 });
-		});
+			 }else{
+				 alert("결제자가 비어있습니다.");
+			 }
+	  	});
+	});
 		</script>
 		
 
