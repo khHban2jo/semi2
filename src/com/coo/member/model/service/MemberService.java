@@ -179,4 +179,26 @@ public class MemberService {
 		
 		return result;
 	}
+
+	public int MemberPwdChange(String userId, String userPwd, String changePwd1) {
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		try {
+			result = mDao.MemberPwdChange(con, userId, userPwd, changePwd1);
+			
+			if(result >0) 
+				commit(con); 
+			else 
+				rollback(con);
+			
+		}catch(CooException e) {
+			e.getMessage();
+		}
+		close(con);
+		
+		return result;
+		
+	}
 }

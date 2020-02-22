@@ -76,8 +76,6 @@ public class CheckHomeInServlet extends HttpServlet {
 		//페이징 시작
 		CheckService cs = new CheckService();
 		
-	
-		
 		
 		int checkwaitListCount = cs.getListCount(id,statusWait);
 		
