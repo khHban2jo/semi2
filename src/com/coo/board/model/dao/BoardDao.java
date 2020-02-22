@@ -815,6 +815,7 @@ public class BoardDao {
 				b.setBdate(rset.getDate("bdate"));
 				b.setStatus(rset.getString("status"));
 				b.setBdeptCode(rset.getString("BDEPT_CODE"));
+				b.setCategory(rset.getString("CNAME"));
 				
 				list.add(b);
 			}

@@ -1,5 +1,6 @@
 package com.coo.member.controller;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,20 +47,28 @@ public class MemberProfileUploadServlet extends HttpServlet {
 		MultipartRequest mrequest = new MultipartRequest(request,savePath,maxSize, "UTF-8",new DefaultFileRenamePolicy());
 		
 		String fileName = mrequest.getFilesystemName("file");
-		
+		String empId = mrequest.getParameter("userId");
 		int empCode = Integer.parseInt(mrequest.getParameter("empCode"));
+		
 		Member m = new Member();
-		
-		m.setProfileA(fileName);
 		m.setEmpCode(empCode);
-		
-		int result = 0;
-		
-		if(m != null) {
-			result = new MemberService().uploadPic(m);
-			if(result>0) response.sendRedirect("close.do");
+		m.setEmpId(empId);
+		m = new MemberService().checkPicFiles(m);
+		if(m !=null) {
+			File file = new File(savePath +"/" + m.getProfileA());
+			file.delete(); 
+			m.setProfileA(fileName);
+			m.setEmpCode(empCode);
+			new MemberService().updatePic(m);
+		}else {
+			m = new Member();
+			m.setProfileA(fileName);
+			m.setEmpCode(empCode);
+			new MemberService().uploadPic(m);
 		}
+		response.sendRedirect("close.do");
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

@@ -4,6 +4,8 @@ import com.coo.check.model.vo.StockLine;
 import com.coo.exception.CooException;
 import com.coo.member.model.dao.MemberDao;
 import com.coo.member.model.vo.Member;
+
+import java.io.File;
 import java.sql.Connection;
 import static com.coo.common.JDBCTemplate.*;
 
@@ -16,7 +18,6 @@ public class MemberService {
 		Connection con = getConnection();
 		
 		boolean chk = mDao.checkPic(m,con);
-		
 		Member result = null;
 		if(chk) result = mDao.selectMember(m,con); else result = mDao.selectMemberWPic(m,con);
 		
@@ -25,7 +26,6 @@ public class MemberService {
 		if(result == null) {
 			throw new CooException("에러");
 		}
-		
 		return result;
 	}
 
@@ -150,7 +150,7 @@ public class MemberService {
 		int result = 0;
 		
 		try {
-			result = mDao.uploadPic(con,m);
+			result = mDao.uploadPic(con,m); 
 		}catch(CooException e) {
 			e.getMessage();
 		}
@@ -200,5 +200,41 @@ public class MemberService {
 		
 		return result;
 		
+	}
+
+	public Member checkPicFiles(Member m) {
+		Connection con = getConnection();
+		
+		Member result = null;
+		try {
+			boolean chk = mDao.checkPic(m,con);
+			
+			if(chk) result = mDao.checkPicFile(m, con);
+			
+		}catch(CooException e) {
+			e.getMessage();
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int updatePic(Member m) {
+	Connection con = getConnection();
+		
+		int result = 0;
+		
+		try {
+			
+			 result = mDao.updatePic(con,m);
+		}catch(CooException e) {
+			e.getMessage();
+		}
+		
+		if(result > 0) commit(con); else rollback(con);
+		
+		close(con);
+		
+		return result;
 	}
 }

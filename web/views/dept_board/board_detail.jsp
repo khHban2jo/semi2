@@ -102,7 +102,7 @@
 		
         <div class="right">
          <div class="margin-list-head">
-                <h1 align="left">부서 게시판</h1>
+                <h1 align="left">게시판</h1>
                <!--  <hr class="table-line" color="lightgray">
                  <button type="button" class="btn btn-light" id="allb">전체</button>
                 <button type="button" class="btn btn-primary" id="deptb">부서별</button>
@@ -202,9 +202,9 @@
 	   	});
 	   	
 	   	$('#delB').click(function(){
-	   		var chk = window.prompt("삭제하시겠습니까?(Y / N)");
+	   		var chk = window.confirm();
 	   		
-	   		if(chk.toUpperCase()==="Y"){
+	   		if(chk){
 				location.href="<%=request.getContextPath() %>/deleteBoard.bo?bno="+<%=b.getBno()%>;
 				alert("삭제완료");
 	   		}

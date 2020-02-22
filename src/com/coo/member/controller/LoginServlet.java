@@ -35,7 +35,6 @@ public class LoginServlet extends HttpServlet {
 		String userPwd = request.getParameter("userPwd");
 		
 		Member m = new Member(userId, userPwd);
-		
 		MemberService ms = new MemberService();
 
 		try {

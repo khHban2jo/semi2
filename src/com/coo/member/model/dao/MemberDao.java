@@ -199,7 +199,6 @@ public int updateMember(Connection con, Member m) throws CooException {
 		close(pstmt);
 	}
 	return result;
-		
 }
 
 
@@ -290,7 +289,7 @@ public int insertStockLine(StockLine d, Connection con) throws CooException {
 public int uploadPic(Connection con, Member m) throws CooException {
 	int result = 0;
 	PreparedStatement pstmt = null;
-	String sql = prop.getProperty("uploadPic");
+	String sql = prop.getProperty("uploadPic"); 
 	
 	try {
 		pstmt = con.prepareStatement(sql);
@@ -310,18 +309,16 @@ public int uploadPic(Connection con, Member m) throws CooException {
 }
 
 public boolean checkPic(Member m, Connection con) throws CooException {
-	boolean result = false;
 	PreparedStatement pstmt = null;
 	ResultSet rset = null;
-	String chkpic = prop.getProperty("chkpic");
-
+	String sql = prop.getProperty("chkpic");
+	boolean result = false;
+	
 	try {
-		pstmt = con.prepareStatement(chkpic);
+		pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, m.getEmpId());
-		 pstmt.setString(2, m.getEmpPwd());
 		 rset = pstmt.executeQuery();
-		 
-		 if(rset.next()) result = true;
+		 if(rset.next()) result=true;
 		 
 	}catch(SQLException e){
 		throw new CooException("사진조회 실패");
@@ -446,12 +443,51 @@ public int MemberPwdChange(Connection con, String userId, String userPwd, String
 	    		  
 	    }finally {
 	    	close(pstmt);
-	    	
 	    }
 	    return result;
 }
-	 
+
+public int updatePic(Connection con, Member m) throws CooException {
+	int result = 0;
+	PreparedStatement pstmt = null;
+	String sql = prop.getProperty("updatePic"); 
 	
+	try {
+		pstmt = con.prepareStatement(sql);
+		
+		pstmt.setString(1, m.getProfileA());
+		pstmt.setInt(2, m.getEmpCode());
+		
+		result = pstmt.executeUpdate();
+		
+	}catch(SQLException e) {
+		throw new CooException("사진 업로드 실패");
+	}finally {
+		close(pstmt);
+	}
+	return result;
+	}
 
-
+public Member checkPicFile(Member m, Connection con) throws CooException {
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	String sql = prop.getProperty("receiveFileName");
+	Member result = null;
+	
+	try {
+		result = new Member();
+		pstmt = con.prepareStatement(sql);
+		pstmt.setInt(1, m.getEmpCode());
+		 rset = pstmt.executeQuery();
+		 if(rset.next()) result.setProfileA(rset.getString("PIC"));
+		 
+	}catch(SQLException e){
+		throw new CooException("사진조회 실패");
+	}finally {
+		close(rset);
+		close(pstmt);
+	}
+	return result;
+	
+}
 }

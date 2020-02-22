@@ -11,11 +11,12 @@
 <body>
 	<h1>10MB 이하의 사진 업로드</h1>
 	<form action="<%= request.getContextPath() %>/mUploadPic.me" 
-			      method="post" enctype="multipart/form-data">
+			      method="post" enctype="multipart/form-data" onsubmit="return chk();">
 	<input type="file" name="file" id="file" />
 	<br><br>
 	<img id="image_section" src="#" alt="your image"/>
 	<br><br>
+	<input type="hidden" value="<%=m.getEmpId() %>" name="userId">
 	<input type="hidden" value="<%=m.getEmpCode() %>" name="empCode">
 	<input type="submit" value="업로드">&nbsp;&nbsp;<input type="button" value="취소" id="goback">
 	</form>
@@ -38,6 +39,15 @@
 	$('#goback').click(function(){
 		window.close();
 	});
+	function chk(){
+		var d = $('#file').val();		
+		if(!d){
+			alert("사진을 선택해주세요"); 
+			return false; 
+		}else{
+			return true;
+		}
+	}
 	</script>
 </body>
 </html>
