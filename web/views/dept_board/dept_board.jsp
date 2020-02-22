@@ -35,14 +35,10 @@
     <title>COO - 게시판</title>
    
     <link rel="stylesheet" href="/semi/resources/css/common/basic.css">
-    <!-- <link rel="stylesheet" href="/semi/resources/css/notice/button.css"> -->
     <link rel="stylesheet" href="/semi/resources/css/notice/margin.css">
     <link rel="stylesheet" href="/semi/resources/css/notice/table.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
    
-   
-   
-   </style>
 </head>
 <body>
     <div class="total">
@@ -60,10 +56,6 @@
             <div class="margin-list-head">
                 <h2 style="color: #767676;" align="left">게시판</h2>
             	<hr class="table-line" color="lightgray">
-                <!-- <button type="button" class="btn btn-light" id="allb">전체</button>
-                <button type="button" class="btn btn-primary" id="deptb">부서별</button>
-                <button type="button" class="btn btn-info" id="normalb">일반</button>
-                <button type="button" class="btn btn-success" id="bizb">업무</button> -->
                 <br><br>
                 <!-- 홍석코드 -->
             	<input type="hidden" id = "pagingMoveSearchType" value = <%= pagingSearchType %> >
@@ -193,22 +185,7 @@
   		 var bno = $(this).parent().find("input").val();
   		 location.href="<%=request.getContextPath() %>/selectOne.bo?bno="+bno;
   	 });
-<%--  	 
-  	$('#allb').click(function(){
-		   location.href="<%=request.getContextPath() %>/selectBoardAll.bo";
-	});
-  	
-	$('#deptb').click(function(){
-	  location.href="<%=request.getContextPath() %>/selectBoardDept.bo";
-	});
-	
-	$('#normalb').click(function(){
-	  location.href="<%=request.getContextPath() %>/selectBoardNormal.bo";
-	});
-	
-	$('#bizb').click(function(){
-	  location.href="<%=request.getContextPath() %>/selectBoardBiz.bo";
-	}); --%>
+
 	
 // 검색 이벤트 등록
 <%-- 	document.getElementById('btn').setAttribute("method", "Post");

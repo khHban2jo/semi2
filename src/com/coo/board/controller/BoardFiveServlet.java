@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.coo.board.model.service.BoardService;
 import com.coo.board.model.vo.Board;
 import com.coo.member.model.vo.Member;
+import com.google.gson.Gson;
 
 /**
  * Servlet implementation class BoardFiveServlet
@@ -33,17 +34,18 @@ public class BoardFiveServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Board> list = new ArrayList<Board>();
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json; charset=UTF-8");
+		ArrayList<Board> listf = new ArrayList<Board>();
 		
 		HttpSession session = request.getSession(); 
 		
-		
 		String deptCode = (((Member)session.getAttribute("member")).getDeptCode());
 		
-		list = new BoardService().selectListFive(deptCode);
+		listf = new BoardService().selectListFive(deptCode);
 		
-		request.setAttribute("list",list);
-		request.getRequestDispatcher("views/dept_board/board_home.jsp").forward(request, response);
+		new Gson().toJson(listf,response.getWriter());
+		
 	}
 
 	/**

@@ -113,8 +113,8 @@
 				
 				<tr>
 					<td class="hleft">성 별</td>
-					<td><input type="radio" value="M" name="gender" id="male" onclick="return();"> 남 &nbsp; 
-					<input type="radio" value="F" id="female" name="gender" onclick="return();"> 여</td>
+					<td><input type="radio" value="M" name="gender" id="male" onclick="return false;"> 남 &nbsp; 
+					<input type="radio" value="F" id="female" name="gender" onclick="return false;"> 여</td>
 						<td></td>
 				</tr>
 				
@@ -184,7 +184,6 @@
 					<td></td>
 				</tr>
 				
-				</tr>
 				
 				<tr>
 				
