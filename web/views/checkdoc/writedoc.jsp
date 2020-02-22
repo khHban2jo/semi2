@@ -319,11 +319,9 @@
 			 		var ir1= $("#txtav1").val().split("\n");
 			  		var arr =[];
 			 		 for(var i in ir1){
-				 		 ir1[i] = ir1[i]+'<br>';
-				 		 arr.push(ir1[i]);
-				 
+				 		 ir1[i] = ir1[i]+'<br>';				 
 			  			}
-					 $("#txtav1").val(arr.join());
+					 $("#txtav1").val(ir1.join());
 			  
 					if($("#type1").val() =="지출결의서"){
 						var a =$("#textm tr");
@@ -341,7 +339,7 @@
 						}
 						var c = $("#fulling").val();
 							$("#paide").val(pay);		
-							$("#fulling").val(c+pay+"/+/"+$("#txtav").val());
+							$("#fulling").val(c+pay+"/+/"+$("#txtav1").val());
 			
 						}else if($("#type1").val() =="휴가신청서"){
 							var edate = $("#endDate").val();
