@@ -437,7 +437,7 @@ public int MemberPwdChange(Connection con, String userId, String userPwd, String
 	      System.out.println("userPwd : "+userPwd);
 	      
 	      pstmt.setString(1, changePwd2);
-	      pstmt.setString(2,  userId);
+	      pstmt.setString(2,  userId.trim());
 	      
 	      result = pstmt.executeUpdate();    
 	      
