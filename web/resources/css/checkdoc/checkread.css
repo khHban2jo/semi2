@@ -7,6 +7,7 @@
             
         }
         #top>div{
+        	position : absolute;
             /* border: 1px solid black; */
             display: inline-block;
         }
@@ -19,10 +20,16 @@
             background: white;
             border-radius: 10px;
         }
-
+		#top2{
+			width:330px;
+			top:0px;
+			left:100px;
+		}
         #top2 td{
             align-content: center;
             height : 67px;
+            width : 80px;
+           
         }
         #colaboDept{
             position: absolute; 
@@ -35,8 +42,9 @@
         }
         #top3{
             position: absolute; 
+            width:330px;
             top : 155px;
-            left : 82px;
+            left : 100px;
         }
         #top3 td{
             height : 67px;
@@ -67,10 +75,11 @@
         #viewline{
             position: absolute; 
             top : 320px;
-            width : 411px;
+            width : 413px;
             height :150px;
             left : 0px;
             border-radius: 10px;
+            overflow:auto;
 
         }
         #view1{
@@ -81,6 +90,8 @@
             display: inline-block;
             border-radius: 10px;
             background: white;
+            width:64px;
+            height:43.2px;
         }
 
          /*파일*/

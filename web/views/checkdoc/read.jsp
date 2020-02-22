@@ -90,18 +90,21 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 			 }
 			 //결재 용 이름 로우 생성
 				var makeNametd = function(item, table, index){
-					var tr = table.eq(index);
+					//var tr = table.eq(index);
 					for(var i = 0; i<item.length; i= i+2){
-					var $td =$("<td align='center'>");
-					$td.html('정:' + item[i] + '<br> 부:' +item[i+1]);
-					tr.append($td);
+					//var $td =$("<td align='center'>");
+					//$td.html('정:' + item[i] + '<br> 부:' +item[i+1]);
+					//tr.append($td);
+					table.eq(0).children(":eq("+(i/2+1)+")").html('정:' + item[i] + '<br> 부:' +item[i+1]);
+					
+					
 					}
 				}
 				//결재용 진행 로우 생성
 				var makeflowtd= function(item,table){
 					 var tr = table.eq(1);
 					 for(var i in item){
-						 var $td = $("<td align='center'>");
+						/*  var $td = $("<td align='center'>");
 						 var text ;
 							switch(item[i]){
 			 				case "1" : text = "승인"; break;
@@ -110,9 +113,23 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 							default : var text = ""; break;
 							}
 						 $td.html(text);
-						 tr.append($td);
-					 }
-					}
+						 tr.append($td);*/
+						
+						 var text ;
+							switch(item[i]){
+			 				case "1" : text = "승인"; break;
+							case "2" : text =	 "반려"; break;
+			 				case "5" : text =	"결재중"; break;
+							default : var text = ""; break;
+					 
+							 } 
+					  
+							 tr.children(":eq("+i+")").html(text);
+					
+							}
+							
+						}
+		
 			
 				var okcheck1 = '<input type ="button" value="결재" id="okcheck1" onclick="check1();">';//결재 버튼
        	 
@@ -157,9 +174,12 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 								$div.addClass("viewper");
 								$div.html(data[i]["deptName"] +"<br>" + data[i]["empName"]);
 								viewL.append($div);
-							
-							    if(i%7 ==6){
-							    	viewL.append("<br><br>");
+								if(i%6!=5){
+									viewL.append("<p style='display:inline-block;'>&nbsp;</p>");
+								}
+								
+							    if(i%6 ==5){
+							    	viewL.append("<br>");
 							    }
 								
 							}
@@ -175,6 +195,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 			function fulling(docNo, approin, docStatus, insertcode, colcode,comment){
 				console.log(docNo);
 				console.log(approin);
+				console.log("aaaa");
 				var type ='<%=check.getDocType()%>'
 				
 				/*window.location.href='<%= request.getContextPath() %>/uDFlow.ch?docNumber='+docNo+'&next='+approin
@@ -217,15 +238,10 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 				            $("#checkpop").css("display","none");
 				             $("#popback").css("display","none");
 				               result = "승인";
+				               table.html("승인");
+				               fulling(docNo, approin, docStatus, insertcode, colcode,comment);
 				           }
-				           $("#okresult").val(result);
-				           if($("#okresult").val()=="승인"){
-				        	   table.html("승인");
-
-				        	   
-				        	   fulling(docNo, approin, docStatus, insertcode, colcode,comment);
-				           }
-				        
+				         
 				  });
 					    
 			   }	 
@@ -513,8 +529,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
     <div id ="top">
 
         <div id="top1">
-        	<input type ="hidden" value ="" id="okresult">
-            <table width ="170px">
+            <table width ="80px">
                 <tr>
                     <td align="center" width="30px"><%=check.getDeptName() %></td>
                     
@@ -531,14 +546,24 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
 
         </div>
         <div id="top2">
-                <table width ="260px"  >
+                <table width ="320px"  >
                  <tr>
+                  <td rowspan ="2" style="background:lightgray; width:10px;">결<br>재</td>
+                  <td></td>
+                   <td></td>
+                    <td></td>
+                     <td></td>
+                     
                 </tr>
                 <tr>
+                 <td></td>
+                  <td></td>
+                   <td></td>
+                    <td></td>
                 </tr>
                 </table>
             </div>
-        
+          &nbsp;
          <div id="colaboDept">
                 <table width ="80px">
                             <tr>
@@ -561,12 +586,21 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
         </div> 
 
         <div id="top3" style="float: right;">
-        <table width ="260px"  align="center">
-            <tr>
-			
+        <table width ="320px"  align="center">
+           <tr>
+           <td rowspan ="2" style="background:lightgray; width:10px;" >합<br>의</td>
+			 <td></td>
+			  <td></td>
+			   <td></td>
+			    <td></td>
+			    
         </tr>
         <tr>
-
+			 <td></td>
+			  <td></td>
+			   <td></td>
+			    <td></td>
+			    
         </tr>
         </table>
         <script>
@@ -587,7 +621,7 @@ if(check.getDeleteyn().equals("N") && (check.getaWriter() == id
             </table>
         </div> -->
          <fieldset id="viewline">
-             <legend><label id="view1">&nbsp;참조자&nbsp;</label></legend>
+             <legend><label >&nbsp;참조자&nbsp;</label></legend>
 
 
         </fieldset>

@@ -20,6 +20,14 @@
         background: lightgray;
         color :black;
     }
+    
+    /*전송버튼*/
+    #transper{
+     cursor: pointer;
+        border-radius: 10px;
+        background: lightgray;
+        color :black;
+         	}
 
     #good{
         border: 0px;
@@ -376,5 +384,7 @@
         top : 80px;
         
     }
+    
+    
 
     

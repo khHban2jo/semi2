@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 
 <body>
-<div id="docs" style=" dispaly:inline-block; width: 550px; height : 150px;background: #f8f9fa;">
-	<span>결재대기  : <span id="count"></span></span>  <button onclick="location.href='<%=request.getContextPath()%>/clist.ch?status=4'">결재목록보기</button>
-	<div class="table-line" style="width: 100%; height: 100%;">
+
+	<span>결재대기  : <span id="count"></span></span>  <button onclick="location.href='<%=request.getContextPath()%>/clist.ch?status=4'">대기목록보기</button>
+	<div  id="over">
 		<table style="width: 100%; height: 50%; border-collapse: collapse; border: 1px solid #444444;" id="">
 				<thead>                  
                     <tr class='table-line1' style="border-bottom:1px solid lightgray;">                         
@@ -148,8 +148,8 @@
 				});
 			}// end ajaxStart
 			$(function(){
-				$("#docs table").mouseenter(function(){
-					$("#docs td").mouseenter(function(){
+				$("#over table").mouseenter(function(){
+					$("#over td").mouseenter(function(){
 					
 						$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
 					}).mouseout(function(){
@@ -171,4 +171,4 @@
 	<script>	
 	</script>
 	</div>
-</div>
+

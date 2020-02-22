@@ -115,12 +115,16 @@ label{
 /*결재자*/
 .person{
     display: inline-block;
-    border : "1px solid black";
+    border : 1px solid black;
     cursor: pointer;
-    background: #1F79DA;
+    width:69px;
+    background: rgb(238, 237, 237);
     border-radius: 10px;
     height: 35px;
+    text-align:center;
 }
+
+
 
 /*문서*/
 
@@ -198,7 +202,21 @@ text td{
 
 #gsubmit{
 	position:absolute;
-	top:0px;
-	left:700px;
+	top:5px;
+	left:950px;
 }
+
+#closewin{
+	position:absolute;
+	top:5px;
+	left:1080px;
+}
+
+#fileplus{
+	float:right; 
+	border:1px solid black; 
+	cursor:pointer; 
+	border-radius:10px; 
+	background:rgb(238, 237, 237);
+} 
 

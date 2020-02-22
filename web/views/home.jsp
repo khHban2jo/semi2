@@ -22,10 +22,17 @@
             <div id="board" style="display:inline-block;"></div>
            <!--  <span id="approval"></span> -->
             
-             <%@ include file="checkdoc/showHomeDocs.jsp" %>
+             <div id="chdocs" style="position: absolute; top: 350px; left: 490px; width:600px; height:350px; border:1px solid black;">
+	
+	
+	
+	
+         <%@ include file="checkdoc/showHomeDocs.jsp" %>
+        </div>
+         
         </div>
         
-         
+       
  <!--메인메뉴쿼리  -->
  
 <!-- 		<script> /* 여기 있으면 홈버튼을 눌렀을 경우에만 내용이 나옵니다. COO_left.jsp로 옮겼습니다. */
