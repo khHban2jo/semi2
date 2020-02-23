@@ -45,7 +45,7 @@ public class ChangePwdServlet extends HttpServlet {
 //		System.out.println("회원 비밀번호 변경 확인" + m);
 		
 		result = new MemberService().MemberPwdChange(userId, userPwd, changePwd1);
-		if(result == 0) {
+		if(result >= 0) {
 			System.out.println("비밀번호 변경완료");								
 		}else {
 			System.out.println("");	
