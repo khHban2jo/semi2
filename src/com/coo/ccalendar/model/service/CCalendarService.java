@@ -36,11 +36,11 @@ public class CCalendarService {
 	 * @param sqlDate
 	 * @return
 	 */
-	public ArrayList<CCalendar> selectToday(int empCode, Date sqlDate) throws CooException {
+	public ArrayList<CCalendar> selectToday(int empCode) throws CooException {
 		
 		Connection con = getConnection();
 		
-		ArrayList<CCalendar> list =cDao.selectToday(con, empCode, sqlDate);
+		ArrayList<CCalendar> list =cDao.selectToday(con, empCode);
 		
 		close(con);
 		

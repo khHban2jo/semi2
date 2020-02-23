@@ -42,16 +42,17 @@ public class SelectListCalendarServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Member emp = (Member)session.getAttribute("member");
 		int empCode = emp.getEmpCode();
-		
+		//System.out.println(empCode);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		
 		ArrayList<CCalendar> list = new ArrayList<CCalendar>();
+		System.out.println(list);
 		
 		Date sqlDate = new Date(System.currentTimeMillis());
 	
 		try {
-			list = new CCalendarService().selectToday(empCode, sqlDate);
+			list = new CCalendarService().selectToday(empCode);
 			new Gson().toJson(list,response.getWriter());
 		} catch (CooException e) {
 		//에러 발생 시
