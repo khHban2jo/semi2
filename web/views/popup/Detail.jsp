@@ -45,7 +45,7 @@
             <!-- <input type="submit" value="수정완료" class="btn" > -->
             <button onclick="caledit();" id="editBtn2" class="editBtn2">수정완료</button>
          	<button onclick="caldelete();" id="calDeleteBtn2" class="calDeleteBtn2">일정삭제</button>
-         	<button onclick="window.close();" id="calCloseBtn2" class="calCloseBtn2">닫기</button>
+         	<button onclick="window.close();" id="calCloseBtn2" class="calCloseBtn2">취소</button>
            
            
         </div>

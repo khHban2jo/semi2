@@ -140,15 +140,7 @@ li{
 	text-decoration:underline;
 }
 
-/* #cal_edit{
-	
-	 position: relative;
-	width: 100px;
-	height: 100px;
-	top:10px;
-	left:200px;
-}
- */
+
 #todo_list_range{
 	position: relative;
     width: 290px;
@@ -158,11 +150,9 @@ li{
     margin:0px;
 /* 	cursor:pointer; */
 	
-	
-	
-}
+	}
 #todo_list {
-	/*    margin-left:45px;
+	/* margin-left:45px;
    margin-top:10px; */
     /* font-size: 10px; */
 	position: relative;

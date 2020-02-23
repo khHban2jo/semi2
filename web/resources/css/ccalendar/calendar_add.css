@@ -113,25 +113,7 @@ textarea{
     height: 30px;
     top: 15px;
 }
-/* .btn{
-    position: relative;
-    font-weight: 1000;
-    border-color: #ccc;
-    cursor: pointer;
-    font-size: 14px;
-    border-radius: 6px;
-    left: 175px;
-    width: 80px;
-    height: 30px;
-    top: 15px;
-} */
-/* #editBtn1{
-	color:#1E90FF;
-	font-weight: bolder;
-} */
-
-
-
+/*------------------------------------*/
 
 .editBtn2{ /*일정 수정 삭제창의 수정버튼*/
 	position: relative;
