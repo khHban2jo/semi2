@@ -47,7 +47,7 @@ public class InsertCalendarServlet extends HttpServlet {
 		String endDate = request.getParameter("calendarEnd");		
 		
 		//request.getParameter()는 사용자가 요청, 전달한 값들을 문자열 형태로 받아오는 메소드이다.
-		
+		System.out.println("넘어오나요");
 
 		//확인용
 		System.out.println(empCode);

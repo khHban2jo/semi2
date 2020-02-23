@@ -109,10 +109,12 @@ public class UpdateCalendarServlet extends HttpServlet {
 		//-1,0 :오류
 		//경로설정
 		if(result >0) {
-			System.out.println("DB 수정 완료되었습니다.");
+			System.out.println(cno+"번째 DB 수정을 완료했습니다.");
+			response.getWriter().print("수정 완료!");
+			/*System.out.println("DB 수정 완료되었습니다.");
 			response.sendRedirect("/semi/selectOne.do?cno="+cno); //TODO
-		}else {
-			request.setAttribute("msg","공지사항 수정 실패!!");
+*/		}else {
+			request.setAttribute("msg","일정 수정 실패!!");
 			request.getRequestDispatcher("views/common/errorPage.jsp");
 		}
 
