@@ -43,8 +43,10 @@ public class DeleteCalendarServlet extends HttpServlet {
 		
 		//int 결과에 따른 경로 설정
 		if(result > 0) {
+		/*	System.out.println(cno+"번째 DB 삭제를 완료했습니다.");
+			response.sendRedirect("selectCalOne");*/
 			System.out.println(cno+"번째 DB 삭제를 완료했습니다.");
-			response.sendRedirect("selectCalOne");
+			response.getWriter().print("삭제 완료!");
 		}else {
 			request.setAttribute("msg", "공지사항 수정 실패!!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

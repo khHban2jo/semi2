@@ -44,17 +44,17 @@ public class noticeListServlet extends HttpServlet {
 			  keyword = request.getParameter("keyword"); 
 		  }
 		  
-		System.out.println("keyword : "+keyword);
+//		System.out.println("keyword : "+keyword);
 		
 		// 처음으로 왼쪽의 공지 사항 클릭시 파라미터 값 초기화
 		if(date1.equals("all") && date2.equals("all")){
 			date1 = date2 = "";
 		}
 		
-		System.out.println("date1 : "+date1);
-		System.out.println("date2 : "+date2);
+//		System.out.println("date1 : "+date1);
+//		System.out.println("date2 : "+date2);
 		
-		System.out.println("request-getParameter(currentPage) : "+request.getParameter("currentPage"));
+//		System.out.println("request-getParameter(currentPage) : "+request.getParameter("currentPage"));
 		
 		// 페이징 처리에 필요한 변수들 한번에 표시할 페이지들 중 가장 앞의 페이지 : 
 		int startPage;

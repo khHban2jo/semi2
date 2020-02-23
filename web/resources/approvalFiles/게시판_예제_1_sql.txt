@@ -1,0 +1,20 @@
+CREATE TABLE MEMBER(
+    ID VARCHAR2(20) PRIMARY KEY,
+    PWD VARCHAR2(20) NOT NULL,
+    NAME VARCHAR2(20),
+    EMAIL VARCHAR2(50)
+);
+
+CREATE TABLE board(
+    num number primary key,
+    write varchar2(20) REFERENCES member(ID) on delete CASCADE,
+    w_date date,
+    title varchar2(50) not null,
+    content varchar2(500)
+);
+
+create sequence seq_board;
+
+SELECT * FROM MEMBER;
+
+SELECT * FROM board;

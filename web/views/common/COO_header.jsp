@@ -11,7 +11,6 @@
     <button id="homeBtn" class="btn"><i class="fas fa-home"></i></button>
     <span id="headHome">홈</span>
     <span id="headDocument">전자결재</span>
-    <span id="headSchedule">일정관리</span>
     <span id="headTA">근태관리</span>
     <span id="headJojic">조직도</span>
     <span id="headManager">관리자</span>

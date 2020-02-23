@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.coo.ccalendar.model.vo.CCalendar;
+import com.coo.exception.CooException;
 
 public class CCalendarDao {
 	
@@ -79,7 +80,9 @@ public class CCalendarDao {
 	 * @param sqlDate
 	 * @return
 	 */
-	public ArrayList<CCalendar> selectToday(Connection con, Date sqlDate) {
+	/*public ArrayList<CCalendar> selectToday(Connection con, Date sqlDate) {*/
+	public ArrayList<CCalendar> selectToday(Connection con, int empCode, Date sqlDate) throws CooException {	
+		
 		ArrayList<CCalendar> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -88,9 +91,10 @@ public class CCalendarDao {
 		
 		try {
 			list = new ArrayList<CCalendar>();
-			System.out.println(sqlDate);			
+			/*System.out.println(sqlDate);*/			
 			
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, empCode);
 			
 			rset = pstmt.executeQuery();
 			
@@ -107,7 +111,7 @@ public class CCalendarDao {
 			}
 			System.out.println(list);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CooException(e.getMessage());
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -171,7 +175,7 @@ public class CCalendarDao {
 			
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(1, cno); //?
+			pstmt.setString(1, cno);
 			
 			result=pstmt.executeUpdate();
 			

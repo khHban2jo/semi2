@@ -68,7 +68,7 @@ public class MemberUpdateServlet extends HttpServlet {
        m.setEmpCode(empCode); 
        m.setSubDept(subDept);
        
-       
+       System.out.println(m);
        MemberService ms = new MemberService();       
   	
        ms.updateMember(m);
