@@ -116,10 +116,16 @@
                					$td5.text(flow);
                					var date = list[i]["docDate"].split(",");
                					var date2 =date[0].split("월");
-               					if(date2[0].length=1){
+               					if(date2[0].length<2){
                						date2[0]= "0"+date2[0];
                					}
+
+               					
+               				
                					date2[1]=date2[1].substring(1,3);
+               					if(date2[1].length<2){
+               						date2[1]= "0"+date2[1];
+               					}
                					date = date[1]+"-"+date2[0]+"-"+date2[1]
                					$td6.text(date);
                					$tr.append($td1);

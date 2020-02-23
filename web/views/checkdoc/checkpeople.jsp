@@ -27,7 +27,7 @@
     <fieldset id = "mapf">
         <legend>조직도</legend>
     <div id ="map">
-    <!--<input type= "text" value ="" id ="fill">-->
+    <input type= "hidden" value ="<%=m.getEmpCode() %>" id ="mycode">
     <ul id="peoplemap">
         <li><input type ="checkbox" class="all"><label>전체 보기</label>
             <input type="button" class="foldall"  value ="+">

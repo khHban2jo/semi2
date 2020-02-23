@@ -81,6 +81,9 @@
            						date2[0]= "0"+date2[0];
            					}
            					date2[1]=date2[1].substring(1,3);
+           					if(date2[1].length<2){
+           						date2[1]= "0"+date2[1];
+           					}
            					date = date[1]+"-"+date2[0]+"-"+date2[1]
            					$td6.text(date);
            					$tr.append($td1);
@@ -130,6 +133,9 @@
            						date2[0]= "0"+date2[0];
            					}
            					date2[1]=date2[1].substring(1,3);
+           					if(date2[1].length<2){
+           						date2[1]= "0"+date2[1];
+           					}
            					date = date[1]+"-"+date2[0]+"-"+date2[1]
            					$td6.text(date);
            					$tr.append($td1);

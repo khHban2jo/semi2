@@ -164,7 +164,7 @@ public class CheckService {
 		
 		result = cDao.insertInfo(con, info);
 		if(result >0) {
-			System.out.println(info.getDocType());
+			//System.out.println(info.getDocType());
 				result = cDao.insertText(con, doc, info.getDocType());
 				if(result>0) {
 					if(!files.isEmpty() ) {
