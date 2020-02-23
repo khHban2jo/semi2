@@ -9,14 +9,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/semi/resources/css/ccalendar/calendar_add.css">
     
-    <script>
-		$(function(){ // 팝업창 닫히고 이전 페이지로 이동완료
-			$('#createBtn').click(function(){
-				window.opener.location.reload();
-				window.close();
-			});
-		}); 
-    </script>
     
 </head>
 <body onresize="parent.resizeTo(530,650)" onload="parent.resizeTo(530,650)">
@@ -40,8 +32,8 @@
             <textarea cols="41" name="calendarContent" rows="6"></textarea>
 
             <!-- 생성된 일정을 다시 누르면 추가 버튼이 수정 버튼으로/ 취소버튼이 삭제버튼으로 if()-->
-            <input type="button" id="createBtn" class="btn" value="생성">
-         	<button onclick="window.close();" class="btn">취소</button>
+            <input type="submit" id="createBtn" class="btn" value="생성">
+         	<button type="button" onclick="window.close();" class="btn">취소</button>
             
            
         </div>
