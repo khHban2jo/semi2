@@ -13,13 +13,13 @@
 </head>
 <body onresize="parent.resizeTo(530,650)" onload="parent.resizeTo(530,650)">
 <div id="totalSize">
-    <form action="/semi/InsertSchedule.do" method="post"> <!--TEA -->
+    <form action="/semi/InsertSchedule.do" method="post">
     <div id="total">
     
         <div id="addArea">
          <span class="span2"><h1 align="left">일정 생성하기</h1></span>
 		<hr color="lightgray">
-            <input type="text" id="addtitle" name="addtitle" placeholder="일정 제목을 입력하십시오">
+            <input type="text" id="addtitle" name="addtitle" placeholder="일정 제목을 입력하십시오(15자 이하)" maxlength="15">
 
             <br><br><br><br>
 
@@ -29,11 +29,11 @@
             <input id="end" name="calendarEnd" type="date"> <br><br>
 
             <span class="span1">일정 내용</span><br>
-            <textarea cols="41" name="calendarContent" rows="6"></textarea>
+            <textarea cols="41" name="calendarContent" rows="6" maxlength="1000"></textarea>
 
             <!-- 생성된 일정을 다시 누르면 추가 버튼이 수정 버튼으로/ 취소버튼이 삭제버튼으로 if()-->
-            <input type="submit" id="createBtn" class="btn" value="생성">
-         	<button type="button" onclick="window.close();" class="btn">취소</button>
+            <input type="submit" id="calCreateBtn" class="calCreateBtn" value="생성">
+         	<button type="button" onclick="window.close();" id="CalCancelBtn" class="CalCancelBtn">취소</button>
             
            
         </div>

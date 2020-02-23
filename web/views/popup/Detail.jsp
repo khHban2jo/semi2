@@ -20,7 +20,7 @@
 
 <body onresize="parent.resizeTo(530,650)" onload="parent.resizeTo(530,650)">
 <div id="totalSize">
-  <!--   <form method="post" >  -->
+  <!--   <form method="post" > 수정: 두번 클릭해야 함, 삭제는 에러페이지로 걸림 -->
     <div id="total">
 
 
@@ -28,7 +28,7 @@
         <span class="span2"><h1 align="left">일정 수정 및 삭제하기</h1></span>
 		<hr color="lightgray">
 			<input type="text" id="cno" name="cno" value="<%= c.getCno() %>" style="display:none;">
-            <input type="text" id="addtitle" name="addtitle" placeholder="일정 제목을 수정하십시오" value="<%= c.getTitle() %>">
+            <input type="text" id="addtitle" name="addtitle" placeholder="일정 제목을 수정하십시오(15자 이하)"  maxlength="15" value="<%= c.getTitle() %>">
 
             <br><br><br><br>
 
@@ -39,7 +39,7 @@
             <input id="end" name="calendarEnd" type="date"  value="<%= c.getEndDate() %>"> <br><br>
 
             <span class="span1">일정 내용</span><br> <%-- <%=c.getToDo()%> --%>
-            <textarea cols="41" id="calendarContent" name="calendarContent" rows="5"><%=c.getToDo()%></textarea>
+            <textarea cols="41" id="calendarContent" name="calendarContent" rows="6" maxlength="1000"><%=c.getToDo()%></textarea>
 
             <!-- 생성된 일정을 다시 누르면 추가 버튼이 수정 버튼으로/ 취소버튼이 삭제버튼으로 if()-->
             <!-- <input type="submit" value="수정완료" class="btn" > -->
@@ -50,7 +50,7 @@
            
         </div>
     </div>
-	<!-- </form> -->
+<!-- 	</form> -->
 </div>
 
 <script> //버튼
