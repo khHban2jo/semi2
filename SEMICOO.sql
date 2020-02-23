@@ -24,6 +24,7 @@ DROP SEQUENCE SEQ_NNO;
 DROP SEQUENCE SEQ_BNO;
 DROP SEQUENCE SEQ_EMP;
 DROP SEQUENCE SEQ_APPRO;
+DROP SEQUENCE SEQ_CNO;
 BEGIN 
     DBMS_SCHEDULER.DROP_JOB( JOB_NAME => 'LCOUNT_RESET_L2L3_JOB', FORCE => false);
 END ;
@@ -151,15 +152,22 @@ CREATE TABLE EMPLOYEE(
   CLEVEL NUMBER
   );
   
---달력
+--일정
   CREATE TABLE CCALENDAR(
   EMP_CODE NUMBER(3),
   CDATE DATE,
-  TO_DO VARCHAR2(50),
+  TO_DO VARCHAR2(200),
   DDATE DATE,
-  CTITLE VARCHAR2(50)
+  CTITLE VARCHAR2(200),
+  CNO VARCHAR2(3)
   );
   
+-- 일정 시퀀스
+ CREATE SEQUENCE SEQ_CNO
+ START WITH 1
+ INCREMENT BY 1
+ NOCYCLE
+ NOCACHE;
   
 --결제문서파일
  CREATE TABLE APPROVAL_FILES(
@@ -184,10 +192,10 @@ CREATE TABLE EMPLOYEE(
  DOC_TYPE VARCHAR2(50) NOT NULL, -- 문서 타입
  ASTATUS NUMBER CHECK(ASTATUS IN(0,1,2,3)), -- 문서 진행상황 0: 내부결재 진행, 1: 합의 부서 진행  2: 결재 완료 3: 반려
  APPROVER VARCHAR2(200) NOT NULL, -- 해당 결재자
- IN_DEPTNAME VARCHAR2(40) NOT NULL, -- 결재 부서 
+ IN_DEPTNAME VARCHAR2(100) NOT NULL, -- 결재 부서 
  INPEOPLE VARCHAR2(500)NOT NULL, --결재인원 
  INSTATUS VARCHAR2(500),  --결재인원당 결재상태
- COL_DEPTNAME  VARCHAR2(40), -- 합의 부서명
+ COL_DEPTNAME  VARCHAR2(100), -- 합의 부서명
  COL_PEOPLE VARCHAR2(1000), -- 합의 부서 인원 코드
  COL_STATUS VARCHAR2(500), -- 합의부서당 결재 상태
  VIEW_PEOPLE VARCHAR2(1000), -- 참조 인원
@@ -1115,5 +1123,152 @@ INSERT INTO APPROLINE VALUES(200, 'D0', 203,null,null,null);
 INSERT INTO APPROLINE VALUES(201, 'D0', 202,null,null,null);
 INSERT INTO APPROLINE VALUES(202, 'D0', 201,null,null,null);
 INSERT INTO APPROLINE VALUES(203, 'D0', 200,null,null,null);
+
+--캘린더 일정
+INSERT INTO CCALENDAR VALUES (200, '2020-02-24', '오전회의(인사부)', '2020-02-24', '오전회의(인사부)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (200, '2020-02-24', '임원주간회의', '2020-02-24', '임원주간회의', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (200, '2020-02-24', '알파프로젝트 진행상황 검토', '2020-02-24', '알파프로젝트 진행상황 검토', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (200, '2020-02-25', '월례회의참석', '2020-02-25', '월례회의참석', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (200, '2020-02-25', '주간회의(기획부)', '2020-02-25', '주간회의(기획부)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (200, '2020-02-25', '워크샵 (청계산:15시)', '2020-02-25', '워크샵 (청계산:15시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (200, '2020-02-25', '임원 점심 (마씨마로 13시)', '2020-02-25', '임원 점심 (마씨마로 13시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (200, '2020-02-26', '휴가', '2020-02-28', '휴가', SEQ_CNO.NEXTVAL);
+
+INSERT INTO CCALENDAR VALUES (201, '2020-02-24', '임원주간회의', '2020-02-24', '임원주간회의', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (201, '2020-02-24', '영업부 자료취합 및 검토', '2020-02-27', '영업부 자료취합 및 검토', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (201, '2020-02-25', '워크샵 (청계산:15시)', '2020-02-25', '워크샵 (청계산:15시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (201, '2020-02-25', '주간회의(영업부)', '2020-02-25', '주간회의(영업부)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (201, '2020-02-25', '월례회의참석', '2020-02-25', '월례회의참석', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (201, '2020-02-24', '판매활성화 방안 검토', '2020-02-27', '판매활성화 방안 검토', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (201, '2020-02-25', '출장 (강원도 정선)', '2020-02-27', '출장 (강원도 정선)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (201, '2020-02-25', '임원 점심 (마씨마로 13시)', '2020-02-25', '임원 점심 (마씨마로 13시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (201, '2020-02-28', '오전회의(영업부)', '2020-02-28', '오전회의(영업부)', SEQ_CNO.NEXTVAL);
+
+INSERT INTO CCALENDAR VALUES (204, '2020-02-24', '오전회의(인사부)', '2020-02-24', '오전회의(인사부)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (204, '2020-02-24', '외근(킨텍스참관:17시)', '2020-02-26', '외근(킨텍스참관:17시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (204, '2020-02-24', '외근(설명회참석:14시)', '2020-02-26', '외근(설명회참석:14시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (204, '2020-02-25', '월례회의참석', '2020-02-25', '월례회의참석', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (204, '2020-02-25', '워크샵(청계산:15시)', '2020-02-25', '워크샵(청계산:15시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (204, '2020-02-25', '교육(영업부:13시)', '2020-02-28', '교육(영업부:13시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (204, '2020-02-27', '오전회의(영업부)', '2020-02-27', '오전회의(영업부)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (204, '2020-02-26', '코엑스 전시회 부스계약 검토', '2020-02-28', '코엑스전시회 부스계약 검토', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (204, '2020-02-24', '신입직원들과 점심식사', '2020-02-28', '신입직원들과 점심식사', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (204, '2020-02-24', '알파프로젝트 진행상황 검토', '2020-02-24', '알파프로젝트 진행상황 검토', SEQ_CNO.NEXTVAL);
+
+INSERT INTO CCALENDAR VALUES (210, '2020-02-25', '월례회의참석', '2020-02-25', '월례회의참석', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (210, '2020-02-25', '오전회의(인사부)', '2020-02-25', '오전회의(인사부)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (210, '2020-02-24', '코엑스 전시회 부스계약 작성', '2020-02-27', '코엑스전시회 부스계약 작성', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (210, '2020-02-24', '킨텍스 참관 (16시)', '2020-02-26', '킨텍스 참관 (16시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (210, '2020-02-24', '외근(설명회참석:13시)', '2020-02-26', '외근(설명회참석:13시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (210, '2020-02-27', '연차', '2020-02-28', '연차', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (210, '2020-02-24', '비품구비', '2020-02-24', '비품구비', SEQ_CNO.NEXTVAL);
+
+INSERT INTO CCALENDAR VALUES (221, '2020-02-24', '알파프로젝트 진행상황 검토', '2020-02-24', '알파프로젝트 진행상황 검토', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (221, '2020-02-24', '기획부 자료취합 및 검토', '2020-02-28', '기획부 자료취합 및 검토', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (221, '2020-02-24', '외근(현장검토:14시)', '2020-02-24', '외근(현장검토:14시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (221, '2020-02-25', '워크샵 (청계산:15시)', '2020-02-25', '워크샵 (청계산:15시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (221, '2020-02-25', '주간회의(기획부)', '2020-02-25', '주간회의(기획부)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (221, '2020-02-24', '킨텍스 참관 (16시)', '2020-02-26', '킨텍스 참관 (16시)', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (221, '2020-02-25', '월례회의참석', '2020-02-25', '월례회의참석', SEQ_CNO.NEXTVAL);
+INSERT INTO CCALENDAR VALUES (221, '2020-02-24', '2분기 보고자료 검토', '2020-02-28', '2분기 보고자료 검토', SEQ_CNO.NEXTVAL);
+
+--결재선
+INSERT INTO APPROLINE VALUES(100,'D5',200 ,null,null,null);
+INSERT INTO APPROLINE VALUES(200,'D0',201 ,null,null,null);
+INSERT INTO APPROLINE VALUES(201,'D0',200 ,null,null,null);
+INSERT INTO APPROLINE VALUES(202,'DO',203,null,null,null);
+INSERT INTO APPROLINE VALUES(203,'D0',202 ,null,null,null);
+INSERT INTO APPROLINE VALUES(204,'D1',205,null,null,null);
+INSERT INTO APPROLINE VALUES(205,'D1',206,null,null,null);
+INSERT INTO APPROLINE VALUES(206,'D1',205,null,null,null);
+INSERT INTO APPROLINE VALUES(207,'D1',208,null,null,null);
+INSERT INTO APPROLINE VALUES(208,'D1',207,null,null,null);
+INSERT INTO APPROLINE VALUES(209,'D1',240,null,null,null);
+INSERT INTO APPROLINE VALUES(240,'D1',209,null,null,null);
+INSERT INTO APPROLINE VALUES(210,'D1',211,null,null,null);
+INSERT INTO APPROLINE VALUES(211,'D1',210,null,null,null);
+INSERT INTO APPROLINE VALUES(212,'D2',213,null,null,null);
+INSERT INTO APPROLINE VALUES(213,'D2',214,null,null,null);
+INSERT INTO APPROLINE VALUES(214,'D2',213,null,null,null);
+INSERT INTO APPROLINE VALUES(215,'D2',216,null,null,null);
+INSERT INTO APPROLINE VALUES(216,'D2',215,null,null,null);
+INSERT INTO APPROLINE VALUES(217,'D2',218,null,null,null);
+INSERT INTO APPROLINE VALUES(218,'D2',217,null,null,null);
+INSERT INTO APPROLINE VALUES(219,'D2',220,null,null,null);
+INSERT INTO APPROLINE VALUES(220,'D2',219,null,null,null);
+INSERT INTO APPROLINE VALUES(221,'D3',222,null,null,null);
+INSERT INTO APPROLINE VALUES(222,'D3',223,null,null,null);
+INSERT INTO APPROLINE VALUES(223,'D3',222,null,null,null);
+INSERT INTO APPROLINE VALUES(224,'D3',225,null,null,null);
+INSERT INTO APPROLINE VALUES(225,'D3',224,null,null,null);
+INSERT INTO APPROLINE VALUES(226,'D3',227,null,null,null);
+INSERT INTO APPROLINE VALUES(227,'D3',226,null,null,null);
+INSERT INTO APPROLINE VALUES(228,'D3',227,null,null,null);
+INSERT INTO APPROLINE VALUES(229,'D3',230,null,null,null);
+INSERT INTO APPROLINE VALUES(230,'D3',229,null,null,null);
+INSERT INTO APPROLINE VALUES(231,'D4',232,null,null,null);
+INSERT INTO APPROLINE VALUES(232,'D4',233,null,null,null);
+INSERT INTO APPROLINE VALUES(233,'D4',232,null,null,null);
+INSERT INTO APPROLINE VALUES(234,'D4',235,null,null,null);
+INSERT INTO APPROLINE VALUES(235,'D4',234,null,null,null);
+INSERT INTO APPROLINE VALUES(236,'D4',237,null,null,null);
+INSERT INTO APPROLINE VALUES(237,'D4',236,null,null,null);
+INSERT INTO APPROLINE VALUES(238,'D4',239,null,null,null);
+INSERT INTO APPROLINE VALUES(239,'D4',238,null,null,null);
+
+
+
+--결재 테이블
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '연차신청서 ', 204,'김석수','인사부서','휴가신청서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'201,202,221',TO_DATE('19/11/20','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '12월 1주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('19/12/02','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '12월 2주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('19/12/09','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '12월 3주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('19/12/16','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '12월 4주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('19/12/23','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '19년 인사 총 결산 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','201,200,200,201' ,'1,1',null,null,null,'212,221,231',TO_DATE('20/01/02','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '월차신청서',208 ,'이제민','인사부서','휴가신청서', 2, '204,205', '인사부서','204,205' ,'1',null,null,null,null,TO_DATE('20/01/03','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '1월 1주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('20/01/06','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '1월 2주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('20/01/13','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '월차신청합니다.',240 ,'김건도','인사부서','휴가신청서', 2, '204,205', '인사부서','204,205' ,'1',null,null,null,null,TO_DATE('20/01/17','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '1월 3주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('20/01/20','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '1월 4주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('20/01/27','RR/mm/DD'),null,DEFAULT);
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '자격증시험때문에  월차신청합니다.', 209,'임정수','인사부서','휴가신청서', 2, '204,205', '인사부서','204,205' ,'1',null,null,null,null,TO_DATE('20/01/29','RR/mm/DD'),Null,DEFAULT);
+INSERT INTO VACTABLE VALUES (SEQ_APPRO.CURRVAL,'L2/+/2020-02-06/+/2020-02-06/+/N/+/자격증시험보러 가고싶습니다.<br>,승인하여 주시길 바랍니다.<br>','L2',TO_DATE('20/02/06','RR/mm/DD'),TO_DATE('20/02/06','RR/mm/DD'),'N');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '연차 신청합니다.', 237,'김미정','연구부서','휴가신청서', 1, '204,205', '연구부서,연구부서','234,235,231,232' ,'1,1',null,null,null,'201,202,221,214,217,210,208,204',TO_DATE('20/01/29','RR/mm/DD'),null,DEFAULT);
+INSERT INTO VACTABLE VALUES (SEQ_APPRO.CURRVAL,'L1/+/2020-02-26/+/2020-03-02/+/N/+/일신상의 사유로 연차 신청합니다.<br>,승인하여 주시길 바랍니다.<br>','L1',TO_DATE('20/02/26','RR/mm/DD'),TO_DATE('20/03/02','RR/mm/DD'),'N');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '1월 인사부 인사보고', 210,'박하영','인사부서','품의서', 0, '204,205', '인사부서,임원','204,205,201,200' ,'5,0',null,null,null,'200',TO_DATE('20/02/03','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, '입사 : 0명<br> 퇴사 : 0명<br> 휴가자 : 3명<br>');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '1월 5주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('20/02/03','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, ' 총 야근인원 : 15명<br> --상세내역은 파일 참조--<br>');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '1월 인사 결산보고서', 204,'김석수','인사부서','품의서', 2, '200,201', '임원,임원','201,200,200,201' ,'1,1',null,null,null,'212,221,231',TO_DATE('20/02/04','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, ' 총 입사 : 10명<br> 퇴사 : 4명<br> 휴가자 : 13명<br> --상세내역은 파일 참조--<br>');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '월차신청서', 210,'박하영','인사부서','휴가신청서', 3, '204,205', '인사부서,임원','204,205,201,200' ,'2,0',null,null,null,null,TO_DATE('20/02/03','RR/mm/DD'),'영업부서에서 지원요청이 왔어요.<br> 가능하면 다른 날로 변경 하세요.<br>',DEFAULT);
+INSERT INTO VACTABLE VALUES (SEQ_APPRO.CURRVAL,'L2/+/2020-02-06/+/2020-02-06/+/N/+/ 일신상의 사유로 월차 신청합니다.<br>,승인하여 주시길 바랍니다.<br>','L2',TO_DATE('20/02/06','RR/mm/DD'),TO_DATE('20/02/06','RR/mm/DD'),'N');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '인원 지원 신청', 220,'배지원','영업부서','품의서', 1, '210,211', '영업부서,영업부서,인사부서,임원','216,215,212,213,204,205,201,200' ,'1,1,1,1','인사부서','210,211','5',null,TO_DATE('20/02/03','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, '인원 지원 요청<br> XX판촉건으로 인사부서의 박하영 사원을 지원 바랍니다.');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '2월 2주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('20/02/10','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, ' 총 야근인원 : 10명<br> --상세내역은 파일 참조--<br>');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '4월에 연차 신청합니다.', 209,'임정수','인사부서','휴가신청서', 0, '204,205', '인사부서','204,205' ,'5',null,null,null,null,TO_DATE('20/02/11','RR/mm/DD'),null,DEFAULT);
+INSERT INTO VACTABLE VALUES (SEQ_APPRO.CURRVAL,'L1/+/2020-04-02/+/2020-04-05/+/N/+/연차신청합니다. <br>,<br>,위와 같은 사유로 휴가서 제출하오니, 승인하여 주시길 바랍니다.<br>','L1',TO_DATE('20/04/02','RR/mm/DD'),TO_DATE('20/04/05','RR/mm/DD'),'N');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '2월 3주 야근 인원 보고서 ', 204,'김석수','인사부서','품의서', 2, '200,201', '임원','200,201' ,'1',null,null,null,'212,221,231',TO_DATE('20/02/17','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, ' 총 야근인원 : 0명<br>');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '월차 신청합니다..', 206,'김주리','인사부서','휴가신청서', 2, '204,205', '인사부서','204,205' ,'1',null,null,null,null,TO_DATE('20/02/18','RR/mm/DD'),null,DEFAULT);
+INSERT INTO VACTABLE VALUES (SEQ_APPRO.CURRVAL,'L2/+/2020-03-02/+/2020-03-02/+/N/+/조카돌잔치가고싶습니다. <br>,<br>,위와 같은 사유로 휴가서 제출하오니, 승인하여 주시길 바랍니다.<br>','L2',TO_DATE('20/03/02','RR/mm/DD'),TO_DATE('20/03/02','RR/mm/DD'),'N');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '연차 신청합니다.', 210,'박하영','인사부서','휴가신청서', 0, '204,205', '인사부서','204,205' ,'5',null,null,null,null,TO_DATE('20/02/21','RR/mm/DD'),null,DEFAULT);
+INSERT INTO VACTABLE VALUES (SEQ_APPRO.CURRVAL,'L1/+/2020-03-02/+/2020-03-06/+/N/+/연차신청합니다. <br>,<br>,위와 같은 사유로 휴가서 제출하오니, 승인하여 주시길 바랍니다.<br>','L1',TO_DATE('20/03/02','RR/mm/DD'),TO_DATE('20/03/06','RR/mm/DD'),'N');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '반차 신청합니다.', 211,'고길수','인사부서','휴가신청서', 0, '204,205', '인사부서','204,205' ,'5',null,null,null,null,TO_DATE('20/02/21','RR/mm/DD'),null,DEFAULT);
+INSERT INTO VACTABLE VALUES (SEQ_APPRO.CURRVAL,'L3/+/2020-03-09/+/2020-03-09/+/P/+/병원예약때문에 반차신청합니다. <br>','L3',TO_DATE('20/03/09','RR/mm/DD'),TO_DATE('20/03/09','RR/mm/DD'),'P');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '관리자 보고서', 100,'관리자','미발령','품의서', 1, '200,201', '임원','200,201' ,'1','인사부서','204,205','5','212,221,231',TO_DATE('20/01/06','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, ' 자세한 내용은 파일참조<br>');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '관리자 보고서', 100,'관리자','미발령','품의서', 2, '200,201', '임원','200,201' ,'1','영업부서','212,213','1','204,221,231',TO_DATE('20/01/06','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, ' 자세한 내용은 파일참조<br>');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '관리자 보고서', 100,'관리자','미발령','품의서', 2, '200,201', '임원','200,201' ,'1','기획부서','221,222','1','204,212,231',TO_DATE('20/01/06','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, ' 자세한 내용은 파일참조<br>');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '관리자 보고서', 100,'관리자','미발령','품의서', 2, '200,201', '임원','200,201' ,'1','연구부서','231,232','1','204,212,221',TO_DATE('20/01/06','RR/mm/DD'),null,DEFAULT);
+INSERT INTO ROUNDTABLE VALUES (SEQ_APPRO.CURRVAL, ' 자세한 내용은 파일참조<br>');
+INSERT INTO APPROVAL VALUES (SEQ_APPRO.NEXTVAL, '비품신청', 211,'고길수','인사부서','지출결의서', 0, '204,205', '인사부서,인사부서,임원','209,240,204,205,201,200' ,'1,5,0','기획부서','221,222','0',NULL,TO_DATE('20/02/24','RR/mm/DD'),null,DEFAULT);
+INSERT INTO PAYTABLE VALUES (SEQ_APPRO.CURRVAL,'1,볼펜,3000,2,10,6000,/+/2,형광펜,500,1,1,500,/+/3,견출지,1000,10,1,10000,/+/16500/+/이상입니다.<br>',16500);
+  
+
+
 
 COMMIT;

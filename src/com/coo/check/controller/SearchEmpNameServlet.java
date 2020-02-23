@@ -81,7 +81,7 @@ public class SearchEmpNameServlet extends HttpServlet {
 			ArrayList<String> getMSName = cs.getMSName(savePcodes);		
 			//정부 정부 정부 정부
 			for(int i = 0; i<getMSName.size();i++) {
-				System.out.println(getMSName.get(i));
+				//System.out.println(getMSName.get(i));
 			}
 			fulling.put("list1",dename);
 			fulling.put("list2",savePcodes);

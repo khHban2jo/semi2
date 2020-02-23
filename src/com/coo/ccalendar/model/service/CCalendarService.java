@@ -1,6 +1,7 @@
 package com.coo.ccalendar.model.service;
 
 import com.coo.ccalendar.model.vo.CCalendar;
+import com.coo.exception.CooException;
 import com.coo.ccalendar.model.dao.CCalendarDao;
 
 import static com.coo.common.JDBCTemplate.*;
@@ -35,11 +36,11 @@ public class CCalendarService {
 	 * @param sqlDate
 	 * @return
 	 */
-	public ArrayList<CCalendar> selectToday(Date sqlDate) {
+	public ArrayList<CCalendar> selectToday(int empCode) throws CooException {
 		
 		Connection con = getConnection();
 		
-		ArrayList<CCalendar> list =cDao.selectToday(con, sqlDate);
+		ArrayList<CCalendar> list =cDao.selectToday(con, empCode);
 		
 		close(con);
 		

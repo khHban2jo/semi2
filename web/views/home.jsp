@@ -20,7 +20,7 @@
              <%@ include file="notice/showFiveNotice.jsp" %>
             
             <div id="board" style="position:absoulte; top:450px; left:100px; width:500px; hegith:350px;"><%@ include file="dept_board/board_home.jsp" %></div>
-            <div id="chdocs" style="position: absolute; top: 350px; left: 490px; width:600px; height:350px; border:1px solid black;">
+            <div id="chdocs" style="position: absolute; top: 350px; left: 490px; width:600px; height:350px; ">
              <%@ include file="checkdoc/showHomeDocs.jsp" %>
              </div>
         </div>

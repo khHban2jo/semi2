@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.coo.ccalendar.model.vo.CCalendar;
+import com.coo.exception.CooException;
 
 public class CCalendarDao {
 	
@@ -56,9 +57,9 @@ public class CCalendarDao {
 			
 			pstmt.setInt(1, c.getEmpCode());
 			pstmt.setDate(2, c.getStartDate()); 
-			pstmt.setString(3, c.getToDo());
+			pstmt.setString(3,c.getToDo()  );
 			pstmt.setDate(4, c.getEndDate());
-			pstmt.setString(5, c.getTitle());
+			pstmt.setString(5,c.getTitle());
 			
 			result=pstmt.executeUpdate();
 			System.out.println(result);
@@ -79,18 +80,21 @@ public class CCalendarDao {
 	 * @param sqlDate
 	 * @return
 	 */
-	public ArrayList<CCalendar> selectToday(Connection con, Date sqlDate) {
+	/*public ArrayList<CCalendar> selectToday(Connection con, Date sqlDate) {*/
+	public ArrayList<CCalendar> selectToday(Connection con, int empCode) throws CooException {	
+		
 		ArrayList<CCalendar> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectCalendar"); //쿼리이름
-		
+		System.out.println(sql);
 		try {
 			list = new ArrayList<CCalendar>();
-			System.out.println(sqlDate);			
+			/*System.out.println(sqlDate);*/			
 			
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, empCode);
 			
 			rset = pstmt.executeQuery();
 			
@@ -104,10 +108,11 @@ public class CCalendarDao {
 				c.setTitle(rset.getString("CTITLE"));
 				c.setCno(rset.getString("CNO"));
 				list.add(c);
+				System.out.println(c);
 			}
-			System.out.println(list);
+			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new CooException(e.getMessage());
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -171,7 +176,7 @@ public class CCalendarDao {
 			
 			pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(1, cno); //?
+			pstmt.setString(1, cno);
 			
 			result=pstmt.executeUpdate();
 			

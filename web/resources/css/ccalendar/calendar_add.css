@@ -83,17 +83,37 @@ textarea{
 	border-radius: 10px;
 	font-size: 16px;
 	resize: both;
-	 
-    
+	
 }
 
-#editBtn1{
-	color:#1E90FF;
-	font-weight: bolder;
+.calCreateBtn{ /*일정생성창의 생성버튼*/
+    position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 260px;
+    width: 80px;
+    height: 30px;
+    top: 15px;
+    color:#1E90FF;
+    font-weight: bolder;
 }
 
-
-.btn{
+.CalCancelBtn{ /*일정생성창의 취소버튼*/
+	position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 260px;
+    width: 80px;
+    height: 30px;
+    top: 15px;
+}
+/* .btn{
     position: relative;
     font-weight: 1000;
     border-color: #ccc;
@@ -104,4 +124,53 @@ textarea{
     width: 80px;
     height: 30px;
     top: 15px;
+} */
+/* #editBtn1{
+	color:#1E90FF;
+	font-weight: bolder;
+} */
+
+
+
+
+.editBtn2{ /*일정 수정 삭제창의 수정버튼*/
+	position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 176px;
+    width: 80px;
+    height: 30px;
+    top: 15px;
+    color:#1E90FF;
+	font-weight: bolder;
 }
+
+.calDeleteBtn2{ /*일정 수정 삭제창의 삭제버튼*/
+	position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 175px;
+    width: 80px;
+    height: 30px;
+    top: 15px;
+}
+
+.calCloseBtn2{ /*일정 수정 삭제창의 닫기버튼*/
+	position: relative;
+    font-weight: 1000;
+    border-color: #ccc;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 6px;
+    left: 174px;
+    width: 80px;
+    height: 30px;
+    top: 15px;
+}
+

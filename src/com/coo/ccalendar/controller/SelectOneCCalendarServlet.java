@@ -50,7 +50,7 @@ public class SelectOneCCalendarServlet extends HttpServlet {
 			
 		}else {
 			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "공지사항 상세보기 실패!");
+			request.setAttribute("msg", "일정 상세보기 실패!");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);

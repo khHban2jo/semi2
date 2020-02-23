@@ -47,7 +47,9 @@
             left : 100px;
         }
         #top3 td{
+             align-content: center;
             height : 67px;
+            width : 80px;
         }
         #top2 img{
             height : 50px;

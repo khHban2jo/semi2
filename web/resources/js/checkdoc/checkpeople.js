@@ -72,16 +72,18 @@ $(function(){
    
    var codeRemove= function(i){
 	   //중복인원 제거용 함수
-	   var tr = $(i).siblings("div").find("tr")
+	   
+	   var tr = $(i).siblings("div").find("tr");
 	   tr.each(function(index,item){
 		   var ch = $(this).children("td").eq(0).text();
-		   $('#selectper tr:contains('+ch+')').remove();         
+		   $('#selectper tr:contains('+ch+')').remove(); 
+		   
 	   });	
    }
    
    var tablem = function(j){
-	   //원본 베이블 저장
-      
+	 
+	  
        //저장후 추가
        for(var i= $("#selectper tbody").find("tr").length-1; i >=0; i--){
     	   var origin = $(j).siblings("div").find("tbody").html();
@@ -97,7 +99,10 @@ $(function(){
    
    
    $(".enter").click(function(){
-	   
+	   //본인 코드 들어간거 지우기
+	   var mc = $("#mycode").val();
+	   console.log(mc)
+	   $('#selectper tr:contains('+mc+')').remove();  
        //기존 배열과 확인후 삭제
        var tr = $(this).siblings("div").find("tr");
        if(tr.length<4){
@@ -108,7 +113,8 @@ $(function(){
 
    
    $(".venter").click(function(){
-       
+	   var mc = $("#mycode").val();
+	   $('#selectper tr:contains('+mc+')').remove();  
        //기존 배열과 확인후 삭제
        var tr = $(this).siblings("div").find("tr");
        if(tr.length>0){

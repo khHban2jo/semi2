@@ -130,7 +130,7 @@ public class CheckInsertServlet extends HttpServlet {
 			 if(mrequest.getFilesystemName("file"+i) != null &&!mrequest.getFilesystemName("file"+i).equals("")) {
 					file = mrequest.getFilesystemName("file"+i);
 					files.add(file);
-					System.out.println(file);
+					//System.out.println(file);
 				 }
 		}
 		
