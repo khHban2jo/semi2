@@ -42,8 +42,9 @@ public class BoardUpdateServlet extends HttpServlet {
 		
 		int result = new BoardService().updateBoard(b);
 		
+		// searchBoard.bo?title=all // selectList.bo
 		if(result>0) {
-			response.sendRedirect("selectList.bo");
+			response.sendRedirect("searchBoard.bo?title=all");
 		}else {
 			request.setAttribute("msg","게시판 수정 실패");
 			request.getRequestDispatcher("views/common/errorPage.jsp");
