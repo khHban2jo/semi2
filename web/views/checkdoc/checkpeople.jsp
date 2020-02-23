@@ -67,6 +67,12 @@
             <ul class ="de">
                
             </ul>
+              <li class ="qe"><input type ="checkbox" class ="deptcheck"><label class ="dept"></label>
+                <input type="button" class="fold"  value ="+">
+            </li>
+            <ul class ="de">
+               
+            </ul>
             
             
         </ol>
