@@ -90,10 +90,6 @@
             window.open(url, name, option);
         });
 
-        $('#headSchedule').click(function(){
-            location.href="/semi/views/Calendar.jsp";
-        });
-
         $('#headTA').click(function(){
             var url = "/semi/open.ta";
             var name = "근태관리";

@@ -7,8 +7,8 @@
 <title></title>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <style>
-	#boardhome{margin-left:50px; text-align: center;}
-	.bc{float:right; margin-left:10px;}
+	#boardhome{margin-left:50px; text-align: center; font-size:13px;}
+	.bc{float:left; margin-left:20px;}
 	tr{
 	border:1px;
     border-style:none none solid;
@@ -18,17 +18,14 @@
 </style>
 </head>
 <body>
-	<br>
+	<br><br><br>
 	<div id="rh3">
-	<button id="rh2" class="bc">게시판 바로가기</button>
-	<table style="width:90%; border-collapse:collapse; table-layout:fixed;" id="boardhome">
+	<table style="width:80%; border-collapse:collapse; table-layout:fixed;" id="boardhome">
                         <thead>
                             <tr>
                                 <th>번호</th>
-                                <th>분류</th>
                                 <th>제목</th>
                                 <th>작성자</th>
-                                <th>조회수</th>
                                 <th>날짜</th>
                             </tr>
                         </thead>
@@ -47,20 +44,16 @@
                     				var date = value.bdate.split(',');
                     				var $tr = $('<tr>');
                     				var $bno = $('<td>').text(value.bno);
-                    				var $category = $('<td>').text(value.category);
                     				var $btitle = $('<td>').text(value.btitle);
                     				var $bwriter = $('<td>').text(value.bwriter);
                     				var $bdate = $('<td>').text(date[1]+"년 "+date[0]);
-                    				var $bcount = $('<td>').text(value.bcount);
                     				var $input = $('<input type="hidden">')
                     				$input.val(value.bno);
                     				
                     				$tr.append($input);
                     				$tr.append($bno);
-                    				$tr.append($category);
                     				$tr.append($btitle);
                     				$tr.append($bwriter);
-                    				$tr.append($bcount);
                     				$tr.append($bdate);
 
                     				$('#boardhome').append($tr);
@@ -75,12 +68,15 @@
           
            $(function(){
         	   
-           $('#rh3 td').click(function(){
+           $('#rh3 td').mouseenter(function(){
+        	  $(this).css("cursor","pointer"); 
+           }).click(function(){
         	   var bno = $(this).parent().find("input").val();
         	   location.href="<%=request.getContextPath() %>/selectOne.bo?bno="+bno;
            	});
           });
     </script>
     </div>
+    <button id="rh2" class="bc">게시판 바로가기</button>
 </body>
 </html>

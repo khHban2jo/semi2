@@ -57,7 +57,7 @@
 			<img src="/semi/resources/image/people-fill.svg"><br>조직도
 		</button>
 		<button id="managerBtn" class="btn_nav">
-			<img src="/semi/resources/image/envelope-fill.svg"><br>메일
+			<img src="/semi/resources/image/envelope-fill.svg"><br>관리자
 		</button>
 	</div>
 
