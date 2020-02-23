@@ -72,14 +72,14 @@ public class CheckInsertServlet extends HttpServlet {
 		String colper = mrequest.getParameter("colper");
 		String viewper = mrequest.getParameter("viewper");
 		
-		System.out.println("넘어가냐");
-		System.out.println(doctype);
+		//System.out.println("넘어가냐");
+		//System.out.println(doctype);
 		
 	
 		
 		if(mrequest.getParameter("checkper")==null) {
-			//에러페이지
-			System.out.println("dd");
+			request.setAttribute("msg", "결재자가 없습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		String[] arr= checkper.split(",");
 		StringBuffer a = new StringBuffer();
@@ -198,7 +198,7 @@ public class CheckInsertServlet extends HttpServlet {
 		text = mrequest.getParameter("text");
 		///+/
 		doc.setText(text);
-		System.out.println(text);
+		//System.out.println(text);
 		
 	
 		int result = new CheckService().insertDoc(info, doc, files);

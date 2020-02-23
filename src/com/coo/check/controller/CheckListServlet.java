@@ -138,7 +138,7 @@ public class CheckListServlet extends HttpServlet {
 				
 		 				 
 		 }else {
-				request.setAttribute("msg", "정보를 가져오지 못했습니다.");
+				request.setAttribute("msg", "결재문서 정보를 가져오지 못했습니다.");
 				page ="views/common/errorPage";
 						
 			}

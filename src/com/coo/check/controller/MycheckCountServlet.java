@@ -49,7 +49,7 @@ public class MycheckCountServlet extends HttpServlet {
 			response.getWriter().print(result);
 			
 		}else {
-			//오류 페이지
+			response.getWriter().print("문서정보 읽기 실패");
 		}
 	}
 

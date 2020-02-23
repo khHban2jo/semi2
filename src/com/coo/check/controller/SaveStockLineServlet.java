@@ -40,7 +40,7 @@ public class SaveStockLineServlet extends HttpServlet {
 		
 		table = table.substring(18);
 		
-		System.out.print(empcode +" " + deptcode + " " +number + table);
+		//System.out.print(empcode +" " + deptcode + " " +number + table);
 		CheckService cs = new CheckService();
 		
 		int result = cs.saveStockline(empcode, deptcode, number, table);

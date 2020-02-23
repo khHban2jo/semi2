@@ -65,6 +65,9 @@ public class GetStockLineServlet extends HttpServlet {
 			fulling.put("list2", pushlist);
 		
 			new Gson().toJson(fulling,response.getWriter());
+		}else {
+			request.setAttribute("msg", "결재라인을 가져오지 못했습니다.");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
 	}

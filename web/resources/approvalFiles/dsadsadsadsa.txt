@@ -1,0 +1,84 @@
+
+                    <div class="pagingArea" align="center">
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=1&status=<%=pi.getStatus()%>'"><<</button>
+			<%  if(currentPage <= 1){  %>
+			<button disabled><</button>
+			<%  }else{ %>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage - 1 %>&status=<%=pi.getStatus()%>'"><</button>
+			<%  } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){
+					if(p == currentPage){	
+			%>
+				<button disabled><%= p %></button>
+			<%      }else{ %>
+				<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= p %>&status=<%=pi.getStatus()%>'"><%= p %></button>
+			<%      } %>
+			<% } %>
+				
+			<%  if(currentPage >= maxPage){  %>
+			<button disabled>></button>
+			<%  }else{ %>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%=currentPage + 1 %>&status=<%=pi.getStatus()%>'">></button>
+			<%  } %>
+			<button onclick="location.href='<%= request.getContextPath() %>/clist.ch?currentPage=<%= maxPage %>&status=<%=pi.getStatus()%>'">>></button>
+			
+		</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 풋터 부분 include -->
+    <%@ include file="common/COO_footer.jsp" %>
+</div>
+<script>
+
+$(function(){
+	
+	$("#list td").mouseenter(function(){
+		
+		$(this).parent().css({"background":"darkgray", "cursor":"pointer"});
+	}).mouseout(function(){
+		$(this).parent().css({"background":"white"});
+	}).click(function(){
+		//console.log($(this).parent().find("input[type=hidden]").val());
+		var docNumber = $(this).parent().find("input[type=hidden]").val();
+		//location.href="<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber;
+		window.open("<%=request.getContextPath()%>/cread.ch?docNumber=" + docNumber,'','target=_blank');
+		//window.open('www.naver.com','','target:_blank;');
+		//'<%=request.getContextPath()%>/cread.ch?docNumber=' + docNumber;'
+		
+	
+
+
+	});
+});
+</script>
+
+
+
+
+
+function pbutton(item){
+			var cp;
+			if(item.innerText = "<<"){
+				cp=1;
+			}
+			//if()
+			$.ajax({
+				url: "/semi/clist.ch",
+				type: "get",
+				data:{
+					currentPage: cp,
+					status : $("#pStatus").val(),
+					st : 2
+				},
+				success:function(date){
+					console.log(data);
+				},
+				error:function(){
+					alert("에러");
+				}
+				});
+			}

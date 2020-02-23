@@ -68,14 +68,11 @@ public class CheckReadServlet extends HttpServlet {
 			files = cs.getFiles(docnumber);
 			request.setAttribute("files", files);
 			
-//			System.out.println(docInfo);
-//			System.out.println(doc);
-//			System.out.println(docInfo.getInPeople());
-//			System.out.println(docInfo.getColPeople());
 			page="views/checkdoc/read.jsp";
 			
 		}else {
-			//에러
+			request.setAttribute("msg", "문서를 읽는대 실패했습니다.");
+			 page="views/common/errorPage.jsp";
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);

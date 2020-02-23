@@ -97,7 +97,8 @@ public class CheckHomeInServlet extends HttpServlet {
 				
 				new Gson().toJson(pafull,response.getWriter());
 		}else {
-			System.out.println("error");
+			request.setAttribute("msg", "결재 대기/기안 리스트를 가져오지 못했습니다.");
+			 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 	/**

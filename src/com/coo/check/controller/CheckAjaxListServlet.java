@@ -142,7 +142,8 @@ public class CheckAjaxListServlet extends HttpServlet {
 				
 				new Gson().toJson(pafull,response.getWriter());
 		}else {
-			//에러페이지
+			request.setAttribute("msg", "페이징실패");
+			 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		 				 
 	}

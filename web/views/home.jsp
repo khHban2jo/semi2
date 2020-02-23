@@ -21,8 +21,9 @@
             
             <div id="board" style="display:inline-block;"><%@ include file="dept_board/board_home.jsp" %></div>
            <!--  <span id="approval"></span> -->
-            
+            <div id="chdocs" style="position: absolute; top: 350px; left: 490px; width:600px; height:350px; border:1px solid black;">
              <%@ include file="checkdoc/showHomeDocs.jsp" %>
+             </div>
         </div>
         
          

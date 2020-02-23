@@ -91,7 +91,7 @@ public class SearchEmpNameServlet extends HttpServlet {
 
 			
 		 }else {
-			//에러 페이지
+			 new Gson().toJson("정보를 가져오지 못했습니다.", response.getWriter());
 		}
 		
 		
