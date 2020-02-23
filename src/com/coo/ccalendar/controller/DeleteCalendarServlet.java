@@ -48,7 +48,7 @@ public class DeleteCalendarServlet extends HttpServlet {
 			System.out.println(cno+"번째 DB 삭제를 완료했습니다.");
 			response.getWriter().print("삭제 완료!");
 		}else {
-			request.setAttribute("msg", "공지사항 수정 실패!!");
+			request.setAttribute("msg", "일정 삭제 실패!!");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 		
