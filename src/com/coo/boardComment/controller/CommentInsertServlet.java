@@ -1,26 +1,26 @@
-package com.coo.ccalendar.controller;
+package com.coo.boardComment.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.coo.ccalendar.model.service.CCalendarService;
+import com.coo.boardComment.model.service.BoardCommentService;
+import com.coo.boardComment.model.vo.BoardComment;
 
 /**
- * Servlet implementation class DeleteCalendarServlet
+ * Servlet implementation class CommentInsertServlet
  */
-@WebServlet("/deleteCalendar.do")
-public class DeleteCalendarServlet extends HttpServlet {
+@WebServlet("/insertComment.bo")
+public class CommentInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteCalendarServlet() {
+    public CommentInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,29 +29,22 @@ public class DeleteCalendarServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		String cno = request.getParameter("cno"); 
+		String writer = request.getParameter("writer");
+		int bno = Integer.parseInt(request.getParameter("bno"));
+		String content = request.getParameter("replyContent");
+		int refcno = Integer.parseInt(request.getParameter("refcno"));
+		int clevel = Integer.parseInt(request.getParameter("clevel"));
 		
-		//Cannot instantiate the type Calendar
-		//Calendar c = new Calendar(); 
-		CCalendarService cs = new CCalendarService();
-		//행의 갯수니까 int
-		int result = cs.deleteCalendar(cno);
-		//------------------------------------------
+		BoardComment bco = new BoardComment(bno,content,writer,refcno,clevel);
 		
-		//int 결과에 따른 경로 설정
-		if(result > 0) {
-		/*	System.out.println(cno+"번째 DB 삭제를 완료했습니다.");
-			response.sendRedirect("selectCalOne");*/
-			System.out.println(cno+"번째 DB 삭제를 완료했습니다.");
-			response.getWriter().print("삭제 완료!");
+		int result = new BoardCommentService().insertComment(bco);
+		
+		if(result>0) {
+			response.sendRedirect("views/dept_board/boardComment.jsp");
 		}else {
-			request.setAttribute("msg", "일정 삭제 실패!!");
+			request.setAttribute("msg","에러발생");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
-		
-		
-		
 	}
 
 	/**

@@ -50,7 +50,6 @@ public class CCalendarDao {
 
 		
 		String sql = prop.getProperty("insertCalendar");
-		System.out.println("CCalendar"+c.toString());
 		try {
 			
 			pstmt=con.prepareStatement(sql);
@@ -88,7 +87,6 @@ public class CCalendarDao {
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("selectCalendar"); //쿼리이름
-		System.out.println(sql);
 		try {
 			list = new ArrayList<CCalendar>();
 			/*System.out.println(sqlDate);*/			

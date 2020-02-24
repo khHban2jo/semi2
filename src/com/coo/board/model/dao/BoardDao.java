@@ -99,7 +99,6 @@ public class BoardDao {
 				b.setCategory(rset.getString("CNAME"));
 				b.setBdeptCode(rset.getString("BDEPT_CODE"));
 				
-				System.out.println(b.toString());
 				list.add(b);
 			}
 		} catch (SQLException e) {
@@ -827,5 +826,30 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int getListCountComment(int bno, Connection con) throws CooException {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("listCountComment");
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bno);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		}catch(SQLException e) {
+			throw new CooException("댓글 갯수 조회 실패");
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
 	}
 }

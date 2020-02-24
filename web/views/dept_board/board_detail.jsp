@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.coo.board.model.vo.*"%>
-<% Board b = (Board)request.getAttribute("board"); %>
+<% Board b = (Board)request.getAttribute("board");
+   Object countC = (request.getAttribute("count")); %>
 
 <!DOCTYPE html>
 <html>
@@ -54,9 +55,6 @@
     	<!-- 화면 좌측 고정부 include -->
     	<%@ include file="/views/common/COO_left.jsp" %>
 		<%
-			System.out.println("게시판의 부서 코드 : "+b.getBdeptCode());
-			System.out.println("사용자의 부서 코드 : "+m.getDeptCode());
-			
 			String memberDeptCode = m.getDeptCode();
 			String boardDeptCode = b.getBdeptCode();
 			
@@ -73,9 +71,6 @@
 		        if(memberDeptCode.charAt(i) == ' ')
 		        	check2 = true;
 		    }
-			
-			System.out.println("check1 : "+ check1);
-			System.out.println("check2 : "+ check2);
 			
 			// 공백 제거
 			memberDeptCode = memberDeptCode.trim();
@@ -173,8 +168,8 @@
          	
          	<tr>
          		<td class="tra" style="height:20px;">댓글</td>
-         		<td colspan="2">&nbsp;<input type="text" style="width:400px; border: 0; outline: none;" ></td>
-         		<td class="tra">작성자</td>
+         		<td colspan="2">&nbsp;<input type="text" id="bco" value="<%= countC %>"style="width:400px; border: 0; outline: none;" readonly ></td>
+         		<td class="tra">댓글의 수</td>
          	
          	</tr>
          
@@ -209,6 +204,12 @@
 				alert("삭제완료");
 	   		}
 		});
+	   	$('#bco').click(function(){
+	   		var url = "<%=request.getContextPath() %>/bcoSelectList.bo?bno="+<%=b.getBno() %>;
+	   		var name = "댓글";
+	   		var option = "top=100px,left=200px,width=900px,height=700px,location=no,resizable=no,toolbars=no,scrollbars=yes";
+	   		window.open(url,name,option);
+	   	});
 	   	
     </script>   
 </body>

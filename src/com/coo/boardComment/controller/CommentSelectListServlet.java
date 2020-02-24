@@ -1,27 +1,29 @@
-package com.coo.board.controller;
+package com.coo.boardComment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.coo.board.model.service.BoardService;
 import com.coo.board.model.vo.Board;
-import com.coo.exception.CooException;
+import com.coo.boardComment.model.service.BoardCommentService;
+import com.coo.boardComment.model.vo.BoardComment;
 
 /**
- * Servlet implementation class BoardSelectOneServlet
+ * Servlet implementation class CommentSelectListServlet
  */
-@WebServlet("/selectOne.bo")
-public class BoardSelectOneServlet extends HttpServlet {
+@WebServlet("/bcoSelectList.bo")
+public class CommentSelectListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardSelectOneServlet() {
+    public CommentSelectListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +34,12 @@ public class BoardSelectOneServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bno = Integer.parseInt(request.getParameter("bno"));
 		
-		String page = "views/common/errorPage.jsp";
-		BoardService bs = new BoardService();
-		
-		Board b = bs.selectOne(bno);
-		
-		if(b != null) {
-			request.setAttribute("board", b);
-			page = "views/dept_board/board_detail.jsp";
-			bs.updateReadCount(bno);
-			
-		}else {
-			request.setAttribute("msg","게시판 글 조회 실패");
-		}
-		 int result = bs.getListCountComment(bno);
-		
-		 request.setAttribute("count", result);
-		 request.getRequestDispatcher(page).forward(request, response);
+		ArrayList<BoardComment> clist = new BoardCommentService().selectList(bno);
+		Board b = new Board();
+		b.setBno(bno);
+		request.setAttribute("board", b);
+		request.setAttribute("clist",clist);
+		request.getRequestDispatcher("views/dept_board/boardComment.jsp").forward(request,response);
 	}
 
 	/**

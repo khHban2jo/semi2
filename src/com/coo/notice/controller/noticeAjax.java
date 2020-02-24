@@ -36,11 +36,6 @@ public class noticeAjax extends HttpServlet {
 
 		list = new NoticeService().noticeAjax();
 
-		System.out.println("list 값 확인");
-		for (Notice out : list) {
-			System.out.println(out.toString());
-		}
-
 		// 자바 객체 데이터를 뷰단에서 쓸수 있도록 자바스크립트 형식으로 변환
 		JSONObject notice = null; // 자바 객체를 받게 하는 객체
 		JSONArray result = new JSONArray(); // 자바 list형태로 데이터를 넘기기 위한 객체

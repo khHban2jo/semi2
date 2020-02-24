@@ -44,20 +44,30 @@ public class BoardService {
 		return list;
 	}
 
-	public Board selectOne(int bno) throws CooException {
+	public Board selectOne(int bno){
 		Connection con = getConnection();
 		
-		Board b = bDao.selectOne(con,bno);
+		Board b = null;
+		try {
+			b = bDao.selectOne(con,bno);
+		} catch (CooException e) {
+			e.getMessage();
+		}
 		
 		close(con);
 		
 		return b;
 	}
 
-	public int updateReadCount(int bno) throws CooException {
+	public int updateReadCount(int bno){
 		Connection con = getConnection();
 		
-		int result = bDao.updateReadCount(con,bno);
+		int result = 0;
+		try {
+			result = bDao.updateReadCount(con,bno);
+		} catch (CooException e) {
+			e.getMessage();
+		}
 		
 		if(result >0) commit(con); else rollback(con);
 		
@@ -163,6 +173,22 @@ public class BoardService {
 		close(con);
 		
 		return list;
+	}
+
+	public int getListCountComment(int bno) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		
+		try {
+			result = bDao.getListCountComment(bno,con);
+		}catch(CooException e) {
+			e.getMessage();
+		}
+		
+		close(con);
+		
+		return result;
 	}
 	
 }
