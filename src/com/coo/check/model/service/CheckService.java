@@ -318,10 +318,10 @@ public class CheckService {
 	 * @param mascode
 	 * @return
 	 */
-	public String getMasStauts(int mascode) {
+	public boolean getMasStauts(int mascode) {
 		Connection con = getConnection();
 		
-		String masStatus = cDao.getMasStauts(con,  mascode);
+		boolean masStatus = cDao.getMasStauts(con,  mascode);
 		close(con);
 		return masStatus;
 	}

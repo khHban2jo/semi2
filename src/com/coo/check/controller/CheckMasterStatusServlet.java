@@ -33,14 +33,16 @@ public class CheckMasterStatusServlet extends HttpServlet {
 		response.setContentType("application/json charset=UTF-8");
 		int mascode = Integer.valueOf(request.getParameter("masCode"));
 		
-		String status = new CheckService().getMasStauts(mascode);
-		System.out.println(status);
-		 if(status != null) {
-			 status = "Y";
+		boolean status = new CheckService().getMasStauts(mascode);
+		String st1;
+				
+		//System.out.println(status);
+		 if(status) {
+			 st1 = "Y";
 		 }else {
-			 status = "N";
+			 st1 = "N";
 		 }
-		new Gson().toJson(status, response.getWriter());
+		new Gson().toJson(st1, response.getWriter());
 		
 		
 		

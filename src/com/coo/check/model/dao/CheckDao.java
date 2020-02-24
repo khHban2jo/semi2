@@ -976,8 +976,8 @@ public class CheckDao {
 	 * @param mascode
 	 * @return
 	 */
-	public String getMasStauts(Connection con, int mascode) {
-		String status = null;
+	public boolean getMasStauts(Connection con, int mascode) {
+		boolean status = false;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("checkmaster");
@@ -988,7 +988,10 @@ public class CheckDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				status= rset.getString(1);
+				String ttc= rset.getString("TA_TYPE_CODE");
+				if(ttc.equals("T1")||ttc.equals("T4")) {
+					status = true;
+				}
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
