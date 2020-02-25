@@ -35,7 +35,7 @@ public class BoardCommentDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertComment");
-		
+		System.out.println(bco);
 		try {
 			pstmt = con.prepareStatement(sql);
 			

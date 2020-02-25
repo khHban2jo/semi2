@@ -25,33 +25,6 @@
              </div>
         </div>
         
-         
- <!--메인메뉴쿼리  -->
- 
-<!-- 		<script> /* 여기 있으면 홈버튼을 눌렀을 경우에만 내용이 나옵니다. COO_left.jsp로 옮겼습니다. */
-			$(function(){
-				//$('#notice').load('./notice/notice.jsp','#notice');
-				$.ajax({
-					url:"/semi/selectCalendar.do",
-					type:"get",
-					success:function(data){
-						console.log(data);
-						$.each(data,function(index,value){
-							var $cUl = $('<ul>');
-							var $ctitle = $('<li>').text(value.title);
-							
-							$cUl.append($ctitle);
-							$('#todo_list_range').append($cUl);
-						});
-					},error:function(){
-						console.log("에러");
-					}
-				});
-			});
-		</script> -->
-		<!-- 풋터 부분 include -->
-		
-		
         <%@ include file="common/COO_footer.jsp" %>
     </div>
 </body>

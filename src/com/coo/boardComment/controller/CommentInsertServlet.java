@@ -36,7 +36,6 @@ public class CommentInsertServlet extends HttpServlet {
 		int clevel = Integer.parseInt(request.getParameter("clevel"));
 		
 		BoardComment bco = new BoardComment(bno,content,writer,refcno,clevel);
-		
 		int result = new BoardCommentService().insertComment(bco);
 		
 		if(result>0) {

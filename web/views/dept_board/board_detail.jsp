@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.coo.board.model.vo.*"%>
+    pageEncoding="UTF-8" import="com.coo.board.model.vo.*,com.coo.boardComment.model.vo.*"%>
 <% Board b = (Board)request.getAttribute("board");
-   Object countC = (request.getAttribute("count")); %>
+   Object countC = (request.getAttribute("count")); 
+   ArrayList<BoardComment> clist = (ArrayList<BoardComment>)request.getAttribute("clist");
+   %>
 
 <!DOCTYPE html>
 <html>
@@ -42,8 +44,54 @@
   			border:"0";
   		}
   		
-  		
+  		.outer{
+		width:800px;
+		height:500px;
+		background:black;
+		color:white;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:50px;
+	}
 
+	.tableArea {
+		border:1px solid black;
+		background : white;
+		color: black;
+		width:800px;
+		height:350px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	#content {
+		height:230px;
+	}
+	.replyArea {
+		width:800px;
+		color:white;
+		background:black;
+		margin-left:auto;
+		margin-right:auto;
+		padding-bottom : 5px;
+	}
+	.replyArea textArea {
+		border-radius: 10px;
+		resize: none;
+	}
+	a:link {
+    	color: yellow;
+	}
+	a:active {
+		color: aqua;
+	}
+	table[class*="replyList"] * {
+		color: black;
+		
+	}
+	.replyList1 td{	background : lavenderblush; }
+	.replyList2 td{	background : honeydew; }
+	.replyList3 td{ background : aliceblue; }
+		
 
    	</style>
 </head>
@@ -98,46 +146,9 @@
         <div class="right">
          <div class="margin-list-head">
                 <h1 align="left">게시판</h1>
-               <!--  <hr class="table-line" color="lightgray">
-                 <button type="button" class="btn btn-light" id="allb">전체</button>
-                <button type="button" class="btn btn-primary" id="deptb">부서별</button>
-                <button type="button" class="btn btn-info" id="normalb">일반</button>
-                <button type="button" class="btn btn-success" id="bizb">업무</button>
-                <br><br><br> -->
+             
         	<%if(memberDeptCode.equals(boardDeptCode) || m.getEmpId().equals("admin")){ %> <!-- 관리자는 모두 부서와 상관 없이 모두 볼수 있어야 한다. =>|| m.getEtc().equals("관리자")-->
-        	<%-- <table style="width:95%; height:300px;" border="1" class="table-line">
-         	<thead><tr>
-         		<th>제목</th>
-         		<th colspan="3"><%=b.getBtitle() %></th>
-         		<th>분류</th>
-         		<th><%=b.getCategory() %></th>
-        	</tr></thead>
-        	<tbody>
-        		<tr>
-        		<td colspan="6" rowspan="1"></td>
-        		</tr>
-        		<tr class="tra">
-        		<td>작성자</td>
-        		<td><%=b.getBwriter() %></td>
-        		<td>작성일</td>
-        		<td><%=b.getBdate() %></td>
-        		<td>조회수</td>
-        		<td><%=b.getBcount() %></td>
-        		</tr>
-        		<tr>
-        		<td colspan="6">내용</td>
-        		</tr>
-        		<tr>
-        		<td colspan="6">
-        			<p id="content"><%=b.getBcontent() %></p>
-        		</td>
-        		<tr>
-        		<td class="tra">댓글</td>
-        		<td class="tra">작성자</td>
-        		<td colspan="4"></td>
-        		</tr>
-        	</tbody>
-         </table> --%>
+        
          <table>
          	<tr>
          		<th>제목</th>
@@ -169,8 +180,8 @@
          	<tr>
          		<td class="tra" style="height:20px;">댓글</td>
          		<td colspan="2">&nbsp;<input type="text" id="bco" value="<%= countC %>"style="width:400px; border: 0; outline: none;" readonly ></td>
-         		<td class="tra">댓글의 수</td>
-         	
+         		<td class="tra" id="cd">댓글의 수</td>
+         		
          	</tr>
          
          </table>
@@ -181,11 +192,158 @@
            <button class="btn3 btn btn-light" id="delB">삭제하기</button>
          <%} %>
     </div>
-    </div>
-   </div>
-    <%@include file="/views/common/COO_footer.jsp" %>
+    <div id="replySelectArea">
+			<!-- 게시글의 댓글들을 보여주는 부분  -->
+			<% if (clist != null) { %>
+				<% for(BoardComment bco : clist) { %>
+				
+				<table id="replySelectTable"
+	      	 style="margin-left : <%= (bco.getClevel()-1) * 15 %>px;
+	      	 		width : <%= 800 - ((bco.getClevel()-1) * 15)%>px;"
+	      	 class="replyList<%=bco.getClevel()%>">
+		  		<tr>
+		  			<td rowspan="2"> </td>
+		  			<td><b><%= bco.getCwriter() %></b></td>
+					<td><%= bco.getCdate() %></td>
+					<td align="center">
+ 					<%if(m.getEmpId().equals(bco.getCwriterId())) { %>
+						<input type="hidden" name="cno" value="<%=bco.getCno()%>"/>
+							  
+						<button type="button" class="updateBtn" 
+							onclick="updateReply(this);">수정하기</button>
+							
+						<button type="button" class="updateConfirm"
+							onclick="updateConfirm(this);"
+							style="display:none;" >수정완료</button> &nbsp;&nbsp;
+							
+						<button type="button" class="deleteBtn"
+							onclick="deleteReply(this);">삭제하기</button>
+							
+					<% } else if( bco.getClevel() < 3) { %>
+						<input type="hidden" name="writer" value="<%=m.getEmpId()%>"/>
+						<input type="hidden" name="refcno" value="<%= bco.getCno() %>" />
+						<input type="hidden" name="clevel" value="<%=bco.getClevel() %>" />
+						<button type="button" class="insertBtn" 
+							 onclick="reComment(this);">댓글 달기</button>&nbsp;&nbsp;
+							 
+						<button type="button" class="insertConfirm"
+							onclick="reConfirm(this);"
+							style="display:none;" >댓글 추가 완료</button> 
+							
+					<% } else {%>
+						<span> 마지막 레벨입니다.</span>
+					<% } %>
+					</td>
+				</tr>
+				<tr class="comment replyList<%=bco.getClevel()%>">
+					<td colspan="3" style="background : transparent;">
+					<textarea class="reply-content" cols="105" rows="3"
+					 readonly="readonly"><%= bco.getCcontent() %></textarea>
+					</td>
+				</tr>
+			</table>
+			
+			<% } } else { %>
+			<p>현재 등록된 댓글이 없습니다.<br>
+			   첫 댓글의 주인공이 되어 보세요!</p>
+			<% } %>
+			</div>
+			</div>
+			<%@ include file="/views/common/COO_footer.jsp"%>
+	</div>
+	<script>
+	function updateReply(obj) {
+		// 현재 위치와 가장 근접한 textarea 접근하기
+		$(obj).parent().parent().next().find('textarea')
+		.removeAttr('readonly');
+		
+		// 수정 완료 버튼을 화면 보이게 하기
+		$(obj).siblings('.updateConfirm').css('display','inline');
+		
+		// 수정하기 버튼 숨기기
+		$(obj).css('display', 'none');
+	}
+	
+	function updateConfirm(obj) {
+		// 댓글의 내용 가져오기
+		var content
+		  = $(obj).parent().parent().next().find('textarea').val();
+		
+		// 댓글의 번호 가져오기
+		var cno = $(obj).siblings('input').val();
+		
+		// 게시글 번호 가져오기
+		var bno = '<%=b.getBno()%>';
+		
+		location.href="/semi/updateComment.bo?"
+				 +"cno="+cno+"&bno="+bno+"&content="+content;
+	}
+	
+	function deleteReply(obj) {
+		// 댓글의 번호 가져오기
+		var cno = $(obj).siblings('input').val();
+		
+		// 게시글 번호 가져오기
+		var bno = '<%=b.getBno()%>';
+		
+		location.href="/semi/deleteComment.bo"
+		+"?cno="+cno+"&bno="+bno;
+	}
+	
+	function reComment(obj){
+		// 추가 완료 버튼을 화면 보이게 하기
+		$(obj).siblings('.insertConfirm').css('display','inline');
+		
+		// 클릭한 버튼 숨기기
+		$(obj).css('display', 'none');
+		
+		// 내용 입력 공간 만들기
+		var htmlForm = 
+			'<tr class="comment"><td></td>'
+				+'<td colspan="3" style="background : transparent;">'
+					+ '<textarea class="reply-content" style="background : ivory;" cols="105" rows="3"></textarea>'
+				+ '</td>'
+			+ '</tr>';
+		
+		$(obj).parents('table').append(htmlForm);
+		
+	}
+	
+	function reConfirm(obj) {
+		// 댓글의 내용 가져오기
+		
+		// 참조할 댓글의 번호 가져오기
+		var refcno = $(obj).siblings('input[name="refcno"]').val();
+		var level = Number($(obj).siblings('input[name="clevel"]').val()) + 1;
+		
+		// console.log(refcno + " : " + level);
+		
+		// 게시글 번호 가져오기
+		var bno = '<%=b.getBno()%>';
+		
+		var parent = $(obj).parent();
+		var grandparent = parent.parent();
+		var siblingsTR = grandparent.siblings().last();
+		
+		var content = siblingsTR.find('textarea').val();
+		
+		// console.log(parent.html());
+		// console.log(grandparent.html());
+		// console.log(siblingsTR.html());
+		
+		// console.log(content);
+
+		// writer, replyContent
+		// bno, refcno, clevel
+		
+		location.href='/semi/insertComment.bo'
+		           + '?writer=<%=m.getEmpId()%>' 
+		           + '&replyContent=' + content
+		           + '&bno=' + bno
+		           + '&refcno=' + refcno
+		           + '&clevel=' + level;
+	}
     
-    <script>
     	$('#back').click(function(){
     		// location.href="/semi/searchBoard.bo?title=all";
     		history.back(-1);
@@ -204,12 +362,7 @@
 				alert("삭제완료");
 	   		}
 		});
-	   	$('#bco').click(function(){
-	   		var url = "<%=request.getContextPath() %>/bcoSelectList.bo?bno="+<%=b.getBno() %>;
-	   		var name = "댓글";
-	   		var option = "top=100px,left=200px,width=900px,height=700px,location=no,resizable=no,toolbars=no,scrollbars=yes";
-	   		window.open(url,name,option);
-	   	});
+	   
 	   	
     </script>   
 </body>

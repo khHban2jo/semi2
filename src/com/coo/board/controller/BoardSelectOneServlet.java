@@ -1,6 +1,8 @@
 package com.coo.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.coo.board.model.service.BoardService;
 import com.coo.board.model.vo.Board;
+import com.coo.boardComment.model.service.BoardCommentService;
+import com.coo.boardComment.model.vo.BoardComment;
 import com.coo.exception.CooException;
 
 /**
@@ -37,6 +41,9 @@ public class BoardSelectOneServlet extends HttpServlet {
 		
 		Board b = bs.selectOne(bno);
 		
+		ArrayList<BoardComment> clist = new BoardCommentService().selectList(bno);
+		
+		request.setAttribute("clist",clist);
 		if(b != null) {
 			request.setAttribute("board", b);
 			page = "views/dept_board/board_detail.jsp";
