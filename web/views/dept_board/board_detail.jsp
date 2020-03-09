@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.coo.board.model.vo.*,com.coo.boardComment.model.vo.*"%>
 <% Board b = (Board)request.getAttribute("board");
-   Object countC = (request.getAttribute("count")); 
-   ArrayList<BoardComment> clist = (ArrayList<BoardComment>)request.getAttribute("clist");
+   /* Object countC = (request.getAttribute("count")); 
+   ArrayList<BoardComment> clist = (ArrayList<BoardComment>)request.getAttribute("clist"); */
    %>
 
 <!DOCTYPE html>
@@ -177,12 +177,12 @@
          	
          	</tr>
          	
-         	<tr>
+         	<%-- <tr>
          		<td class="tra" style="height:20px;">댓글</td>
          		<td colspan="2">&nbsp;<input type="text" id="bco" value="<%= countC %>"style="width:400px; border: 0; outline: none;" readonly ></td>
          		<td class="tra" id="cd">댓글의 수</td>
          		
-         	</tr>
+         	</tr> --%>
          
          </table>
         	<%} %>
@@ -192,7 +192,7 @@
            <button class="btn3 btn btn-light" id="delB">삭제하기</button>
          <%} %>
     </div>
-    <div id="replySelectArea">
+   <%--  <div id="replySelectArea">
 			<!-- 게시글의 댓글들을 보여주는 부분  -->
 			<% if (clist != null) { %>
 				<% for(BoardComment bco : clist) { %>
@@ -247,12 +247,12 @@
 			<p>현재 등록된 댓글이 없습니다.<br>
 			   첫 댓글의 주인공이 되어 보세요!</p>
 			<% } %>
-			</div>
+			</div> --%>
 			</div>
 			<%@ include file="/views/common/COO_footer.jsp"%>
 	</div>
 	<script>
-	function updateReply(obj) {
+	<%-- function updateReply(obj) {
 		// 현재 위치와 가장 근접한 textarea 접근하기
 		$(obj).parent().parent().next().find('textarea')
 		.removeAttr('readonly');
@@ -326,7 +326,7 @@
 		var siblingsTR = grandparent.siblings().last();
 		
 		var content = siblingsTR.find('textarea').val();
-		
+		 --%>
 		// console.log(parent.html());
 		// console.log(grandparent.html());
 		// console.log(siblingsTR.html());
@@ -336,14 +336,14 @@
 		// writer, replyContent
 		// bno, refcno, clevel
 		
-		location.href='/semi/insertComment.bo'
+	<%-- 	location.href='/semi/insertComment.bo'
 		           + '?writer=<%=m.getEmpId()%>' 
 		           + '&replyContent=' + content
 		           + '&bno=' + bno
 		           + '&refcno=' + refcno
 		           + '&clevel=' + level;
 	}
-    
+     --%>
     	$('#back').click(function(){
     		// location.href="/semi/searchBoard.bo?title=all";
     		history.back(-1);
