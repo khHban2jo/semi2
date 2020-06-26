@@ -52,7 +52,7 @@ public class SearchEmpNameServlet extends HttpServlet {
 		if(!request.getParameter("pcodes").equals("")) {
 			String deptcode ="";
 			String[] arr = request.getParameter("pcodes").split(",");
-
+			
 			ArrayList<String> dename = new ArrayList<>();
 			ArrayList<Integer> pcode = new ArrayList<>();
 			for(int i = 0; i<arr.length; i++) {
@@ -72,8 +72,9 @@ public class SearchEmpNameServlet extends HttpServlet {
 			for(int i = 0; i<getMassub.size();i++) {
 			
 				savePcodes.add(getMassub.get(i).getEmpcode());
+				System.out.println(getMassub.get(i).getEmpcode());
 				savePcodes.add(getMassub.get(i).getSubcode());	
-				
+				System.out.println(getMassub.get(i).getSubcode());
 				
 			}
 		
