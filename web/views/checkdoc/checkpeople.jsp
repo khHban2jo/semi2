@@ -199,7 +199,7 @@
          <input type ="hidden" name= "colaper" id = "colaper" value="">
     
          <input type ="hidden" name= "resper" id = "resper" value="">
-         <input type="submit" onclick ="return end()" value="전송" id="transper">
+         <input type="button" onclick ="return end()" value="전송" id="transper">
 
     </div>
     <input type="button" value ="닫기" onclick="close1();" id ="clo">
