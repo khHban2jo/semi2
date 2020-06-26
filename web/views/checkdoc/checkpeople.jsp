@@ -5,12 +5,12 @@
     	Member m = (Member)session.getAttribute("member");
 		String myde = m.getDeptCode();
     
-    //결제 관련 테이블에서 어레이 리스트로 자신이 정일때 , 부서,  결제 정보 가져오기%>
+    //결재 관련 테이블에서 어레이 리스트로 자신이 정일때 , 부서,  결재 정보 가져오기%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>결제선 선택</title>
+    <title>결재선 선택</title>
     <link rel="stylesheet" href="/semi/resources/css/checkdoc/checkpeople.css">
     <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -89,7 +89,7 @@
 
 <fieldset id = self>
     <legend>선택</legend>
-    <span id ="caution">결제라인에는 역순으로 들어갑니다.</span>
+    <span id ="caution">결재라인에는 역순으로 들어갑니다.</span>
     
     <div id ="select" align ="center">
 
@@ -120,7 +120,7 @@
 </fieldset>
 </div>
 <div id="right">
-        <span id= cautionLine>결제는 위에서 아래로진행됩니다.</span>
+        <span id= cautionLine>결재는 위에서 아래로진행됩니다.</span>
     <fieldset class = "rightf1  inright" id ="right1">
         <legend>결재자</legend>
 
@@ -190,7 +190,7 @@
 
   
 
-     <input type = "button" value ="결제선가져오기" id="push1"> 
+     <input type = "button" value ="결재선가져오기" id="push1"> 
     <div id="sub" style="border :0px;">
  
         
@@ -206,7 +206,7 @@
 </div>
 	
 
-    <!--결제선 가져오기-->
+    <!--결재선 가져오기-->
 
     <div id="backdiv">
 			
@@ -218,14 +218,14 @@
             
         </select>
         <select id="listsave1">
-            <option value="1">결제라인1</option>
-            <option value="2">결제라인2</option>
-            <option value="3">결제라인3</option>
+            <option value="1">결재라인1</option>
+            <option value="2">결재라인2</option>
+            <option value="3">결재라인3</option>
         </select>
          <select id="listget1">
-            <option value="1">결제라인1</option>
-            <option value="2">결제라인2</option>
-            <option value="3">결제라인3</option>
+            <option value="1">결재라인1</option>
+            <option value="2">결재라인2</option>
+            <option value="3">결재라인3</option>
         </select>
         <div class ="line">
 
@@ -235,8 +235,8 @@
             </table>
         </div>
   
-        <button id="sel">결제라인 지정</button>
-        <button id="save">결제라인 저장</button>
+        <button id="sel">결재라인 지정</button>
+        <button id="save">결재라인 저장</button>
         <button id="close2">닫기</button>
     </div>
 
